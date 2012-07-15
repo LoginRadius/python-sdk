@@ -11,11 +11,13 @@ Step 1: Add SDK file reference to your Python website
   a. Copy the LoginRadius SDK file to your project directory.
   
   b. Include SDK class file on your callback page.
+      
       from login import LoginRadius
       
 Step 2: Create LoginRadius object in your code file
 
   On your callback page, create a LoginRadius object using your unique LoginRadius API Secret.
+      
       def login_with_loginradius(request):  
       login = LoginRadius(request, SECRET_KEY)
           
