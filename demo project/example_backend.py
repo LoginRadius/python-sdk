@@ -13,7 +13,7 @@
 #################################################
 
 #Your API Secret
-API_SECRET="a244dc6a-da66-46dd-903c-b372245e1555"
+API_SECRET="LoginRadius-API-secret-goes-here"
 
 #Essential package for LoginRadius to communicate
 from LoginRadius import LoginRadius
