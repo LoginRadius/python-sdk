@@ -12,27 +12,30 @@ Step 1: Add SDK file reference to your Python website
   
   b. Include SDK class file on your callback page.
       
-      from login import LoginRadius
+      from LoginRadius import LoginRadius
       
 Step 2: Create LoginRadius object in your code file
 
   On your callback page, create a LoginRadius object using your unique LoginRadius API Secret.
       
-      def login_with_loginradius(request):  
-      login = LoginRadius(request, SECRET_KEY)
+     login = LoginRadius(API_SECRET, Token)
           
-Step 3: Validate, authenticate and store data from LoginRadius: 
+Step 3: Validate, authenticate and store data from LoginRadius API: 
 
-Validate the object using 'IsAuthenticated' variable. After successful validation, access user profile data such as ID, First Name, Last Name, Email using profile.ID, profile.FirstName, profile.LastName, etc.
-
-        from login import LoginRadius  
+         from LoginRadius import LoginRadius
   
-        def login_with_loginradius(request):  
-        login = LoginRadius(request, SECRET_KEY)  
-        if login.is_authenticated:  
-            profile = login.user_profile  
-            # profile is a dict with all the information retrieved by the provider
+        login = LoginRadius(API_SECRET, Token)  
+        profile = login.loginradius_get_data()
 
 Note: Few providers like Twitter, LinkedIn, etc. doesn't provide email address with User Profile data, so you need to handle these cases in your callback page.
 
-These are the quick and easy steps to integrate Social Login on your Python website, if you have any questions or need a further assistance please contact us at hello@loginradius.com.
+Live Demo
+===
+Please look at the 'demo project' in repository for the working demo.
+
+SDK documentation
+===
+SDK documentation link for complete SDK functions: http://api.loginradius.com/python/
+
+
+If you have any questions or need a further assistance please contact us at hello@loginradius.com.
