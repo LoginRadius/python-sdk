@@ -25,3 +25,10 @@ pip install loginradius
 or with easy_install
 
 easy_install loginradius
+
+Online Documentation
+====================
+
+You can read more at
+
+http://loginradius.readthedocs.org/
