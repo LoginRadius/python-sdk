@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples and Use Cases &mdash; LoginRadius 2.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="LoginRadius 2.0 documentation" href="index.html"/>
+        <link rel="next" title="Reference Manual" href="source.html"/>
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> LoginRadius</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"> Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loginradius.html"> Quickstart Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="loginradius.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loginradius.html#using-the-loginradius-object">Using the LoginRadius Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loginradius.html#breaking-down-the-loginradius-object">Breaking Down the LoginRadius Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html"> Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#handling-exceptions">Handling Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href=""> Examples and Use Cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-raw-provider-data">Accessing Raw Provider Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preloading-data">Preloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changing-http-libraries">Changing HTTP Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="source.html"> Reference Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source.html#data-points">Data Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source.html#rest-api">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source.html#module-LoginRadius">LoginRadius Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="feedback.html"> Feedback</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">LoginRadius</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Examples and Use Cases</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/examples.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="examples-and-use-cases">
+<h1>Examples and Use Cases<a class="headerlink" href="#examples-and-use-cases" title="Permalink to this headline">¶</a></h1>
+<p>You can find fully functional examples in examples/ in the <a class="reference external" href="https://github.com/LoginRadius/Python-SDK">repository</a>.</p>
+<div class="section" id="accessing-raw-provider-data">
+<h2>Accessing Raw Provider Data<a class="headerlink" href="#accessing-raw-provider-data" title="Permalink to this headline">¶</a></h2>
+<p>If you do not want normalized data, but instead the raw return with respect to the provider, you must enable it.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#Let&#39;s get their first name but with the raw response from Facebook</span>
+<span class="n">login</span> <span class="o">=</span> <span class="n">LoginRadius</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">set_raw</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Hello there,&quot;</span> <span class="o">+</span> <span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This will of course depend on the provider each user logs in with, and it is only recommended for advanced users
+where normalized data is not applicable.</p>
+<p class="last">This will only set profile requests to raw, and not other attributes, such as status.</p>
+</div>
+</div>
+<div class="section" id="preloading-data">
+<h2>Preloading Data<a class="headerlink" href="#preloading-data" title="Permalink to this headline">¶</a></h2>
+<p>To reduce load times, you probably don&#8217;t want to make an external HTTP request while populating your templates. If you
+know what data you need beforehand, we should fetch it.</p>
+<p>First we should understand what happens in a a normal use case.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">login</span> <span class="o">=</span> <span class="n">LoginRadius</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="c">#Your code here</span>
+
+<span class="c">#This makes a GET request and will be blocking.</span>
+<span class="k">print</span> <span class="s">&quot;Hello there,&quot;</span> <span class="o">+</span> <span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="s">&#39;FirstName&#39;</span><span class="p">]</span>
+
+<span class="c">#We already called profile, and all this data is already loaded into the dictionary.</span>
+<span class="c">#This is non-blocking now.</span>
+<span class="k">print</span> <span class="s">&quot;What can I do for you today, &quot;</span> <span class="o">+</span> <span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="s">&#39;FirstName&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;?&quot;</span>
+</pre></div>
+</div>
+<p>The first time you call any attribute will block and fetch the data remotely from LoginRadius. After doing so, it is
+saved with respect to the attribute of our object.</p>
+<p>However, this is not always optimal. You could call this in a thread and prepare the response in the meantime. While
+threading is beyond the scope of this document, here is how you load the data preemptively.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">login</span> <span class="o">=</span> <span class="n">LoginRadius</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="c">#Let&#39;s make sure the data is available to us.</span>
+<span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c">#Your code here.</span>
+
+<span class="c">#This makes a GET request and will be non-blocking now.</span>
+<span class="k">print</span> <span class="s">&quot;Hello there,&quot;</span> <span class="o">+</span> <span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="s">&#39;FirstName&#39;</span><span class="p">]</span>
+
+<span class="c">#We already called profile, and all this data is already loaded into the dictionary.</span>
+<span class="c">#This is non-blocking now.</span>
+<span class="k">print</span> <span class="s">&quot;What can I do for you today, &quot;</span> <span class="o">+</span> <span class="n">login</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="s">&#39;FirstName&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;?&quot;</span>
+</pre></div>
+</div>
+<p>Invoking load on any user attribute will fetch the data.</p>
+</div>
+<div class="section" id="changing-http-libraries">
+<h2>Changing HTTP Libraries<a class="headerlink" href="#changing-http-libraries" title="Permalink to this headline">¶</a></h2>
+<p>By default, the requests module will be picked if it is version 2.0 or greater. However, you can override this and
+change it as you see fit.</p>
+<p>Checking current library after constructing a LoginRadius object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">login</span> <span class="o">=</span> <span class="n">LoginRadius</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">login</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">library</span>
+</pre></div>
+</div>
+<p>Changing the library for one LoginRadius object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">login</span> <span class="o">=</span> <span class="n">LoginRadius</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="c">#Let&#39;s opt in for urllib2 instead of requests</span>
+<span class="n">login</span><span class="o">.</span><span class="n">change_library</span><span class="p">(</span><span class="s">&quot;urllib2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Valid options are only &#8216;urllib2&#8217; or &#8216;requests&#8217;.</p>
+<p>Changing the library for all future constructed LoginRadius objects.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">LoginRadius</span> <span class="kn">import</span> <span class="n">LoginRadius</span>
+
+<span class="c">#Changing to the urllib2 library</span>
+<span class="n">LoginRadius</span><span class="o">.</span><span class="n">LIBRARY</span> <span class="o">=</span> <span class="s">&quot;urllib2&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="source.html" class="btn btn-neutral float-right" title="Reference Manual"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, LoginRadius.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
