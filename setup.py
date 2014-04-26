@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name = 'LoginRadius',
-    packages = ['LoginRadius'],
+    py_modules = ['LoginRadius'],
     version = '2.0',
     description = 'Social Login for Python.',
     author='LoginRadius',
