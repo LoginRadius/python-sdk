@@ -32,3 +32,11 @@ Online Documentation
 You can read more at
 
 http://loginradius.readthedocs.org/
+
+Changelog
+======
+
+2.02
+-----
+
+* Company and  Post properties fixed for user tuple, and removed activity.
