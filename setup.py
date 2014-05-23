@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name = 'LoginRadius',
     packages = ['LoginRadius'],
-    version = '2.0',
+    version = '2.0.2',
     description = 'Social Login for Python.',
     author='LoginRadius',
     author_email='developers@loginradius.com',

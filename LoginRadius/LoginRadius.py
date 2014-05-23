@@ -28,7 +28,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2013-2014, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.0"
+__version__ = "2.0.2"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
@@ -123,29 +123,29 @@ class LoginRadius():
         """All the functions relative to the user with the token."""
         user = namedtuple("User", ['profile', 'photo', 'check_in', 'audio', 'album', 'video',
                                    'contacts', 'status', 'group', 'post', 'event', 'mention',
-                                   'company', 'following', 'activity', 'page', 'like',
-                                   'status_update', 'direct_message'])
+                                   'company', 'following', 'page', 'like', 'status_update', 'direct_message'])
 
         #Lazy get methods
-        user.profile = UserProfileLazyLoad(self)
-        user.photo = PhotoLazyLoad(self)
-        user.check_in = CheckInLazyLoad(self)
         user.album = AlbumLazyLoad(self)
         user.audio = AudioLazyLoad(self)
-        user.video = VideoLazyLoad(self)
+        user.check_in = CheckInLazyLoad(self)
+        user.company = CompanyLazyLoad(self)
         user.contacts = ContactsLazyLoad(self)
-        user.status = StatusLazyLoad(self)
-        user.group = GroupLazyLoad(self)
         user.event = EventLazyLoad(self)
-        user.mention = MentionLazyLoad(self)
-        user.activity = ActivityLazyLoad(self)
         user.following = FollowingLazyLoad(self)
-        user.page = PageLazyLoad(self)
+        user.group = GroupLazyLoad(self)
         user.like = LikeLazyLoad(self)
+        user.mention = MentionLazyLoad(self)
+        user.page = PageLazyLoad(self)
+        user.photo = PhotoLazyLoad(self)
+        user.post = PostLazyLoad(self)
+        user.profile = UserProfileLazyLoad(self)
+        user.status = StatusLazyLoad(self)
+        user.video = VideoLazyLoad(self)
 
         #Post methods
-        user.status_update = self.api.status_update
         user.direct_message = self.api.direct_message
+        user.status_update = self.api.status_update
 
         return user
 

@@ -25,3 +25,11 @@ pip install loginradius
 or with easy_install
 
 easy_install loginradius
+
+Changelog
+======
+
+2.02
+-----
+
+* Company and  Post properties fixed for user tuple, and removed activity.
