@@ -26,10 +26,9 @@ or with easy_install
 
 easy_install loginradius
 
-Changelog
-======
+Online Documentation
+====================
 
-2.02
------
+You can read more at
 
-* Company and  Post properties fixed for user tuple, and removed activity.
+http://loginradius.readthedocs.org/
