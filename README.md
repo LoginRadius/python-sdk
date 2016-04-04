@@ -1,42 +1,24 @@
-LoginRadius offers a complete social infrastructure solution combining 30 major social platforms into one unified API.
-With LoginRadius, websites and mobile apps can integrate social login, enable social sharing, capture user profiles and
-social data, create a single sign-on experience for their users, and get comprehensive social analytics.
-Our social solution helps websites engage, understand, and leverage their users.
+# LoginRadius python SDK
 
-This module provides a wrapper for urllib2 or the requests library to easily access the API from
-https://api.loginradius.com/ in a more "pythonic" way. Providing easier access to essential data in a few lines of code.
-This will work with 1.0 or 2.0 API specifications.
 
-For more information, visit: http://loginradius.com/
+![Home Image](https://d2lvlj7xfpldmj.cloudfront.net/support/github/banner-1544x500.png)
 
-Prerequisites
-========
+## Introduction ##
 
-You will need at least Python - 2.7 or greater. LoginRadius module utilizes the namedtuple from the collections library
-and the import_module from importlib.
+LoginRadius Customer Registration wrapper provides access to LoginRadius Identity Management Platform API.
 
-From Package
-=========
+LoginRadius is an Identity Management Platform that simplifies user registration while securing data. LoginRadius Platform simplifies and secures your user registration process, increases conversion with Social Login that combines 30 major social platforms, and offers a full solution with Traditional Customer Registration. You can gather a wealth of user profile data from Social Login or Traditional Customer Registration. 
 
-Using pip
+LoginRadius centralizes it all in one place, making it easy to manage and access. Easily integrate LoginRadius with all of your third-party applications, like MailChimp, Google Analytics, Livefyre and many more, making it easy to utilize the data you are capturing.
 
-pip install loginradius
+LoginRadius helps businesses boost user engagement on their web/mobile platform, manage online identities, utilize social media for marketing, capture accurate consumer data, and get unique social insight into their customer base.
 
-or with easy_install
+Please visit [here](http://www.loginradius.com/) for more information.
 
-easy_install loginradius
 
-Online Documentation
-======
+## Documentation
 
-You can read more at
+* [Configuration](http://apidocs.loginradius.com/docs/python) - Everything you need to begin using the Social SDK.
+* [Customer Registration](http://apidocs.loginradius.com/docs/user-registration) - Everything you need to implement the full LoginRadius Customer Registration system including Social Login.
 
-http://loginradius.readthedocs.org/
-
-Changelog
-======
-
-2.02
------
-
-* Company and  Post properties fixed for user tuple, and removed activity.
+General documentation regarding the Python REST API and related flows can be found on the [LoginRadius API Documentations](http://apidocs.loginradius.com/) site. 
