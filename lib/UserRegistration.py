@@ -9,7 +9,7 @@
 # premium or enterprise members only.           #
 # In which case, an exception will be raised.   #
 #################################################
-# Copyright 2015-2016 LoginRadius Inc.          #
+# Copyright 2016-2017 LoginRadius Inc.          #
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
@@ -21,12 +21,13 @@ from datetime import datetime
 from collections import namedtuple
 #Requires Python 2.7>
 from importlib import import_module
+import sys
 
 __author__ = "LoginRadius"
 __copyright__ = "Copyright 2015-2016, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.0"
+__version__ = "2.8"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
@@ -113,10 +114,14 @@ class UserRegistration:
 
     def _set_urllib2(self):
         """Change to the requests urllib2 library to use."""
+        if sys.version_info[0] == 2:
+            self.settings.urllib2 = import_module("urllib2")
+            self.settings.urllib = import_module("urllib")           
+        else:          
+            self.settings.urllib2 = import_module("urllib.request")
+            self.settings.urllib = import_module("urllib.parse")
         self.settings.library = "urllib2"
         self.settings.requests = False
-        self.settings.urllib2 = import_module("urllib2")
-        self.settings.urllib = import_module("urllib")
         self.settings.json = import_module("json")
 
     def _get_user_tuple(self):
@@ -127,7 +132,7 @@ class UserRegistration:
                                    'delete_account_with_email_confirmation', 'get_account_password', 'get_custom_object_by_accountid', 'get_custom_object_by_accountids',
                                    'check_custom_object', 'get_custom_object_by_objectid', 'get_custom_object_stats', 'get_custom_object_by_query', 'check_token_validate', 'check_token_invalidate',
                                     'add_or_remove_user_email', 'set_password', 'set_status', 'upsert_custom_object',
-                                   'set_custom_object_status'])
+                                   'set_custom_object_status','check_username','password_reset','invalidate_email','update_account','update_user_by_token'])
 
         #Get methods
         user.get_user_by_id = self.api.get_user_by_id
@@ -149,12 +154,15 @@ class UserRegistration:
         user.get_custom_object_by_query = self.api.get_custom_object_by_query
         user.check_token_validate =  self.api.check_token_validate
         user.check_token_invalidate =  self.api.check_token_invalidate
+        user.check_username = self.api.check_username
         
         #Post methods
         user.register_user = self.api.register_user
         user.create_user = self.api.create_user
         user.create_raas_profile = self.api.create_raas_profile
         user.edit_user = self.api.edit_user
+        user.update_user_by_token = self.api.update_user_by_token
+        user.update_account = self.api.update_account
         user.change_password = self.api.change_password
         user.set_username = self.api.set_username
         user.link_account = self.api.link_account
@@ -162,9 +170,14 @@ class UserRegistration:
         user.add_or_remove_user_email = self.api.add_or_remove_user_email
         user.set_password = self.api.set_password
         user.change_username = self.api.change_username
+        user.password_reset = self.api.password_reset
         user.set_status = self.api.set_status
         user.upsert_custom_object = self.api.upsert_custom_object
         user.set_custom_object_status = self.api.set_custom_object_status
+
+        #Put methods
+        user.invalidate_email = self.api.invalidate_email
+        
         
         return user
 
@@ -178,7 +191,34 @@ class UserRegistration:
             payload = self.settings.urllib.urlencode(payload)
             r = self.settings.urllib2.Request(url + "?" + payload)
             r.add_header('Accept', HEADERS['Accept'])
+            try:
+                data = self.settings.urllib2.urlopen(r)
+            except self.settings.urllib2.HTTPError:
+                raise
+            return self._process_result(self.settings.json.load(data))
 
+    def __submit_json(self, method,url, payload):
+        """Post JSON to LoginRadius"""
+        if self.settings.requests:
+            import json
+            HEADERS = {'content-type': 'application/json'}
+            if method == 'put':
+                r = self.settings.requests.put(url, data=json.dumps(payload), headers=HEADERS)
+            else:
+                r = self.settings.requests.post(url, data=json.dumps(payload), headers=HEADERS)
+            return self._process_result(r.json())
+
+        else:
+            import json
+            data = json.dumps(payload)
+            if sys.version_info[0] == 3:
+                data = data.encode('ascii')
+            HEADERS = {'content-type': 'application/json'}
+            r = self.settings.urllib2.Request(url, data, {'Content-Type': 'application/json'})
+            if method == 'put':
+                r.get_method = lambda: method
+            for key, value in HEADERS.items():
+                r.add_header(key, value)
             try:
                 data = self.settings.urllib2.urlopen(r)
             except self.settings.urllib2.HTTPError:
@@ -186,25 +226,11 @@ class UserRegistration:
             return self._process_result(self.settings.json.load(data))
 
     def _post_json(self, url, payload):
-        """Post JSON to LoginRadius"""
-        if self.settings.requests:
-            import json
-            HEADERS = {'content-type': 'application/json'}
-            r = self.settings.requests.post(url, data=json.dumps(payload), headers=HEADERS)
-            return self._process_result(r.json())
-
-        else:
-            import json
-            data = json.dumps(payload)
-            HEADERS = {'content-type': 'application/json'}
-            r = self.settings.urllib2.Request(url, data, {'Content-Type': 'application/json'})
-            for key, value in HEADERS.items():
-                r.add_header(key, value)
-            try:
-                data = self.settings.urllib2.urlopen(r)
-            except self.settings.urllib2.HTTPError, e:
-                return e.fp.read()
-            return self._process_result(self.settings.json.load(data))
+        return self.__submit_json('post', url, payload)
+    
+    def _put_json(self, url, payload):
+        return self.__submit_json('put', url, payload)
+        
 
     def _get_api_key(self):
         return self.API_KEY
@@ -294,10 +320,10 @@ class UserRegistrationAPI(object):
         url = SECURE_API_URL + "raas/v1/account/delete"
         return self._lr_object._get_json(url, payload)
         
-    def authenticate_user(self, username, password):
+    def authenticate_user(self, emailid, password):
         """This API is used to authenticate users and returns the profile data associated with the authenticated user."""
         payload = {'appkey': self._lr_object._get_api_key(), 'appsecret': self._lr_object._get_api_secret(),
-                   'username': username, 'password': password}
+                   'emailid': emailid, 'password': password}
         url = SECURE_API_URL + "raas/v1/user"
         return self._lr_object._get_json(url, payload)
         
@@ -382,20 +408,26 @@ class UserRegistrationAPI(object):
     def get_custom_object_by_query(self, objectid, q, cursor = 1):
         """This API is used to retrieve all of the custom objects by an object unique ID and filtered by a query"""
         payload = {'appkey': self._lr_object._get_api_key(), 'appsecret': self._lr_object._get_api_secret(),
-                   'objectid':objectid, 'q':q, 'cursor':cursor}
+                   'objectid':objectid, 'query':q, 'cursor':cursor}
         url = SECURE_API_URL + "raas/v1/user/customObject"
         return self._lr_object._get_json(url, payload)
     
-    def check_token_validate(self):
+    def check_token_validate(self, token):
         """This API validate access token (access_token)."""
-        payload = {'key': self._lr_object._get_api_key(), 'secret': self._lr_object._get_api_secret(), 'access_token': self._lr_object.access.token}
+        payload = {'key': self._lr_object._get_api_key(), 'secret': self._lr_object._get_api_secret(), 'access_token': token}
         url = SECURE_API_URL + "api/v2/access_token/Validate/"
         return self._lr_object._get_json(url, payload)
 
-    def check_token_invalidate(self):
+    def check_token_invalidate(self, token):
         """This API invalidates (expire) active access token (access_token)"""
-        payload = {'key': self._lr_object._get_api_key(), 'secret': self._lr_object._get_api_secret(), 'access_token': self._lr_object.access.token}
+        payload = {'key': self._lr_object._get_api_key(), 'secret': self._lr_object._get_api_secret(), 'access_token': token}
         url = SECURE_API_URL + "api/v2/access_token/invalidate/"
+        return self._lr_object._get_json(url, payload)
+
+    def check_username(self, username):
+        """This api is use to check the username(server) exists or not on your site."""
+        payload = {'appkey': self._lr_object._get_api_key(), 'appsecret': self._lr_object._get_api_secret(),'username':username}
+        url = SECURE_API_URL + "raas/v1/user/checkusername/"
         return self._lr_object._get_json(url, payload)
         
     #
@@ -424,6 +456,15 @@ class UserRegistrationAPI(object):
         auth = 'appkey=' + self._lr_object._get_api_key() + '&appsecret=' + self._lr_object._get_api_secret() +'&userid=' + userid
         url = SECURE_API_URL + "raas/v1/user/" + "?"+ auth
         return self._lr_object._post_json(url, payload)
+    
+    def update_user_by_token(self, token, payload, emailverificationurl = '', template = ''):
+        """
+            Update a user
+        """
+        auth = 'appkey=' + self._lr_object._get_api_key() + '&appsecret=' + self._lr_object._get_api_secret() +'&token=' + token + "&emailverificationurl=" + emailverificationurl + "&template=" + template
+        url = SECURE_API_URL + "raas/v1/user/update/" + "?"+ auth
+        return self._lr_object._post_json(url, payload)
+
 
     def create_raas_profile(self, accountid, password, emailid):
         """
@@ -441,6 +482,14 @@ class UserRegistrationAPI(object):
         payload = {'EmailId': EmailId, 'EmailType': EmailType}
         auth = 'appkey=' + self._lr_object._get_api_key() + '&appsecret=' + self._lr_object._get_api_secret() + '&accountid=' + accountid + '&action=' + action
         url = SECURE_API_URL + "raas/v1/account/email" + "?" + auth
+        return self._lr_object._post_json(url, payload)
+
+    def update_account(self, accountid, payload):
+        """
+            Update account
+        """
+        auth = 'appkey=' + self._lr_object._get_api_key() + '&appsecret=' + self._lr_object._get_api_secret() +'&accountid=' + accountid
+        url = SECURE_API_URL + "raas/v1/account/edit" + "?" + auth
         return self._lr_object._post_json(url, payload)
     
     def change_password(self, accountid, oldpassword, newpassword):
@@ -470,12 +519,12 @@ class UserRegistrationAPI(object):
         url = SECURE_API_URL + "raas/v1/account/setusername" + "?" + auth
         return self._lr_object._post_json(url, payload)
 
-    def change_username(self, accountid, currentusername, newusername):
+    def change_username(self, accountid, oldusername, newusername):
         """
             This API is used for changing user name by account Id.
         """
         auth = 'appkey='+ self._lr_object._get_api_key()+ '&appsecret='+ self._lr_object._get_api_secret() + '&accountid=' + accountid
-        payload = {'currentusername': currentusername, 'newusername': newusername}
+        payload = {'oldusername': oldusername, 'newusername': newusername}
         url = SECURE_API_URL + "raas/v1/account/changeusername" + "?" + auth
         return self._lr_object._post_json(url, payload)
 
@@ -508,6 +557,15 @@ class UserRegistrationAPI(object):
         url = SECURE_API_URL + "raas/v1/account/unlink" + "?" + auth
         return self._lr_object._post_json(url, payload)
 
+    def password_reset(self, password, vtoken, welcomeEmailTemplate = ''):
+        """
+            This API is used to block Custom Object.
+        """
+        auth = 'appkey='+ self._lr_object._get_api_key()+ '&appsecret='+ self._lr_object._get_api_secret() + '&vtoken=' + vtoken
+        payload =  {'password': password}
+        url = SECURE_API_URL + "raas/v1/account/password/reset" + "?" + auth
+        return self._lr_object._post_json(url, payload)
+
     def upsert_custom_object(self, objectid, accountid, payload):
         """
             This API is used to save custom objects, by providing ID of object, to a specified account if the object is not exist it will create a new object.
@@ -523,8 +581,17 @@ class UserRegistrationAPI(object):
         """
         auth = 'appkey='+ self._lr_object._get_api_key()+ '&appsecret='+ self._lr_object._get_api_secret() + '&objectid=' + objectid + '&accountid=' + accountid
         payload =  {'isblock': action}
-        url = SECURE_API_URL + "raas/v1/customObject/status" + "?" + auth
+        url = SECURE_API_URL + "raas/v1/user/customObject/status" + "?" + auth
         return self._lr_object._post_json(url, payload)
+
+    def invalidate_email(self, accountid, verificationUrl = '', emailTemplate = ''):
+        """
+            This API is used to invalidate the email verification.
+        """
+        auth = 'appkey='+ self._lr_object._get_api_key()+ '&appsecret='+ self._lr_object._get_api_secret() + '&accountid=' + accountid + '&emailTemplate='+emailTemplate+'&verificationUrl='+verificationUrl
+        payload =  {}
+        url = SECURE_API_URL + "raas/v1/account/invalidateemail" + "?" + auth
+        return self._lr_object._put_json(url, payload)
 
 
 class LoginRadiusExceptions(Exception):

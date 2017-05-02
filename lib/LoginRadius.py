@@ -11,7 +11,7 @@
 # premium or enterprise members only.           #
 # In which case, an exception will be raised.   #
 #################################################
-# Copyright 2014-2015 LoginRadius Inc.          #
+# Copyright 2016-2017 LoginRadius Inc.          #
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
@@ -23,12 +23,13 @@ from datetime import datetime
 from collections import namedtuple
 #Requires Python 2.7>
 from importlib import import_module
+import sys
 
 __author__ = "LoginRadius"
-__copyright__ = "Copyright 2014-2015, LoginRadius"
+__copyright__ = "Copyright 2016-2017, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.1"
+__version__ = "2.8"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
@@ -114,10 +115,14 @@ class LoginRadius():
 
     def _set_urllib2(self):
         """Change to the requests urllib2 library to use."""
+        if sys.version_info[0] == 2:
+            self.settings.urllib2 = import_module("urllib2")
+            self.settings.urllib = import_module("urllib")           
+        else:          
+            self.settings.urllib2 = import_module("urllib.request")
+            self.settings.urllib = import_module("urllib.parse")
         self.settings.library = "urllib2"
         self.settings.requests = False
-        self.settings.urllib2 = import_module("urllib2")
-        self.settings.urllib = import_module("urllib")
         self.settings.json = import_module("json")
 
     def _get_user_tuple(self):
@@ -200,7 +205,10 @@ class LoginRadius():
 
         else:
             payload = self.settings.urllib.urlencode(payload)
-            r = self.settings.urllib2.Request(url + "?" + payload, '', {'Content-Type': 'application/json'})
+            pdata = ''
+            if sys.version_info[0] == 3:
+                pdata = pdata.encode('ascii')
+            r = self.settings.urllib2.Request(url + "?" + payload, pdata, {'Content-Type': 'application/json'})
             for key, value in HEADERS.items():
                 r.add_header(key, value)
             try:
