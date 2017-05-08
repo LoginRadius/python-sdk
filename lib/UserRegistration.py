@@ -27,7 +27,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2015-2016, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.8"
+__version__ = "2.8.1"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
@@ -128,7 +128,7 @@ class UserRegistration:
         """All the functions relative to the user with the token."""
         user = namedtuple("User", ['register_user', 'create_user', 'change_password', 'edit_user',
                                    'get_user_by_id', 'get_user_by_email', 'get_account', 'delete_account', 'set_username', 'generate_forgot_password_token', 'check_email', 
-                                   'link_account', 'unlink_account', 'create_raas_profile', 'authenticate_user', 'delete_user_with_email_confirmation', 'resend_verification_email'
+                                   'link_account', 'unlink_account', 'create_raas_profile', 'authenticate_user', 'authenticate_user_by_email', 'delete_user_with_email_confirmation', 'resend_verification_email'
                                    'delete_account_with_email_confirmation', 'get_account_password', 'get_custom_object_by_accountid', 'get_custom_object_by_accountids',
                                    'check_custom_object', 'get_custom_object_by_objectid', 'get_custom_object_stats', 'get_custom_object_by_query', 'check_token_validate', 'check_token_invalidate',
                                     'add_or_remove_user_email', 'set_password', 'set_status', 'upsert_custom_object',
@@ -140,6 +140,7 @@ class UserRegistration:
         user.get_account = self.api.get_account
         user.delete_account = self.api.delete_account
         user.authenticate_user = self.api.authenticate_user
+        user.authenticate_user_by_email = self.api.authenticate_user_by_email
         user.delete_user_with_email_confirmation = self.api.delete_user_with_email_confirmation
         user.generate_forgot_password_token = self.api.generate_forgot_password_token
         user.check_email = self.api.check_email
@@ -320,7 +321,14 @@ class UserRegistrationAPI(object):
         url = SECURE_API_URL + "raas/v1/account/delete"
         return self._lr_object._get_json(url, payload)
         
-    def authenticate_user(self, emailid, password):
+    def authenticate_user(self, username, password):
+        """This API is used to authenticate users and returns the profile data associated with the authenticated user."""
+        payload = {'appkey': self._lr_object._get_api_key(), 'appsecret': self._lr_object._get_api_secret(),
+                   'username': username, 'password': password}
+        url = SECURE_API_URL + "raas/v1/user"
+        return self._lr_object._get_json(url, payload)
+
+    def authenticate_user_by_email(self, emailid, password):
         """This API is used to authenticate users and returns the profile data associated with the authenticated user."""
         payload = {'appkey': self._lr_object._get_api_key(), 'appsecret': self._lr_object._get_api_secret(),
                    'emailid': emailid, 'password': password}
