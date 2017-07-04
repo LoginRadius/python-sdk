@@ -28,7 +28,12 @@ easy_install loginradius
 
 Changelog
 ======
-3.0
+3.0.1
+-----
+
+* Added Readme and History file
+
+3.0.0
 -----
 
 * Added Latest V2 APIs.
