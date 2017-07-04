@@ -1,8 +1,11 @@
+	var LRObject = new LoginRadiusV2(raasoption);
+        var homeDomain = window.location.origin+window.location.pathname;
 jQuery(document).ready(function () {
     //handleResponse(true, "");
     jQuery("#fade, #lr-loading").click(function () {
         jQuery('#fade, #lr-loading').hide();
     });   
+
     // showAndHideUI();
       initializeLoginRaasForm();
        initializeRegisterRaasForm();
@@ -78,12 +81,13 @@ jQuery(document).ready(function() {
         }
     });
 });
+
 function show_birthdate_date_block() {
     var maxYear = new Date().getFullYear();
     var minYear = maxYear - 100;
     if (jQuery('body').on) {
-        jQuery('body').on('focus', '.loginradius-raas-birthdate', function () {
-            jQuery('.loginradius-raas-birthdate').datepicker({
+        jQuery('body').on('focus', '.loginradius-birthdate', function () {
+            jQuery('.loginradius-birthdate').datepicker({
                 dateFormat: 'mm-dd-yy',
                 maxDate: new Date(),
                 minDate: "-100y",
@@ -93,8 +97,8 @@ function show_birthdate_date_block() {
             });
         });
     } else {
-        jQuery(".loginradius-raas-birthdate").live("focus", function () {
-            jQuery('.loginradius-raas-birthdate').datepicker({
+        jQuery(".loginradius-birthdate").live("focus", function () {
+            jQuery('.loginradius-birthdate').datepicker({
                 dateFormat: 'mm-dd-yy',
                 maxDate: new Date(),
                 minDate: "-100y",
@@ -181,118 +185,163 @@ function linking() {
     }
     jQuery('#interfacecontainerdiv').hide();
 }
-LoginRadiusRaaS.$hooks.setProcessHook(function () {
-
-    // console.log("start process", '');
+LRObject.$hooks.register('startProcess', function () {
     jQuery('#lr-loading').show();
-}, function () {
-    if (jQuery('.lr_account_linking') && jQuery('#interfacecontainerdiv').text() != '') {
+   }
+);
+LRObject.$hooks.register('endProcess', function () {
+   if (jQuery('.lr_account_linking') && jQuery('#interfacecontainerdiv').text() != '') {
         linking();
     }
     if(raasoption.formRenderDelay){
         setTimeout(function(){ jQuery('#lr-loading').hide(); }, raasoption.formRenderDelay-1);
     }
-
-    //  jQuery('#lr-loading').hide();
-});
-LoginRadiusRaaS.$hooks.socialLogin.onFormRender = function () {
-    jQuery('#lr-loading').hide();
+   }
+);
+LRObject.$hooks.register('socialLoginFormRender', function () {
+      jQuery('#lr-loading').hide();
 	jQuery('#lr-sign-in').removeClass('lr-form-active');
 	jQuery('.interfacecontainerdiv').hide();
 	
     jQuery('#lr-social-register').addClass('lr-form-active');
     show_birthdate_date_block();
-    //ShowformbyId("social_registration_from");
-};
+});
+LRObject.$hooks.register('afterFormRender', function (name) {
+    if(name == 'resetpassword'){
+      jQuery('.lr-heading').text('Reset Password');
+                jQuery('#lr-reset-pw').addClass('lr-form-active');
+               // jQuery('#lr-reset-pw').show();
+                jQuery('#lr-sign-in').removeClass('lr-form-active');
+                jQuery('.interfacecontainerdiv').hide();  
+    }
+});
+
 function callSocialInterface() {
-    LoginRadiusRaaS.CustomInterface(".interfacecontainerdiv", raasoption);
+	 var custom_interface_option = {};
+    custom_interface_option.templateName = 'loginradiuscustom_tmpl';
+    LRObject.util.ready(function () {
+        LRObject.customInterface(".interfacecontainerdiv", custom_interface_option);
+    });
     jQuery('#lr-loading').hide();
 }
 function initializeLoginRaasForm() {
 //initialize Login form
-    LoginRadiusRaaS.init(raasoption, 'login', function (response) {
+var login_options = {};
+    login_options.onSuccess = function (response) {
         handleResponse(true, "");
         raasRedirect(response.access_token);
-    }, function (response) {
-        if (response[0].description != null) {
+    };
+    login_options.onError = function (response) {     
+  if (response[0].description != null) {
             handleResponse(false, response[0].description, "", "error");
         }
-    }, "login-container");
+		};
+    login_options.container = "login-container";
+
+    LRObject.util.ready(function () {
+        LRObject.init("login", login_options);
+    });
+    
     jQuery('#lr-loading').hide();
 
 }
 
 function initializeRegisterRaasForm() {
-    LoginRadiusRaaS.init(raasoption, 'registration', function (response, data) {      
+	var registration_options = {}
+    registration_options.onSuccess = function (response) {
+		if(response.ErrorCode!= null && response.ErrorCode != ''){
+		handleResponse(false, response[0].Description, "", "error");	
+		}
+		else {
         if (response.access_token != null && response.access_token != "") {
                     handleResponse(true, "");
                     raasRedirect(response.access_token);
         }else{ 
-             handleResponse(false, "An email has been sent to " + jQuery("#loginradius-raas-registration-emailid").val() + ".Please verify your email address.");
+             handleResponse(false, "An email has been sent to " + jQuery("#loginradius-registration-emailid").val() + ".Please verify your email address.");
                 window.setTimeout(function() {
                         window.location.replace(homeDomain);  
                 }, 7000);                   
         }
-    }, function (response) {      
-        if (response[0].description != null) {
-            handleResponse(false, response[0].description, "", "error");
+		}
+    };
+    registration_options.onError = function (response) {
+        if (response[0].Description != null) {
+            handleResponse(false, response[0].Description, "", "error");
         }
-    }, "registeration-container");
+    };
+	registration_options.container = "registeration-container";
+    LRObject.util.ready(function () {
+        LRObject.init("registration", registration_options);
+    });
+    
     jQuery('#lr-loading').hide();
 }
 function initializeResetPasswordRaasForm(raasoption) {
     //initialize reset password form and handel email verifaction
-    var vtype = $LR.util.getQueryParameterByName("vtype");
-    if (vtype != null && vtype != "") {
-        LoginRadiusRaaS.init(raasoption, 'resetpassword', function (response) {
-            handleResponse(true, "Password reset successfully");
-            window.location = raasoption.emailVerificationUrl;
-        }, function (response) {
-            handleResponse(false, response[0].description, "", "error");
-        }, "resetpassword-container");   
+    var vtype = LRObject.util.getQueryParameterByName("vtype");
+    if (vtype != null && vtype != "") {   
         if (vtype == "reset") {
-            LoginRadiusRaaS.init(raasoption, 'emailverification', function (response) {
-                handleResponse(true, "");
-                jQuery('.lr-heading').text('Reset Password');
-                jQuery('#lr-reset-pw').show();
-                jQuery('#lr-sign-in').hide();
-                jQuery('.interfacecontainerdiv').hide();
-            }, function (response) {
-                handleResponse(false, response[0].description, "", "error");
+            var resetpassword_options = {};
+            resetpassword_options.container = "resetpassword-container";
+            resetpassword_options.onSuccess = function (response) {
+                  handleResponse(true, "Your password has been successfully set."); 
+                  window.setTimeout(function () {
+            window.location.replace(homeDomain);
+        }, 7000);
+            };
+            resetpassword_options.onError = function (errors) {
+                handleResponse(false, errors[0].Description, "", "error");
+            }
+            LRObject.util.ready(function () {
+                LRObject.init("resetPassword", resetpassword_options);
             });
+			
         } else {
-            LoginRadiusRaaS.init(raasoption, 'emailverification', function (response) {               
-                //On Success this callback will call
+			 var verifyemail_options = {};
+            verifyemail_options.onSuccess = function (response) {
+                  //On Success this callback will call
                 if (response.access_token != null && response.access_token != "") {
                     handleResponse(true, "");
                     raasRedirect(response.access_token);
                 } else {
                     handleResponse(true, "Your email has been verified successfully");
                 } 
-            }, function (response) {
-                // on failure this function will call ‘errors’ is an array of error with message.
-                handleResponse(false, response[0].description, "", "error");
+            };
+            verifyemail_options.onError = function (errors) {
+                handleResponse(false, errors[0].Description, "", "error");
+            }
+
+            LRObject.util.ready(function () {
+                LRObject.init("verifyEmail", verifyemail_options);
             });
+			
+           
         }
     }
     jQuery('#lr-loading').hide();
 }
 function initializeSocialRegisterRaasForm() {
-    //initialize social Login form
-    LoginRadiusRaaS.init(raasoption, 'sociallogin', function (response) {
-        if (response.isPosted) {
-            handleResponse(true, "An email has been sent to " + jQuery("#loginradius-raas-social-registration-emailid").val() + ".Please verify your email address.");
-            jQuery('#lr-social-register').hide();
+     var sl_options = {};
+    sl_options.onSuccess = function (response) {
+        if (response.IsPosted) {
+            handleResponse(true, "An email has been sent to " + jQuery("#loginradius-social-registration-emailid").val() + ".Please verify your email address.");
+            jQuery('#social-registration-form').hide();
         } else {
             handleResponse(true, "", true);
-            raasRedirect(response);
+            raasRedirect(response.access_token);
         }
-    }, function (response) {
-        if (response[0].description != null) {
-            handleResponse(false, response[0].description, "", "error");
-            jQuery('#lr-social-register').hide();
+    };
+    sl_options.onError = function (response) {
+        if (response[0].Description != null) {
+            handleResponse(false, response[0].Description, "", "error");
+            jQuery('#social-registration-form').hide();
         }
-    }, "social-registration-container");
+    };
+    sl_options.container = "social-registration-container";
+
+    LRObject.util.ready(function () {
+        LRObject.init('socialLogin', sl_options);
+    });
 
     jQuery('#lr-loading').hide();
 
@@ -300,54 +349,70 @@ function initializeSocialRegisterRaasForm() {
 
 function initializeForgotPasswordRaasForms() {
     //initialize forgot password form
-    LoginRadiusRaaS.init(raasoption, 'forgotpassword', function (response) {     
-         handleResponse(false, "An email has been sent to " + jQuery("#loginradius-raas-forgotpassword-emailid").val() + " with reset Password link.");
-            window.setTimeout(function() {
-                    window.location.replace(homeDomain);
-            }, 7000);
-      
-    }, function (response) {
-        if (response[0].description != null) {
-            handleResponse(false, response[0].description, "", "error");
+     var forgotpassword_options = {};
+    forgotpassword_options.container = "forgotpassword-container";
+    forgotpassword_options.onSuccess = function (response) {
+        handleResponse(false, "An email has been sent to " + jQuery("#loginradius-forgotpassword-emailid").val() + " with reset Password link");
+        window.setTimeout(function () {
+            window.location.replace(homeDomain);
+        }, 7000);
+    };
+    forgotpassword_options.onError = function (response) {
+        if (response[0].Description != null) {
+            handleResponse(false, response[0].Description, "", "error");
         }
-    }, "forgotpassword-container");
+    }
+    LRObject.util.ready(function () {
+        LRObject.init("forgotPassword", forgotpassword_options);
+    });
     jQuery('#lr-loading').hide();
 }
 function initializeAccountLinkingRaasForms() {
-    LoginRadiusRaaS.init(raasoption, "accountlinking", function (response) {
-        handleResponse(true, "");
-        raasRedirect(response);
-    }, function (response) {
-        jQuery('#fade').hide();
-        if (response[0].description != null) {
-            handleResponse(false, response[0].description, "", "error");
+	 var la_options = {};
+    la_options.container = "interfacecontainerdiv";
+    la_options.templateName = 'loginradiuscustom_tmpl_link';
+    la_options.onSuccess = function (response) {
+        
+            handleResponse(true, "");
+            raasRedirect(response);
+       
+    };
+    la_options.onError = function (errors) {
+        if (errors[0].Description != null) {
+            handleResponse(false, errors[0].Description, "", "error");
         }
-    }, "interfacecontainerdiv");
+    }
+
+    var unlink_options = {};
+    unlink_options.onSuccess = function (response) {
+        if (response.IsDeleted == true) {
+            handleResponse(true, "Account unlinked successfully.", "");
+        }
+    };
+    unlink_options.onError = function (errors) {        
+        handleResponse(false, errors[0].Description, "", "error");
+    }
+
+    LRObject.util.ready(function () {
+        LRObject.init("linkAccount", la_options);
+        LRObject.init("unLinkAccount", unlink_options);
+    });
     jQuery('#lr-loading').hide();
 }
 function initializeChangePasswordRaasForms() {
-   // initializeAccountLinkingRaasForms();
-    LoginRadiusRaaS.passwordHandleForms("setpasswordbox", "changepasswordbox", function (israas) {
-//var password_div = jQuery('a[href*="/changepassword"]');
-        var password_div = jQuery('#page-title');
-        if (israas) {
-            password_div.html('Change Password');
-            jQuery("#changepasswordbox").show();
-        } else {
-            password_div.html('Set Password');
-            jQuery("#setpasswordbox").show();
-        }
-    }, function () {
-        document.forms['setpassword'].action = window.location;
-        document.forms['setpassword'].submit();
-    }, function () {
+var changepassword_options = {};
+    changepassword_options.container = "changepassword-container";
+    changepassword_options.onSuccess = function (response) {
+        handleResponse(true, "Password has been updated successfully");
+    };
+    changepassword_options.onError = function (errors) {
+        handleResponse(false, errors[0].Description, "", "error");
+    };
 
-    }, function () {
-        document.forms['changepassword'].action = window.location;
-        document.forms['changepassword'].submit();
-    }, function () {
-
-    }, raasoption);
+    LRObject.util.ready(function () {
+        LRObject.init("changePassword", changepassword_options);
+    });
+    jQuery('#lr-loading').hide();
     jQuery('#lr-loading').hide();
 }
 function raasRedirect(token, name) {

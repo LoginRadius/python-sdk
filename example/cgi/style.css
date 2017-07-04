@@ -18,7 +18,7 @@ body {
   color: #444;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-  background: url(../images/cloud.png) repeat-x bottom center fixed #f9f9f9;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
