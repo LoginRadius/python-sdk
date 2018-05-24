@@ -31,9 +31,8 @@ Changelog
 3.1.0
 -----
 
-* Passed Api key and Secret key in herader for management API's.
-* Passed SOTT In header.
-* Added Configuration API
+* Passed API key and Secret key in header for management API's.
+* Passed SOTT in header.
 * Added Management API to generate a SOTT.
 * Implemented ability to support proxy server.
 * Supported NULL and projection in fields.
