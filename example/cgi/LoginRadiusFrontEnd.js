@@ -1,33 +1,32 @@
-	var LRObject = new LoginRadiusV2(raasoption);
-        var homeDomain = window.location.origin+window.location.pathname;
+var LRObject = new LoginRadiusV2(commonOptions);
+var homeDomain = window.location.origin + window.location.pathname;
 jQuery(document).ready(function () {
     //handleResponse(true, "");
     jQuery("#fade, #lr-loading").click(function () {
         jQuery('#fade, #lr-loading').hide();
-    });   
+    });
 
-    // showAndHideUI();
-      initializeLoginRaasForm();
-       initializeRegisterRaasForm();
-      initializeSocialRegisterRaasForm();
-      initializeForgotPasswordRaasForms();
-
-       callSocialInterface();
-initializeResetPasswordRaasForm(raasoption);
+    initializeLoginCiamForm();
+    initializeRegisterCiamForm();
+    initializeSocialRegisterCiamForm();
+    initializeForgotPasswordCiamForms();
+    callSocialInterface();
+    show_birthdate_date_block();
+    initializeResetPasswordCiamForm(commonOptions);
 });
 //if possible, use a much better toggle
-$(document).ready(function() {
-    $('.lr-link').click(function(){
+$(document).ready(function () {
+    $('.lr-link').click(function () {
         var dataForm = $(this).attr("data-form");
-          $('.interfacecontainerdiv').css({'display':'block'});
-$('.lr-heading').text('Login with');
-        if(dataForm == 'lr-forgot-pw'){
-        $('.interfacecontainerdiv').css({'display':'none'});
-        $('.lr-heading').text('Forgot Password');
+        $('.interfacecontainerdiv').css({'display': 'block'});
+        $('.lr-heading').text('Login with');
+        if (dataForm == 'lr-forgot-pw') {
+            $('.interfacecontainerdiv').css({'display': 'none'});
+            $('.lr-heading').text('Forgot Password');
         }
         $('.lr-traditional-frame').removeClass('lr-form-active');
 
-        $("#"+dataForm).addClass('lr-form-active');
+        $("#" + dataForm).addClass('lr-form-active');
     });
 
     // this makes the first element with that class visible.. if you don't want this.. add that class manually
@@ -35,15 +34,15 @@ $('.lr-heading').text('Login with');
 });
 
 //tabs
-jQuery(document).ready(function() {
-    jQuery('.lr-menu-buttons .lr-buttons').click(function(){
+jQuery(document).ready(function () {
+    jQuery('.lr-menu-buttons .lr-buttons').click(function () {
         var dataTab = jQuery(this).attr("data-tab");
 
         jQuery('.lr-menu-buttons .lr-buttons').removeClass('lr-tab-active');
         jQuery('.lr-profile-frame .lr-frame').removeClass('lr-tab-active');
 
         jQuery(this).addClass('lr-tab-active');
-        jQuery("#"+dataTab).addClass('lr-tab-active');
+        jQuery("#" + dataTab).addClass('lr-tab-active');
     });
 
     // this makes the first element with that class visible.. if you don't want this.. add that class manually
@@ -53,31 +52,31 @@ jQuery(document).ready(function() {
 
 // Show Password
 
-jQuery(document).ready(function() {
-    jQuery('.lr-show-pw').click(function(){
+jQuery(document).ready(function () {
+    jQuery('.lr-show-pw').click(function () {
         var dataTab = jQuery('.lr-tab-active').attr("data-tab");
-        var placeholder ='';
-        var showPass = function() {
-            jQuery('.'+dataTab).find('input:password').each(function() {
-              
-                jQuery("<input type='text' class='showPass' />").attr({ name: this.name, value: this.value }).insertBefore(this);
+        var placeholder = '';
+        var showPass = function () {
+            jQuery('.' + dataTab).find('input:password').each(function () {
+
+                jQuery("<input type='text' class='showPass' />").attr({name: this.name, value: this.value}).insertBefore(this);
             }).remove();
         };
-        var hidePass = function() {
-            jQuery('.'+dataTab).find('input.showPass').each(function() {
-                
-                jQuery("<input type='Password' />").attr({ name: this.name, value: this.value }).insertBefore(this);
+        var hidePass = function () {
+            jQuery('.' + dataTab).find('input.showPass').each(function () {
+
+                jQuery("<input type='Password' />").attr({name: this.name, value: this.value}).insertBefore(this);
             }).remove();
         };
 
-        if (jQuery('.'+dataTab+' input:password').is(':visible')) {
+        if (jQuery('.' + dataTab + ' input:password').is(':visible')) {
             showPass();
             jQuery('.lr-show-pw').addClass('lr-toggle');
-         //   jQuery('.'+dataTab+' input:text').focus();
+            //   jQuery('.'+dataTab+' input:text').focus();
         } else {
             hidePass();
             jQuery('.lr-show-pw').removeClass('lr-toggle');
-          //  $('.'+dataTab+' input:password').focus();
+            //  $('.'+dataTab+' input:password').focus();
         }
     });
 });
@@ -131,8 +130,7 @@ function unLinkAccount(name, id) {
         }
         document.body.appendChild(form);
         form.submit();
-    }
-    else {
+    } else {
         jQuery('#fade').hide();
     }
 }
@@ -141,7 +139,7 @@ function unLinkAccount(name, id) {
 function handleResponse(isSuccess, message, show, status) {
     status = status ? status : "status";
     if (status == "error" && window.LoginRadiusSSO) {
-        LoginRadiusSSO.init(raasoption.appName);
+        LoginRadiusSSO.init(commonOptions.appName);
         LoginRadiusSSO.logout(window.location);
     }
     if (typeof show != 'undefined' && !show) {
@@ -159,7 +157,7 @@ function handleResponse(isSuccess, message, show, status) {
                 this.reset();
             });
         }
-        jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+        jQuery("html, body").animate({scrollTop: 0}, "slow");
     } else {
         jQuery(".messages").hide();
         jQuery('.messageinfo').hide();
@@ -187,107 +185,96 @@ function linking() {
 }
 LRObject.$hooks.register('startProcess', function () {
     jQuery('#lr-loading').show();
-   }
+}
 );
 LRObject.$hooks.register('endProcess', function () {
-   if (jQuery('.lr_account_linking') && jQuery('#interfacecontainerdiv').text() != '') {
+    if (jQuery('.lr_account_linking') && jQuery('#interfacecontainerdiv').text() != '') {
         linking();
-    }
-    if(raasoption.formRenderDelay){
-        setTimeout(function(){ jQuery('#lr-loading').hide(); }, raasoption.formRenderDelay-1);
-    }
-   }
+    }   
+}
 );
 LRObject.$hooks.register('socialLoginFormRender', function () {
-      jQuery('#lr-loading').hide();
-	jQuery('#lr-sign-in').removeClass('lr-form-active');
-	jQuery('.interfacecontainerdiv').hide();
-	
+    jQuery('#lr-loading').hide();
+    jQuery('#lr-sign-in').removeClass('lr-form-active');
+    jQuery('.interfacecontainerdiv').hide();
+
     jQuery('#lr-social-register').addClass('lr-form-active');
-    show_birthdate_date_block();
+    
 });
 LRObject.$hooks.register('afterFormRender', function (name) {
-    if(name == 'resetpassword'){
-      jQuery('.lr-heading').text('Reset Password');
-                jQuery('#lr-reset-pw').addClass('lr-form-active');
-               // jQuery('#lr-reset-pw').show();
-                jQuery('#lr-sign-in').removeClass('lr-form-active');
-                jQuery('.interfacecontainerdiv').hide();  
+    if (name == 'resetpassword') {
+        jQuery('.lr-heading').text('Reset Password');
+        jQuery('#lr-reset-pw').addClass('lr-form-active');
+        // jQuery('#lr-reset-pw').show();
+        jQuery('#lr-sign-in').removeClass('lr-form-active');
+        jQuery('.interfacecontainerdiv').hide();
     }
 });
 
 function callSocialInterface() {
-	 var custom_interface_option = {};
+    var custom_interface_option = {};
     custom_interface_option.templateName = 'loginradiuscustom_tmpl';
     LRObject.util.ready(function () {
         LRObject.customInterface(".interfacecontainerdiv", custom_interface_option);
     });
     jQuery('#lr-loading').hide();
 }
-function initializeLoginRaasForm() {
+function initializeLoginCiamForm() {
 //initialize Login form
-var login_options = {};
+    var login_options = {};
     login_options.onSuccess = function (response) {
         handleResponse(true, "");
-        raasRedirect(response.access_token);
+        ciamRedirect(response.access_token);
     };
-    login_options.onError = function (response) {     
-  if (response[0].description != null) {
-            handleResponse(false, response[0].description, "", "error");
+    login_options.onError = function (response) {
+        if (response[0].Description != null) {
+            handleResponse(false, response[0].Description, "", "error");
         }
-		};
+    };
     login_options.container = "login-container";
 
     LRObject.util.ready(function () {
         LRObject.init("login", login_options);
     });
-    
     jQuery('#lr-loading').hide();
-
 }
 
-function initializeRegisterRaasForm() {
-	var registration_options = {}
+function initializeRegisterCiamForm() {
+    var registration_options = {}
     registration_options.onSuccess = function (response) {
-		if(response.ErrorCode!= null && response.ErrorCode != ''){
-		handleResponse(false, response[0].Description, "", "error");	
-		}
-		else {
-        if (response.access_token != null && response.access_token != "") {
-                    handleResponse(true, "");
-                    raasRedirect(response.access_token);
-        }else{ 
-             handleResponse(false, "An email has been sent to " + jQuery("#loginradius-registration-emailid").val() + ".Please verify your email address.");
-                window.setTimeout(function() {
-                        window.location.replace(homeDomain);  
-                }, 7000);                   
+        if (response.ErrorCode != null && response.ErrorCode != '') {
+            handleResponse(false, response[0].Description, "", "error");
+        } else {
+            if (response.access_token != null && response.access_token != "") {
+                handleResponse(true, "");
+                ciamRedirect(response.access_token);
+            } else {
+                handleResponse(false, "An email has been sent to " + jQuery("#loginradius-registration-emailid").val() + ".Please verify your email address.");
+            }
         }
-		}
+        jQuery('input[type="text"],input[type="email"],input[type="password"], select, textarea').val('');
     };
     registration_options.onError = function (response) {
         if (response[0].Description != null) {
             handleResponse(false, response[0].Description, "", "error");
         }
     };
-	registration_options.container = "registeration-container";
+    registration_options.container = "registeration-container";
     LRObject.util.ready(function () {
         LRObject.init("registration", registration_options);
     });
-    
+
     jQuery('#lr-loading').hide();
 }
-function initializeResetPasswordRaasForm(raasoption) {
+function initializeResetPasswordCiamForm(commonOptions) {
     //initialize reset password form and handel email verifaction
     var vtype = LRObject.util.getQueryParameterByName("vtype");
-    if (vtype != null && vtype != "") {   
+    if (vtype != null && vtype != "") {
         if (vtype == "reset") {
             var resetpassword_options = {};
             resetpassword_options.container = "resetpassword-container";
             resetpassword_options.onSuccess = function (response) {
-                  handleResponse(true, "Your password has been successfully set."); 
-                  window.setTimeout(function () {
-            window.location.replace(homeDomain);
-        }, 7000);
+                handleResponse(true, "Your password has been successfully set.");
             };
             resetpassword_options.onError = function (errors) {
                 handleResponse(false, errors[0].Description, "", "error");
@@ -295,17 +282,17 @@ function initializeResetPasswordRaasForm(raasoption) {
             LRObject.util.ready(function () {
                 LRObject.init("resetPassword", resetpassword_options);
             });
-			
+
         } else {
-			 var verifyemail_options = {};
+            var verifyemail_options = {};
             verifyemail_options.onSuccess = function (response) {
-                  //On Success this callback will call
+                //On Success this callback will call
                 if (response.access_token != null && response.access_token != "") {
                     handleResponse(true, "");
-                    raasRedirect(response.access_token);
+                    ciamRedirect(response.access_token);
                 } else {
                     handleResponse(true, "Your email has been verified successfully");
-                } 
+                }
             };
             verifyemail_options.onError = function (errors) {
                 handleResponse(false, errors[0].Description, "", "error");
@@ -314,21 +301,19 @@ function initializeResetPasswordRaasForm(raasoption) {
             LRObject.util.ready(function () {
                 LRObject.init("verifyEmail", verifyemail_options);
             });
-			
-           
         }
     }
     jQuery('#lr-loading').hide();
 }
-function initializeSocialRegisterRaasForm() {
-     var sl_options = {};
+function initializeSocialRegisterCiamForm() {
+    var sl_options = {};
     sl_options.onSuccess = function (response) {
         if (response.IsPosted) {
             handleResponse(true, "An email has been sent to " + jQuery("#loginradius-social-registration-emailid").val() + ".Please verify your email address.");
             jQuery('#social-registration-form').hide();
         } else {
             handleResponse(true, "", true);
-            raasRedirect(response.access_token);
+            ciamRedirect(response.access_token);
         }
     };
     sl_options.onError = function (response) {
@@ -344,18 +329,14 @@ function initializeSocialRegisterRaasForm() {
     });
 
     jQuery('#lr-loading').hide();
-
 }
 
-function initializeForgotPasswordRaasForms() {
+function initializeForgotPasswordCiamForms() {
     //initialize forgot password form
-     var forgotpassword_options = {};
+    var forgotpassword_options = {};
     forgotpassword_options.container = "forgotpassword-container";
     forgotpassword_options.onSuccess = function (response) {
         handleResponse(false, "An email has been sent to " + jQuery("#loginradius-forgotpassword-emailid").val() + " with reset Password link");
-        window.setTimeout(function () {
-            window.location.replace(homeDomain);
-        }, 7000);
     };
     forgotpassword_options.onError = function (response) {
         if (response[0].Description != null) {
@@ -367,65 +348,16 @@ function initializeForgotPasswordRaasForms() {
     });
     jQuery('#lr-loading').hide();
 }
-function initializeAccountLinkingRaasForms() {
-	 var la_options = {};
-    la_options.container = "interfacecontainerdiv";
-    la_options.templateName = 'loginradiuscustom_tmpl_link';
-    la_options.onSuccess = function (response) {
-        
-            handleResponse(true, "");
-            raasRedirect(response);
-       
-    };
-    la_options.onError = function (errors) {
-        if (errors[0].Description != null) {
-            handleResponse(false, errors[0].Description, "", "error");
-        }
-    }
 
-    var unlink_options = {};
-    unlink_options.onSuccess = function (response) {
-        if (response.IsDeleted == true) {
-            handleResponse(true, "Account unlinked successfully.", "");
-        }
-    };
-    unlink_options.onError = function (errors) {        
-        handleResponse(false, errors[0].Description, "", "error");
-    }
-
-    LRObject.util.ready(function () {
-        LRObject.init("linkAccount", la_options);
-        LRObject.init("unLinkAccount", unlink_options);
-    });
-    jQuery('#lr-loading').hide();
-}
-function initializeChangePasswordRaasForms() {
-var changepassword_options = {};
-    changepassword_options.container = "changepassword-container";
-    changepassword_options.onSuccess = function (response) {
-        handleResponse(true, "Password has been updated successfully");
-    };
-    changepassword_options.onError = function (errors) {
-        handleResponse(false, errors[0].Description, "", "error");
-    };
-
-    LRObject.util.ready(function () {
-        LRObject.init("changePassword", changepassword_options);
-    });
-    jQuery('#lr-loading').hide();
-    jQuery('#lr-loading').hide();
-}
-function raasRedirect(token, name) {
-    var str = window.location.href; 
+function ciamRedirect(token, name) {
+    var str = window.location.href;
     var callback = str.replace("frontend", "backend");
 
     if (window.redirect) {
         redirect(token, name);
-    }
-    else {
+    } else {
         var token_name = name ? name : 'token';
-        var source = typeof lr_source != 'undefined' && lr_source ? lr_source : '';
-
+        
         jQuery('#fade').show();
         var form = document.createElement('form');
         form.action = callback;
@@ -436,7 +368,7 @@ function raasRedirect(token, name) {
         hiddenToken.value = token;
         hiddenToken.name = token_name;
         form.appendChild(hiddenToken);
-       
+
         document.body.appendChild(form);
         form.submit();
     }

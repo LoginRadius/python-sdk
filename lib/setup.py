@@ -1,9 +1,9 @@
 from distutils.core import setup
 setup(
     name = 'LoginRadius',
-    version= '3.0',
+    version= '3.1.0',
     packages=["LoginRadius","LoginRadius.sdk"],
-    description = 'Social Login and User Registration for Python.',
+    description = 'Customer identity and access management for Python.',
     author='LoginRadius',
     author_email='developers@loginradius.com',
     url='http://loginradius.com/',

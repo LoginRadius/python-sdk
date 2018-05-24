@@ -20,20 +20,27 @@ From Package
 
 Using pip
 
-pip install loginradius
+pip install loginradius-v2
 
 or with easy_install
 
-easy_install loginradius
+easy_install loginradius-v2
 
 Changelog
 ======
-3.0.1
+3.1.0
 -----
 
-* Added Readme and History file
+* Passed Api key and Secret key in herader for management API's.
+* Passed SOTT In header.
+* Added Configuration API
+* Added Management API to generate a SOTT.
+* Implemented ability to support proxy server.
+* Supported NULL and projection in fields.
+* Added new V2 API's.
 
-3.0.0
+
+3.0
 -----
 
 * Added Latest V2 APIs.

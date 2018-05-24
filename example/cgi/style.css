@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  background:#eee;
   width: 100%;
   font-family: Lato ,sans-serif;
   font-size: 16px;
@@ -312,7 +313,10 @@ tbody tr:nth-child(even) {
   transition: all 0.3s ease-in-out;
 }
 #lr-profile {
-    margin: 0px;
+    margin: 0px auto;    
+}
+.lr-logo-center{
+    text-align: center;
 }
 .lr-input-style select:focus {
   border: 1px solid #00b0f0;
@@ -396,6 +400,7 @@ tbody tr:nth-child(even) {
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   border: 1px solid #eee;
+  overflow: auto;
 }
 .lr-frame .lr-heading {
   font-size: 24px;
@@ -462,6 +467,8 @@ tbody tr:nth-child(even) {
   padding-top: 30px;
   border-top: 1px solid #eee;
   display: none;
+  float: left;
+    width: 100%;
 }
 .lr-frame .lr-traditional-frame .lr-or-bubble {
   display: block;
@@ -486,7 +493,13 @@ tbody tr:nth-child(even) {
   margin-right: 10px;
   cursor: pointer;
 }
-
+.interfacecontainerdiv{
+    float: left;
+    width:100%
+}
+.loginradius-validation-message{
+    color:red;
+}
 /*// =============================================================*/
 /*// profile page template*/
 .lr-profile-frame {
@@ -844,3 +857,362 @@ float:right;
     padding: 5px;
     margin-bottom: 5px;
 }
+
+.lr-menu-buttons{
+    margin-left:45%
+}
+
+/*START SOCIAL ICON*/
+.lr-icon-box {
+    text-align: left;
+    margin: 5px;
+    width: 47.5%;
+    float: left;
+    cursor: pointer;
+}
+.lr-sl-icon {
+       display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.lr-sl-icon:before,
+.lr-sl-icon:after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lr-sl-icon:before {
+    width: 30px;
+    height: 30px;
+    background-image: url("images/lr_provider_sprite.png");
+    /*Image fallback for ie8*/
+    background-image: -webkit-linear-gradient(transparent, transparent), url("images/icon-sprite.svg");
+    background-image: linear-gradient(transparent, transparent), url("images/icon-sprite.svg");
+    /*SVG for scalability. Good for high resolution screens/retina*/
+    background-size: 100% 3600%;
+    background-position: 0 0;
+    margin-top: -4px;
+    margin-top: -0.4rem;
+    border-right: 1px solid #fff;
+}
+
+.lr-provider-label.lr-sl-shaded-brick-button.lr-flat-line{
+    background-color: #00c200 !important;
+}
+.lr-provider-label.lr-sl-shaded-brick-button.lr-flat-pinterest{
+    background-color: #be2127 !important;
+}
+
+.lr-sl-icon.lr-sl-icon-line:before {
+    background-image: url("../images/line.png") !important;
+    background-size: 100% 100%; 
+}
+.lr-sl-icon.lr-sl-icon-pinterest:before {
+    background-image: url("../images/pinterest.png") !important;
+    background-size: 100% 100%; 
+}
+
+.lr-sl-icon:after {
+    width: 0;
+}
+.lr-sl-shaded-brick-button {
+    padding: 0 10px 0 2px;
+    color: #fff;
+    width: calc(100% - 20px);
+    display: inline-block;
+    min-height: 30px;
+    line-height: 30px;
+}
+.provider-label.lr-sl-shaded-brick-button.lr-flat-line {
+ color:green;    
+}
+.lr-sl-icon-amazon:before {
+    background-position: 0 -0.2%;
+}
+
+.lr-sl-icon-aol:before {
+    background-position: 0 2.7%;
+}
+
+.lr-sl-icon-disqus:before {
+    background-position: 0 5.6%;
+}
+
+.lr-sl-icon-facebook:before {
+    background-position: 0 8.3%;
+}
+
+.lr-sl-icon-foursquare:before {
+    background-position: 0 11.2%;
+}
+
+.lr-sl-icon-github:before {
+    background-position: 0 14.1%;
+}
+
+.lr-sl-icon-google:before {
+    background-position: 0 20%;
+}
+
+.lr-sl-icon-googleplus:before {
+    background-position: 0 20%;
+}
+
+.lr-sl-icon-hyves:before {
+    background-position: 0 22.8%;
+}
+
+.lr-sl-icon-instagram:before {
+    background-position: 0 25.45%;
+}
+
+.lr-sl-icon-kaixin:before {
+    background-position: 0 28.7%;
+}
+
+.lr-sl-icon-linkedin:before {
+    background-position: 0 31.3%;
+}
+
+.lr-sl-icon-live:before {
+    background-position: 0 34.2%;
+}
+
+.lr-sl-icon-livejournal:before {
+    background-position: 0 37%;
+}
+
+.lr-sl-icon-mixi:before {
+    background-position: 0 40.1%;
+}
+
+.lr-sl-icon-myspace:before {
+    background-position: 0 43.1%;
+}
+
+.lr-sl-icon-odnoklassniki:before {
+    background-position: 0 45.7%;
+}
+
+.lr-sl-icon-openid:before {
+    background-position: 0 48.5%;
+}
+
+.lr-sl-icon-orange:before {
+    background-position: 0 51.5%;
+}
+
+.lr-sl-icon-paypal:before {
+    background-position: 0 54.2%;
+}
+
+.lr-sl-icon-persona:before {
+    background-position: 0 57%;
+}
+
+.lr-sl-icon-qq:before {
+    background-position: 0 59.8%;
+}
+
+.lr-sl-icon-renren:before {
+    background-position: 0 62.5%;
+}
+
+.lr-sl-icon-salesforce:before {
+    background-position: 0 65.6%;
+}
+
+.lr-sl-icon-stackexchange:before {
+    background-position: 0 68.4%;
+}
+
+.lr-sl-icon-steamcommunity:before {
+    background-position: 0 71.3%;
+}
+
+.lr-sl-icon-tumblr:before {
+    background-position: 0 74.2%;
+}
+
+.lr-sl-icon-twitter:before {
+    background-position: 0 77%;
+}
+
+.lr-sl-icon-verisign:before {
+    background-position: 0 79.9%;
+}
+
+.lr-sl-icon-virgilio:before {
+    background-position: 0 82.8%;
+}
+
+.lr-sl-icon-vkontakte:before {
+    background-position: 0 85.8%;
+}
+
+.lr-sl-icon-sinaweibo:before {
+    background-position: 0 88.6%;
+}
+
+.lr-sl-icon-wordpress:before {
+    background-position: 0 91.3%;
+}
+
+.lr-sl-icon-yahoo:before {
+    background-position: 0 94.2%;
+}
+
+.lr-sl-icon-xing:before {
+    background-position: 0 97.1%;
+}
+
+.lr-sl-icon-mailru:before {
+    background-position: 0 -105.8%;
+}
+
+.lr-flat-amazon {
+    background-color: #f90;
+}
+
+.lr-flat-aol {
+    background-color: #066cb1;
+}
+
+.lr-flat-disqus {
+    background-color: #35a8ff;
+}
+
+.lr-flat-facebook {
+    background-color: #3b5998;
+}
+
+.lr-flat-foursquare {
+    background-color: #1cafec;
+}
+
+.lr-flat-github {
+    background-color: #181616;
+}
+
+.lr-flat-google {
+    background-color: #dd4b39;
+}
+
+.lr-flat-googleplus {
+    background-color: #dd4b39;
+}
+
+.lr-flat-hyves {
+    background-color: #f9a539;
+}
+
+.lr-flat-instagram {
+    background-color: #406e94;
+}
+
+.lr-flat-kaixin {
+    background-color: #bb0e0f;
+}
+
+.lr-flat-linkedin {
+    background-color: #007bb6;
+}
+
+.lr-flat-live {
+    background-color: #004c9a;
+}
+
+.lr-flat-livejournal {
+    background-color: #3770a3;
+}
+
+.lr-flat-mixi {
+    background-color: #d1ad5a;
+}
+
+.lr-flat-myspace {
+    background-color: #313131;
+}
+
+.lr-flat-odnoklassniki {
+    background-color: #f69324;
+}
+
+.lr-flat-openid {
+    background-color: #f7921c;
+}
+
+.lr-flat-orange {
+    background-color: #f60;
+}
+
+.lr-flat-paypal {
+    background-color: #13487b;
+}
+
+.lr-flat-persona {
+    background-color: #e0742f;
+}
+
+.lr-flat-qq {
+    background-color: #29d;
+}
+
+.lr-flat-renren {
+    background-color: #005baa;
+}
+
+.lr-flat-salesforce {
+    background-color: #9cd3f2;
+}
+
+.lr-flat-stackexchange {
+    background-color: #4ba1d8;
+}
+
+.lr-flat-steamcommunity {
+    background-color: #666;
+}
+
+.lr-flat-tumblr {
+    background-color: #32506d;
+}
+
+.lr-flat-twitter {
+    background-color: #55acee;
+}
+
+.lr-flat-verisign {
+    background-color: #0261a2;
+}
+
+.lr-flat-virgilio {
+    background-color: #eb6b21;
+}
+
+.lr-flat-vkontakte {
+    background-color: #45668e;
+}
+
+.lr-flat-sinaweibo {
+    background-color: #bb3e3e;
+}
+
+.lr-flat-wordpress {
+    background-color: #21759c;
+}
+
+.lr-flat-yahoo {
+    background-color: #400090;
+}
+
+.lr-flat-xing {
+    background-color: #007072;
+}
+
+.lr-flat-mailru {
+    background-color: #1897e6;
+}
+/*END SOCIAL ICON*/
