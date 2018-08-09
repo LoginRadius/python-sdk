@@ -63,7 +63,7 @@ class Authentication:
         url = self._lr_object.SECURE_API_URL + authEndpoint +  "register" + "?" + params
         return self._lr_object._put_json(url, payload)
     
-    def removeAccountByEmailConfirmation(self, access_token, deleteUrl = '', emailTemplate = ''):
+    def deleteAccountByEmailConfirmation(self, access_token, deleteUrl = '', emailTemplate = ''):
         """Delete Account With Email Confirmation( DELETE )"""
         params = 'apikey='+self._lr_object._get_api_key() +'&access_token='+access_token+'&verificationUrl='+deleteUrl+'&emailTemplate='+emailTemplate
         url = self._lr_object.SECURE_API_URL + authEndpoint +  "account" + "?" + params
@@ -79,13 +79,13 @@ class Authentication:
     def resetPassword(self, payload):
         """Reset Password( PUT )"""
         params = 'apikey='+self._lr_object._get_api_key()
-        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password" + "?" + params
+        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password/reset" + "?" + params
         return self._lr_object._put_json(url, payload)
 
     def resetPasswordByOTP(self, payload):
         """Reset Password By OTP( PUT )"""
         params = 'apikey='+self._lr_object._get_api_key()
-        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password" + "?" + params
+        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password/reset" + "?" + params
         return self._lr_object._put_json(url, payload)
 
     def resetPasswordBySecurityAnswerAndEmail(self, securityanswer, email, password):
@@ -119,7 +119,7 @@ class Authentication:
         """Change Password( PUT )"""
         payload ={'oldpassword':oldpassword, 'newpassword':newpassword}
         params = 'apikey='+self._lr_object._get_api_key()+'&access_token='+ access_token
-        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password" + "?" + params
+        url = self._lr_object.SECURE_API_URL + authEndpoint +  "password/change" + "?" + params
         return self._lr_object._put_json(url, payload)
     
     def addEmail(self, access_token, email, emailtype, verificationUrl = '', emailTemplate = ''):
@@ -129,10 +129,10 @@ class Authentication:
         url = self._lr_object.SECURE_API_URL + authEndpoint + "email" + "?" + params
         return self._lr_object._post_json(url, payload)
     
-    def removeEmail(self, access_token, deleteurl = '', emailtemplate = ''):
-        """Delete Account With Email Confirmation( DELETE )"""
-        params = 'apikey='+self._lr_object._get_api_key() +'&access_token='+access_token+'&deleteurl='+deleteurl+'&emailtemplate='+ emailtemplate
-        url = self._lr_object.SECURE_API_URL + authEndpoint +  "account" + "?" + params
+    def removeEmail(self, access_token, email):
+        """Auth Remove Email( DELETE )"""
+        params = 'apikey='+self._lr_object._get_api_key() +'&access_token='+access_token
+        url = self._lr_object.SECURE_API_URL + authEndpoint +  "email" + "?" + params
         return self._lr_object._delete_json(url, {})
 
     def getVerifyEmail(self, verificationToken, url = ''):

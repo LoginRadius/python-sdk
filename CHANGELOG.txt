@@ -1,0 +1,19 @@
+# LoginRadius Python SDK Change Log
+
+
+# Version 3.1.1
+## Bug Fixed
+  - Fixed HTTP method request bug.
+
+# Version 3.1.0
+## Enhancements
+  - Passed API key and Secret key in herader for management API's.
+  - Passed SOTT In header.
+  - Added Management API to generate a SOTT.
+  - Implemented ability to support proxy server.
+  - Supported NULL and projection in fields.
+  - Added new V2 API's.
+
+# Version 3.0
+## Enhancements
+  - Added Latest V2 APIs.

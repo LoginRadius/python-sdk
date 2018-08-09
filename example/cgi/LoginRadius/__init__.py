@@ -459,13 +459,13 @@ class LoginRadius:
 
 
     def _post_json(self, url, payload, headkey=False):
-        return self.__submit_json('post', url, payload, headkey)
+        return self.__submit_json('POST', url, payload, headkey)
             
     def _put_json(self, url, payload, headkey=False):
-        return self.__submit_json('put', url, payload, headkey)
+        return self.__submit_json('PUT', url, payload, headkey)
         
     def _delete_json(self, url, payload, headkey=False):
-        return self.__submit_json('delete', url, payload, headkey)
+        return self.__submit_json('DELETE', url, payload, headkey)
         
     def __submit_json(self, method, url, payload, headkey):
         if self.settings.requests:
@@ -476,9 +476,9 @@ class LoginRadius:
                 HEADERS = {'content-type': HEADERS['content-type'],'X-LoginRadius-ApiKey': headkey.get('apikey'),'X-LoginRadius-ApiSecret': headkey.get('apisecret')}
             if payload.get('sott'):
                 HEADERS = {'content-type': HEADERS['content-type'], 'X-LoginRadius-Sott': payload.get('sott')}
-            if method == 'put':
+            if method == 'PUT':
                 r = self.settings.requests.put(url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)                             
-            elif method == 'delete':
+            elif method == 'DELETE':
                 r = self.settings.requests.delete(url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
             else:
                 r = self.settings.requests.post(url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)            
@@ -491,7 +491,7 @@ class LoginRadius:
                 data = data.encode('utf-8')
             HEADERS = {'content-type': 'application/json'}
             r = self.settings.urllib2.Request(url, data, {'Content-Type': 'application/json'})
-            if method == 'put' or method == 'delete':
+            if method == 'PUT' or method == 'DELETE':
                 r.get_method = lambda: method
             for key, value in HEADERS.items():
                 r.add_header(key, value)
