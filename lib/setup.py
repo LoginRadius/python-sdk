@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name = 'LoginRadius',
     py_modules = ['LoginRadius'],
-    version = '2.8.1',
+    version = '2.8.2',
     description = 'Social Login and User Registration for Python.',
     author='LoginRadius',
     author_email='developers@loginradius.com',

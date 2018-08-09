@@ -1,12 +1,11 @@
-# sdk-python-customer-identity
+# Python-SDK
+
 LoginRadius Python SDK for customer identity
 
-Work In Progress
-------------------
-To check right now, do git clone
+![Home Image](http://docs.lrcontent.com/resources/github/banner-1544x500.png)
 
-From Package  (Not yet completely checked)
-=========
+
+## Installing #
 
 Using pip
 
@@ -16,15 +15,19 @@ or with easy_install
 
 easy_install loginradius
 
-Online Documentation
-====================
-
-You can read more at
-
-http://loginradius.readthedocs.org/
-
 Changelog
 ======
+2.8.2
+-----
+
+* Fixed HTTP method request name bug.
+
+2.8.1
+-----
+
+* Fixed issue of function authenticate user.
+* Added API for authenticating user by emailid.
+
 2.8
 -----
 
@@ -34,3 +37,8 @@ Changelog
 -----
 
 * Added User Registration APIs
+
+
+## Documentation
+
+[Getting Started](https://docs.loginradius.com/api/v1/sdk-libraries/python) - Everything you need to begin using this SDK.

@@ -27,7 +27,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2015-2016, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.8.1"
+__version__ = "2.8.2"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
@@ -198,12 +198,12 @@ class UserRegistration:
                 raise
             return self._process_result(self.settings.json.load(data))
 
-    def __submit_json(self, method,url, payload):
+    def __submit_json(self, method, url, payload):
         """Post JSON to LoginRadius"""
         if self.settings.requests:
             import json
             HEADERS = {'content-type': 'application/json'}
-            if method == 'put':
+            if method == 'PUT':
                 r = self.settings.requests.put(url, data=json.dumps(payload), headers=HEADERS)
             else:
                 r = self.settings.requests.post(url, data=json.dumps(payload), headers=HEADERS)
@@ -216,7 +216,7 @@ class UserRegistration:
                 data = data.encode('ascii')
             HEADERS = {'content-type': 'application/json'}
             r = self.settings.urllib2.Request(url, data, {'Content-Type': 'application/json'})
-            if method == 'put':
+            if method == 'PUT':
                 r.get_method = lambda: method
             for key, value in HEADERS.items():
                 r.add_header(key, value)
@@ -227,10 +227,10 @@ class UserRegistration:
             return self._process_result(self.settings.json.load(data))
 
     def _post_json(self, url, payload):
-        return self.__submit_json('post', url, payload)
+        return self.__submit_json('POST', url, payload)
     
     def _put_json(self, url, payload):
-        return self.__submit_json('put', url, payload)
+        return self.__submit_json('PUT', url, payload)
         
 
     def _get_api_key(self):

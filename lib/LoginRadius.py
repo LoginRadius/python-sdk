@@ -29,7 +29,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2016-2017, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "2.8.1"
+__version__ = "2.8.2"
 
 SECURE_API_URL = "https://api.loginradius.com/"
 HEADERS = {'Accept': "application/json"}
