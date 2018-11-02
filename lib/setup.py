@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name = 'LoginRadius',
-    version= '3.1.0',
+    version= '3.2.0',
     packages=["LoginRadius","LoginRadius.sdk"],
     description = 'Customer identity and access management for Python.',
     author='LoginRadius',

@@ -44,9 +44,9 @@ class Authentication:
         url = self._lr_object.SECURE_API_URL + authEndpoint + "register" + "?" + params
         return self._lr_object._post_json(url, payload)
 
-    def getServerTime(self, timeDifference=''):
+    def getServerTime(self, timeDifference):
         # Get Server Time (GET)
-        if timeDifference == '':
+        if timeDifference != '':
             timeDifference = '10';
         payload = {'apikey': self._lr_object._get_api_key(), 'timedifference':timeDifference}
         url = self._lr_object.SECURE_API_URL  +  "identity/v2/serverinfo"
