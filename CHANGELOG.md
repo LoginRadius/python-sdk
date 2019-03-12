@@ -1,5 +1,9 @@
 # LoginRadius Python SDK Change Log
 
+# Version 3.3.0
+## Enhancements
+  - Enabled Support for gzip compression
+
 # Version 3.2.0
 ## Enhancements
   - Updated demo with new UI and features.

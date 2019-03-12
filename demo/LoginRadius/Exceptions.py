@@ -15,6 +15,8 @@
 # This file is part of the LoginRadius SDK      #
 # package.                                      #
 #################################################
+
+
 class LoginRadiusExceptions(Exception):
     """
     This is the base for all LoginRadius Exceptions. Makes dealing with exceptions easy!
@@ -46,7 +48,7 @@ class Exceptions:
 
         def __str__(self):
             return "LoginRadius needs at least requests 2.0, found: " \
-                   + self.version + "\nPlease upgrade to the latest version."
+                + self.version + "\nPlease upgrade to the latest version."
 
     class InvalidLibrary(LoginRadiusExceptions):
         """
@@ -71,7 +73,7 @@ class Exceptions:
 
         def __str__(self):
             return "No API_SECRET set. Please initialize a API_SECRET first.\n" \
-                   + "ie. LoginRadius.API_SECRET = \"Really_Secret_Key\""
+                + "ie. LoginRadius.API_SECRET = \"Really_Secret_Key\""
 
     class NoAPIKey(LoginRadiusExceptions):
         """
@@ -84,7 +86,7 @@ class Exceptions:
 
         def __str__(self):
             return "No API_KEY set. Please initialize a APP_KEY first.\n" \
-                   + "ie. LoginRadius.API_Key = \"Really_Application_Key\""
+                + "ie. LoginRadius.API_Key = \"Really_Application_Key\""
 
     class MissingJsonResponseParameter(LoginRadiusExceptions):
         """
@@ -108,6 +110,7 @@ class Exceptions:
         """
         Raised if the request cannot be completed because the access token has expired.
         """
+
         def __init__(self, time):
             self.time = time
 
@@ -119,17 +122,19 @@ class Exceptions:
         """
         Raised if the request cannot be completed because your account/API access does not include this.
         """
+
         def __init__(self):
             pass
 
         def __str__(self):
-            return "Your LoginRadius site doesn't have permission to access this endpoint, please contact " +\
-                   "LoginRadius support if you need more information."
+            return "Your LoginRadius site doesn't have permission to access this endpoint, please contact " + \
+                "LoginRadius support if you need more information."
 
     class UnknownJsonError(LoginRadiusExceptions):
         """
         Raised if cannot determine error number from Json
         """
+
         def __init__(self, result):
             self.result = result
 
@@ -140,6 +145,7 @@ class Exceptions:
         """
         Raised if you entered your API wrong, or not at all.
         """
+
         def __init__(self):
             pass
 
@@ -150,6 +156,7 @@ class Exceptions:
         """
         Raised if you your API Secret is invalid.
         """
+
         def __init__(self):
             pass
 
@@ -160,6 +167,7 @@ class Exceptions:
         """
         Raised if you your request token is invalid from the POST request.
         """
+
         def __init__(self):
             pass
 
@@ -170,6 +178,7 @@ class Exceptions:
         """
         Raised if you your request token has expired from the POST request.
         """
+
         def __init__(self):
             pass
 
@@ -180,6 +189,7 @@ class Exceptions:
         """
         Raised if you access token is invalid.
         """
+
         def __init__(self):
             pass
 
@@ -190,6 +200,7 @@ class Exceptions:
         """
         Raised if a parameter in the GET or POST request is missing.
         """
+
         def __init__(self):
             pass
 
@@ -200,6 +211,7 @@ class Exceptions:
         """
         Raised if a parameter in the GET or POST request is not formatted properly for the provider.
         """
+
         def __init__(self):
             pass
 
@@ -210,9 +222,10 @@ class Exceptions:
         """
         Raised if a the endpoint is not supported by the provider which correlates to the token.
         """
+
         def __init__(self):
             pass
 
         def __str__(self):
             return "The requested endpoint is not supported by the current ID provider, " + \
-                   "please check the API support page at http://www.loginradius.com/datapoints"
+                "please check the API support page at http://www.loginradius.com/datapoints"

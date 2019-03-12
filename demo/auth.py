@@ -28,7 +28,7 @@ def login():
 		'email': request.args['email'],
 		'password': request.args['password']
 	}
-	res = loginradius.authentication.login.byEmail(payload)
+	res = loginradius.authentication.login.byEmail(payload,email_verification_url)
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:

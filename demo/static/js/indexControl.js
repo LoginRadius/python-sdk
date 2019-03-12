@@ -9,6 +9,11 @@ $(function() {
 
 function login_traditional() {
     $("#btn-minimal-login").click(function() {
+        if ($('#minimal-login-email').val().trim() == '' || $('#minimal-login-password').val().trim() == '') {
+            $("#minimal-login-message").text("All fields are required.");
+            $("#minimal-login-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "GET",
             url: "/login",
@@ -32,6 +37,11 @@ function login_traditional() {
 
 function login_mfa() {
     $("#btn-minimal-mfalogin-next").click(function() {
+        if ($('#minimal-mfalogin-email').val().trim() == '' || $('#minimal-mfalogin-password').val().trim() == '') {
+            $("#minimal-mfalogin-message").text("All fields are required.");
+            $("#minimal-mfalogin-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "POST",
             url: "/mfa",
@@ -69,6 +79,11 @@ function login_mfa() {
 }
 
 function validateGoogleCode(gtoken) {
+    if ($('#minimal-mfalogin-googlecode').val().trim() == '') {
+            $("#minimal-mfalogin-message").text("All fields are required.");
+            $("#minimal-mfalogin-message").attr("class", "error-message");
+            return;
+        }
     $.ajax({
         type: "PUT",
         url: "/mfa/verify",
@@ -91,6 +106,11 @@ function validateGoogleCode(gtoken) {
 
 function login_passwordless() {
     $("#btn-minimal-pwless").click(function() {
+        if ($('#minimal-pwless-email').val().trim() == '') {
+            $("#minimal-pwless-message").text("All fields are required.");
+            $("#minimal-pwless-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "GET",
             url: "/passwordless",
@@ -145,8 +165,8 @@ function login_social() { // uses js-library
 
 function register() {
     $("#btn-minimal-signup").click(function() {
-        if ($("#minimal-signup-password").val() != $("#minimal-signup-confirmpassword").val()) {
-            $("#minimal-signup-message").text("Passwords do not match!");
+        if ($("#minimal-signup-password").val() == '' || $("#minimal-signup-email").val() == '' || $("#minimal-signup-confirmpassword").val() == '' ) {
+            $("#minimal-signup-message").text("All fields are required.");
             $("#minimal-signup-message").attr("class", "error-message");
             return;
         }
@@ -175,6 +195,11 @@ function register() {
 
 function forgotpassword() {
     $("#btn-minimal-forgotpassword").click(function() {
+        if ($("#minimal-forgotpassword-email").val() == '') {
+            $("#minimal-forgotpassword-message").text("All fields are required.");
+            $("#minimal-forgotpassword-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "POST",
             url: "/password/forgot",

@@ -40,6 +40,11 @@ function update_profile() {
 
 function change_password() {
     $("#btn-user-changepassword").click(function() {
+        if ($('#user-changepassword-oldpassword').val().trim() == '' || $('#user-changepassword-newpassword').val().trim() == '') {
+            $("#user-changepassword-message").text("All fields are required.");
+            $("#user-changepassword-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "PUT",
             url: "/password/change",
@@ -65,6 +70,11 @@ function change_password() {
 
 function set_password() {
     $("#btn-user-setpassword").click(function() {
+        if ($('#user-setpassword-password').val().trim() == '') {
+            $("#user-setpassword-message").text("All fields are required.");
+            $("#user-setpassword-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "PUT",
             url: "/password/set",
@@ -184,6 +194,11 @@ function create_customobject() {
             $("#user-createcustomobj-message").attr("class", "error-message");
             return;
         }
+        if ($('#user-createcustomobj-objectname').val().trim() == '') {
+            $("#user-createcustomobj-message").text("All fields are required.");
+            $("#user-createcustomobj-message").attr("class", "error-message");
+            return;
+        }
 
         $.ajax({
             type: "POST",
@@ -207,9 +222,15 @@ function create_customobject() {
 
 function update_customobject() {
     $("#btn-user-updatecustomobj").click(function() {
+        
         var input = $("#user-updatecustomobj-data").val();
         if (!IsJsonString(input)) {
             $("#user-updatecustomobj-message").text("Please input a valid JSON object in the data field.");
+            $("#user-updatecustomobj-message").attr("class", "error-message");
+            return;
+        }
+        if ($('#user-updatecustomobj-objectname').val().trim() == '') {
+            $("#user-updatecustomobj-message").text("All fields are required.");
             $("#user-updatecustomobj-message").attr("class", "error-message");
             return;
         }
@@ -236,6 +257,11 @@ function update_customobject() {
 
 function delete_customobject() {
     $("#btn-user-deletecustomobj").click(function() {
+        if ($('#user-deletecustomobj-objectname').val().trim() == '') {
+            $("#user-deletecustomobj-message").text("All fields are required.");
+            $("#user-deletecustomobj-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "DELETE",
             url: "/customobject?objectname=" + $("#user-deletecustomobj-objectname").val() + "&objectrecordid=" + $("#user-deletecustomobj-objectrecordid").val() + '&uid=' + localStorage.getItem('lr-user-uid'),
@@ -256,8 +282,11 @@ function delete_customobject() {
 
 function get_customobject() {
     $("#btn-user-getcustomobj").click(function() {
-        if ($("#user-getcustomobj-objectname").val().trim() == '') return;
-
+        if ($('#user-getcustomobj-objectname').val().trim() == '') {
+            $("#user-getcustomobj-message").text("All fields are required.");
+            $("#user-getcustomobj-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "GET",
             url: "/customobject?objectname=" + $("#user-getcustomobj-objectname").val() + '&uid=' + localStorage.getItem('lr-user-uid'),
@@ -318,6 +347,11 @@ function roles() {
 
 function create_role() {
     $("#btn-user-createrole").click(function() {
+        if ($('#user-roles-createrole').val().trim() == '') {
+            $("#user-createrole-message").text("All fields are required.");
+            $("#user-createrole-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "POST",
             url: "/role",
@@ -343,6 +377,11 @@ function create_role() {
 
 function delete_role() {
     $("#btn-user-deleterole").click(function() {
+        if ($('#user-roles-deleterole').val().trim() == '') {
+            $("#user-deleterole-message").text("All fields are required.");
+            $("#user-deleterole-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "DELETE",
             url: "/role?role=" + $("#user-roles-deleterole").val(),
@@ -365,6 +404,11 @@ function delete_role() {
 
 function assign_role() {
     $("#btn-user-assignrole").click(function() {
+        if ($('#user-roles-assignrole').val().trim() == '') {
+            $("#user-assignrole-message").text("All fields are required.");
+            $("#user-assignrole-message").attr("class", "error-message");
+            return;
+        }
         $.ajax({
             type: "PUT",
             url: "/role/user",

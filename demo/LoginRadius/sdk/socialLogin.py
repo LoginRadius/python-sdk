@@ -19,7 +19,8 @@
 #################################################
 
 SECURE_API_URL = "https://api.loginradius.com/"
-socialLoginEndpoint ="/api/v2/";
+socialLoginEndpoint = "/api/v2/"
+
 
 class SocialLogin():
     """Where all the API commands can be invoked locally."""
@@ -43,7 +44,7 @@ class SocialLogin():
     def get_user_profile(self, access_token):
         """Retrieve basic profile information."""
         payload = {'access_token': access_token}
-        url = SECURE_API_URL + socialLoginEndpoint +"userprofile/"
+        url = SECURE_API_URL + socialLoginEndpoint + "userprofile/"
         return self._lr_object._get_json(url, payload)
 
     def get_user_profile_raw(self, access_token):
@@ -243,10 +244,11 @@ class SocialLogin():
         payload = {'access_token': access_token}
         url = SECURE_API_URL + socialLoginEndpoint + "like/raw/"
         return self._lr_object._get_json(url, payload)
-    
+
     def get_message(self, access_token, to, subject, message):
         """Get messages from profile."""
-        payload = {'access_token': access_token, 'to':to,'subject':subject,'message':message}
+        payload = {'access_token': access_token, 'to': to,
+                   'subject': subject, 'message': message}
         url = SECURE_API_URL + socialLoginEndpoint + "message/js/"
         return self._lr_object._get_json(url, payload)
 
@@ -257,12 +259,14 @@ class SocialLogin():
         For what is and is not supported, please refer to:
         http://www.loginradius.com/datapoints
         """
-        payload = '?access_token='+ access_token + '&status='+ status + '&title='+ title + '&url=' + url + '&imageurl=' + imageurl + '&caption=' + caption + '&description=' + description
+        payload = '?access_token=' + access_token + '&status=' + status + '&title=' + title + \
+            '&url=' + url + '&imageurl=' + imageurl + '&caption=' + \
+            caption + '&description=' + description
         url = SECURE_API_URL + socialLoginEndpoint + "status/js"
-        return self._lr_object._get_json(url+payload, {})
+        return self._lr_object._get_json(url + payload, {})
 
     #
-    #Write Permissions
+    # Write Permissions
     #
 
     def status_update(self, access_token, status, title='', url='', imageurl='', caption='', description=''):
@@ -272,14 +276,15 @@ class SocialLogin():
         For what is and is not supported, please refer to:
         http://www.loginradius.com/datapoints
         """
-        payload = '?access_token='+ access_token + '&status='+ status + '&title='+ title + '&url=' + url + '&imageurl=' + imageurl + '&caption=' + caption + '&description=' + description
+        payload = '?access_token=' + access_token + '&status=' + status + '&title=' + title + \
+            '&url=' + url + '&imageurl=' + imageurl + '&caption=' + \
+            caption + '&description=' + description
         url = SECURE_API_URL + socialLoginEndpoint + "status/"
-        return self._lr_object._post_json(url+payload, {})
+        return self._lr_object._post_json(url + payload, {})
 
     def direct_message(self, access_token, to, subject, message):
         """Direct message another user on behalf of this user."""
-        payload = '?access_token=' + access_token + '&to=' + to + '&subject=' + subject + '&message=' + message
+        payload = '?access_token=' + access_token + '&to=' + \
+            to + '&subject=' + subject + '&message=' + message
         url = SECURE_API_URL + socialLoginEndpoint + "message/"
-        return self._lr_object._post_json(url+payload, {})
-
-
+        return self._lr_object._post_json(url + payload, {})
