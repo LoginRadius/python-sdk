@@ -1,5 +1,10 @@
 # LoginRadius Python SDK Change Log
 
+# Version 3.3.1
+## Bug Fixed
+  - Handling Exception for NoAPIKey and NoSecretKey
+  - Fixed some bugs and standardised SDK
+
 # Version 3.3.0
 ## Enhancements
   - Enabled Support for gzip compression

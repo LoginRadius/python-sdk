@@ -13,7 +13,7 @@
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
-# package.                                      #context
+# package.                                      #
 #################################################
 from LoginRadius.Exceptions import Exceptions
 from LoginRadius.sdk.socialLogin import SocialLogin
@@ -530,39 +530,8 @@ class LoginRadius:
             proxies = {}
         return proxies
 
-    def _process_result(self, result):
-        """Anything we need to parse or look for. In this case, just the ErrorCode"""
-        if result and "ErrorCode" in result:
-            return self._process_error(result)
-        else:
-            return result
-
-    def _process_error(self, result):
-        """If there is an errorCode, let's figure out which one and raise the corresponding exception."""
-        self.error = result
-
-        if result['ErrorCode'] == 901:
-            raise Exceptions.APIKeyInvalid
-        elif result['ErrorCode'] == 902:
-            raise Exceptions.APISecretInvalid
-        elif result['ErrorCode'] == 903:
-            raise Exceptions.InvalidRequestToken
-        elif result['ErrorCode'] == 904:
-            raise Exceptions.RequestTokenExpired
-        elif result['ErrorCode'] == 905:
-            raise Exceptions.InvalidAccessToken
-        elif result['ErrorCode'] == 906:
-            raise Exceptions.TokenExpired
-        elif result['ErrorCode'] == 907:
-            raise Exceptions.ParameterMissing
-        elif result['ErrorCode'] == 908:
-            raise Exceptions.ParameterNotFormatted
-        elif result['ErrorCode'] == 909:
-            raise Exceptions.FeatureNotSupported
-        elif result['ErrorCode'] == 910:
-            raise Exceptions.EndPointNotSupported
-        else:
-            return result
+    def _process_result(self, result):        
+        return result
 
     #
     # Public functions
