@@ -1,7 +1,8 @@
 # LoginRadius Python SDK Change Log
 
 # Version 10.0.0-beta
-## This beta version release includes major changes with several improvements and optimizations :
+## Enhancements
+This beta version release includes major changes with several improvements and optimizations :
   - Enhanced the coding standards of SDK to follow industry programming styles and best practices.
   - Enhanced security standards of SDK.
   - Reduced code between the business layer and persistence layer for optimization of SDK performance.
