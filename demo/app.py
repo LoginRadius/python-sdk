@@ -8,7 +8,7 @@ app.register_blueprint(user)
 
 @app.route("/")
 def main():
-    return redirect("/loginscreen")
+    return redirect("/minimal")
 
 if __name__ == "__main__":
     app.run()

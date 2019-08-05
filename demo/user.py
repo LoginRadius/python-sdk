@@ -9,7 +9,7 @@ def profile():
 
 @user.route("/user")
 def get_user():
-	res = loginradius.authentication.profile.getByToken(request.args['token'])
+	res = loginradius.authentication.get_profile_by_access_token(request.args['token'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
@@ -17,7 +17,7 @@ def get_user():
 
 @user.route("/password/change", methods=['PUT'])
 def change_password():
-	res = loginradius.authentication.changePassword(request.form['token'], request.form['oldpassword'], request.form['newpassword'])
+	res = loginradius.authentication.change_password(request.form['token'], request.form['newpassword'], request.form['oldpassword'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
@@ -25,7 +25,7 @@ def change_password():
 
 @user.route("/password/set", methods=['PUT'])
 def set_password():
-	res = loginradius.account.setPassword(request.form['uid'], request.form['password'])
+	res = loginradius.account.set_account_password_by_uid(request.form['password'], request.form['uid'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
@@ -38,7 +38,7 @@ def update_account():
 		'LastName': request.form['lastname'],
 		'About': request.form['about']
 	}
-	res = loginradius.account.update(request.form['uid'], payload)
+	res = loginradius.account.update_account_by_uid(payload, request.form['uid'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
@@ -47,13 +47,13 @@ def update_account():
 @user.route("/customobject", methods=['GET', 'PUT', 'POST', 'DELETE'])
 def custom_object():
 	if request.method == 'POST':
-		res = loginradius.customobject.create(request.args['uid'], request.args['objectname'], request.json)
+		res = loginradius.custom_object.create_custom_object_by_uid(request.args['objectname'], request.json, request.args['uid'])
 	elif request.method == 'PUT':
-		res = loginradius.customobject.update(request.args['uid'], request.args['objectrecordid'], request.args['objectname'], request.json, 'replace')
+		res = loginradius.custom_object.update_custom_object_by_uid(request.args['objectname'], request.args['objectrecordid'],  request.json, request.args['uid'])
 	elif request.method == 'GET':
-		res = loginradius.customobject.getByUID(request.args['uid'], request.args['objectname'])
+		res = loginradius.custom_object.get_custom_object_by_uid(request.args['objectname'], request.args['uid'])
 	elif request.method == 'DELETE':
-		res = loginradius.customobject.remove(request.args['uid'], request.args['objectrecordid'], request.args['objectname'])
+		res = loginradius.custom_object.delete_custom_object_by_record_id(request.args['objectname'], request.args['objectrecordid'], request.args['uid'])
 
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
@@ -62,7 +62,7 @@ def custom_object():
 
 @user.route("/mfa/reset", methods=['DELETE'])
 def reset_mfa():
-	res = loginradius.account.twofactor.removeAuthByUid(request.args['uid'], 'googleauthenticator')
+	res = loginradius.mfa.mfa_reset_google_authenticator_by_uid(True, request.args['uid'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
@@ -71,7 +71,7 @@ def reset_mfa():
 @user.route("/role", methods=['GET', 'POST', 'DELETE'])
 def role():
 	if request.method == 'GET':
-		res = loginradius.role.get()
+		res = loginradius.role.get_roles_list()
 	elif request.method == 'POST':
 		payload = {
 			'roles': [{
@@ -79,9 +79,9 @@ def role():
 				'permissions': {}
 			}]
 		}
-		res = loginradius.role.create(payload)
+		res = loginradius.role.create_roles(payload)
 	elif request.method == 'DELETE':
-		res = loginradius.role.remove(request.args['role'])
+		res = loginradius.role.delete_role(request.args['role'])
 
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
@@ -91,12 +91,12 @@ def role():
 @user.route("/role/user", methods=['GET', 'PUT'])
 def user_role():
 	if request.method == 'GET':
-		res = loginradius.role.getRoleByUid(request.args['uid'])
+		res = loginradius.role.get_roles_by_uid(request.args['uid'])
 	elif request.method == 'PUT':
 		payload = {
 			'roles': [request.form['role']]
 		}
-		res = loginradius.role.assignRole(request.form['uid'], payload)
+		res = loginradius.role.assign_roles_by_uid(payload, request.form['uid'])
 
 	if res == None:
 		return jsonify({'status': 204})
@@ -107,7 +107,7 @@ def user_role():
 
 @user.route("/logout")
 def logout():
-	res = loginradius.authentication.tokenInvalidate(request.args['token'])
+	res = loginradius.authentication.auth_in_validate_access_token(request.args['token'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:

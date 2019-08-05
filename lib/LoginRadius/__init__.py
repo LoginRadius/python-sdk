@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #################################################
-# Class for User Registration                   #
+# Class for Initilizing the LoginRadius Class   #
 #################################################
 # This is the main class to communicate with    #
 # LoginRadius' Unified User Registration API.
@@ -9,38 +9,58 @@
 # premium or enterprise members only.           #
 # In which case, an exception will be raised.   #
 #################################################
-# Copyright 2017-2018 LoginRadius Inc.          #
+# Copyright 2019 LoginRadius Inc.               #
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
 # package.                                      #
 #################################################
-from LoginRadius.Exceptions import Exceptions
-from LoginRadius.sdk.socialLogin import SocialLogin
-from LoginRadius.sdk.config import Configuration
-from LoginRadius.sdk.role import Role
-from LoginRadius.sdk.webHook import WebHook
-from LoginRadius.sdk.phoneAuthentication import PhoneAuthentication
-from LoginRadius.sdk.customObject import CustomObject
-from LoginRadius.sdk.authentication import Authentication
-from LoginRadius.sdk.account import Account
-from LoginRadius.sdk.accessToken import AccessToken
-from collections import namedtuple
-from datetime import datetime
-from importlib import import_module
-import json
-import os
-import sys
-import urllib3
 
 __author__ = "LoginRadius"
-__copyright__ = "Copyright 2017-2019, LoginRadius"
+__copyright__ = "Copyright 2019, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "3.3.1"
+__version__ = "10.0.0-beta"
 
-HEADERS = {'Accept': "application/json"}
+import json
+import sys
+import urllib3
+import hmac
+import hashlib
+import base64
+from collections import namedtuple
+from datetime import datetime, timedelta
+from importlib import import_module
 
+import binascii
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.ciphers import Cipher
+from cryptography.hazmat.primitives.ciphers import algorithms
+from cryptography.hazmat.primitives.ciphers import modes
+from pbkdf2 import PBKDF2
+
+# Authentication APIs
+from LoginRadius.api.authentication.authentication_api import AuthenticationApi
+from LoginRadius.api.authentication.onetouchlogin_api import OneTouchLoginApi
+from LoginRadius.api.authentication.passwordlesslogin_api import PasswordLessLoginApi
+from LoginRadius.api.authentication.phoneauthentication_api import PhoneAuthenticationApi
+from LoginRadius.api.authentication.riskbasedauthentication_api import RiskBasedAuthenticationApi
+from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
+# Account APIs
+from LoginRadius.api.account.account_api import AccountApi
+from LoginRadius.api.account.role_api import RoleApi
+from LoginRadius.api.account.sott_api import SottApi
+# Advance APIs
+from LoginRadius.api.advanced.customobject_api import CustomObjectApi
+from LoginRadius.api.advanced.customregistrationdata_api import CustomRegistrationDataApi
+from LoginRadius.api.advanced.multifactorauthentication_api import MultiFactorAuthenticationApi
+from LoginRadius.api.advanced.configuration_api import ConfigurationApi
+from LoginRadius.api.advanced.webhook_api import WebHookApi
+# Social APIs
+from LoginRadius.api.social.nativesocial_api import NativeSocialApi
+from LoginRadius.api.social.social_api import SocialApi
+# exception
+from LoginRadius.exceptions import Exceptions
 
 class LoginRadius:
     """
@@ -52,6 +72,10 @@ class LoginRadius:
     API_SECRET = None
     LIBRARY = None
     CUSTOM_DOMAIN = None
+    API_REQUEST_SIGNING = False
+    SERVER_REGION = None
+    CONST_INITVECTOR = "tu89geji340t89u2"
+    CONST_KEYSIZE = 256
 
     def __init__(self):
         """
@@ -59,10 +83,11 @@ class LoginRadius:
         :raise Exceptions.NoAPIKey: Raised if you did not set an API_KEY.
         :raise Exceptions.NoAPISecret: Raised if you did not set an API_SECRET.
         """
-
+		
         self.error = {}
         self.sociallogin_raw = False
-
+        self.bs = 16
+        
         if not self.API_KEY:
             raise Exceptions.NoAPIKey
 
@@ -77,7 +102,7 @@ class LoginRadius:
         self.CONFIG_API_URL = "https://config.lrcontent.com/"
 
         # proxy server detail
-        self.Is_Proxy_Enable = False
+        self.IS_PROXY_ENABLE = False
         self.USER_NAME = "your-username"
         self.PASSWORD = "your-password"
         self.HOST = "host-name"
@@ -86,15 +111,6 @@ class LoginRadius:
         # Namedtuple for settings for each request and the api functions.
         self.settings = namedtuple(
             "Settings", ['library', 'urllib', 'urllib2', 'json', 'requests'])
-        self.accesstoken = self._get_accesstoken_tuple()
-        self.account = self._get_account_tuple()
-        self.authentication = self._get_authentication_tuple()
-        self.customobject = self._get_customobject_tuple()
-        self.phoneauthentication = self._get_phoneauthentication_tuple()
-        self.webhook = self._get_webhook_tuple()
-        self.config = self._get_config_tuple()
-        self.role = self._get_role_tuple()
-        self.sociallogin = self._get_sociallogin_tuple()
 
         # We prefer to use requests with the updated urllib3 module.
         try:
@@ -110,18 +126,35 @@ class LoginRadius:
         except (ImportError, Exceptions.RequestsLibraryDated):
             self._settings("urllib2")
 
-        # Well, something went wrong here.
-        except:
-            raise
-
+        self.authentication = AuthenticationApi(self)
+        self.one_touch_login = OneTouchLoginApi(self)
+        self.password_less_login = PasswordLessLoginApi(self)
+        self.risk_based_authentication = RiskBasedAuthenticationApi(self)
+        self.smart_login = SmartLoginApi(self)
+        self.phone_authentication = PhoneAuthenticationApi(self)
+        self.account = AccountApi(self)
+        self.role = RoleApi(self)
+        self.sott = SottApi(self)
+		
+		
+        self.custom_object = CustomObjectApi(self)
+        self.custom_registration_data = CustomRegistrationDataApi(self)
+        self.mfa = MultiFactorAuthenticationApi(self)
+        self.configuration = ConfigurationApi(self)
+        self.web_hook = WebHookApi(self)
+		
+        self.native_social = NativeSocialApi(self)
+        self.social = SocialApi(self)
+        if sys.version_info[0] < 3:
+            from urllib import quote
+            self.quote = quote
         else:
-            # Namedtuples for api, and user.
-            self.accesstoken = self._get_accesstoken_tuple()
+            from urllib.parse import quote
+            self.quote = quote
 
     #
     # Internal private functions
     #
-
     def _settings(self, library):
         """This sets the name tuple settings to whatever library you want.
         You may change this as you wish."""
@@ -158,294 +191,94 @@ class LoginRadius:
         self.settings.requests = False
         self.settings.json = import_module("json")
 
-    def _get_accesstoken_tuple(self):
-        self.accessTokenAPI = AccessToken(self)
-        """All the functions relative to the user with the token."""
-        accessToken = namedtuple("AccessToken", ['exchange', 'validate', 'invalidate',
-                                                 'refresh', 'getFacebookToken', 'getTwitterToken',
-                                                 'getAccessTokenByGoogleJWT',
-                                                 'activeSessionDetails', 'getVkontakteToken',
-                                                 'getGoogleToken'])
+    def get_expiry_time(self):
+        utc_time = datetime.utcnow()
+        expiry_time = utc_time + timedelta(hours=1)
+        return expiry_time.strftime("%Y-%m-%d %H:%M:%S")
 
-        # Get methods
-        accessToken.exchange = self.accessTokenAPI.exchange
-        accessToken.validate = self.accessTokenAPI.validate
-        accessToken.invalidate = self.accessTokenAPI.invalidate
-        accessToken.refresh = self.accessTokenAPI.refresh
-        accessToken.getFacebookToken = self.accessTokenAPI.getFacebookToken
-        accessToken.getTwitterToken = self.accessTokenAPI.getTwitterToken
-        accessToken.activeSessionDetails = self.accessTokenAPI.activeSessionDetails
-        accessToken.getVkontakteToken = self.accessTokenAPI.getVkontakteToken
-        accessToken.getGoogleToken = self.accessTokenAPI.getGoogleToken
-        return accessToken
+    def get_digest(self, expiry_time, url, payload=None):
+        encoded_url = self.quote(url.lower(), safe='')
+        signing_str = expiry_time + ":" + encoded_url
+        signing_str = signing_str.lower()
+        if payload is not None:
+            signing_str = signing_str + ":" + json.dumps(payload)
 
-    def _get_webhook_tuple(self):
-        self.webhookAPI = WebHook(self)
-        webhook = namedtuple(
-            "WebHook", ['subscribe', 'test', 'unsubscribe', 'getSubscribed'])
-        webhook.subscribe = self.webhookAPI.subscribe
-        webhook.unsubscribe = self.webhookAPI.unsubscribe
-        webhook.getSubscribed = self.webhookAPI.getSubscribed
-        webhook.test = self.webhookAPI.test
-        return webhook
+        key_bytes = self.get_api_secret()
+        data_bytes = signing_str
+        if sys.version_info[0] >= 3:
+            key_bytes = bytes(self.get_api_secret(), 'latin-1')
+            data_bytes = bytes(signing_str, 'latin-1')
+        dig = hmac.new(key_bytes, msg=data_bytes, digestmod=hashlib.sha256).digest()
+        if sys.version_info[0] >= 3:
+            return base64.b64encode(dig).decode("utf-8")
+        return base64.b64encode(dig)
 
-    def _get_config_tuple(self):
-        self.configAPI = Configuration(self)
-        config = namedtuple("Configuration", ['getConfiguration'])
-        config.getConfiguration = self.configAPI.getConfiguration
-        return config
+    def execute(self, method, resource_url, query_params, payload):
+        api_end_point = self.SECURE_API_URL + resource_url
 
-    def _get_role_tuple(self):
-        self.roleAPI = Role(self)
-        self.rolePermissionAPI = Role.Permission(self)
-        self.roleContextAPI = Role.Context(self)
-        role = namedtuple("Role", ['create', 'get', 'remove',
-                                   'assignRole', 'getRoleByUid', 'permission', 'context', 'unassignRoles'])
-        role.permission = namedtuple("Role_Permission", ['add', 'remove'])
-        role.context = namedtuple("Role_Context", ['get', 'add', 'delete', 'deleteRole', 'deletePermission'])
-        role.create = self.roleAPI.create
-        role.get = self.roleAPI.get
-        role.remove = self.roleAPI.remove
-        role.assignRole = self.roleAPI.assignRole
-        role.getRoleByUid = self.roleAPI.getRoleByUid
-        role.unassignRoles = self.roleAPI.unassignRoles
-        role.permission.add = self.rolePermissionAPI.add
-        role.permission.remove = self.rolePermissionAPI.remove
-        role.context.get = self.roleContextAPI.get
-        role.context.add = self.roleContextAPI.add
-        role.context.delete = self.roleContextAPI.delete
-        role.context.deleteRole = self.roleContextAPI.deleteRole
-        role.context.deletePermission = self.roleContextAPI.deletePermission
-        return role
+        if resource_url == "ciam/appinfo":
+            api_end_point = self.CONFIG_API_URL + resource_url
+        
+        if self.SERVER_REGION is not None and self.SERVER_REGION != "":
+            query_params['region'] = self.SERVER_REGION
 
-    def _get_sociallogin_tuple(self):
-        self.socialloginAPI = SocialLogin(self)
-        user = namedtuple('User', ['refresh_profile', 'profile', 'photo', 'check_in', 'audio', 'album', 'video', 'contacts', 'status', 'group', 'post',
-                                   'event', 'mention', 'company', 'following', 'page', 'like', 'message', 'status_update', 'direct_message', 'get_message', 'get_status_update'])
-        user.refresh_profile = self.socialloginAPI.get_refresh_user_profile
-        user.get_status_update = self.socialloginAPI.get_status_update
-        user.status_update = self.socialloginAPI.status_update
-        user.direct_message = self.socialloginAPI.direct_message
-        user.message = self.socialloginAPI.get_message
+        apiSecret = None
+        if "apiSecret" in query_params:
+            apiSecret = query_params['apiSecret']
+            query_params.pop("apiSecret")
 
-        if self.sociallogin_raw:
-            user.profile = self.socialloginAPI.get_user_profile_raw
-            user.photo = self.socialloginAPI.get_photo_raw
-            user.check_in = self.socialloginAPI.get_checkin_raw
-            user.audio = self.socialloginAPI.get_audio_raw
-            user.album = self.socialloginAPI.get_album_raw
-            user.video = self.socialloginAPI.get_video_raw
-            user.contacts = self.socialloginAPI.get_contacts_raw
-            user.status = self.socialloginAPI.get_status_raw
-            user.group = self.socialloginAPI.get_group_raw
-            user.post = self.socialloginAPI.get_post_raw
-            user.event = self.socialloginAPI.get_event_raw
-            user.mention = self.socialloginAPI.get_mention_raw
-            user.company = self.socialloginAPI.get_company_raw
-            user.following = self.socialloginAPI.get_following_raw
-            user.page = self.socialloginAPI.get_page_raw
-            user.like = self.socialloginAPI.get_like_raw
-        else:
-            user.profile = self.socialloginAPI.get_user_profile
-            user.photo = self.socialloginAPI.get_photo
-            user.check_in = self.socialloginAPI.get_checkin
-            user.audio = self.socialloginAPI.get_audio
-            user.album = self.socialloginAPI.get_album
-            user.video = self.socialloginAPI.get_video
-            user.contacts = self.socialloginAPI.get_contacts
-            user.status = self.socialloginAPI.get_status
-            user.group = self.socialloginAPI.get_group
-            user.post = self.socialloginAPI.get_post
-            user.event = self.socialloginAPI.get_event
-            user.mention = self.socialloginAPI.get_mention
-            user.company = self.socialloginAPI.get_company
-            user.following = self.socialloginAPI.get_following
-            user.page = self.socialloginAPI.get_page
-            user.like = self.socialloginAPI.get_like
-
-        return user
-
-    def _get_phoneauthentication_tuple(self):
-        self.phoneauthenticationAPI = PhoneAuthentication(self)
-        self.phoneauthenticationOTPAPI = PhoneAuthentication.OTP(self)
-        phoneauthentication = namedtuple("PhoneAuthentication", [
-                                        'register', 'login', 'update', 'otp', 'getPhoneAvailable', 'forgotPassword', 'resetPassword', 'removePhoneIdByToken'])
-        phoneauthentication.otp = namedtuple("PhoneAuthentication_OTP", [
-                                             'resend', 'resendByToken', 'verify', 'verifyByToken', 'send'])
-        phoneauthentication.register = self.phoneauthenticationAPI.register
-        phoneauthentication.login = self.phoneauthenticationAPI.login
-        phoneauthentication.update = self.phoneauthenticationAPI.update
-        phoneauthentication.getPhoneAvailable = self.phoneauthenticationAPI.getPhoneAvailable
-        phoneauthentication.forgotPassword = self.phoneauthenticationAPI.forgotPassword
-        phoneauthentication.resetPassword = self.phoneauthenticationAPI.resetPassword
-        phoneauthentication.removePhoneIdByToken = self.phoneauthenticationAPI.removePhoneIdByToken
-        phoneauthentication.otp.resend = self.phoneauthenticationOTPAPI.resend
-        phoneauthentication.otp.verify = self.phoneauthenticationOTPAPI.verify
-        phoneauthentication.otp.verifyByToken = self.phoneauthenticationOTPAPI.verifyByToken
-        phoneauthentication.otp.resendByToken = self.phoneauthenticationOTPAPI.resendByToken
-        phoneauthentication.otp.send = self.phoneauthenticationOTPAPI.send
-        return phoneauthentication
-
-    def _get_customobject_tuple(self):
-        self.customobjectAPI = CustomObject(self)
-        customobject = namedtuple("CustomObject", [
-                                  'create', 'update', 'getByUID', 'getByObjectRecordId', 'remove'])
-        customobject.create = self.customobjectAPI.create
-        customobject.update = self.customobjectAPI.update
-        customobject.getByUID = self.customobjectAPI.getByUID
-        customobject.getByObjectRecordId = self.customobjectAPI.getByObjectRecordId
-        customobject.remove = self.customobjectAPI.remove
-        return customobject
-
-    def _get_authentication_tuple(self):
-        self.authenticationAPI = Authentication(self)
-        self.authenticationLoginAPI = Authentication.Login(self)
-        self.authenticationProfileAPI = Authentication.Profile(self)
-        self.authenticationCustomObjectAPI = Authentication.CustomObject(self)
-        self.authenticationTwoFactorAPI = Authentication.TwoFactor(self)
-        authentication = namedtuple("Authentication", ['login','profile','customobject','twofactor','register', 'getServerTime', 'captchaRegister', 'resendEmailVerification', 'forgotPassword', 'resetPassword', 'deleteAccountByEmailConfirmation', 'changePassword', 'addEmail', 'removeEmail', 'getVerifyEmail', 'verifyEmailbyOTP', 'getCheckEmail', 'changeUsername', 'checkUsername', 'accountLink', 'accountUnlink', 'getSocialProfile', 'tokenValidate', 'tokenInvalidate',
-                                                       'resetPasswordByOTP', 'resetPasswordBySecurityAnswerAndEmail', 'resetPasswordBySecurityAnswerAndPhone', 'resetPasswordBySecurityAnswerAndUsername', 'updateSecurityQuestionByAccessToken', 'validateSecretCode', 'authGetRegistrationDataServer', 'securityQuestionByToken', 'securityQuestionByEmail', 'securityQuestionByUsername', 'securityQuestionByPhone', 'privacyPolicyAccept', 'sendWelcomeEmail', 'deleteAccount'])
-        authentication.login = namedtuple("Authentication_Login", ['byBackupCode', 'byEmail', 'byUsername', 'smartLoginByUsername', 'smartLoginByEmail', 'smartLoginPing', 'smartLoginVerifyToken', 'passwordlessLoginByEmail',
-                                                                   'passwordlessLoginVerification', 'passwordlessLoginByUsername', 'oneTouchLoginByEmail', 'oneTouchLoginByPhone', 'oneTouchOtpVerification', 'oneTouchEmailVerification', 'passwordlessLoginVerifyOTP', 'passwordlessLoginSendOTP'])
-        authentication.profile = namedtuple("Authentication_Profile", [
-                                            'getByToken', 'updateByToken'])
-        authentication.customobject = namedtuple("Authentication_CustomObject", [
-                                                 'create', 'update', 'getByID', 'getByToken', 'delete'])
-        authentication.twofactor = namedtuple("Authentication_TwoFactor", ['getBackupCode', 'resetBackupCode', 'byToken', 'phoneLogin', 'emailLogin', 'usernameLogin', 'updatePhone', 'verifyGoogleAuth', 'updatePhoneByToken', 'googleAuthByToken',
-                                                                           'removeAuthByToken', 'validateBackupCode', 'validateOTP', 'validateGoogleAuthCode', 'updateByAccessToken', 'updateSetting', 'reAuth', 'reAuthByGoogleAuthCode', 'reAuthByBackupCode', 'reAuthByOTP', 'reAuthByPassword'])
-        authentication.register = self.authenticationAPI.register
-        authentication.getServerTime = self.authenticationAPI.getServerTime
-        authentication.captchaRegister = self.authenticationAPI.captchaRegister
-        authentication.resendEmailVerification = self.authenticationAPI.resendEmailVerification
-        authentication.forgotPassword = self.authenticationAPI.forgotPassword
-        authentication.resetPassword = self.authenticationAPI.resetPassword
-        authentication.resetPasswordByOTP = self.authenticationAPI.resetPasswordByOTP
-        authentication.resetPasswordBySecurityAnswerAndEmail = self.authenticationAPI.resetPasswordBySecurityAnswerAndEmail
-        authentication.resetPasswordBySecurityAnswerAndPhone = self.authenticationAPI.resetPasswordBySecurityAnswerAndPhone
-        authentication.resetPasswordBySecurityAnswerAndUsername = self.authenticationAPI.resetPasswordBySecurityAnswerAndUsername
-        authentication.updateSecurityQuestionByAccessToken = self.authenticationAPI.updateSecurityQuestionByAccessToken
-        authentication.changePassword = self.authenticationAPI.changePassword
-        authentication.deleteAccountByEmailConfirmation = self.authenticationAPI.deleteAccountByEmailConfirmation
-        authentication.addEmail = self.authenticationAPI.addEmail
-        authentication.removeEmail = self.authenticationAPI.removeEmail
-        authentication.getVerifyEmail = self.authenticationAPI.getVerifyEmail
-        authentication.verifyEmailbyOTP = self.authenticationAPI.verifyEmailbyOTP
-        authentication.getCheckEmail = self.authenticationAPI.getCheckEmail
-        authentication.changeUsername = self.authenticationAPI.changeUsername
-        authentication.checkUsername = self.authenticationAPI.checkUsername
-        authentication.accountLink = self.authenticationAPI.accountLink
-        authentication.accountUnlink = self.authenticationAPI.accountUnlink
-        authentication.getSocialProfile = self.authenticationAPI.getSocialProfile
-        authentication.tokenValidate = self.authenticationAPI.tokenValidate
-        authentication.tokenInvalidate = self.authenticationAPI.tokenInvalidate
-        authentication.validateSecretCode = self.authenticationAPI.validateSecretCode
-        authentication.authGetRegistrationDataServer = self.authenticationAPI.authGetRegistrationDataServer
-        authentication.securityQuestionByToken = self.authenticationAPI.securityQuestionByToken
-        authentication.securityQuestionByEmail = self.authenticationAPI.securityQuestionByEmail
-        authentication.securityQuestionByUsername = self.authenticationAPI.securityQuestionByUsername
-        authentication.securityQuestionByPhone = self.authenticationAPI.securityQuestionByPhone
-        authentication.privacyPolicyAccept = self.authenticationAPI.privacyPolicyAccept
-        authentication.sendWelcomeEmail = self.authenticationAPI.sendWelcomeEmail
-        authentication.deleteAccount = self.authenticationAPI.deleteAccount
-        authentication.login.byEmail = self.authenticationLoginAPI.byEmail
-        authentication.login.byBackupCode = self.authenticationLoginAPI.byBackupCode
-        authentication.login.byUsername = self.authenticationLoginAPI.byUsername
-        authentication.login.byOTP = self.authenticationLoginAPI.byOTP
-        authentication.login.smartLoginByEmail = self.authenticationLoginAPI.smartLoginByEmail
-        authentication.login.smartLoginByUsername = self.authenticationLoginAPI.smartLoginByUsername
-        authentication.login.smartLoginPing = self.authenticationLoginAPI.smartLoginPing
-        authentication.login.smartLoginVerifyToken = self.authenticationLoginAPI.smartLoginVerifyToken
-        authentication.login.passwordlessLoginByEmail = self.authenticationLoginAPI.passwordlessLoginByEmail
-        authentication.login.passwordlessLoginByUsername = self.authenticationLoginAPI.passwordlessLoginByUsername
-        authentication.login.passwordlessLoginVerification = self.authenticationLoginAPI.passwordlessLoginVerification
-        authentication.login.oneTouchLoginByEmail = self.authenticationLoginAPI.oneTouchLoginByEmail
-        authentication.login.oneTouchLoginByPhone = self.authenticationLoginAPI.oneTouchLoginByPhone
-        authentication.login.oneTouchOtpVerification = self.authenticationLoginAPI.oneTouchOtpVerification
-        authentication.login.oneTouchEmailVerification = self.authenticationLoginAPI.oneTouchEmailVerification
-        authentication.login.passwordlessLoginVerifyOTP = self.authenticationLoginAPI.passwordlessLoginVerifyOTP
-        authentication.login.passwordlessLoginSendOTP = self.authenticationLoginAPI.passwordlessLoginSendOTP
-        authentication.profile.getByToken = self.authenticationProfileAPI.getByToken
-        authentication.profile.updateByToken = self.authenticationProfileAPI.updateByToken
-        authentication.customobject.create = self.authenticationCustomObjectAPI.create
-        authentication.customobject.update = self.authenticationCustomObjectAPI.update
-        authentication.customobject.getByID = self.authenticationCustomObjectAPI.getByID
-        authentication.customobject.delete = self.authenticationCustomObjectAPI.delete
-        authentication.customobject.getByToken = self.authenticationCustomObjectAPI.getByToken
-        authentication.twofactor.getBackupCode = self.authenticationTwoFactorAPI.getBackupCode
-        authentication.twofactor.resetBackupCode = self.authenticationTwoFactorAPI.resetBackupCode
-        authentication.twofactor.byToken = self.authenticationTwoFactorAPI.byToken
-        authentication.twofactor.phoneLogin = self.authenticationTwoFactorAPI.phoneLogin
-        authentication.twofactor.emailLogin = self.authenticationTwoFactorAPI.emailLogin
-        authentication.twofactor.usernameLogin = self.authenticationTwoFactorAPI.usernameLogin
-        authentication.twofactor.updatePhone = self.authenticationTwoFactorAPI.updatePhone
-        authentication.twofactor.verifyGoogleAuth = self.authenticationTwoFactorAPI.verifyGoogleAuth
-        authentication.twofactor.updatePhoneByToken = self.authenticationTwoFactorAPI.updatePhoneByToken
-        authentication.twofactor.googleAuthByToken = self.authenticationTwoFactorAPI.googleAuthByToken
-        authentication.twofactor.removeAuthByToken = self.authenticationTwoFactorAPI.removeAuthByToken
-        authentication.twofactor.validateBackupCode = self.authenticationTwoFactorAPI.validateBackupCode
-        authentication.twofactor.validateOTP = self.authenticationTwoFactorAPI.validateOTP
-        authentication.twofactor.validateGoogleAuthCode = self.authenticationTwoFactorAPI.validateGoogleAuthCode
-        authentication.twofactor.updateByAccessToken = self.authenticationTwoFactorAPI.updateByAccessToken
-        authentication.twofactor.updateSetting = self.authenticationTwoFactorAPI.updateSetting
-        authentication.twofactor.reAuth = self.authenticationTwoFactorAPI.reAuth
-        authentication.twofactor.reAuthByGoogleAuthCode = self.authenticationTwoFactorAPI.reAuthByGoogleAuthCode
-        authentication.twofactor.reAuthByBackupCode = self.authenticationTwoFactorAPI.reAuthByBackupCode
-        authentication.twofactor.reAuthByOTP = self.authenticationTwoFactorAPI.reAuthByOTP
-        authentication.twofactor.reAuthByPassword = self.authenticationTwoFactorAPI.reAuthByPassword
-        return authentication
-
-    def _get_account_tuple(self):
-        self.accountProfileAPI = Account.Profile(self)
-        self.accountAPI = Account(self)
-        self.accountTwoFactorAPI = Account.TwoFactor(self)
-        self.accountRegistrationDataAPI = Account.RegistrationData(self)
-        account = namedtuple("Account", ['profile','twofactor','registrationdata','updateSecurityQuestion', 'create', 'update', 'remove', 'generateSott', 'setPassword', 'getPassword', 'invalidateVerificationEmail', 'getDeletedAccountByEmail',
-                                         'getDeletedAccountByPhone', 'getDeletedAccountByUid', 'getForgotPasswordToken', 'getEmailVerificationToken', 'getAccessToken', 'getIdentities', 'resetPhoneIdVerification', 'removeEmail'])
-        account.profile = namedtuple(
-            "Account_Profile", ['getByEmail', 'getByUsername', 'getByPhone', 'getByUid'])
-        account.twofactor = namedtuple("Account_TwoFactor", [
-                                       'removeAuthByUid', 'getBackupCodeByUid', 'resetBackupCodeByUid'])
-        account.registrationdata = namedtuple("Account_RegistrationData", [
-                                              'addRegistrationData', 'getRegistrationDataServer', 'updateRegistrationData', 'deleteRegistrationData', 'deleteAllRecordsByDatasource'])
-        account.create = self.accountAPI.create
-        account.updateSecurityQuestion = self.accountAPI.updateSecurityQuestion
-        account.update = self.accountAPI.update
-        account.remove = self.accountAPI.remove
-        account.generateSott = self.accountAPI.generateSott
-        account.setPassword = self.accountAPI.setPassword
-        account.getPassword = self.accountAPI.getPassword
-        account.resetPhoneIdVerification = self.accountAPI.resetPhoneIdVerification
-        account.invalidateVerificationEmail = self.accountAPI.invalidateVerificationEmail
-        account.getDeletedAccountByEmail = self.accountAPI.getDeletedAccountByEmail
-        account.getDeletedAccountByPhone = self.accountAPI.getDeletedAccountByPhone
-        account.getDeletedAccountByUid = self.accountAPI.getDeletedAccountByUid
-        account.getForgotPasswordToken = self.accountAPI.getForgotPasswordToken
-        account.getEmailVerificationToken = self.accountAPI.getEmailVerificationToken
-        account.getAccessToken = self.accountAPI.getAccessToken
-        account.getIdentities = self.accountAPI.getIdentities
-        account.removeEmail = self.accountAPI.removeEmail
-        account.profile.getByEmail = self.accountProfileAPI.getByEmail
-        account.profile.getByUsername = self.accountProfileAPI.getByUsername
-        account.profile.getByPhone = self.accountProfileAPI.getByPhone
-        account.profile.getByUid = self.accountProfileAPI.getByUid
-        account.twofactor.removeAuthByUid = self.accountTwoFactorAPI.removeAuthByUid
-        account.twofactor.getBackupCodeByUid = self.accountTwoFactorAPI.getBackupCodeByUid
-        account.twofactor.resetBackupCodeByUid = self.accountTwoFactorAPI.resetBackupCodeByUid
-        account.registrationdata.addRegistrationData = self.accountRegistrationDataAPI.addRegistrationData
-        account.registrationdata.getRegistrationDataServer = self.accountRegistrationDataAPI.getRegistrationDataServer
-        account.registrationdata.updateRegistrationData = self.accountRegistrationDataAPI.updateRegistrationData
-        account.registrationdata.deleteRegistrationData = self.accountRegistrationDataAPI.deleteRegistrationData
-        account.registrationdata.deleteAllRecordsByDatasource = self.accountRegistrationDataAPI.deleteAllRecordsByDatasource
-        return account
-
-    def _get_json(self, url, payload, headkey=False):
-        """Get JSON from LoginRadius"""
-        HEADERS = {'Content-Type': "application/json",
+        headers = {'Content-Type': "application/json",
                    'Accept-encoding': 'gzip'}
+
+        if "access_token" in query_params and "/auth" in resource_url:
+            headers.update({"Authorization": "Bearer " + query_params['access_token']})
+            query_params.pop("access_token")
+
+        if "sott" in query_params:
+            headers.update({"X-LoginRadius-Sott": query_params['sott']})
+            query_params.pop("sott")
+
+        if apiSecret and "/manage" in resource_url and not self.API_REQUEST_SIGNING:
+            headers.update({"X-LoginRadius-ApiSecret": apiSecret})
+
+        api_end_point = api_end_point + "?"
+        for key, value in query_params.items():
+            api_end_point = api_end_point + key + "=" + str(value) + "&"
+
+        api_end_point = api_end_point[:-1]
+
+        if apiSecret and "/manage" in resource_url and self.API_REQUEST_SIGNING:
+            expiry_time = self.get_expiry_time()
+            digest = self.get_digest(expiry_time, api_end_point, payload)
+            headers.update({"X-Request-Expires": expiry_time})
+            headers.update({"digest": "SHA-256=" + digest})
+
+        try:
+            if method.upper() == 'GET':
+                return self._get_json(api_end_point, {}, headers)
+            else:
+                return self.__submit_json(method.upper(), api_end_point, payload, headers)
+        except IOError as e:
+            return {
+                'ErrorCode': 105,
+                'Description': e.message
+            }
+        except ValueError as e:
+            return {
+                'ErrorCode': 102,
+                'Description': e.message
+            }
+        except Exception as e:
+            return {
+                'ErrorCode': 101,
+                'Description': e.message
+            }
+
+    def _get_json(self, url, payload, HEADERS):
+        """Get JSON from LoginRadius"""
+
         proxies = self._get_proxy()
-        if headkey:
-            HEADERS = {'Content-Type': HEADERS['Content-Type'], 'X-LoginRadius-ApiKey': headkey.get(
-                'apikey'), 'X-LoginRadius-ApiSecret': headkey.get('apisecret'), 'Accept-encoding': 'gzip'}
+
         if self.settings.requests:
             r = self.settings.requests.get(
                 url, proxies=proxies, params=payload, headers=HEADERS)
@@ -456,27 +289,10 @@ class LoginRadius:
             r = http.request('GET', url, fields=payload, headers=HEADERS)
             return json.loads(r.data.decode('utf-8'))
 
-    def _post_json(self, url, payload, headkey=False):
-        return self.__submit_json('POST', url, payload, headkey)
-
-    def _put_json(self, url, payload, headkey=False):
-        return self.__submit_json('PUT', url, payload, headkey)
-
-    def _delete_json(self, url, payload, headkey=False):
-        return self.__submit_json('DELETE', url, payload, headkey)
-
-    def __submit_json(self, method, url, payload, headkey):
+    def __submit_json(self, method, url, payload, HEADERS):
         if self.settings.requests:
             import json
-            HEADERS = {'content-type': 'application/json',
-                       'Accept-encoding': 'gzip'}
             proxies = self._get_proxy()
-            if headkey:
-                HEADERS = {'content-type': HEADERS['content-type'], 'X-LoginRadius-ApiKey': headkey.get(
-                    'apikey'), 'X-LoginRadius-ApiSecret': headkey.get('apisecret'), 'Accept-encoding': 'gzip'}
-            if payload.get('sott'):
-                HEADERS = {'content-type': HEADERS['content-type'], 'X-LoginRadius-Sott': payload.get(
-                    'sott'), 'Accept-encoding': 'gzip'}
             if method == 'PUT':
                 r = self.settings.requests.put(
                     url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
@@ -493,14 +309,7 @@ class LoginRadius:
             data = json.dumps(payload)
             if sys.version_info[0] == 3:
                 data = data.encode('utf-8')
-            HEADERS = {'content-type': 'application/json',
-                       'Accept-encoding': 'gzip'}
-            if headkey:
-                HEADERS = {'content-type': HEADERS['content-type'], 'X-LoginRadius-ApiKey': headkey.get(
-                    'apikey'), 'X-LoginRadius-ApiSecret': headkey.get('apisecret'), 'Accept-encoding': 'gzip'}
-            if payload.get('sott'):
-                HEADERS = {'content-type': HEADERS['content-type'], 'X-LoginRadius-Sott': payload.get(
-                    'sott'), 'Accept-encoding': 'gzip'}
+
             r = self.settings.urllib2.Request(
                 url, data, {'Content-Type': 'application/json', 'Accept-encoding': 'gzip'})
             if method == 'PUT' or method == 'DELETE':
@@ -516,26 +325,89 @@ class LoginRadius:
             reader = codecs.getreader("utf-8")
             return self._process_result(self.settings.json.load(reader(result)))
 
-    def _get_api_key(self):
+    def get_api_key(self):
         return self.API_KEY
 
-    def _get_api_secret(self):
+    def get_api_secret(self):
         return self.API_SECRET
 
     def _get_proxy(self):
-        if self.Is_Proxy_Enable:
-            proxies = {'https': 'https://' + self.USER_NAME + ':' +
-                       self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
+        if self.IS_PROXY_ENABLE:
+            proxies = {'https': 'https://' + self.USER_NAME + ':' + self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
         else:
             proxies = {}
         return proxies
 
-    def _process_result(self, result):        
+    def _process_result(self, result):
+        # For now, directly returning the API response
         return result
 
     #
     # Public functions
     #
-
     def change_library(self, library):
         self._settings(library)
+
+    def is_null_or_whitespace(self, value):
+        if value is None:
+            return True
+        if str(value).strip() == "":
+            return True
+
+    def get_validation_message(self, field):
+        return "Invalid value for field " + str(field)
+    
+    def get_sott(self, time='10', getLRserverTime=False):
+        if getLRserverTime:
+            result = self.configuration.get_server_info()
+            print(result)
+            if result.get('Sott') is not None:
+                Sott = result.get('Sott')
+                for timeKey, val in Sott.items():
+                    if timeKey == 'StartTime':
+                        now = val
+                    if timeKey == 'EndTime':
+                        now_plus_10m = val
+            else:
+                now = datetime.utcnow()
+                now = now - timedelta(minutes=5)
+                now_plus_10m = now + timedelta(minutes=10)
+                now = now.strftime("%Y/%m/%d %I:%M:%S")
+                now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
+
+        else:
+            now = datetime.utcnow()
+            now = now - timedelta(minutes=5)
+            now_plus_10m = now + timedelta(minutes=10)
+            now = now.strftime("%Y/%m/%d %I:%M:%S")
+            now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
+
+        plaintext = now + "#" + self.API_KEY + "#" + now_plus_10m
+        padding = 16 - (len(plaintext) % 16)
+        if sys.version_info[0] == 3:
+            plaintext += (bytes([padding]) * padding).decode()
+        else:
+            plaintext += (chr(padding) * padding).decode()
+
+        salt = "\0\0\0\0\0\0\0\0"
+        cipher_key = PBKDF2(self.API_SECRET,
+                            salt, 10000).read(self.CONST_KEYSIZE // 8)
+
+        if sys.version_info[0] == 3:
+            iv = bytes(self.CONST_INITVECTOR, 'utf-8')
+            text = bytes(plaintext, 'utf-8')
+        else:
+            iv = str(self.CONST_INITVECTOR)
+            text = str(plaintext)
+
+        backend = default_backend()
+        cipher = Cipher(algorithms.AES(cipher_key),
+                        modes.CBC(iv), backend=backend)
+        encryptor = cipher.encryptor()
+        ct = encryptor.update(text) + encryptor.finalize()
+
+        base64cipher = base64.b64encode(ct)
+
+        md5 = hashlib.md5()
+        md5.update(base64cipher.decode('utf8').encode('ascii'))
+        return base64cipher.decode('utf-8')+"*"+binascii.hexlify(md5.digest()).decode('ascii')

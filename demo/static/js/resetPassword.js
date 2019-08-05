@@ -20,12 +20,10 @@ function resetPasswordHandler() {
                     token: getUrlParameter("vtoken")
                 }),
                 success: function(res) {
-                    console.log("Reset success::", res);
                     $("#minimal-resetpassword-message").text("Password reset successful.");
                     $("#minimal-resetpassword-message").attr("class", "success-message");
                 },
                 error: function(xhr, status, error) {
-                    console.log("Reset err::", xhr.responseText);
                     $("#minimal-resetpassword-message").text(xhr.responseText);
                     $("#minimal-resetpassword-message").attr("class", "error-message");
                 }

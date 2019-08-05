@@ -1,5 +1,34 @@
 # LoginRadius Python SDK Change Log
 
+# Version 10.0.0-beta
+## This beta version release includes major changes with several improvements and optimizations :
+  - Enhanced the coding standards of SDK to follow industry programming styles and best practices.
+  - Enhanced security standards of SDK.
+  - Reduced code between the business layer and persistence layer for optimization of SDK performance.
+  - Added internal parameter validations in the API function
+  - ApiKey and ApiSecret usage redundancy removed
+  - All LoginRadius related features need to be defined once only and SDK will handle them automatically
+  - Improved the naming conventions of API functions for better readability.
+  - Better Error and Exception Handling for LoginRadius API Response in SDK
+  - Revamped complete SDK and restructured it with latest API function names and parameters
+  - Added detailed description to API functions and parameters for better understanding
+  - Updated the demo according to latest SDK changes
+  - Implemented API Region Feature
+
+## Added new multiple APIs for better user experience
+  - Update Phone ID by UID
+  - Upsert Email
+  - Role Context profile
+  - MFA Resend OTP
+  - User Registration By Captcha
+  - Get Access Token via Linkedin Token
+  - Get Access Token By Foursquare Access Token
+  - Get Active Session By Account Id
+  - Get Active Session By Profile Id
+
+## Removed APIs:
+  - GetCompanies API
+
 # Version 3.3.1
 ## Bug Fixed
   - Handling Exception for NoAPIKey and NoSecretKey
@@ -36,7 +65,7 @@
       - Refresh Token   
       - Delete All Records by Datasource   
 
-###Breaking Changes
+### Breaking Changes
   - Replaced deprecated [pycrypto package](https://pypi.org/project/pycrypto/) with [cryptography package](https://pypi.org/project/cryptography/) for SOTT generation
   - Updated some existing API's:    
       - Get Roles by UID: moved to role class    

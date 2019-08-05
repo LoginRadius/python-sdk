@@ -23,11 +23,9 @@ function login_traditional() {
                 password: $("#minimal-login-password").val()
             }),
             success: function(res) {
-                console.log("Login success::", res);
                 getProfile(res.access_token, res.Profile.Uid);
             },
             error: function(xhr, status, error) {
-                console.log("Login err::", xhr.responseText);
                 $("#minimal-login-message").text(xhr.responseText);
                 $("#minimal-login-message").attr("class", "error-message");
             }
@@ -51,7 +49,6 @@ function login_mfa() {
                 password: $("#minimal-mfalogin-password").val()
             }),
             success: function(res) {
-                console.log("MFA success::", res);
                 $("#minimal-mfalogin-message").text("");
                 if (res.SecondFactorAuthentication) {
                     if (res.SecondFactorAuthentication.IsGoogleAuthenticatorVerified === false) {
@@ -70,7 +67,6 @@ function login_mfa() {
                 }
             },
             error: function(xhr) {
-                console.log("MFA err::", xhr.responseText);
                 $("#minimal-mfalogin-message").text(xhr.responseText);
                 $("#minimal-mfalogin-message").attr("class", "error-message");
             }
@@ -93,11 +89,9 @@ function validateGoogleCode(gtoken) {
             token: gtoken
         }),
         success: function(res) {
-            console.log("MFA Login success::", res);
             getProfile(res.access_token, res.Profile.Uid);
         },
         error: function(xhr) {
-            console.log("MFA Login err::", xhr.responseText);
             $("#minimal-mfalogin-message").text(xhr.responseText);
             $("#minimal-mfalogin-message").attr("class", "error-message");
         }
@@ -119,12 +113,10 @@ function login_passwordless() {
                 email: $("#minimal-pwless-email").val()
             }),
             success: function(res) {
-                console.log("PwlessLogin success::", res);
                 $("#minimal-pwless-message").text("Check your email for the login link.");
                 $("#minimal-pwless-message").attr("class", "success-message");
             },
             error: function(xhr, status, error) {
-                console.log("PwlessLogin err::", xhr.responseText);
                 $("#minimal-pwless-message").text(xhr.responseText);
                 $("#minimal-pwless-message").attr("class", "error-message");
             }
@@ -147,11 +139,10 @@ function login_social() { // uses js-library
     let sl_options = {};
 
     sl_options.onSuccess = function(res) {
-        console.log("Sociallogin success::", res);
         getProfile(res.access_token, res.Profile.Uid);
     };
     sl_options.onError = function(err) {
-        console.log("Sociallogin err::", err);
+        //console.log("Sociallogin err::", err);
     };
 
     custom_interface_option.templateName = 'loginradiuscustom_tmpl';
@@ -180,12 +171,10 @@ function register() {
                 password: $("#minimal-signup-password").val()
             }),
             success: function(res) {
-                console.log("Register success::", res);
                 $("#minimal-signup-message").text("Check your email to verify your account.");
                 $("#minimal-signup-message").attr("class", "success-message");
             },
             error: function(xhr, status, error) {
-                console.log("Register err::", xhr.responseText);
                 $("#minimal-signup-message").text(xhr.responseText);
                 $("#minimal-signup-message").attr("class", "error-message");
             }
@@ -208,12 +197,10 @@ function forgotpassword() {
                 email: $("#minimal-forgotpassword-email").val()
             }),
             success: function(res) {
-                console.log("Send success::", res);
                 $("#minimal-forgotpassword-message").text("Check your email to start the password reset process.");
                 $("#minimal-forgotpassword-message").attr("class", "success-message");
             },
             error: function(xhr, status, error) {
-                console.log("Send err::", xhr.responseText);
                 $("#minimal-forgotpassword-message").text(xhr.responseText);
                 $("#minimal-forgotpassword-message").attr("class", "error-message");
             }
