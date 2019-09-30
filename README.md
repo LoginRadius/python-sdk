@@ -15,17 +15,12 @@ This will work with 2.0 API specifications.
 
 LoginRadius is an Identity Management Platform that simplifies user registration while securing data. LoginRadius Platform simplifies and secures your user registration process, increases conversion with Social Login that combines 30 major social platforms, and offers a full solution with Traditional User Registration. You can gather a wealth of user profile data from Social Login or Traditional User Registration.
 
-Python Library
-=====
+## Documentation
 
 -------
 >Disclaimer:<br>
 This library is meant to help you with a quick implementation of the LoginRadius platform and also to serve as a reference point for the LoginRadius API. Keep in mind that it is an open source library, which means you are free to download and customize the library functions based on your specific application needs.
 
-
-## Installation
-
-SDK library and demo are available on [GitHub](https://github.com/LoginRadius/python-sdk).
 
 ### Prerequisites
 You will need at least Python - 2.7 or greater. LoginRadius module utilizes the [namedtuple](https://docs.python.org/2/library/collections.html#collections.namedtuple) from the collections library and the [import_module](https://docs.python.org/2/library/importlib.html) from importlib.
@@ -34,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```
- pip install loginradius-v2==10.0.0-beta
+ pip install loginradius-v2==10.0.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==10.0.0-beta
+ easy_install loginradius-v2==10.0.0
 ```
 
 ### Install From Source
@@ -94,8 +89,6 @@ To enable API request signing, set the value of 'API_REQUEST_SIGNING' to True
 LR.API_REQUEST_SIGNING = True
 ```
 
-APIs
-
 ### Authentication API
 
 
@@ -119,7 +112,6 @@ List of APIs in this Section:<br>
 * POST : [Auth Login by Username](#LoginByUserName-post-)<br>
 * POST : [Auth Forgot Password](#ForgotPassword-post-)<br>
 * POST : [Auth User Registration by Email](#UserRegistrationByEmail-post-)<br>
-* POST : [Phone User Registration by SMS](#UserRegistrationByPhone-post-)<br>
 * POST : [Auth User Registration By Captcha](#UserRegistrationByCaptcha-post-)<br>
 * GET : [Get Security Questions By Email](#GetSecurityQuestionsByEmail-get-)<br>
 * GET : [Get Security Questions By UserName](#GetSecurityQuestionsByUserName-get-)<br>
@@ -156,11 +148,11 @@ user_profile_update_model = {
 }  #Required 
 email_template = "<email_template>" #Optional 
 fields = "<fields>" #Optional 
-null_support = True #Optional 
+null_support = "True" #Optional 
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.authentication.update_profile_by_access_token(access_token, user_profile_update_model, email_template, fields, null_support, sms_template, verification_url)
+result = loginradius.authentication.update_profile_by_access_token(access_token, user_profile_update_model, email_template, fields, null_support, sms_template, verification_url)
  ```
  
   
@@ -176,7 +168,7 @@ unlock_profile_model = {
 "g-recaptcha-response" : "<g-recaptcha-response>"
 }  #Required
 
-loginradius.authentication.unlock_account_by_token(access_token, unlock_profile_model)
+result = loginradius.authentication.unlock_account_by_token(access_token, unlock_profile_model)
  ```
  
   
@@ -195,7 +187,7 @@ fields = "<fields>" #Optional
 url = "<url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.authentication.verify_email_by_otp(email_verification_by_otp_model, fields, url, welcome_email_template)
+result = loginradius.authentication.verify_email_by_otp(email_verification_by_otp_model, fields, url, welcome_email_template)
  ```
  
   
@@ -212,7 +204,7 @@ reset_password_by_security_answer_and_email_model = {
 "securityAnswer" : {"QuestionID":"Answer"}
 }  #Required
 
-loginradius.authentication.reset_password_by_security_answer_and_email(reset_password_by_security_answer_and_email_model)
+result = loginradius.authentication.reset_password_by_security_answer_and_email(reset_password_by_security_answer_and_email_model)
  ```
  
   
@@ -229,7 +221,7 @@ reset_password_by_security_answer_and_phone_model = {
 "securityAnswer" : {"QuestionID":"Answer"}
 }  #Required
 
-loginradius.authentication.reset_password_by_security_answer_and_phone(reset_password_by_security_answer_and_phone_model)
+result = loginradius.authentication.reset_password_by_security_answer_and_phone(reset_password_by_security_answer_and_phone_model)
  ```
  
   
@@ -246,7 +238,7 @@ reset_password_by_security_answer_and_user_name_model = {
 "userName" : "<userName>"
 }  #Required
 
-loginradius.authentication.reset_password_by_security_answer_and_user_name(reset_password_by_security_answer_and_user_name_model)
+result = loginradius.authentication.reset_password_by_security_answer_and_user_name(reset_password_by_security_answer_and_user_name_model)
  ```
  
   
@@ -262,7 +254,7 @@ reset_password_by_reset_token_model = {
 "resetToken" : "<resetToken>"
 }  #Required
 
-loginradius.authentication.reset_password_by_reset_token(reset_password_by_reset_token_model)
+result = loginradius.authentication.reset_password_by_reset_token(reset_password_by_reset_token_model)
  ```
  
   
@@ -279,7 +271,7 @@ reset_password_by_email_and_otp_model = {
 "password" : "<password>"
 }  #Required
 
-loginradius.authentication.reset_password_by_email_otp(reset_password_by_email_and_otp_model)
+result = loginradius.authentication.reset_password_by_email_otp(reset_password_by_email_and_otp_model)
  ```
  
   
@@ -296,7 +288,7 @@ reset_password_by_user_name_model = {
 "userName" : "<userName>"
 }  #Required
 
-loginradius.authentication.reset_password_by_otp_and_user_name(reset_password_by_user_name_model)
+result = loginradius.authentication.reset_password_by_otp_and_user_name(reset_password_by_user_name_model)
  ```
  
   
@@ -311,7 +303,7 @@ access_token = "<access_token>" #Required
 new_password = "<new_password>" #Required 
 old_password = "<old_password>" #Required
 
-loginradius.authentication.change_password(access_token, new_password, old_password)
+result = loginradius.authentication.change_password(access_token, new_password, old_password)
  ```
  
   
@@ -325,7 +317,7 @@ loginradius.authentication.change_password(access_token, new_password, old_passw
 access_token = "<access_token>" #Required 
 candidate_token = "<candidate_token>" #Required
 
-loginradius.authentication.link_social_identities(access_token, candidate_token)
+result = loginradius.authentication.link_social_identities(access_token, candidate_token)
  ```
  
   
@@ -339,7 +331,7 @@ loginradius.authentication.link_social_identities(access_token, candidate_token)
 access_token = "<access_token>" #Required 
 username = "<username>" #Required
 
-loginradius.authentication.set_or_change_user_name(access_token, username)
+result = loginradius.authentication.set_or_change_user_name(access_token, username)
  ```
  
   
@@ -354,7 +346,7 @@ email = "<email>" #Required
 email_template = "<email_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.authentication.auth_resend_email_verification(email, email_template, verification_url)
+result = loginradius.authentication.auth_resend_email_verification(email, email_template, verification_url)
  ```
  
   
@@ -371,7 +363,7 @@ type = "<type>" #Required
 email_template = "<email_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.authentication.add_email(access_token, email, type, email_template, verification_url)
+result = loginradius.authentication.add_email(access_token, email, type, email_template, verification_url)
  ```
  
   
@@ -391,7 +383,7 @@ fields = "<fields>" #Optional
 login_url = "<login_url>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.authentication.login_by_email(email_authentication_model, email_template, fields, login_url, verification_url)
+result = loginradius.authentication.login_by_email(email_authentication_model, email_template, fields, login_url, verification_url)
  ```
  
   
@@ -411,7 +403,7 @@ fields = "<fields>" #Optional
 login_url = "<login_url>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.authentication.login_by_user_name(user_name_authentication_model, email_template, fields, login_url, verification_url)
+result = loginradius.authentication.login_by_user_name(user_name_authentication_model, email_template, fields, login_url, verification_url)
  ```
  
   
@@ -426,7 +418,7 @@ email = "<email>" #Required
 reset_password_url = "<reset_password_url>" #Required 
 email_template = "<email_template>" #Optional
 
-loginradius.authentication.forgot_password(email, reset_password_url, email_template)
+result = loginradius.authentication.forgot_password(email, reset_password_url, email_template)
  ```
  
   
@@ -453,31 +445,7 @@ options = "<options>" #Optional
 verification_url = "<verification_url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.authentication.user_registration_by_email(auth_user_registration_model, sott, email_template, fields, options, verification_url, welcome_email_template)
- ```
- 
-  
-  
- 
-<h6 id="UserRegistrationByPhone-post-"> Phone User Registration by SMS (POST)</h6>
- This API registers the new users into your Cloud Storage and triggers the phone verification process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/phone-user-registration-by-sms)
-
- ```
- 
-auth_user_registration_model = { 
-"firstName" : "<firstName>",
-"lastName" : "<lastName>",
-"password" : "<password>",
-"phoneId" : "<phoneId>"
-}  #Required 
-sott = "<sott>" #Required 
-fields = "<fields>" #Optional 
-options = "<options>" #Optional 
-sms_template = "<sms_template>" #Optional 
-verification_url = "<verification_url>" #Optional 
-welcome_email_template = "<welcome_email_template>" #Optional
-
-loginradius.authentication.user_registration_by_phone(auth_user_registration_model, sott, fields, options, sms_template, verification_url, welcome_email_template)
+result = loginradius.authentication.user_registration_by_email(auth_user_registration_model, sott, email_template, fields, options, verification_url, welcome_email_template)
  ```
  
   
@@ -505,7 +473,7 @@ sms_template = "<sms_template>" #Optional
 verification_url = "<verification_url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.authentication.user_registration_by_captcha(auth_user_registration_model_with_captcha, email_template, fields, options, sms_template, verification_url, welcome_email_template)
+result = loginradius.authentication.user_registration_by_captcha(auth_user_registration_model_with_captcha, email_template, fields, options, sms_template, verification_url, welcome_email_template)
  ```
  
   
@@ -518,7 +486,7 @@ loginradius.authentication.user_registration_by_captcha(auth_user_registration_m
   
 email = "<email>" #Required
 
-loginradius.authentication.get_security_questions_by_email(email)
+result = loginradius.authentication.get_security_questions_by_email(email)
  ```
  
   
@@ -531,7 +499,7 @@ loginradius.authentication.get_security_questions_by_email(email)
   
 user_name = "<user_name>" #Required
 
-loginradius.authentication.get_security_questions_by_user_name(user_name)
+result = loginradius.authentication.get_security_questions_by_user_name(user_name)
  ```
  
   
@@ -544,7 +512,7 @@ loginradius.authentication.get_security_questions_by_user_name(user_name)
   
 phone = "<phone>" #Required
 
-loginradius.authentication.get_security_questions_by_phone(phone)
+result = loginradius.authentication.get_security_questions_by_phone(phone)
  ```
  
   
@@ -557,7 +525,7 @@ loginradius.authentication.get_security_questions_by_phone(phone)
   
 access_token = "<access_token>" #Required
 
-loginradius.authentication.get_security_questions_by_access_token(access_token)
+result = loginradius.authentication.get_security_questions_by_access_token(access_token)
  ```
  
   
@@ -570,7 +538,7 @@ loginradius.authentication.get_security_questions_by_access_token(access_token)
   
 access_token = "<access_token>" #Required
 
-loginradius.authentication.auth_validate_access_token(access_token)
+result = loginradius.authentication.auth_validate_access_token(access_token)
  ```
  
   
@@ -582,9 +550,9 @@ loginradius.authentication.auth_validate_access_token(access_token)
  ```
   
 access_token = "<access_token>" #Required 
-prevent_refresh = True #Optional
+prevent_refresh = "True" #Optional
 
-loginradius.authentication.auth_in_validate_access_token(access_token, prevent_refresh)
+result = loginradius.authentication.auth_in_validate_access_token(access_token, prevent_refresh)
  ```
  
   
@@ -597,7 +565,7 @@ loginradius.authentication.auth_in_validate_access_token(access_token, prevent_r
   
 access_token = "<access_token>" #Required
 
-loginradius.authentication.get_access_token_info(access_token)
+result = loginradius.authentication.get_access_token_info(access_token)
  ```
  
   
@@ -611,7 +579,7 @@ loginradius.authentication.get_access_token_info(access_token)
 access_token = "<access_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.authentication.get_profile_by_access_token(access_token, fields)
+result = loginradius.authentication.get_profile_by_access_token(access_token, fields)
  ```
  
   
@@ -625,7 +593,7 @@ loginradius.authentication.get_profile_by_access_token(access_token, fields)
 access_token = "<access_token>" #Required 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.authentication.send_welcome_email(access_token, welcome_email_template)
+result = loginradius.authentication.send_welcome_email(access_token, welcome_email_template)
  ```
  
   
@@ -638,7 +606,7 @@ loginradius.authentication.send_welcome_email(access_token, welcome_email_templa
   
 deletetoken = "<deletetoken>" #Required
 
-loginradius.authentication.delete_account_by_delete_token(deletetoken)
+result = loginradius.authentication.delete_account_by_delete_token(deletetoken)
  ```
  
   
@@ -651,7 +619,7 @@ loginradius.authentication.delete_account_by_delete_token(deletetoken)
   
 email = "<email>" #Required
 
-loginradius.authentication.check_email_availability(email)
+result = loginradius.authentication.check_email_availability(email)
  ```
  
   
@@ -667,7 +635,7 @@ fields = "<fields>" #Optional
 url = "<url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.authentication.verify_email(verification_token, fields, url, welcome_email_template)
+result = loginradius.authentication.verify_email(verification_token, fields, url, welcome_email_template)
  ```
  
   
@@ -681,7 +649,7 @@ loginradius.authentication.verify_email(verification_token, fields, url, welcome
 access_token = "<access_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.authentication.get_social_identity(access_token, fields)
+result = loginradius.authentication.get_social_identity(access_token, fields)
  ```
  
   
@@ -694,7 +662,7 @@ loginradius.authentication.get_social_identity(access_token, fields)
   
 username = "<username>" #Required
 
-loginradius.authentication.check_user_name_availability(username)
+result = loginradius.authentication.check_user_name_availability(username)
  ```
  
   
@@ -708,7 +676,7 @@ loginradius.authentication.check_user_name_availability(username)
 access_token = "<access_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.authentication.accept_privacy_policy(access_token, fields)
+result = loginradius.authentication.accept_privacy_policy(access_token, fields)
  ```
  
   
@@ -721,7 +689,7 @@ loginradius.authentication.accept_privacy_policy(access_token, fields)
   
 access_token = "<access_token>" #Required
 
-loginradius.authentication.get_privacy_policy_history_by_access_token(access_token)
+result = loginradius.authentication.get_privacy_policy_history_by_access_token(access_token)
  ```
  
   
@@ -736,7 +704,7 @@ access_token = "<access_token>" #Required
 delete_url = "<delete_url>" #Optional 
 email_template = "<email_template>" #Optional
 
-loginradius.authentication.delete_account_with_email_confirmation(access_token, delete_url, email_template)
+result = loginradius.authentication.delete_account_with_email_confirmation(access_token, delete_url, email_template)
  ```
  
   
@@ -750,7 +718,7 @@ loginradius.authentication.delete_account_with_email_confirmation(access_token, 
 access_token = "<access_token>" #Required 
 email = "<email>" #Required
 
-loginradius.authentication.remove_email(access_token, email)
+result = loginradius.authentication.remove_email(access_token, email)
  ```
  
   
@@ -765,7 +733,7 @@ access_token = "<access_token>" #Required
 provider = "<provider>" #Required 
 provider_id = "<provider_id>" #Required
 
-loginradius.authentication.unlink_social_identities(access_token, provider, provider_id)
+result = loginradius.authentication.unlink_social_identities(access_token, provider, provider_id)
  ```
  
   
@@ -784,6 +752,7 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
+* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -799,12 +768,13 @@ List of APIs in this Section:<br>
 * GET : [Account Identities by Email](#GetAccountIdentitiesByEmail-get-)<br>
 * DELETE : [Account Delete](#DeleteAccountByUid-delete-)<br>
 * DELETE : [Account Remove Email](#RemoveEmail-delete-)<br>
+* DELETE : [Delete User Profiles By Email](#AccountDeleteByEmail-delete-)<br>
 
 
 
 
 <h6 id="UpdateAccountByUid-put-"> Account Update (PUT)</h6>
- This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
+ This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docshttps://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
 
  ```
  
@@ -814,9 +784,9 @@ account_user_profile_update_model = {
 }  #Required 
 uid = "<uid>" #Required 
 fields = "<fields>" #Optional 
-null_support = True #Optional
+null_support = "True" #Optional
 
-loginradius.account.update_account_by_uid(account_user_profile_update_model, uid, fields, null_support)
+result = loginradius.account.update_account_by_uid(account_user_profile_update_model, uid, fields, null_support)
  ```
  
   
@@ -831,7 +801,7 @@ phone = "<phone>" #Required
 uid = "<uid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.update_phone_id_by_uid(phone, uid, fields)
+result = loginradius.account.update_phone_id_by_uid(phone, uid, fields)
  ```
  
   
@@ -845,7 +815,7 @@ loginradius.account.update_phone_id_by_uid(phone, uid, fields)
 password = "<password>" #Required 
 uid = "<uid>" #Required
 
-loginradius.account.set_account_password_by_uid(password, uid)
+result = loginradius.account.set_account_password_by_uid(password, uid)
  ```
  
   
@@ -860,7 +830,7 @@ uid = "<uid>" #Required
 email_template = "<email_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.account.invalidate_account_email_verification(uid, email_template, verification_url)
+result = loginradius.account.invalidate_account_email_verification(uid, email_template, verification_url)
  ```
  
   
@@ -874,7 +844,7 @@ loginradius.account.invalidate_account_email_verification(uid, email_template, v
 uid = "<uid>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.account.reset_phone_id_verification_by_uid(uid, sms_template)
+result = loginradius.account.reset_phone_id_verification_by_uid(uid, sms_template)
  ```
  
   
@@ -894,7 +864,23 @@ upsert_email_model = {
 uid = "<uid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.upsert_email(upsert_email_model, uid, fields)
+result = loginradius.account.upsert_email(upsert_email_model, uid, fields)
+ ```
+ 
+  
+  
+ 
+<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
+ This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
+
+ ```
+ 
+update_uid_model = { 
+"newUid" : "<newUid>"
+}  #Required 
+uid = "<uid>" #Required
+
+result = loginradius.account.account_update_uid(update_uid_model, uid)
  ```
  
   
@@ -916,7 +902,7 @@ account_create_model = {
 }  #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.create_account(account_create_model, fields)
+result = loginradius.account.create_account(account_create_model, fields)
  ```
  
   
@@ -930,9 +916,9 @@ loginradius.account.create_account(account_create_model, fields)
 email = "<email>" #Required 
 email_template = "<email_template>" #Optional 
 reset_password_url = "<reset_password_url>" #Optional 
-send_email = True #Optional
+send_email = "True" #Optional
 
-loginradius.account.get_forgot_password_token(email, email_template, reset_password_url, send_email)
+result = loginradius.account.get_forgot_password_token(email, email_template, reset_password_url, send_email)
  ```
  
   
@@ -945,7 +931,7 @@ loginradius.account.get_forgot_password_token(email, email_template, reset_passw
   
 email = "<email>" #Required
 
-loginradius.account.get_email_verification_token(email)
+result = loginradius.account.get_email_verification_token(email)
  ```
  
   
@@ -958,7 +944,7 @@ loginradius.account.get_email_verification_token(email)
   
 uid = "<uid>" #Required
 
-loginradius.account.get_privacy_policy_history_by_uid(uid)
+result = loginradius.account.get_privacy_policy_history_by_uid(uid)
  ```
  
   
@@ -972,7 +958,7 @@ loginradius.account.get_privacy_policy_history_by_uid(uid)
 email = "<email>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.get_account_profile_by_email(email, fields)
+result = loginradius.account.get_account_profile_by_email(email, fields)
  ```
  
   
@@ -986,7 +972,7 @@ loginradius.account.get_account_profile_by_email(email, fields)
 user_name = "<user_name>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.get_account_profile_by_user_name(user_name, fields)
+result = loginradius.account.get_account_profile_by_user_name(user_name, fields)
  ```
  
   
@@ -1000,7 +986,7 @@ loginradius.account.get_account_profile_by_user_name(user_name, fields)
 phone = "<phone>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.get_account_profile_by_phone(phone, fields)
+result = loginradius.account.get_account_profile_by_phone(phone, fields)
  ```
  
   
@@ -1014,7 +1000,7 @@ loginradius.account.get_account_profile_by_phone(phone, fields)
 uid = "<uid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.get_account_profile_by_uid(uid, fields)
+result = loginradius.account.get_account_profile_by_uid(uid, fields)
  ```
  
   
@@ -1027,7 +1013,7 @@ loginradius.account.get_account_profile_by_uid(uid, fields)
   
 uid = "<uid>" #Required
 
-loginradius.account.get_account_password_hash_by_uid(uid)
+result = loginradius.account.get_account_password_hash_by_uid(uid)
  ```
  
   
@@ -1040,7 +1026,7 @@ loginradius.account.get_account_password_hash_by_uid(uid)
   
 uid = "<uid>" #Required
 
-loginradius.account.get_access_token_by_uid(uid)
+result = loginradius.account.get_access_token_by_uid(uid)
  ```
  
   
@@ -1053,7 +1039,7 @@ loginradius.account.get_access_token_by_uid(uid)
   
 refresh_token = "<refresh_token>" #Required
 
-loginradius.account.refresh_access_token_by_refresh_token(refresh_token)
+result = loginradius.account.refresh_access_token_by_refresh_token(refresh_token)
  ```
  
   
@@ -1066,7 +1052,7 @@ loginradius.account.refresh_access_token_by_refresh_token(refresh_token)
   
 refresh_token = "<refresh_token>" #Required
 
-loginradius.account.revoke_refresh_token(refresh_token)
+result = loginradius.account.revoke_refresh_token(refresh_token)
  ```
  
   
@@ -1080,7 +1066,7 @@ loginradius.account.revoke_refresh_token(refresh_token)
 email = "<email>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.get_account_identities_by_email(email, fields)
+result = loginradius.account.get_account_identities_by_email(email, fields)
  ```
  
   
@@ -1093,7 +1079,7 @@ loginradius.account.get_account_identities_by_email(email, fields)
   
 uid = "<uid>" #Required
 
-loginradius.account.delete_account_by_uid(uid)
+result = loginradius.account.delete_account_by_uid(uid)
  ```
  
   
@@ -1108,7 +1094,20 @@ email = "<email>" #Required
 uid = "<uid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.account.remove_email(email, uid, fields)
+result = loginradius.account.remove_email(email, uid, fields)
+ ```
+ 
+  
+  
+ 
+<h6 id="AccountDeleteByEmail-delete-"> Delete User Profiles By Email (DELETE)</h6>
+ This API is used to delete all user profiles associated with an Email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete/)
+
+ ```
+  
+email = "<email>" #Required
+
+result = loginradius.account.account_delete_by_email(email)
  ```
  
   
@@ -1116,7 +1115,7 @@ loginradius.account.remove_email(email, uid, fields)
  
 
 
-### Social API 
+### Social API
 
 
 List of APIs in this Section:<br>
@@ -1132,18 +1131,24 @@ List of APIs in this Section:<br>
 * GET : [Get Active Session By Account Id](#GetActiveSessionByAccountID-get-)<br>
 * GET : [Get Active Session By Profile Id](#GetActiveSessionByProfileID-get-)<br>
 * GET : [Album](#GetAlbums-get-)<br>
+* GET : [Get Albums with cursor](#GetAlbumsWithCursor-get-)<br>
 * GET : [Audio](#GetAudios-get-)<br>
+* GET : [Get Audio With Cursor](#GetAudiosWithCursor-get-)<br>
 * GET : [Check In](#GetCheckIns-get-)<br>
+* GET : [Get CheckIns With Cursor](#GetCheckInsWithCursor-get-)<br>
 * GET : [Contact](#GetContacts-get-)<br>
 * GET : [Event](#GetEvents-get-)<br>
+* GET : [Get Events With Cursor](#GetEventsWithCursor-get-)<br>
 * GET : [Following](#GetFollowings-get-)<br>
+* GET : [Get Followings With Cursor](#GetFollowingsWithCursor-get-)<br>
 * GET : [Group](#GetGroups-get-)<br>
+* GET : [Get Groups With Cursor](#GetGroupsWithCursor-get-)<br>
 * GET : [Like](#GetLikes-get-)<br>
+* GET : [Get Likes With Cursor](#GetLikesWithCursor-get-)<br>
 * GET : [Mention](#GetMentions-get-)<br>
 * GET : [Page](#GetPage-get-)<br>
 * GET : [Photo](#GetPhotos-get-)<br>
 * GET : [Get Post](#GetPosts-get-)<br>
-* GET : [Get Status](#GetStatus-get-)<br>
 * GET : [Get Trackable Status Stats](#GetTrackableStatusStats-get-)<br>
 * GET : [Trackable Status Fetching](#TrackableStatusFetching-get-)<br>
 * GET : [User Profile](#GetSocialUserProfile-get-)<br>
@@ -1154,7 +1159,7 @@ List of APIs in this Section:<br>
 
 
 <h6 id="PostMessage-post-"> Post Message API (POST)</h6>
- Post Message API is used to post messages to the user’s contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user’s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
+ Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
 
  ```
   
@@ -1163,14 +1168,14 @@ message = "<message>" #Required
 subject = "<subject>" #Required 
 to = "<to>" #Required
 
-loginradius.social.post_message(access_token, message, subject, to)
+result = loginradius.social.post_message(access_token, message, subject, to)
  ```
  
   
   
  
 <h6 id="StatusPosting-post-"> Status Posting  (POST)</h6>
- The Status API is used to update the status on the user’s wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
+ The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
 
  ```
   
@@ -1183,14 +1188,14 @@ title = "<title>" #Required
 url = "<url>" #Required 
 shorturl = "<shorturl>" #Optional
 
-loginradius.social.status_posting(access_token, caption, description, imageurl, status, title, url, shorturl)
+result = loginradius.social.status_posting(access_token, caption, description, imageurl, status, title, url, shorturl)
  ```
  
   
   
  
 <h6 id="TrackableStatusPosting-post-"> Trackable Status Posting (POST)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
 
  ```
   
@@ -1204,7 +1209,7 @@ status_model = {
 "url" : "<url>"
 }  #Required
 
-loginradius.social.trackable_status_posting(access_token, status_model)
+result = loginradius.social.trackable_status_posting(access_token, status_model)
  ```
  
   
@@ -1217,7 +1222,7 @@ loginradius.social.trackable_status_posting(access_token, status_model)
   
 token = "<token>" #Required
 
-loginradius.social.exchange_access_token(token)
+result = loginradius.social.exchange_access_token(token)
  ```
  
   
@@ -1231,7 +1236,7 @@ loginradius.social.exchange_access_token(token)
 access_token = "<access_token>" #Required 
 expires_in = 0 #Optional
 
-loginradius.social.refresh_access_token(access_token, expires_in)
+result = loginradius.social.refresh_access_token(access_token, expires_in)
  ```
  
   
@@ -1244,7 +1249,7 @@ loginradius.social.refresh_access_token(access_token, expires_in)
   
 access_token = "<access_token>" #Required
 
-loginradius.social.validate_access_token(access_token)
+result = loginradius.social.validate_access_token(access_token)
  ```
  
   
@@ -1257,7 +1262,7 @@ loginradius.social.validate_access_token(access_token)
   
 access_token = "<access_token>" #Required
 
-loginradius.social.in_validate_access_token(access_token)
+result = loginradius.social.in_validate_access_token(access_token)
  ```
  
   
@@ -1270,7 +1275,7 @@ loginradius.social.in_validate_access_token(access_token)
   
 token = "<token>" #Required
 
-loginradius.social.get_active_session(token)
+result = loginradius.social.get_active_session(token)
  ```
  
   
@@ -1283,7 +1288,7 @@ loginradius.social.get_active_session(token)
   
 account_id = "<account_id>" #Required
 
-loginradius.social.get_active_session_by_account_id(account_id)
+result = loginradius.social.get_active_session_by_account_id(account_id)
  ```
  
   
@@ -1296,7 +1301,7 @@ loginradius.social.get_active_session_by_account_id(account_id)
   
 profile_id = "<profile_id>" #Required
 
-loginradius.social.get_active_session_by_profile_id(profile_id)
+result = loginradius.social.get_active_session_by_profile_id(profile_id)
  ```
  
   
@@ -1309,173 +1314,258 @@ loginradius.social.get_active_session_by_profile_id(profile_id)
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_albums(access_token)
+result = loginradius.social.get_albums(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAlbumsWithCursor-get-"> Get Albums with cursor (GET)</h6>
+ <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_albums_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetAudios-get-"> Audio (GET)</h6>
- The Audio API is used to get audio files data from the user’s social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_audios(access_token)
+result = loginradius.social.get_audios(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAudiosWithCursor-get-"> Get Audio With Cursor (GET)</h6>
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_audios_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetCheckIns-get-"> Check In (GET)</h6>
- The Check In API is used to get check Ins data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_check_ins(access_token)
+result = loginradius.social.get_check_ins(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetCheckInsWithCursor-get-"> Get CheckIns With Cursor (GET)</h6>
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_check_ins_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetContacts-get-"> Contact (GET)</h6>
- The Contact API is used to get contacts/friends/connections data from the user’s social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius’ standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
+ The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
 
  ```
   
 access_token = "<access_token>" #Required 
 next_cursor = "<next_cursor>" #Optional
 
-loginradius.social.get_contacts(access_token, next_cursor)
+result = loginradius.social.get_contacts(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetEvents-get-"> Event (GET)</h6>
- The Event API is used to get the event data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_events(access_token)
+result = loginradius.social.get_events(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetEventsWithCursor-get-"> Get Events With Cursor (GET)</h6>
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_events_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetFollowings-get-"> Following (GET)</h6>
- Get the following user list from the user’s social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_followings(access_token)
+result = loginradius.social.get_followings(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetFollowingsWithCursor-get-"> Get Followings With Cursor (GET)</h6>
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_followings_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetGroups-get-"> Group (GET)</h6>
- The Group API is used to get group data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_groups(access_token)
+result = loginradius.social.get_groups(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetGroupsWithCursor-get-"> Get Groups With Cursor (GET)</h6>
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_groups_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetLikes-get-"> Like (GET)</h6>
- The Like API is used to get likes data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_likes(access_token)
+result = loginradius.social.get_likes(access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetLikesWithCursor-get-"> Get Likes With Cursor (GET)</h6>
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+next_cursor = "<next_cursor>" #Required
+
+result = loginradius.social.get_likes_with_cursor(access_token, next_cursor)
  ```
  
   
   
  
 <h6 id="GetMentions-get-"> Mention (GET)</h6>
- The Mention API is used to get mentions data from the user’s social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
+ The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_mentions(access_token)
+result = loginradius.social.get_mentions(access_token)
  ```
  
   
   
  
 <h6 id="GetPage-get-"> Page (GET)</h6>
- The Page API is used to get the page data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
+ The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
 
  ```
   
 access_token = "<access_token>" #Required 
 page_name = "<page_name>" #Required
 
-loginradius.social.get_page(access_token, page_name)
+result = loginradius.social.get_page(access_token, page_name)
  ```
  
   
   
  
 <h6 id="GetPhotos-get-"> Photo (GET)</h6>
- The Photo API is used to get photo data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
+ The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
 
  ```
   
 access_token = "<access_token>" #Required 
 album_id = "<album_id>" #Required
 
-loginradius.social.get_photos(access_token, album_id)
+result = loginradius.social.get_photos(access_token, album_id)
  ```
  
   
   
  
 <h6 id="GetPosts-get-"> Get Post (GET)</h6>
- The Post API is used to get post message data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
+ The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
 
  ```
   
 access_token = "<access_token>" #Required
 
-loginradius.social.get_posts(access_token)
- ```
- 
-  
-  
- 
-<h6 id="GetStatus-get-"> Get Status (GET)</h6>
- The Status API is used to get the status messages from the user’s social account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-fetching)
-
- ```
-  
-access_token = "<access_token>" #Required
-
-loginradius.social.get_status(access_token)
+result = loginradius.social.get_posts(access_token)
  ```
  
   
   
  
 <h6 id="GetTrackableStatusStats-get-"> Get Trackable Status Stats (GET)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
 
  ```
   
@@ -1487,7 +1577,7 @@ status = "<status>" #Required
 title = "<title>" #Required 
 url = "<url>" #Required
 
-loginradius.social.get_trackable_status_stats(access_token, caption, description, imageurl, status, title, url)
+result = loginradius.social.get_trackable_status_stats(access_token, caption, description, imageurl, status, title, url)
  ```
  
   
@@ -1500,49 +1590,49 @@ loginradius.social.get_trackable_status_stats(access_token, caption, description
   
 post_id = "<post_id>" #Required
 
-loginradius.social.trackable_status_fetching(post_id)
+result = loginradius.social.trackable_status_fetching(post_id)
  ```
  
   
   
  
 <h6 id="GetSocialUserProfile-get-"> User Profile (GET)</h6>
- The User Profile API is used to get social profile data from the user’s social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
+ The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
 
  ```
   
 access_token = "<access_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.social.get_social_user_profile(access_token, fields)
+result = loginradius.social.get_social_user_profile(access_token, fields)
  ```
  
   
   
  
 <h6 id="GetRefreshedSocialUserProfile-get-"> Refresh User Profile (GET)</h6>
- The User Profile API is used to get the latest updated social profile data from the user’s social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius’ standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
+ The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
 
  ```
   
 access_token = "<access_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.social.get_refreshed_social_user_profile(access_token, fields)
+result = loginradius.social.get_refreshed_social_user_profile(access_token, fields)
  ```
  
   
   
  
 <h6 id="GetVideos-get-"> Video (GET)</h6>
- The Video API is used to get video files data from the user’s social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
+ The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
 
  ```
   
 access_token = "<access_token>" #Required 
 next_cursor = "<next_cursor>" #Required
 
-loginradius.social.get_videos(access_token, next_cursor)
+result = loginradius.social.get_videos(access_token, next_cursor)
  ```
  
   
@@ -1550,7 +1640,7 @@ loginradius.social.get_videos(access_token, next_cursor)
  
 
 
-### Custom Object API
+### CustomObject API
 
 
 List of APIs in this Section:<br>
@@ -1580,7 +1670,7 @@ object_record_id = "<object_record_id>" #Required
 object = { "customdata1": "Store my customdata1 value"}  #Required 
 update_type = "<update_type>" #Optional
 
-loginradius.custom_object.update_custom_object_by_token(access_token, object_name, object_record_id, object, update_type)
+result = loginradius.custom_object.update_custom_object_by_token(access_token, object_name, object_record_id, object, update_type)
  ```
  
   
@@ -1597,7 +1687,7 @@ object = { "customdata1": "Store my customdata1 value"}  #Required
 uid = "<uid>" #Required 
 update_type = "<update_type>" #Optional
 
-loginradius.custom_object.update_custom_object_by_uid(object_name, object_record_id, object, uid, update_type)
+result = loginradius.custom_object.update_custom_object_by_uid(object_name, object_record_id, object, uid, update_type)
  ```
  
   
@@ -1612,7 +1702,7 @@ access_token = "<access_token>" #Required
 object_name = "<object_name>" #Required
 object = { "customdata1": "Store my customdata1 value"}  #Required
 
-loginradius.custom_object.create_custom_object_by_token(access_token, object_name, object)
+result = loginradius.custom_object.create_custom_object_by_token(access_token, object_name, object)
  ```
  
   
@@ -1627,7 +1717,7 @@ object_name = "<object_name>" #Required
 object = { "customdata1": "Store my customdata1 value"}  #Required 
 uid = "<uid>" #Required
 
-loginradius.custom_object.create_custom_object_by_uid(object_name, object, uid)
+result = loginradius.custom_object.create_custom_object_by_uid(object_name, object, uid)
  ```
  
   
@@ -1641,7 +1731,7 @@ loginradius.custom_object.create_custom_object_by_uid(object_name, object, uid)
 access_token = "<access_token>" #Required 
 object_name = "<object_name>" #Required
 
-loginradius.custom_object.get_custom_object_by_token(access_token, object_name)
+result = loginradius.custom_object.get_custom_object_by_token(access_token, object_name)
  ```
  
   
@@ -1656,7 +1746,7 @@ access_token = "<access_token>" #Required
 object_name = "<object_name>" #Required 
 object_record_id = "<object_record_id>" #Required
 
-loginradius.custom_object.get_custom_object_by_record_id_and_token(access_token, object_name, object_record_id)
+result = loginradius.custom_object.get_custom_object_by_record_id_and_token(access_token, object_name, object_record_id)
  ```
  
   
@@ -1670,7 +1760,7 @@ loginradius.custom_object.get_custom_object_by_record_id_and_token(access_token,
 object_name = "<object_name>" #Required 
 uid = "<uid>" #Required
 
-loginradius.custom_object.get_custom_object_by_uid(object_name, uid)
+result = loginradius.custom_object.get_custom_object_by_uid(object_name, uid)
  ```
  
   
@@ -1685,7 +1775,7 @@ object_name = "<object_name>" #Required
 object_record_id = "<object_record_id>" #Required 
 uid = "<uid>" #Required
 
-loginradius.custom_object.get_custom_object_by_record_id(object_name, object_record_id, uid)
+result = loginradius.custom_object.get_custom_object_by_record_id(object_name, object_record_id, uid)
  ```
  
   
@@ -1700,7 +1790,7 @@ access_token = "<access_token>" #Required
 object_name = "<object_name>" #Required 
 object_record_id = "<object_record_id>" #Required
 
-loginradius.custom_object.delete_custom_object_by_token(access_token, object_name, object_record_id)
+result = loginradius.custom_object.delete_custom_object_by_token(access_token, object_name, object_record_id)
  ```
  
   
@@ -1715,7 +1805,7 @@ object_name = "<object_name>" #Required
 object_record_id = "<object_record_id>" #Required 
 uid = "<uid>" #Required
 
-loginradius.custom_object.delete_custom_object_by_record_id(object_name, object_record_id, uid)
+result = loginradius.custom_object.delete_custom_object_by_record_id(object_name, object_record_id, uid)
  ```
  
   
@@ -1723,7 +1813,7 @@ loginradius.custom_object.delete_custom_object_by_record_id(object_name, object_
  
 
 
-### Phone Authentication API
+### PhoneAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -1736,6 +1826,7 @@ List of APIs in this Section:<br>
 * POST : [Phone Forgot Password by OTP](#ForgotPasswordByPhoneOTP-post-)<br>
 * POST : [Phone Resend Verification OTP](#PhoneResendVerificationOTP-post-)<br>
 * POST : [Phone Resend Verification OTP By Token](#PhoneResendVerificationOTPByToken-post-)<br>
+* POST : [Phone User Registration by SMS](#UserRegistrationByPhone-post-)<br>
 * GET : [Phone Number Availability](#CheckPhoneNumberAvailability-get-)<br>
 * DELETE : [Remove Phone ID by Access Token](#RemovePhoneIDByAccessToken-delete-)<br>
 
@@ -1753,7 +1844,7 @@ reset_password_by_otp_model = {
 "phone" : "<phone>"
 }  #Required
 
-loginradius.phone_authentication.reset_password_by_phone_otp(reset_password_by_otp_model)
+result = loginradius.phone_authentication.reset_password_by_phone_otp(reset_password_by_otp_model)
  ```
  
   
@@ -1769,7 +1860,7 @@ phone = "<phone>" #Required
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.phone_verification_by_otp(otp, phone, fields, sms_template)
+result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, fields, sms_template)
  ```
  
   
@@ -1784,7 +1875,7 @@ access_token = "<access_token>" #Required
 otp = "<otp>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.phone_verification_otp_by_access_token(access_token, otp, sms_template)
+result = loginradius.phone_authentication.phone_verification_otp_by_access_token(access_token, otp, sms_template)
  ```
  
   
@@ -1799,7 +1890,7 @@ access_token = "<access_token>" #Required
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template)
+result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template)
  ```
  
   
@@ -1818,7 +1909,7 @@ fields = "<fields>" #Optional
 login_url = "<login_url>" #Optional 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.login_by_phone(phone_authentication_model, fields, login_url, sms_template)
+result = loginradius.phone_authentication.login_by_phone(phone_authentication_model, fields, login_url, sms_template)
  ```
  
   
@@ -1832,7 +1923,7 @@ loginradius.phone_authentication.login_by_phone(phone_authentication_model, fiel
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_template)
+result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_template)
  ```
  
   
@@ -1846,7 +1937,7 @@ loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_templat
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.phone_resend_verification_otp(phone, sms_template)
+result = loginradius.phone_authentication.phone_resend_verification_otp(phone, sms_template)
  ```
  
   
@@ -1861,7 +1952,31 @@ access_token = "<access_token>" #Required
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.phone_authentication.phone_resend_verification_otp_by_token(access_token, phone, sms_template)
+result = loginradius.phone_authentication.phone_resend_verification_otp_by_token(access_token, phone, sms_template)
+ ```
+ 
+  
+  
+ 
+<h6 id="UserRegistrationByPhone-post-"> Phone User Registration by SMS (POST)</h6>
+ This API registers the new users into your Cloud Storage and triggers the phone verification process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/phone-user-registration-by-sms)
+
+ ```
+ 
+auth_user_registration_model = { 
+"firstName" : "<firstName>",
+"lastName" : "<lastName>",
+"password" : "<password>",
+"phoneId" : "<phoneId>"
+}  #Required 
+sott = "<sott>" #Required 
+fields = "<fields>" #Optional 
+options = "<options>" #Optional 
+sms_template = "<sms_template>" #Optional 
+verification_url = "<verification_url>" #Optional 
+welcome_email_template = "<welcome_email_template>" #Optional
+
+result = loginradius.phone_authentication.user_registration_by_phone(auth_user_registration_model, sott, fields, options, sms_template, verification_url, welcome_email_template)
  ```
  
   
@@ -1874,7 +1989,7 @@ loginradius.phone_authentication.phone_resend_verification_otp_by_token(access_t
   
 phone = "<phone>" #Required
 
-loginradius.phone_authentication.check_phone_number_availability(phone)
+result = loginradius.phone_authentication.check_phone_number_availability(phone)
  ```
  
   
@@ -1887,7 +2002,7 @@ loginradius.phone_authentication.check_phone_number_availability(phone)
   
 access_token = "<access_token>" #Required
 
-loginradius.phone_authentication.remove_phone_id_by_access_token(access_token)
+result = loginradius.phone_authentication.remove_phone_id_by_access_token(access_token)
  ```
  
   
@@ -1895,7 +2010,7 @@ loginradius.phone_authentication.remove_phone_id_by_access_token(access_token)
  
 
 
-### Multi Factor Authentication API
+### MultiFactorAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -1907,10 +2022,6 @@ List of APIs in this Section:<br>
 * PUT : [MFA Validate Google Auth Code](#MFAValidateGoogleAuthCode-put-)<br>
 * PUT : [MFA Validate Backup code](#MFAValidateBackupCode-put-)<br>
 * PUT : [MFA Update Phone Number](#MFAUpdatePhoneNumber-put-)<br>
-* PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
-* PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
-* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
-* PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
 * POST : [MFA Email Login](#MFALoginByEmail-post-)<br>
 * POST : [MFA UserName Login](#MFALoginByUserName-post-)<br>
 * POST : [MFA Phone Login](#MFALoginByPhone-post-)<br>
@@ -1918,7 +2029,6 @@ List of APIs in this Section:<br>
 * GET : [MFA Backup Code by Access Token](#MFABackupCodeByAccessToken-get-)<br>
 * GET : [Reset Backup Code by Access Token](#MFAResetBackupCodeByAccessToken-get-)<br>
 * GET : [MFA Resend Otp](#MFAResendOTP-get-)<br>
-* GET : [Multi Factor Re-Authenticate](#MFAReAuthenticate-get-)<br>
 * GET : [MFA Backup Code by UID](#MFABackupCodeByUid-get-)<br>
 * GET : [MFA Reset Backup Code by UID](#MFAResetBackupCodeByUid-get-)<br>
 * DELETE : [MFA Reset Google Authenticator by Token](#MFAResetGoogleAuthByToken-delete-)<br>
@@ -1940,7 +2050,7 @@ multi_factor_auth_model_with_lockout = {
 }  #Required 
 fields = "<fields>" #Optional
 
-loginradius.mfa.mfa_update_setting(access_token, multi_factor_auth_model_with_lockout, fields)
+result = loginradius.mfa.mfa_update_setting(access_token, multi_factor_auth_model_with_lockout, fields)
  ```
  
   
@@ -1958,7 +2068,7 @@ multi_factor_auth_model_by_google_authenticator_code = {
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional
 
-loginradius.mfa.mfa_update_by_access_token(access_token, multi_factor_auth_model_by_google_authenticator_code, fields, sms_template)
+result = loginradius.mfa.mfa_update_by_access_token(access_token, multi_factor_auth_model_by_google_authenticator_code, fields, sms_template)
  ```
  
   
@@ -1973,7 +2083,7 @@ access_token = "<access_token>" #Required
 phone_no2_f_a = "<phone_no2_f_a>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_update_phone_number_by_token(access_token, phone_no2_f_a, sms_template2_f_a)
+result = loginradius.mfa.mfa_update_phone_number_by_token(access_token, phone_no2_f_a, sms_template2_f_a)
  ```
  
   
@@ -1991,7 +2101,7 @@ second_factor_authentication_token = "<second_factor_authentication_token>" #Req
 fields = "<fields>" #Optional 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_validate_otp_by_phone(multi_factor_auth_model_with_lockout, second_factor_authentication_token, fields, sms_template2_f_a)
+result = loginradius.mfa.mfa_validate_otp_by_phone(multi_factor_auth_model_with_lockout, second_factor_authentication_token, fields, sms_template2_f_a)
  ```
  
   
@@ -2007,7 +2117,7 @@ second_factor_authentication_token = "<second_factor_authentication_token>" #Req
 fields = "<fields>" #Optional 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_validate_google_auth_code(google_authenticator_code, second_factor_authentication_token, fields, sms_template2_f_a)
+result = loginradius.mfa.mfa_validate_google_auth_code(google_authenticator_code, second_factor_authentication_token, fields, sms_template2_f_a)
  ```
  
   
@@ -2024,7 +2134,7 @@ multi_factor_auth_model_by_backup_code = {
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.mfa.mfa_validate_backup_code(multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields)
+result = loginradius.mfa.mfa_validate_backup_code(multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields)
  ```
  
   
@@ -2039,72 +2149,7 @@ phone_no2_f_a = "<phone_no2_f_a>" #Required
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_update_phone_number(phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a)
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByOTP-put-"> Validate MFA by OTP (PUT)</h6>
- This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-otp)
-
- ```
-  
-access_token = "<access_token>" #Required
-reauth_by_otp_model = { 
-"otp" : "<otp>"
-}  #Required
-
-loginradius.mfa.mfa_re_authenticate_by_otp(access_token, reauth_by_otp_model)
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByBackupCode-put-"> Validate MFA by Backup Code (PUT)</h6>
- This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-backup-code)
-
- ```
-  
-access_token = "<access_token>" #Required
-reauth_by_backup_code_model = { 
-"backupCode" : "<backupCode>"
-}  #Required
-
-loginradius.mfa.mfa_re_authenticate_by_backup_code(access_token, reauth_by_backup_code_model)
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
- This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
-
- ```
-  
-access_token = "<access_token>" #Required
-reauth_by_google_authenticator_code_model = { 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-}  #Required
-
-loginradius.mfa.mfa_re_authenticate_by_google_auth(access_token, reauth_by_google_authenticator_code_model)
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByPassword-put-"> Validate MFA by Password (PUT)</h6>
- This API is used to re-authenticate via Multi-factor-authentication by passing the password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-password)
-
- ```
-  
-access_token = "<access_token>" #Required
-password_event_based_auth_model_with_lockout = { 
-"password" : "<password>"
-}  #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
-
-loginradius.mfa.mfa_re_authenticate_by_password(access_token, password_event_based_auth_model_with_lockout, sms_template2_f_a)
+result = loginradius.mfa.mfa_update_phone_number(phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a)
  ```
  
   
@@ -2124,7 +2169,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
+result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
  ```
  
   
@@ -2144,7 +2189,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.mfa.mfa_login_by_user_name(password, username, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
+result = loginradius.mfa.mfa_login_by_user_name(password, username, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
  ```
  
   
@@ -2164,7 +2209,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
+result = loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url)
  ```
  
   
@@ -2178,7 +2223,7 @@ loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, logi
 access_token = "<access_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_configure_by_access_token(access_token, sms_template2_f_a)
+result = loginradius.mfa.mfa_configure_by_access_token(access_token, sms_template2_f_a)
  ```
  
   
@@ -2191,7 +2236,7 @@ loginradius.mfa.mfa_configure_by_access_token(access_token, sms_template2_f_a)
   
 access_token = "<access_token>" #Required
 
-loginradius.mfa.mfa_backup_code_by_access_token(access_token)
+result = loginradius.mfa.mfa_backup_code_by_access_token(access_token)
  ```
  
   
@@ -2204,7 +2249,7 @@ loginradius.mfa.mfa_backup_code_by_access_token(access_token)
   
 access_token = "<access_token>" #Required
 
-loginradius.mfa.mfa_reset_backup_code_by_access_token(access_token)
+result = loginradius.mfa.mfa_reset_backup_code_by_access_token(access_token)
  ```
  
   
@@ -2218,7 +2263,494 @@ loginradius.mfa.mfa_reset_backup_code_by_access_token(access_token)
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2_f_a)
+result = loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2_f_a)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFABackupCodeByUid-get-"> MFA Backup Code by UID (GET)</h6>
+ This API is used to reset the backup codes on a given account via the UID. This API call will generate 10 new codes, each code can only be consumed once.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-backup-code-by-uid/)
+
+ ```
+  
+uid = "<uid>" #Required
+
+result = loginradius.mfa.mfa_backup_code_by_uid(uid)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetBackupCodeByUid-get-"> MFA Reset Backup Code by UID (GET)</h6>
+ This API is used to reset the backup codes on a given account via the UID. This API call will generate 10 new codes, each code can only be consumed once.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-reset-backup-code-by-uid/)
+
+ ```
+  
+uid = "<uid>" #Required
+
+result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetGoogleAuthByToken-delete-"> MFA Reset Google Authenticator by Token (DELETE)</h6>
+ This API Resets the Google Authenticator configurations on a given account via the access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+googleauthenticator = "True" #Required
+
+result = loginradius.mfa.mfa_reset_google_auth_by_token(access_token, googleauthenticator)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetSMSAuthByToken-delete-"> MFA Reset SMS Authenticator by Token (DELETE)</h6>
+ This API resets the SMS Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-token/)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+otpauthenticator = "True" #Required
+
+result = loginradius.mfa.mfa_reset_sms_auth_by_token(access_token, otpauthenticator)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetSMSAuthenticatorByUid-delete-"> MFA Reset SMS Authenticator By UID (DELETE)</h6>
+ This API resets the SMS Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-uid/)
+
+ ```
+  
+otpauthenticator = "True" #Required 
+uid = "<uid>" #Required
+
+result = loginradius.mfa.mfa_reset_sms_authenticator_by_uid(otpauthenticator, uid)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetGoogleAuthenticatorByUid-delete-"> MFA Reset Google Authenticator By UID (DELETE)</h6>
+ This API resets the Google Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-uid/)
+
+ ```
+  
+googleauthenticator = "True" #Required 
+uid = "<uid>" #Required
+
+result = loginradius.mfa.mfa_reset_google_authenticator_by_uid(googleauthenticator, uid)
+ ```
+ 
+  
+  
+ 
+
+
+### PINAuthentication API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Reset PIN By ResetToken](#ResetPINByResetToken-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Email](#ResetPINByEmailAndSecurityAnswer-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Username](#ResetPINByUsernameAndSecurityAnswer-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Phone](#ResetPINByPhoneAndSecurityAnswer-put-)<br>
+* PUT : [Change PIN By Token](#ChangePINByAccessToken-put-)<br>
+* PUT : [Reset PIN by Phone and OTP](#ResetPINByPhoneAndOtp-put-)<br>
+* PUT : [Reset PIN by Email and OTP](#ResetPINByEmailAndOtp-put-)<br>
+* PUT : [Reset PIN by Username and OTP](#ResetPINByUsernameAndOtp-put-)<br>
+* POST : [PIN Login](#PINLogin-post-)<br>
+* POST : [Forgot PIN By Email](#SendForgotPINEmailByEmail-post-)<br>
+* POST : [Forgot PIN By UserName](#SendForgotPINEmailByUsername-post-)<br>
+* POST : [Forgot PIN By Phone](#SendForgotPINSMSByPhone-post-)<br>
+* POST : [Set PIN By PinAuthToken](#SetPINByPinAuthToken-post-)<br>
+* GET : [Invalidate PIN Session Token](#InValidatePinSessionToken-get-)<br>
+
+
+
+
+<h6 id="ResetPINByResetToken-put-"> Reset PIN By ResetToken (PUT)</h6>
+ This API is used to reset pin using reset token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-resettoken/)
+
+ ```
+ 
+reset_pin_by_reset_token = { 
+"pin" : "<pin>",
+"resetToken" : "<resetToken>"
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_reset_token(reset_pin_by_reset_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByEmailAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Email (PUT)</h6>
+ This API is used to reset pin using security question answer and email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-email/)
+
+ ```
+ 
+reset_pin_by_security_question_answer_and_email_model = { 
+"email" : "<email>",
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"}
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_email_and_security_answer(reset_pin_by_security_question_answer_and_email_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByUsernameAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Username (PUT)</h6>
+ This API is used to reset pin using security question answer and username.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-username/)
+
+ ```
+ 
+reset_pin_by_security_question_answer_and_username_model = { 
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"},
+"username" : "<username>"
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_username_and_security_answer(reset_pin_by_security_question_answer_and_username_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByPhoneAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Phone (PUT)</h6>
+ This API is used to reset pin using security question answer and phone.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-phone/)
+
+ ```
+ 
+reset_pin_by_security_question_answer_and_phone_model = { 
+"phone" : "<phone>",
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"}
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_phone_and_security_answer(reset_pin_by_security_question_answer_and_phone_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ChangePINByAccessToken-put-"> Change PIN By Token (PUT)</h6>
+ This API is used to change a user's PIN using access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/change-pin-by-access-token/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+change_pin_model = { 
+"newPIN" : "<newPIN>",
+"oldPIN" : "<oldPIN>"
+}  #Required
+
+result = loginradius.pin_authentication.change_pin_by_access_token(access_token, change_pin_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByPhoneAndOtp-put-"> Reset PIN by Phone and OTP (PUT)</h6>
+ This API is used to reset pin using phoneId and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-phone-and-otp/)
+
+ ```
+ 
+reset_pin_by_phone_and_otp_model = { 
+"otp" : "<otp>",
+"phone" : "<phone>",
+"pin" : "<pin>"
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_phone_and_otp(reset_pin_by_phone_and_otp_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByEmailAndOtp-put-"> Reset PIN by Email and OTP (PUT)</h6>
+ This API is used to reset pin using email and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-email-and-otp/)
+
+ ```
+ 
+reset_pin_by_email_and_otp_model = { 
+"email" : "<email>",
+"otp" : "<otp>",
+"pin" : "<pin>"
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_email_and_otp(reset_pin_by_email_and_otp_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByUsernameAndOtp-put-"> Reset PIN by Username and OTP (PUT)</h6>
+ This API is used to reset pin using username and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-username-and-otp/)
+
+ ```
+ 
+reset_pin_by_username_and_otp_model = { 
+"otp" : "<otp>",
+"pin" : "<pin>",
+"username" : "<username>"
+}  #Required
+
+result = loginradius.pin_authentication.reset_pin_by_username_and_otp(reset_pin_by_username_and_otp_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="PINLogin-post-"> PIN Login (POST)</h6>
+ This API is used to login a user by pin and session_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/login-by-pin/)
+
+ ```
+ 
+login_by_pin_model = { 
+"pin" : "<pin>"
+}  #Required 
+session_token = "<session_token>" #Required
+
+result = loginradius.pin_authentication.pin_login(login_by_pin_model, session_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINEmailByEmail-post-"> Forgot PIN By Email (POST)</h6>
+ This API sends the reset pin email to specified email address.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-email/)
+
+ ```
+ 
+forgot_pin_link_by_email_model = { 
+"email" : "<email>"
+}  #Required 
+email_template = "<email_template>" #Optional 
+reset_pin_url = "<reset_pin_url>" #Optional
+
+result = loginradius.pin_authentication.send_forgot_pin_email_by_email(forgot_pin_link_by_email_model, email_template, reset_pin_url)
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINEmailByUsername-post-"> Forgot PIN By UserName (POST)</h6>
+ This API sends the reset pin email using username.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-username/)
+
+ ```
+ 
+forgot_pin_link_by_user_name_model = { 
+"userName" : "<userName>"
+}  #Required 
+email_template = "<email_template>" #Optional 
+reset_pin_url = "<reset_pin_url>" #Optional
+
+result = loginradius.pin_authentication.send_forgot_pin_email_by_username(forgot_pin_link_by_user_name_model, email_template, reset_pin_url)
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINSMSByPhone-post-"> Forgot PIN By Phone (POST)</h6>
+ This API sends the OTP to specified phone number  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-phone/)
+
+ ```
+ 
+forgot_pin_otp_by_phone_model = { 
+"phone" : "<phone>"
+}  #Required 
+sms_template = "<sms_template>" #Optional
+
+result = loginradius.pin_authentication.send_forgot_pin_sms_by_phone(forgot_pin_otp_by_phone_model, sms_template)
+ ```
+ 
+  
+  
+ 
+<h6 id="SetPINByPinAuthToken-post-"> Set PIN By PinAuthToken (POST)</h6>
+ This API is used to change a user's PIN using Pin Auth token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/set-pin-by-pinauthtoken/)
+
+ ```
+ 
+pin_required_model = { 
+"pin" : "<pin>"
+}  #Required 
+pin_auth_token = "<pin_auth_token>" #Required
+
+result = loginradius.pin_authentication.set_pin_by_pin_auth_token(pin_required_model, pin_auth_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="InValidatePinSessionToken-get-"> Invalidate PIN Session Token (GET)</h6>
+ This API is used to invalidate pin session token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/invalidate-pin-session-token/)
+
+ ```
+  
+session_token = "<session_token>" #Required
+
+result = loginradius.pin_authentication.in_validate_pin_session_token(session_token)
+ ```
+ 
+  
+  
+ 
+
+
+### ReAuthentication API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
+* PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
+* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
+* PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
+* PUT : [MFA Re-authentication by PIN](#VerifyPINAuthentication-put-)<br>
+* POST : [Verify Multifactor OTP Authentication](#VerifyMultiFactorOtpReauthentication-post-)<br>
+* POST : [Verify Multifactor Password Authentication](#VerifyMultiFactorPasswordReauthentication-post-)<br>
+* POST : [Verify Multifactor PIN Authentication](#VerifyMultiFactorPINReauthentication-post-)<br>
+* GET : [Multi Factor Re-Authenticate](#MFAReAuthenticate-get-)<br>
+
+
+
+
+<h6 id="MFAReAuthenticateByOTP-put-"> Validate MFA by OTP (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+reauth_by_otp_model = { 
+"otp" : "<otp>"
+}  #Required
+
+result = loginradius.re_authentication.mfa_re_authenticate_by_otp(access_token, reauth_by_otp_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByBackupCode-put-"> Validate MFA by Backup Code (PUT)</h6>
+ This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-backup-code/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+reauth_by_backup_code_model = { 
+"backupCode" : "<backupCode>"
+}  #Required
+
+result = loginradius.re_authentication.mfa_re_authenticate_by_backup_code(access_token, reauth_by_backup_code_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
+
+ ```
+  
+access_token = "<access_token>" #Required
+reauth_by_google_authenticator_code_model = { 
+"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
+}  #Required
+
+result = loginradius.re_authentication.mfa_re_authenticate_by_google_auth(access_token, reauth_by_google_authenticator_code_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByPassword-put-"> Validate MFA by Password (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor-authentication by passing the password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-password)
+
+ ```
+  
+access_token = "<access_token>" #Required
+password_event_based_auth_model_with_lockout = { 
+"password" : "<password>"
+}  #Required 
+sms_template2_f_a = "<sms_template2_f_a>" #Optional
+
+result = loginradius.re_authentication.mfa_re_authenticate_by_password(access_token, password_event_based_auth_model_with_lockout, sms_template2_f_a)
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyPINAuthentication-put-"> MFA Re-authentication by PIN (PUT)</h6>
+ This API is used to validate the triggered MFA authentication flow with a password.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/pin/re-auth-by-pin/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+pin_auth_event_based_auth_model_with_lockout = { 
+"pin" : "<pin>"
+}  #Required 
+sms_template2_f_a = "<sms_template2_f_a>" #Optional
+
+result = loginradius.re_authentication.verify_pin_authentication(access_token, pin_auth_event_based_auth_model_with_lockout, sms_template2_f_a)
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyMultiFactorOtpReauthentication-post-"> Verify Multifactor OTP Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-validate-mfa/)
+
+ ```
+ 
+event_based_multi_factor_token = { 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+}  #Required 
+uid = "<uid>" #Required
+
+result = loginradius.re_authentication.verify_multi_factor_otp_reauthentication(event_based_multi_factor_token, uid)
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyMultiFactorPasswordReauthentication-post-"> Verify Multifactor Password Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by password.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/re-auth-validate-password/)
+
+ ```
+ 
+event_based_multi_factor_token = { 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+}  #Required 
+uid = "<uid>" #Required
+
+result = loginradius.re_authentication.verify_multi_factor_password_reauthentication(event_based_multi_factor_token, uid)
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyMultiFactorPINReauthentication-post-"> Verify Multifactor PIN Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by PIN.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/pin/re-auth-validate-pin/)
+
+ ```
+ 
+event_based_multi_factor_token = { 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+}  #Required 
+uid = "<uid>" #Required
+
+result = loginradius.re_authentication.verify_multi_factor_pin_reauthentication(event_based_multi_factor_token, uid)
  ```
  
   
@@ -2232,89 +2764,130 @@ loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2
 access_token = "<access_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional
 
-loginradius.mfa.mfa_re_authenticate(access_token, sms_template2_f_a)
+result = loginradius.re_authentication.mfa_re_authenticate(access_token, sms_template2_f_a)
  ```
  
   
   
  
-<h6 id="MFABackupCodeByUid-get-"> MFA Backup Code by UID (GET)</h6>
- This API is used to reset the backup codes on a given account via the UID. This API call will generate 10 new codes, each code can only be consumed once.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-backup-code-by-uid/)
+
+
+### ConsentManagement API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Update Consent By Access Token](#UpdateConsentProfileByAccessToken-put-)<br>
+* POST : [Consent By ConsentToken](#SubmitConsentByConsentToken-post-)<br>
+* POST : [Post Consent By Access Token](#SubmitConsentByAccessToken-post-)<br>
+* GET : [Get Consent Logs By Uid](#GetConsentLogsByUid-get-)<br>
+* GET : [Get Consent Log by Access Token](#GetConsentLogs-get-)<br>
+* GET : [Get Verify Consent By Access Token](#VerifyConsentByAccessToken-get-)<br>
+
+
+
+
+<h6 id="UpdateConsentProfileByAccessToken-put-"> Update Consent By Access Token (PUT)</h6>
+ This API is to update consents using access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/update-consent-by-access-token/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+consent_update_model = { 
+"consents" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : "True"  
+}  ] 
+}  #Required
+
+result = loginradius.consent_management.update_consent_profile_by_access_token(access_token, consent_update_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="SubmitConsentByConsentToken-post-"> Consent By ConsentToken (POST)</h6>
+ This API is to submit consent form using consent token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-by-consent-token/)
+
+ ```
+  
+consent_token = "<consent_token>" #Required
+consent_submit_model = { 
+"data" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : "True"  
+}  ] ,
+"events" : [   { 
+ "event" : "<event>"  ,
+"isCustom" : "True"  
+}  ] 
+}  #Required
+
+result = loginradius.consent_management.submit_consent_by_consent_token(consent_token, consent_submit_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="SubmitConsentByAccessToken-post-"> Post Consent By Access Token (POST)</h6>
+ API to provide a way to end user to submit a consent form for particular event type.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-by-access-token/)
+
+ ```
+  
+access_token = "<access_token>" #Required
+consent_submit_model = { 
+"data" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : "True"  
+}  ] ,
+"events" : [   { 
+ "event" : "<event>"  ,
+"isCustom" : "True"  
+}  ] 
+}  #Required
+
+result = loginradius.consent_management.submit_consent_by_access_token(access_token, consent_submit_model)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetConsentLogsByUid-get-"> Get Consent Logs By Uid (GET)</h6>
+ This API is used to get the Consent logs of the user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-log-by-uid/)
 
  ```
   
 uid = "<uid>" #Required
 
-loginradius.mfa.mfa_backup_code_by_uid(uid)
+result = loginradius.consent_management.get_consent_logs_by_uid(uid)
  ```
  
   
   
  
-<h6 id="MFAResetBackupCodeByUid-get-"> MFA Reset Backup Code by UID (GET)</h6>
- This API is used to reset the backup codes on a given account via the UID. This API call will generate 10 new codes, each code can only be consumed once.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-reset-backup-code-by-uid/)
+<h6 id="GetConsentLogs-get-"> Get Consent Log by Access Token (GET)</h6>
+ This API is used to fetch consent logs.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-log-by-access-token/)
 
  ```
   
-uid = "<uid>" #Required
+access_token = "<access_token>" #Required
 
-loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
+result = loginradius.consent_management.get_consent_logs(access_token)
  ```
  
   
   
  
-<h6 id="MFAResetGoogleAuthByToken-delete-"> MFA Reset Google Authenticator by Token (DELETE)</h6>
- This API Resets the Google Authenticator configurations on a given account via the access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
+<h6 id="VerifyConsentByAccessToken-get-"> Get Verify Consent By Access Token (GET)</h6>
+ This API is used to check if consent is submitted for a particular event or not.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/verify-consent-by-access-token/)
 
  ```
   
 access_token = "<access_token>" #Required 
-googleauthenticator = True #Required
+event = "<event>" #Required 
+is_custom = "True" #Required
 
-loginradius.mfa.mfa_reset_google_auth_by_token(access_token, googleauthenticator)
- ```
- 
-  
-  
- 
-<h6 id="MFAResetSMSAuthByToken-delete-"> MFA Reset SMS Authenticator by Token (DELETE)</h6>
- This API resets the SMS Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-token/)
-
- ```
-  
-access_token = "<access_token>" #Required 
-otpauthenticator = True #Required
-
-loginradius.mfa.mfa_reset_sms_auth_by_token(access_token, otpauthenticator)
- ```
- 
-  
-  
- 
-<h6 id="MFAResetSMSAuthenticatorByUid-delete-"> MFA Reset SMS Authenticator By UID (DELETE)</h6>
- This API resets the SMS Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-uid/)
-
- ```
-  
-otpauthenticator = True #Required 
-uid = "<uid>" #Required
-
-loginradius.mfa.mfa_reset_sms_authenticator_by_uid(otpauthenticator, uid)
- ```
- 
-  
-  
- 
-<h6 id="MFAResetGoogleAuthenticatorByUid-delete-"> MFA Reset Google Authenticator By UID (DELETE)</h6>
- This API resets the Google Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-uid/)
-
- ```
-  
-googleauthenticator = True #Required 
-uid = "<uid>" #Required
-
-loginradius.mfa.mfa_reset_google_authenticator_by_uid(googleauthenticator, uid)
+result = loginradius.consent_management.verify_consent_by_access_token(access_token, event, is_custom)
  ```
  
   
@@ -2322,7 +2895,7 @@ loginradius.mfa.mfa_reset_google_authenticator_by_uid(googleauthenticator, uid)
  
 
 
-### Smart Login API 
+### SmartLogin API
 
 
 List of APIs in this Section:<br>
@@ -2343,7 +2916,7 @@ List of APIs in this Section:<br>
 verification_token = "<verification_token>" #Required 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.smart_login.smart_login_token_verification(verification_token, welcome_email_template)
+result = loginradius.smart_login.smart_login_token_verification(verification_token, welcome_email_template)
  ```
  
   
@@ -2360,7 +2933,7 @@ redirect_url = "<redirect_url>" #Optional
 smart_login_email_template = "<smart_login_email_template>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.smart_login.smart_login_by_email(client_guid, email, redirect_url, smart_login_email_template, welcome_email_template)
+result = loginradius.smart_login.smart_login_by_email(client_guid, email, redirect_url, smart_login_email_template, welcome_email_template)
  ```
  
   
@@ -2377,7 +2950,7 @@ redirect_url = "<redirect_url>" #Optional
 smart_login_email_template = "<smart_login_email_template>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.smart_login.smart_login_by_user_name(client_guid, username, redirect_url, smart_login_email_template, welcome_email_template)
+result = loginradius.smart_login.smart_login_by_user_name(client_guid, username, redirect_url, smart_login_email_template, welcome_email_template)
  ```
  
   
@@ -2391,7 +2964,7 @@ loginradius.smart_login.smart_login_by_user_name(client_guid, username, redirect
 client_guid = "<client_guid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.smart_login.smart_login_ping(client_guid, fields)
+result = loginradius.smart_login.smart_login_ping(client_guid, fields)
  ```
  
   
@@ -2399,7 +2972,7 @@ loginradius.smart_login.smart_login_ping(client_guid, fields)
  
 
 
-### One Touch Login API 
+### OneTouchLogin API
 
 
 List of APIs in this Section:<br>
@@ -2423,7 +2996,7 @@ phone = "<phone>" #Required
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional
 
-loginradius.one_touch_login.one_touch_login_otp_verification(otp, phone, fields, sms_template)
+result = loginradius.one_touch_login.one_touch_login_otp_verification(otp, phone, fields, sms_template)
  ```
  
   
@@ -2443,7 +3016,7 @@ one_touch_login_email_template = "<one_touch_login_email_template>" #Optional
 redirecturl = "<redirecturl>" #Optional 
 welcomeemailtemplate = "<welcomeemailtemplate>" #Optional
 
-loginradius.one_touch_login.one_touch_login_by_email(one_touch_login_by_email_model, one_touch_login_email_template, redirecturl, welcomeemailtemplate)
+result = loginradius.one_touch_login.one_touch_login_by_email(one_touch_login_by_email_model, one_touch_login_email_template, redirecturl, welcomeemailtemplate)
  ```
  
   
@@ -2460,7 +3033,7 @@ one_touch_login_by_phone_model = {
 }  #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_model, sms_template)
+result = loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_model, sms_template)
  ```
  
   
@@ -2474,7 +3047,7 @@ loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_mo
 verification_token = "<verification_token>" #Required 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.one_touch_login.one_touch_email_verification(verification_token, welcome_email_template)
+result = loginradius.one_touch_login.one_touch_email_verification(verification_token, welcome_email_template)
  ```
  
   
@@ -2488,7 +3061,7 @@ loginradius.one_touch_login.one_touch_email_verification(verification_token, wel
 client_guid = "<client_guid>" #Required 
 fields = "<fields>" #Optional
 
-loginradius.one_touch_login.one_touch_login_ping(client_guid, fields)
+result = loginradius.one_touch_login.one_touch_login_ping(client_guid, fields)
  ```
  
   
@@ -2496,7 +3069,7 @@ loginradius.one_touch_login.one_touch_login_ping(client_guid, fields)
  
 
 
-### Password Less Login API 
+### PasswordLessLogin API
 
 
 List of APIs in this Section:<br>
@@ -2522,7 +3095,7 @@ password_less_login_otp_model = {
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional
 
-loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template)
+result = loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template)
  ```
  
   
@@ -2536,7 +3109,7 @@ loginradius.password_less_login.passwordless_login_phone_verification(password_l
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
 
-loginradius.password_less_login.passwordless_login_by_phone(phone, sms_template)
+result = loginradius.password_less_login.passwordless_login_by_phone(phone, sms_template)
  ```
  
   
@@ -2551,7 +3124,7 @@ email = "<email>" #Required
 password_less_login_template = "<password_less_login_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.password_less_login.passwordless_login_by_email(email, password_less_login_template, verification_url)
+result = loginradius.password_less_login.passwordless_login_by_email(email, password_less_login_template, verification_url)
  ```
  
   
@@ -2566,7 +3139,7 @@ username = "<username>" #Required
 password_less_login_template = "<password_less_login_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.password_less_login.passwordless_login_by_user_name(username, password_less_login_template, verification_url)
+result = loginradius.password_less_login.passwordless_login_by_user_name(username, password_less_login_template, verification_url)
  ```
  
   
@@ -2581,7 +3154,7 @@ verification_token = "<verification_token>" #Required
 fields = "<fields>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
 
-loginradius.password_less_login.passwordless_login_verification(verification_token, fields, welcome_email_template)
+result = loginradius.password_less_login.passwordless_login_verification(verification_token, fields, welcome_email_template)
  ```
  
   
@@ -2589,7 +3162,7 @@ loginradius.password_less_login.passwordless_login_verification(verification_tok
  
 
 
-### Configuration API 
+### Configuration API
 
 
 List of APIs in this Section:<br>
@@ -2606,18 +3179,18 @@ List of APIs in this Section:<br>
   
 time_difference = 0 #Optional
 
-loginradius.configuration.get_server_info(time_difference)
+result = loginradius.configuration.get_server_info(time_difference)
  ```
  <h6 id="GetConfigurations-get-"> Get Configuration (GET)</h6>
  This API is used to get the configurations which are set in the LoginRadius Admin Console for a particular LoginRadius site/environment. [More info](https://www.loginradius.com/docs/api/v2/customer-identity-api/configuration/get-configurations)
   
   ```
-loginradius.configuration.get_configurations()
+result = loginradius.configuration.get_configurations()
 ```
  
 
 
-### Role API 
+### Role API
 
 
 List of APIs in this Section:<br>
@@ -2650,7 +3223,7 @@ account_roles_model = {
 }  #Required 
 uid = "<uid>" #Required
 
-loginradius.role.assign_roles_by_uid(account_roles_model, uid)
+result = loginradius.role.assign_roles_by_uid(account_roles_model, uid)
  ```
  
   
@@ -2671,7 +3244,7 @@ account_role_context_model = {
 }  #Required 
 uid = "<uid>" #Required
 
-loginradius.role.update_role_context_by_uid(account_role_context_model, uid)
+result = loginradius.role.update_role_context_by_uid(account_role_context_model, uid)
  ```
  
   
@@ -2687,7 +3260,7 @@ permissions_model = {
 }  #Required 
 role = "<role>" #Required
 
-loginradius.role.add_role_permissions(permissions_model, role)
+result = loginradius.role.add_role_permissions(permissions_model, role)
  ```
  
   
@@ -2701,11 +3274,11 @@ loginradius.role.add_role_permissions(permissions_model, role)
 roles_model = { 
 "roles" : [   { 
  "name" : "<name>"  ,
-"permissions" : {"Permission_name":true}  
+"permissions" : {"Permission_name" : "True"}  
 }  ] 
 }  #Required
 
-loginradius.role.create_roles(roles_model)
+result = loginradius.role.create_roles(roles_model)
  ```
  
   
@@ -2718,7 +3291,7 @@ loginradius.role.create_roles(roles_model)
   
 uid = "<uid>" #Required
 
-loginradius.role.get_roles_by_uid(uid)
+result = loginradius.role.get_roles_by_uid(uid)
  ```
  
   
@@ -2731,7 +3304,7 @@ loginradius.role.get_roles_by_uid(uid)
   
 uid = "<uid>" #Required
 
-loginradius.role.get_role_context_by_uid(uid)
+result = loginradius.role.get_role_context_by_uid(uid)
  ```
  
   
@@ -2744,7 +3317,7 @@ loginradius.role.get_role_context_by_uid(uid)
   
 context_name = "<context_name>" #Required
 
-loginradius.role.get_role_context_by_context_name(context_name)
+result = loginradius.role.get_role_context_by_context_name(context_name)
  ```
  
   
@@ -2756,7 +3329,7 @@ loginradius.role.get_role_context_by_context_name(context_name)
  ```
  
 
-loginradius.role.get_roles_list()
+result = loginradius.role.get_roles_list()
  ```
  
   
@@ -2772,7 +3345,7 @@ account_roles_model = {
 }  #Required 
 uid = "<uid>" #Required
 
-loginradius.role.unassign_roles_by_uid(account_roles_model, uid)
+result = loginradius.role.unassign_roles_by_uid(account_roles_model, uid)
  ```
  
   
@@ -2786,7 +3359,7 @@ loginradius.role.unassign_roles_by_uid(account_roles_model, uid)
 context_name = "<context_name>" #Required 
 uid = "<uid>" #Required
 
-loginradius.role.delete_role_context_by_uid(context_name, uid)
+result = loginradius.role.delete_role_context_by_uid(context_name, uid)
  ```
  
   
@@ -2803,7 +3376,7 @@ role_context_remove_role_model = {
 }  #Required 
 uid = "<uid>" #Required
 
-loginradius.role.delete_roles_from_role_context_by_uid(context_name, role_context_remove_role_model, uid)
+result = loginradius.role.delete_roles_from_role_context_by_uid(context_name, role_context_remove_role_model, uid)
  ```
  
   
@@ -2820,7 +3393,7 @@ role_context_additional_permission_remove_role_model = {
 }  #Required 
 uid = "<uid>" #Required
 
-loginradius.role.delete_additional_permission_from_role_context_by_uid(context_name, role_context_additional_permission_remove_role_model, uid)
+result = loginradius.role.delete_additional_permission_from_role_context_by_uid(context_name, role_context_additional_permission_remove_role_model, uid)
  ```
  
   
@@ -2833,7 +3406,7 @@ loginradius.role.delete_additional_permission_from_role_context_by_uid(context_n
   
 role = "<role>" #Required
 
-loginradius.role.delete_role(role)
+result = loginradius.role.delete_role(role)
  ```
  
   
@@ -2849,7 +3422,7 @@ permissions_model = {
 }  #Required 
 role = "<role>" #Required
 
-loginradius.role.remove_role_permissions(permissions_model, role)
+result = loginradius.role.remove_role_permissions(permissions_model, role)
  ```
  
   
@@ -2857,7 +3430,7 @@ loginradius.role.remove_role_permissions(permissions_model, role)
  
 
 
-### Custom Registration Data API 
+### CustomRegistrationData API
 
 
 List of APIs in this Section:<br>
@@ -2879,14 +3452,14 @@ List of APIs in this Section:<br>
  ```
  
 registration_data_update_model = { 
-"isActive" : true,
+"isActive" : "True",
 "key" : "<key>",
 "type" : "<type>",
 "value" : "<value>"
 }  #Required 
 record_id = "<record_id>" #Required
 
-loginradius.custom_registration_data.update_registration_data(registration_data_update_model, record_id)
+result = loginradius.custom_registration_data.update_registration_data(registration_data_update_model, record_id)
  ```
  
   
@@ -2900,7 +3473,7 @@ loginradius.custom_registration_data.update_registration_data(registration_data_
 code = "<code>" #Required 
 record_id = "<record_id>" #Required
 
-loginradius.custom_registration_data.validate_registration_data_code(code, record_id)
+result = loginradius.custom_registration_data.validate_registration_data_code(code, record_id)
  ```
  
   
@@ -2914,7 +3487,7 @@ loginradius.custom_registration_data.validate_registration_data_code(code, recor
 registration_data_create_model_list = { 
 "data" : [   { 
  "code" : "<code>"  ,
-"isActive" : true ,
+"isActive" : "True" ,
  "key" : "<key>"  ,
  "parentId" : "<parentId>"  ,
  "type" : "<type>"  ,
@@ -2922,7 +3495,7 @@ registration_data_create_model_list = {
 }  ] 
 }  #Required
 
-loginradius.custom_registration_data.add_registration_data(registration_data_create_model_list)
+result = loginradius.custom_registration_data.add_registration_data(registration_data_create_model_list)
  ```
  
   
@@ -2938,7 +3511,7 @@ limit = 0 #Optional
 parent_id = "<parent_id>" #Optional 
 skip = 0 #Optional
 
-loginradius.custom_registration_data.auth_get_registration_data(type, limit, parent_id, skip)
+result = loginradius.custom_registration_data.auth_get_registration_data(type, limit, parent_id, skip)
  ```
  
   
@@ -2954,7 +3527,7 @@ limit = 0 #Optional
 parent_id = "<parent_id>" #Optional 
 skip = 0 #Optional
 
-loginradius.custom_registration_data.get_registration_data(type, limit, parent_id, skip)
+result = loginradius.custom_registration_data.get_registration_data(type, limit, parent_id, skip)
  ```
  
   
@@ -2967,7 +3540,7 @@ loginradius.custom_registration_data.get_registration_data(type, limit, parent_i
   
 record_id = "<record_id>" #Required
 
-loginradius.custom_registration_data.delete_registration_data(record_id)
+result = loginradius.custom_registration_data.delete_registration_data(record_id)
  ```
  
   
@@ -2980,7 +3553,7 @@ loginradius.custom_registration_data.delete_registration_data(record_id)
   
 type = "<type>" #Required
 
-loginradius.custom_registration_data.delete_all_records_by_data_source(type)
+result = loginradius.custom_registration_data.delete_all_records_by_data_source(type)
  ```
  
   
@@ -2988,7 +3561,7 @@ loginradius.custom_registration_data.delete_all_records_by_data_source(type)
  
 
 
-### Risk Based Authentication API
+### RiskBasedAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -3012,7 +3585,7 @@ email_authentication_model = {
 email_template = "<email_template>" #Optional 
 fields = "<fields>" #Optional 
 login_url = "<login_url>" #Optional 
-password_delegation = True #Optional 
+password_delegation = "True" #Optional 
 password_delegation_app = "<password_delegation_app>" #Optional 
 rba_browser_email_template = "<rba_browser_email_template>" #Optional 
 rba_browser_sms_template = "<rba_browser_sms_template>" #Optional 
@@ -3027,7 +3600,7 @@ rba_otp_sms_template = "<rba_otp_sms_template>" #Optional
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.risk_based_authentication.rba_login_by_email(email_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
+result = loginradius.risk_based_authentication.rba_login_by_email(email_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
  ```
  
   
@@ -3045,7 +3618,7 @@ user_name_authentication_model = {
 email_template = "<email_template>" #Optional 
 fields = "<fields>" #Optional 
 login_url = "<login_url>" #Optional 
-password_delegation = True #Optional 
+password_delegation = "True" #Optional 
 password_delegation_app = "<password_delegation_app>" #Optional 
 rba_browser_email_template = "<rba_browser_email_template>" #Optional 
 rba_browser_sms_template = "<rba_browser_sms_template>" #Optional 
@@ -3060,7 +3633,7 @@ rba_otp_sms_template = "<rba_otp_sms_template>" #Optional
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.risk_based_authentication.rba_login_by_user_name(user_name_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
+result = loginradius.risk_based_authentication.rba_login_by_user_name(user_name_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
  ```
  
   
@@ -3078,7 +3651,7 @@ phone_authentication_model = {
 email_template = "<email_template>" #Optional 
 fields = "<fields>" #Optional 
 login_url = "<login_url>" #Optional 
-password_delegation = True #Optional 
+password_delegation = "True" #Optional 
 password_delegation_app = "<password_delegation_app>" #Optional 
 rba_browser_email_template = "<rba_browser_email_template>" #Optional 
 rba_browser_sms_template = "<rba_browser_sms_template>" #Optional 
@@ -3093,7 +3666,7 @@ rba_otp_sms_template = "<rba_otp_sms_template>" #Optional
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional
 
-loginradius.risk_based_authentication.rba_login_by_phone(phone_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
+result = loginradius.risk_based_authentication.rba_login_by_phone(phone_authentication_model, email_template, fields, login_url, password_delegation, password_delegation_app, rba_browser_email_template, rba_browser_sms_template, rba_city_email_template, rba_city_sms_template, rba_country_email_template, rba_country_sms_template, rba_ip_email_template, rba_ip_sms_template, rba_oneclick_email_template, rba_otp_sms_template, sms_template, verification_url)
  ```
  
   
@@ -3101,7 +3674,7 @@ loginradius.risk_based_authentication.rba_login_by_phone(phone_authentication_mo
  
 
 
-### Sott API 
+### Sott API
 
 
 List of APIs in this Section:<br>
@@ -3118,7 +3691,7 @@ List of APIs in this Section:<br>
   
 time_difference = 0 #Optional
 
-loginradius.sott.generate_sott(time_difference)
+result = loginradius.sott.generate_sott(time_difference)
  ```
  
   
@@ -3126,7 +3699,7 @@ loginradius.sott.generate_sott(time_difference)
  
 
 
-### Native Social API
+### NativeSocial API
 
 
 List of APIs in this Section:<br>
@@ -3134,7 +3707,7 @@ List of APIs in this Section:<br>
 * GET : [Access Token via Facebook Token](#GetAccessTokenByFacebookAccessToken-get-)<br>
 * GET : [Access Token via Twitter Token](#GetAccessTokenByTwitterAccessToken-get-)<br>
 * GET : [Access Token via Google Token](#GetAccessTokenByGoogleAccessToken-get-)<br>
-* GET : [LoginRadius Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
+* GET : [Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
 * GET : [Access Token via Linkedin Token](#GetAccessTokenByLinkedinAccessToken-get-)<br>
 * GET : [Get Access Token By Foursquare Access Token](#GetAccessTokenByFoursquareAccessToken-get-)<br>
 * GET : [Access Token via Vkontakte Token](#GetAccessTokenByVkontakteAccessToken-get-)<br>
@@ -3144,34 +3717,34 @@ List of APIs in this Section:<br>
 
 
 <h6 id="GetAccessTokenByFacebookAccessToken-get-"> Access Token via Facebook Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Facebook’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-facebook-token/)
+ The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-facebook-token/)
 
  ```
   
 fb_access_token = "<fb_access_token>" #Required
 
-loginradius.native_social.get_access_token_by_facebook_access_token(fb_access_token)
+result = loginradius.native_social.get_access_token_by_facebook_access_token(fb_access_token)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByTwitterAccessToken-get-"> Access Token via Twitter Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Twitter’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-twitter-token)
+ The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-twitter-token)
 
  ```
   
 tw_access_token = "<tw_access_token>" #Required 
 tw_token_secret = "<tw_token_secret>" #Required
 
-loginradius.native_social.get_access_token_by_twitter_access_token(tw_access_token, tw_token_secret)
+result = loginradius.native_social.get_access_token_by_twitter_access_token(tw_access_token, tw_token_secret)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByGoogleAccessToken-get-"> Access Token via Google Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Google’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-token)
+ The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-token)
 
  ```
   
@@ -3179,72 +3752,72 @@ google_access_token = "<google_access_token>" #Required
 client_id = "<client_id>" #Optional 
 refresh_token = "<refresh_token>" #Optional
 
-loginradius.native_social.get_access_token_by_google_access_token(google_access_token, client_id, refresh_token)
+result = loginradius.native_social.get_access_token_by_google_access_token(google_access_token, client_id, refresh_token)
  ```
  
   
   
  
-<h6 id="GetAccessTokenByGoogleJWTAccessToken-get-"> LoginRadius Access Token using google JWT token for Native Mobile Login (GET)</h6>
+<h6 id="GetAccessTokenByGoogleJWTAccessToken-get-"> Access Token using google JWT token for Native Mobile Login (GET)</h6>
  This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-googlejwt)
 
  ```
   
 id_token = "<id_token>" #Required
 
-loginradius.native_social.get_access_token_by_google_j_w_t_access_token(id_token)
+result = loginradius.native_social.get_access_token_by_google_j_w_t_access_token(id_token)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByLinkedinAccessToken-get-"> Access Token via Linkedin Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Linkedin’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-linkedin-token/)
+ The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-linkedin-token/)
 
  ```
   
 ln_access_token = "<ln_access_token>" #Required
 
-loginradius.native_social.get_access_token_by_linkedin_access_token(ln_access_token)
+result = loginradius.native_social.get_access_token_by_linkedin_access_token(ln_access_token)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByFoursquareAccessToken-get-"> Get Access Token By Foursquare Access Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Foursquare’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-foursquare-token/)
+ The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-foursquare-token/)
 
  ```
   
 fs_access_token = "<fs_access_token>" #Required
 
-loginradius.native_social.get_access_token_by_foursquare_access_token(fs_access_token)
+result = loginradius.native_social.get_access_token_by_foursquare_access_token(fs_access_token)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByVkontakteAccessToken-get-"> Access Token via Vkontakte Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Vkontakte’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-vkontakte-token)
+ The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-vkontakte-token)
 
  ```
   
 vk_access_token = "<vk_access_token>" #Required
 
-loginradius.native_social.get_access_token_by_vkontakte_access_token(vk_access_token)
+result = loginradius.native_social.get_access_token_by_vkontakte_access_token(vk_access_token)
  ```
  
   
   
  
 <h6 id="GetAccessTokenByGoogleAuthCode-get-"> Access Token via Google AuthCode (GET)</h6>
- The API is used to get LoginRadius access token by sending Google’s AuthCode. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-auth-code)
+ The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-auth-code)
 
  ```
   
 google_authcode = "<google_authcode>" #Required
 
-loginradius.native_social.get_access_token_by_google_auth_code(google_authcode)
+result = loginradius.native_social.get_access_token_by_google_auth_code(google_authcode)
  ```
  
   
@@ -3252,7 +3825,7 @@ loginradius.native_social.get_access_token_by_google_auth_code(google_authcode)
  
 
 
-### WebHook API 
+### WebHook API
 
 
 List of APIs in this Section:<br>
@@ -3275,7 +3848,7 @@ web_hook_subscribe_model = {
 "targetUrl" : "<targetUrl>"
 }  #Required
 
-loginradius.web_hook.web_hook_subscribe(web_hook_subscribe_model)
+result = loginradius.web_hook.web_hook_subscribe(web_hook_subscribe_model)
  ```
  
   
@@ -3288,7 +3861,7 @@ loginradius.web_hook.web_hook_subscribe(web_hook_subscribe_model)
   
 event = "<event>" #Required
 
-loginradius.web_hook.get_web_hook_subscribed_u_r_ls(event)
+result = loginradius.web_hook.get_web_hook_subscribed_u_r_ls(event)
  ```
  
   
@@ -3300,7 +3873,7 @@ loginradius.web_hook.get_web_hook_subscribed_u_r_ls(event)
  ```
  
 
-loginradius.web_hook.webhook_test()
+result = loginradius.web_hook.webhook_test()
  ```
  
   
@@ -3316,7 +3889,7 @@ web_hook_subscribe_model = {
 "targetUrl" : "<targetUrl>"
 }  #Required
 
-loginradius.web_hook.web_hook_unsubscribe(web_hook_subscribe_model)
+result = loginradius.web_hook.web_hook_unsubscribe(web_hook_subscribe_model)
  ```
  
   
@@ -3356,13 +3929,15 @@ We have a demo web application using the Python SDK, which includes the followin
 You can get a copy of our demo project at [GitHub](https://github.com/LoginRadius/python-sdk).
 
 <br>
+
 ### Configuration
 
 1.Have Flask, requests installed:
 
 ```pip install flask``` <br>
 ```pip install requests``` <br>
-
+```pip install pbkdf2``` <br>
+```pip install cryptography``` <br>
 2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
 
 3.Navigate to demo directory and run: ```python app.py```

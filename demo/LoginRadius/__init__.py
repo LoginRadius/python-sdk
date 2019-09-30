@@ -20,7 +20,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2019, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "10.0.0-beta"
+__version__ = "10.0.0"
 
 import json
 import sys
@@ -46,6 +46,7 @@ from LoginRadius.api.authentication.passwordlesslogin_api import PasswordLessLog
 from LoginRadius.api.authentication.phoneauthentication_api import PhoneAuthenticationApi
 from LoginRadius.api.authentication.riskbasedauthentication_api import RiskBasedAuthenticationApi
 from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
+from LoginRadius.api.authentication.pinauthentication_api import PINAuthenticationApi
 # Account APIs
 from LoginRadius.api.account.account_api import AccountApi
 from LoginRadius.api.account.role_api import RoleApi
@@ -56,6 +57,9 @@ from LoginRadius.api.advanced.customregistrationdata_api import CustomRegistrati
 from LoginRadius.api.advanced.multifactorauthentication_api import MultiFactorAuthenticationApi
 from LoginRadius.api.advanced.configuration_api import ConfigurationApi
 from LoginRadius.api.advanced.webhook_api import WebHookApi
+from LoginRadius.api.advanced.reauthentication_api import ReAuthenticationApi
+from LoginRadius.api.advanced.consentmanagement_api import ConsentManagementApi
+
 # Social APIs
 from LoginRadius.api.social.nativesocial_api import NativeSocialApi
 from LoginRadius.api.social.social_api import SocialApi
@@ -132,16 +136,19 @@ class LoginRadius:
         self.risk_based_authentication = RiskBasedAuthenticationApi(self)
         self.smart_login = SmartLoginApi(self)
         self.phone_authentication = PhoneAuthenticationApi(self)
+        self.pin_authentication = PINAuthenticationApi(self)
+        self.consent_management = ConsentManagementApi(self)
+        
         self.account = AccountApi(self)
         self.role = RoleApi(self)
-        self.sott = SottApi(self)
-		
+        self.sott = SottApi(self)		
 		
         self.custom_object = CustomObjectApi(self)
         self.custom_registration_data = CustomRegistrationDataApi(self)
         self.mfa = MultiFactorAuthenticationApi(self)
         self.configuration = ConfigurationApi(self)
         self.web_hook = WebHookApi(self)
+        self.re_authentication = ReAuthenticationApi(self)
 		
         self.native_social = NativeSocialApi(self)
         self.social = SocialApi(self)

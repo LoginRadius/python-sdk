@@ -1,5 +1,5 @@
 # -- coding: utf-8 --
-#    Created by LoginRadius Development Team
+# Created by LoginRadius Development Team
 # Copyright 2019 LoginRadius Inc. All rights reserved.
 #
 
@@ -315,7 +315,7 @@ class AccountApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, None)
 
     def get_forgot_password_token(self, email, email_template=None, reset_password_url=None,
-        send_email=False):
+        send_email=None):
         """This API Returns a Forgot Password Token it can also be used to send a Forgot Password email to the customer. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username' in the body.
         
         Args:
@@ -544,3 +544,50 @@ class AccountApi:
 
         resource_path = "identity/v2/manage/account/identities"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
+    def account_delete_by_email(self, email):
+        """This API is used to delete all user profiles associated with an Email.
+        
+        Args:
+            email: Email of the user
+		
+        Returns:
+            Response containing Definition of Delete Request
+        18.36
+        """
+
+        if(self._lr_object.is_null_or_whitespace(email)):
+            raise Exception(self._lr_object.get_validation_message("email"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+        query_parameters["email"] = email
+
+        resource_path = "identity/v2/manage/account"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+
+    def account_update_uid(self, update_uid_model, uid):
+        """This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.
+        
+        Args:
+            update_uid_model: Payload containing Update UID
+            uid: UID, the unified identifier for each user account
+		
+        Returns:
+            Response containing Definition of Complete Validation data
+        18.41
+        """
+        if(update_uid_model is None):
+            raise Exception(self._lr_object.get_validation_message("update_uid_model"))
+
+        if(self._lr_object.is_null_or_whitespace(uid)):
+            raise Exception(self._lr_object.get_validation_message("uid"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+        query_parameters["uid"] = uid
+
+        resource_path = "identity/v2/manage/account/uid"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, update_uid_model)

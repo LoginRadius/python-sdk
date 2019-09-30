@@ -1,5 +1,5 @@
 # -- coding: utf-8 --
-#    Created by LoginRadius Development Team
+# Created by LoginRadius Development Team
 # Copyright 2019 LoginRadius Inc. All rights reserved.
 #
 
@@ -109,7 +109,7 @@ class SocialApi:
 		
         Returns:
             Response containing Definition for Complete active sessions
-        20.11
+        20.11.1
         """
 
         if(self._lr_object.is_null_or_whitespace(token)):
@@ -131,7 +131,7 @@ class SocialApi:
 		
         Returns:
             Response containing Definition for Complete active sessions
-        20.12
+        20.11.2
         """
 
         if(self._lr_object.is_null_or_whitespace(account_id)):
@@ -153,7 +153,7 @@ class SocialApi:
 		
         Returns:
             Response containing Definition for Complete active sessions
-        20.13
+        20.11.3
         """
 
         if(self._lr_object.is_null_or_whitespace(profile_id)):
@@ -175,7 +175,7 @@ class SocialApi:
 		
         Returns:
             Response Containing List of Album Data
-        22.1
+        22.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -187,15 +187,40 @@ class SocialApi:
         resource_path = "api/v2/album"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_albums_with_cursor(self, access_token, next_cursor):
+        """<b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Albums with next cursor
+        22.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/album"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_audios(self, access_token):
-        """The Audio API is used to get audio files data from the user’s social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
+        """The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of Audio Data
-        24.1
+        24.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -207,15 +232,40 @@ class SocialApi:
         resource_path = "api/v2/audio"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_audios_with_cursor(self, access_token, next_cursor):
+        """The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Audio with next cursor
+        24.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/audio"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_check_ins(self, access_token):
-        """The Check In API is used to get check Ins data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
+        """The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of CheckIn Data
-        25.1
+        25.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -227,8 +277,33 @@ class SocialApi:
         resource_path = "api/v2/checkin"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_check_ins_with_cursor(self, access_token, next_cursor):
+        """The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Checkins with next cursor
+        25.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/checkin"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_contacts(self, access_token, next_cursor=''):
-        """The Contact API is used to get contacts/friends/connections data from the user’s social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius’ standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo
+        """The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -251,14 +326,14 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_events(self, access_token):
-        """The Event API is used to get the event data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Live
+        """The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of Events Data
-        28.1
+        28.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -270,15 +345,40 @@ class SocialApi:
         resource_path = "api/v2/event"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_events_with_cursor(self, access_token, next_cursor):
+        """The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Events with next cursor
+        28.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/event"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_followings(self, access_token):
-        """Get the following user list from the user’s social account.<br><br><b>Supported Providers:</b> Twitter
+        """Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of Contacts Data
-        29.1
+        29.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -290,15 +390,40 @@ class SocialApi:
         resource_path = "api/v2/following"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_followings_with_cursor(self, access_token, next_cursor):
+        """Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response containing Definition of Contact Data with Cursor
+        29.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/following"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_groups(self, access_token):
-        """The Group API is used to get group data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
+        """The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of Groups Data
-        30.1
+        30.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -310,15 +435,40 @@ class SocialApi:
         resource_path = "api/v2/group"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_groups_with_cursor(self, access_token, next_cursor):
+        """The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Groups with next cursor
+        30.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/group"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_likes(self, access_token):
-        """The Like API is used to get likes data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook
+        """The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
 		
         Returns:
             Response Containing List of Likes Data
-        31.1
+        31.2.1
         """
 
         if(self._lr_object.is_null_or_whitespace(access_token)):
@@ -330,8 +480,33 @@ class SocialApi:
         resource_path = "api/v2/like"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
+    def get_likes_with_cursor(self, access_token, next_cursor):
+        """The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            next_cursor: Cursor value if not all contacts can be retrieved once.
+		
+        Returns:
+            Response Model containing Likes with next cursor
+        31.2.2
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+            raise Exception(self._lr_object.get_validation_message("next_cursor"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["nextCursor"] = next_cursor
+
+        resource_path = "api/v2/like"
+        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+
     def get_mentions(self, access_token):
-        """The Mention API is used to get mentions data from the user’s social account.<br><br><b>Supported Providers:</b> Twitter
+        """The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -352,7 +527,7 @@ class SocialApi:
 
     def post_message(self, access_token, message, subject,
         to):
-        """Post Message API is used to post messages to the user’s contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user’s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different
+        """Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -387,7 +562,7 @@ class SocialApi:
         return self._lr_object.execute("POST", resource_path, query_parameters, None)
 
     def get_page(self, access_token, page_name):
-        """The Page API is used to get the page data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn
+        """The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -412,7 +587,7 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_photos(self, access_token, album_id):
-        """The Photo API is used to get photo data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte
+        """The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -437,7 +612,7 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_posts(self, access_token):
-        """The Post API is used to get post message data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook
+        """The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -459,7 +634,7 @@ class SocialApi:
     def status_posting(self, access_token, caption, description,
         imageurl, status, title, url,
         shorturl='0'):
-        """The Status API is used to update the status on the user’s wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn
+        """The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -511,28 +686,8 @@ class SocialApi:
         resource_path = "api/v2/status"
         return self._lr_object.execute("POST", resource_path, query_parameters, None)
 
-    def get_status(self, access_token):
-        """The Status API is used to get the status messages from the user’s social account.
-        
-        Args:
-            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-		
-        Returns:
-            Response Containing List of Status Data
-        37.3
-        """
-
-        if(self._lr_object.is_null_or_whitespace(access_token)):
-            raise Exception(self._lr_object.get_validation_message("access_token"))
-
-        query_parameters = {}
-        query_parameters["access_token"] = access_token
-
-        resource_path = "api/v2/status"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
-
     def trackable_status_posting(self, access_token, status_model):
-        """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded
+        """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -556,7 +711,7 @@ class SocialApi:
 
     def get_trackable_status_stats(self, access_token, caption, description,
         imageurl, status, title, url):
-        """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.
+        """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -627,7 +782,7 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_social_user_profile(self, access_token, fields=''):
-        """The User Profile API is used to get social profile data from the user’s social account after authentication.<br><br><b>Supported Providers:</b>  All
+        """The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -650,7 +805,7 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_refreshed_social_user_profile(self, access_token, fields=''):
-        """The User Profile API is used to get the latest updated social profile data from the user’s social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius’ standard data format. This API should be called using the access token retrieved from the refresh access token API.
+        """The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -673,7 +828,7 @@ class SocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_videos(self, access_token, next_cursor):
-        """The Video API is used to get video files data from the user’s social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte
+        """The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.

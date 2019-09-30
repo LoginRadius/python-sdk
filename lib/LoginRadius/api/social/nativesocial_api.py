@@ -1,5 +1,5 @@
 # -- coding: utf-8 --
-#    Created by LoginRadius Development Team
+# Created by LoginRadius Development Team
 # Copyright 2019 LoginRadius Inc. All rights reserved.
 #
 
@@ -13,7 +13,7 @@ class NativeSocialApi:
         self._lr_object = lr_object
 
     def get_access_token_by_facebook_access_token(self, fb__access__token):
-        """The API is used to get LoginRadius access token by sending Facebook’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             fb__access__token: Facebook Access Token
@@ -34,7 +34,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_twitter_access_token(self, tw__access__token, tw__token__secret):
-        """The API is used to get LoginRadius access token by sending Twitter’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             tw__access__token: Twitter Access Token
@@ -60,7 +60,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_google_access_token(self, google__access__token, client_id=None, refresh_token=None):
-        """The API is used to get LoginRadius access token by sending Google’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             google__access__token: Google Access Token
@@ -108,7 +108,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_linkedin_access_token(self, ln__access__token):
-        """The API is used to get LoginRadius access token by sending Linkedin’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             ln__access__token: Linkedin Access Token
@@ -129,7 +129,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_foursquare_access_token(self, fs__access__token):
-        """The API is used to get LoginRadius access token by sending Foursquare’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             fs__access__token: Foursquare Access Token
@@ -150,7 +150,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_vkontakte_access_token(self, vk_access_token):
-        """The API is used to get LoginRadius access token by sending Vkontakte’s access token. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
             vk_access_token: Vkontakte Access Token
@@ -171,7 +171,7 @@ class NativeSocialApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def get_access_token_by_google_auth_code(self, google_authcode):
-        """The API is used to get LoginRadius access token by sending Google’s AuthCode. It will be valid for the specific duration of time specified in the response.
+        """The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
         
         Args:
             google_authcode: Google AuthCode

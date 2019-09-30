@@ -1,5 +1,5 @@
 # -- coding: utf-8 --
-#    Created by LoginRadius Development Team
+# Created by LoginRadius Development Team
 # Copyright 2019 LoginRadius Inc. All rights reserved.
 #
 
@@ -42,7 +42,7 @@ class CustomObjectApi:
         return self._lr_object.execute("POST", resource_path, query_parameters, payload)
 
     def update_custom_object_by_token(self, access_token, object_name, object_record_id,
-        payload, update_type=''):
+        payload, update_type=None):
         """This API is used to update the specified custom object data of the specified account. If the value of updatetype is 'replace' then it will fully replace custom object with the new custom object and if the value of updatetype is 'partialreplace' then it will perform an upsert type operation
         
         Args:
@@ -194,7 +194,7 @@ class CustomObjectApi:
         return self._lr_object.execute("POST", resource_path, query_parameters, payload)
 
     def update_custom_object_by_uid(self, object_name, object_record_id, payload,
-        uid, update_type=''):
+        uid, update_type=None):
         """This API is used to update the specified custom object data of a specified account. If the value of updatetype is 'replace' then it will fully replace custom object with new custom object and if the value of updatetype is partialreplace then it will perform an upsert type operation.
         
         Args:
