@@ -1,8 +1,17 @@
-from distutils.core import setup
-setup(
-    name = 'LoginRadius',
-    version='10.0.0',
-	packages=["LoginRadius","LoginRadius.api"],
+import setuptools
+
+# read the contents of your README file
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md')) as f:
+    long_description = f.read()
+
+setuptools.setup(
+    name = 'LoginRadius-v2',
+    version='10.0.1',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+	packages=setuptools.find_packages(),
     description = 'Customer identity and access management for Python.',
     author='LoginRadius',
     author_email='developers@loginradius.com',

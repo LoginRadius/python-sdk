@@ -29,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```
- pip install loginradius-v2==10.0.0
+ pip install loginradius-v2==10.0.1
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==10.0.0
+ easy_install loginradius-v2==10.0.1
 ```
 
 ### Install From Source
