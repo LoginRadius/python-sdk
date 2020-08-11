@@ -477,10 +477,10 @@ class AccountApi:
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
 
     def refresh_access_token_by_refresh_token(self, refresh__token):
-        """This API is used to refresh an access_token via it's associated refresh_token.
+        """This API is used to refresh an access token via it's associated refresh token.
         
         Args:
-            refresh__token: LoginRadius refresh_token
+            refresh__token: LoginRadius refresh token
 		
         Returns:
             Response containing Definition of Complete Token data
@@ -502,7 +502,7 @@ class AccountApi:
         """The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.
         
         Args:
-            refresh__token: LoginRadius refresh_token
+            refresh__token: LoginRadius refresh token
 		
         Returns:
             Response containing Definition of Delete Request

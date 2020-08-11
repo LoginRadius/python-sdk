@@ -102,7 +102,7 @@ class CustomRegistrationDataApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def add_registration_data(self, registration_data_create_model_list):
-        """This API allows you to fill data into a dropdown list which you have created for user Registeration. For more details on how to use this API please see our Custom Registration Data Overview
+        """This API allows you to fill data into a dropdown list which you have created for user Registration. For more details on how to use this API please see our Custom Registration Data Overview
         
         Args:
             registration_data_create_model_list: Model Class containing Definition of List of Registration Data

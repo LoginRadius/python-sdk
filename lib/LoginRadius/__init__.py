@@ -20,7 +20,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2019, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "10.0.1"
+__version__ = "11.0.0"
 
 import json
 import sys

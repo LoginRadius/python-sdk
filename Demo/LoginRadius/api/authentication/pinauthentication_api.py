@@ -13,7 +13,7 @@ class PINAuthenticationApi:
         self._lr_object = lr_object
 
     def pin_login(self, login_by_pin_model, session_token):
-        """This API is used to login a user by pin and session_token.
+        """This API is used to login a user by pin and session token.
         
         Args:
             login_by_pin_model: Model Class containing Definition of payload for LoginByPin API

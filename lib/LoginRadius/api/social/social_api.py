@@ -33,12 +33,13 @@ class SocialApi:
         resource_path = "api/v2/access_token"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def refresh_access_token(self, access_token, expires_in=0):
+    def refresh_access_token(self, access_token, expires_in=0, is_web=False):
         """The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            expires_in: Allows you to specify a desired expiration time in minutes for the newly issued access_token.
+            expires_in: Allows you to specify a desired expiration time in minutes for the newly issued access token.
+            is_web: Is web or not.
 		
         Returns:
             Response containing Definition of Complete Token data
@@ -53,6 +54,8 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
         if(expires_in is not None):
             query_parameters["expiresIn"] = expires_in
+        if(is_web is not None):
+            query_parameters["isWeb"] = is_web
 
         resource_path = "api/v2/access_token/refresh"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)

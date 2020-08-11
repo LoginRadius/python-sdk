@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md')) as f:
 
 setuptools.setup(
     name = 'LoginRadius-v2',
-    version='10.0.1',
+    version='11.0.0',
     long_description=long_description,
     long_description_content_type='text/markdown',
 	packages=setuptools.find_packages(),
