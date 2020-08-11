@@ -1,7 +1,7 @@
 # LoginRadius Python SDK Change Log
 
 # Version 11.0.0
-Release on **August 11,2020**
+Released on **August 11,2020**
 ## Enhancements:
  - Added a parameter isWeb in "RefreshAccessToken" API.
  - Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken,  getAccessTokenByTwitterAccessToken,
@@ -19,12 +19,12 @@ Release on **August 11,2020**
  - getSocialIdentity API(GET)
 
 # Version 10.0.1
-Release on **Oct 24,2019**
+Released on **Oct 24,2019**
 ## Enhancements
   - Fixed the pip installation issue
 
 # Version 10.0.0
-Release on **September 30,2019**
+Released on **September 30,2019**
 
 ## Enhancements
 This full version release includes major breaking changes with several improvements and optimizations :
