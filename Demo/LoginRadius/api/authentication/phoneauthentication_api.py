@@ -260,7 +260,7 @@ class PhoneAuthenticationApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def remove_phone_id_by_access_token(self, access_token):
-        """This API is used to delete the Phone ID on a user's account via the access_token
+        """This API is used to delete the Phone ID on a user's account via the access token
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.

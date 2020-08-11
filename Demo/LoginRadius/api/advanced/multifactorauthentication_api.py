@@ -13,7 +13,7 @@ class MultiFactorAuthenticationApi:
         self._lr_object = lr_object
 
     def mfa_configure_by_access_token(self, access_token, sms_template2_f_a=None):
-        """This API is used to configure the Multi-factor authentication after login by using the access_token when MFA is set as optional on the LoginRadius site.
+        """This API is used to configure the Multi-factor authentication after login by using the access token when MFA is set as optional on the LoginRadius site.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -126,7 +126,7 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
     def mfa_reset_google_auth_by_token(self, access_token, googleauthenticator):
-        """This API Resets the Google Authenticator configurations on a given account via the access_token
+        """This API Resets the Google Authenticator configurations on a given account via the access token
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -151,7 +151,7 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
 
     def mfa_reset_sms_auth_by_token(self, access_token, otpauthenticator):
-        """This API resets the SMS Authenticator configurations on a given account via the access_token.
+        """This API resets the SMS Authenticator configurations on a given account via the access token.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -176,7 +176,7 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
 
     def mfa_backup_code_by_access_token(self, access_token):
-        """This API is used to get a set of backup codes via access_token to allow the user login on a site that has Multi-factor Authentication enabled in the event that the user does not have a secondary factor available. We generate 10 codes, each code can only be consumed once. If any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
+        """This API is used to get a set of backup codes via access token to allow the user login on a site that has Multi-factor Authentication enabled in the event that the user does not have a secondary factor available. We generate 10 codes, each code can only be consumed once. If any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -197,7 +197,7 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
     def mfa_reset_backup_code_by_access_token(self, access_token):
-        """API is used to reset the backup codes on a given account via the access_token. This API call will generate 10 new codes, each code can only be consumed once
+        """API is used to reset the backup codes on a given account via the access token. This API call will generate 10 new codes, each code can only be consumed once
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -428,7 +428,7 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
     def mfa_validate_backup_code(self, multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields=''):
-        """This API is used to validate the backup code provided by the user and if valid, we return an access_token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
+        """This API is used to validate the backup code provided by the user and if valid, we return an access token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
         
         Args:
             multi_factor_auth_model_by_backup_code: Model Class containing Definition of payload for MultiFactorAuth By BackupCode API

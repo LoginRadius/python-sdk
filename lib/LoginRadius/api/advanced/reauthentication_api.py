@@ -13,7 +13,7 @@ class ReAuthenticationApi:
         self._lr_object = lr_object
 
     def mfa_re_authenticate(self, access_token, sms_template2_f_a=None):
-        """This API is used to trigger the Multi-Factor Autentication workflow for the provided access_token
+        """This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -61,7 +61,7 @@ class ReAuthenticationApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, reauth_by_otp_model)
 
     def mfa_re_authenticate_by_backup_code(self, access_token, reauth_by_backup_code_model):
-        """This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device
+        """This API is used to re-authenticate by set of backup codes via access token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.

@@ -29,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```
- pip install loginradius-v2==10.0.1
+ pip install loginradius-v2==11.0.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==10.0.1
+ easy_install loginradius-v2==11.0.0
 ```
 
 ### Install From Source
@@ -104,13 +104,14 @@ List of APIs in this Section:<br>
 * PUT : [Auth Reset Password by OTP](#ResetPasswordByEmailOTP-put-)<br>
 * PUT : [Auth Reset Password by OTP and UserName](#ResetPasswordByOTPAndUserName-put-)<br>
 * PUT : [Auth Change Password](#ChangePassword-put-)<br>
-* PUT : [Auth Link Social Identities](#LinkSocialIdentities-put-)<br>
 * PUT : [Auth Set or Change UserName](#SetOrChangeUserName-put-)<br>
 * PUT : [Auth Resend Email Verification](#AuthResendEmailVerification-put-)<br>
 * POST : [Auth Add Email](#AddEmail-post-)<br>
 * POST : [Auth Login by Email](#LoginByEmail-post-)<br>
 * POST : [Auth Login by Username](#LoginByUserName-post-)<br>
 * POST : [Auth Forgot Password](#ForgotPassword-post-)<br>
+* POST : [Auth Link Social Identities](#LinkSocialIdentities-post-)<br>
+* POST : [Auth Link Social Identities By Ping](#LinkSocialIdentitiesByPing-post-)<br>
 * POST : [Auth User Registration by Email](#UserRegistrationByEmail-post-)<br>
 * POST : [Auth User Registration By Captcha](#UserRegistrationByCaptcha-post-)<br>
 * GET : [Get Security Questions By Email](#GetSecurityQuestionsByEmail-get-)<br>
@@ -125,7 +126,6 @@ List of APIs in this Section:<br>
 * GET : [Auth Delete Account](#DeleteAccountByDeleteToken-get-)<br>
 * GET : [Auth Check Email Availability](#CheckEmailAvailability-get-)<br>
 * GET : [Auth Verify Email](#VerifyEmail-get-)<br>
-* GET : [Auth Social Identity](#GetSocialIdentity-get-)<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
 * GET : [Auth Privacy Policy Accept](#AcceptPrivacyPolicy-get-)<br>
 * GET : [Auth Privacy Policy History By Access Token](#GetPrivacyPolicyHistoryByAccessToken-get-)<br>
@@ -137,7 +137,7 @@ List of APIs in this Section:<br>
 
 
 <h6 id="UpdateProfileByAccessToken-put-"> Auth Update Profile by Token (PUT)</h6>
- This API is used to update the user's profile by passing the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-update-profile-by-token/)
+ This API is used to update the user's profile by passing the access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-update-profile-by-token/)
 
  ```
   
@@ -159,7 +159,7 @@ result = loginradius.authentication.update_profile_by_access_token(access_token,
   
  
 <h6 id="UnlockAccountByToken-put-"> Auth Unlock Account by Access Token (PUT)</h6>
- This API is used to allow a customer with a valid access_token to unlock their account provided that they successfully pass the prompted Bot Protection challenges. The Block or Suspend block types are not applicable for this API. For additional details see our Auth Security Configuration documentation.You are only required to pass the Post Parameters that correspond to the prompted challenges.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlock-account-by-access-token/)
+ This API is used to allow a customer with a valid access token to unlock their account provided that they successfully pass the prompted Bot Protection challenges. The Block or Suspend block types are not applicable for this API. For additional details see our Auth Security Configuration documentation.You are only required to pass the Post Parameters that correspond to the prompted challenges.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlock-account-by-access-token/)
 
  ```
   
@@ -309,20 +309,6 @@ result = loginradius.authentication.change_password(access_token, new_password, 
   
   
  
-<h6 id="LinkSocialIdentities-put-"> Auth Link Social Identities (PUT)</h6>
- This API is used to link up a social provider account with the specified account based on the access token and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
-
- ```
-  
-access_token = "<access_token>" #Required 
-candidate_token = "<candidate_token>" #Required
-
-result = loginradius.authentication.link_social_identities(access_token, candidate_token)
- ```
- 
-  
-  
- 
 <h6 id="SetOrChangeUserName-put-"> Auth Set or Change UserName (PUT)</h6>
  This API is used to set or change UserName by access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-set-or-change-user-name/)
 
@@ -419,6 +405,34 @@ reset_password_url = "<reset_password_url>" #Required
 email_template = "<email_template>" #Optional
 
 result = loginradius.authentication.forgot_password(email, reset_password_url, email_template)
+ ```
+ 
+  
+  
+ 
+<h6 id="LinkSocialIdentities-post-"> Auth Link Social Identities (POST)</h6>
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+candidate_token = "<candidate_token>" #Required
+
+result = loginradius.authentication.link_social_identities(access_token, candidate_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="LinkSocialIdentitiesByPing-post-"> Auth Link Social Identities By Ping (POST)</h6>
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities-by-ping)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+client_guid = "<client_guid>" #Required
+
+result = loginradius.authentication.link_social_identities_by_ping(access_token, client_guid)
  ```
  
   
@@ -572,7 +586,7 @@ result = loginradius.authentication.get_access_token_info(access_token)
   
  
 <h6 id="GetProfileByAccessToken-get-"> Auth Read all Profiles by Token (GET)</h6>
- This API retrieves a copy of the user data based on the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-read-profiles-by-token/)
+ This API retrieves a copy of the user data based on the access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-read-profiles-by-token/)
 
  ```
   
@@ -641,20 +655,6 @@ result = loginradius.authentication.verify_email(verification_token, fields, url
   
   
  
-<h6 id="GetSocialIdentity-get-"> Auth Social Identity (GET)</h6>
- This API is called just after account linking API and it prevents the raas profile of the second account from getting created.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-social-identity)
-
- ```
-  
-access_token = "<access_token>" #Required 
-fields = "<fields>" #Optional
-
-result = loginradius.authentication.get_social_identity(access_token, fields)
- ```
- 
-  
-  
- 
 <h6 id="CheckUserNameAvailability-get-"> Auth Check UserName Availability (GET)</h6>
  This API is used to check the UserName exists or not on your site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-username-availability/)
 
@@ -669,7 +669,7 @@ result = loginradius.authentication.check_user_name_availability(username)
   
  
 <h6 id="AcceptPrivacyPolicy-get-"> Auth Privacy Policy Accept (GET)</h6>
- This API is used to update the privacy policy stored in the user's profile by providing the access_token of the user accepting the privacy policy  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-privacy-policy-accept)
+ This API is used to update the privacy policy stored in the user's profile by providing the access token of the user accepting the privacy policy  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-privacy-policy-accept)
 
  ```
   
@@ -683,7 +683,7 @@ result = loginradius.authentication.accept_privacy_policy(access_token, fields)
   
  
 <h6 id="GetPrivacyPolicyHistoryByAccessToken-get-"> Auth Privacy Policy History By Access Token (GET)</h6>
- This API will return all the accepted privacy policies for the user by providing the access_token of that user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/privacy-policy-history-by-access-token/)
+ This API will return all the accepted privacy policies for the user by providing the access token of that user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/privacy-policy-history-by-access-token/)
 
  ```
   
@@ -752,7 +752,6 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
-* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -774,7 +773,7 @@ List of APIs in this Section:<br>
 
 
 <h6 id="UpdateAccountByUid-put-"> Account Update (PUT)</h6>
- This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docshttps://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
+ This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
 
  ```
  
@@ -865,22 +864,6 @@ uid = "<uid>" #Required
 fields = "<fields>" #Optional
 
 result = loginradius.account.upsert_email(upsert_email_model, uid, fields)
- ```
- 
-  
-  
- 
-<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
- This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
-
- ```
- 
-update_uid_model = { 
-"newUid" : "<newUid>"
-}  #Required 
-uid = "<uid>" #Required
-
-result = loginradius.account.account_update_uid(update_uid_model, uid)
  ```
  
   
@@ -1033,7 +1016,7 @@ result = loginradius.account.get_access_token_by_uid(uid)
   
  
 <h6 id="RefreshAccessTokenByRefreshToken-get-"> Refresh Access Token by Refresh Token (GET)</h6>
- This API is used to refresh an access_token via it's associated refresh_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-access-token-by-refresh-token)
+ This API is used to refresh an access token via it's associated refresh token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-access-token-by-refresh-token)
 
  ```
   
@@ -1234,9 +1217,10 @@ result = loginradius.social.exchange_access_token(token)
  ```
   
 access_token = "<access_token>" #Required 
-expires_in = 0 #Optional
+expires_in = 0 #Optional 
+is_web = "True" #Optional
 
-result = loginradius.social.refresh_access_token(access_token, expires_in)
+result = loginradius.social.refresh_access_token(access_token, expires_in, is_web)
  ```
  
   
@@ -1996,7 +1980,7 @@ result = loginradius.phone_authentication.check_phone_number_availability(phone)
   
  
 <h6 id="RemovePhoneIDByAccessToken-delete-"> Remove Phone ID by Access Token (DELETE)</h6>
- This API is used to delete the Phone ID on a user's account via the access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/remove-phone-id-by-access-token)
+ This API is used to delete the Phone ID on a user's account via the access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/remove-phone-id-by-access-token)
 
  ```
   
@@ -2124,7 +2108,7 @@ result = loginradius.mfa.mfa_validate_google_auth_code(google_authenticator_code
   
  
 <h6 id="MFAValidateBackupCode-put-"> MFA Validate Backup code (PUT)</h6>
- This API is used to validate the backup code provided by the user and if valid, we return an access_token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-validate-backup-code/)
+ This API is used to validate the backup code provided by the user and if valid, we return an access token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-validate-backup-code/)
 
  ```
  
@@ -2216,7 +2200,7 @@ result = loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fie
   
  
 <h6 id="MFAConfigureByAccessToken-get-"> MFA Validate Access Token (GET)</h6>
- This API is used to configure the Multi-factor authentication after login by using the access_token when MFA is set as optional on the LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/mfa-validate-access-token/)
+ This API is used to configure the Multi-factor authentication after login by using the access token when MFA is set as optional on the LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/mfa-validate-access-token/)
 
  ```
   
@@ -2230,7 +2214,7 @@ result = loginradius.mfa.mfa_configure_by_access_token(access_token, sms_templat
   
  
 <h6 id="MFABackupCodeByAccessToken-get-"> MFA Backup Code by Access Token (GET)</h6>
- This API is used to get a set of backup codes via access_token to allow the user login on a site that has Multi-factor Authentication enabled in the event that the user does not have a secondary factor available. We generate 10 codes, each code can only be consumed once. If any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-backup-code-by-access-token/)
+ This API is used to get a set of backup codes via access token to allow the user login on a site that has Multi-factor Authentication enabled in the event that the user does not have a secondary factor available. We generate 10 codes, each code can only be consumed once. If any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-backup-code-by-access-token/)
 
  ```
   
@@ -2243,7 +2227,7 @@ result = loginradius.mfa.mfa_backup_code_by_access_token(access_token)
   
  
 <h6 id="MFAResetBackupCodeByAccessToken-get-"> Reset Backup Code by Access Token (GET)</h6>
- API is used to reset the backup codes on a given account via the access_token. This API call will generate 10 new codes, each code can only be consumed once  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-reset-backup-code-by-access-token/)
+ API is used to reset the backup codes on a given account via the access token. This API call will generate 10 new codes, each code can only be consumed once  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-reset-backup-code-by-access-token/)
 
  ```
   
@@ -2296,7 +2280,7 @@ result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
   
  
 <h6 id="MFAResetGoogleAuthByToken-delete-"> MFA Reset Google Authenticator by Token (DELETE)</h6>
- This API Resets the Google Authenticator configurations on a given account via the access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
+ This API Resets the Google Authenticator configurations on a given account via the access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
 
  ```
   
@@ -2310,7 +2294,7 @@ result = loginradius.mfa.mfa_reset_google_auth_by_token(access_token, googleauth
   
  
 <h6 id="MFAResetSMSAuthByToken-delete-"> MFA Reset SMS Authenticator by Token (DELETE)</h6>
- This API resets the SMS Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-token/)
+ This API resets the SMS Authenticator configurations on a given account via the access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-token/)
 
  ```
   
@@ -2512,7 +2496,7 @@ result = loginradius.pin_authentication.reset_pin_by_username_and_otp(reset_pin_
   
  
 <h6 id="PINLogin-post-"> PIN Login (POST)</h6>
- This API is used to login a user by pin and session_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/login-by-pin/)
+ This API is used to login a user by pin and session token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/login-by-pin/)
 
  ```
  
@@ -2643,7 +2627,7 @@ result = loginradius.re_authentication.mfa_re_authenticate_by_otp(access_token, 
   
  
 <h6 id="MFAReAuthenticateByBackupCode-put-"> Validate MFA by Backup Code (PUT)</h6>
- This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-backup-code/)
+ This API is used to re-authenticate by set of backup codes via access token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-backup-code/)
 
  ```
   
@@ -2757,7 +2741,7 @@ result = loginradius.re_authentication.verify_multi_factor_pin_reauthentication(
   
  
 <h6 id="MFAReAuthenticate-get-"> Multi Factor Re-Authenticate (GET)</h6>
- This API is used to trigger the Multi-Factor Autentication workflow for the provided access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-trigger/)
+ This API is used to trigger the Multi-Factor Autentication workflow for the provided access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-trigger/)
 
  ```
   
@@ -3480,7 +3464,7 @@ result = loginradius.custom_registration_data.validate_registration_data_code(co
   
  
 <h6 id="AddRegistrationData-post-"> Add Registration Data (POST)</h6>
- This API allows you to fill data into a dropdown list which you have created for user Registeration. For more details on how to use this API please see our Custom Registration Data Overview  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/custom-registration-data/add-registration-data)
+ This API allows you to fill data into a dropdown list which you have created for user Registration. For more details on how to use this API please see our Custom Registration Data Overview  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/custom-registration-data/add-registration-data)
 
  ```
  
@@ -3710,6 +3694,8 @@ List of APIs in this Section:<br>
 * GET : [Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
 * GET : [Access Token via Linkedin Token](#GetAccessTokenByLinkedinAccessToken-get-)<br>
 * GET : [Get Access Token By Foursquare Access Token](#GetAccessTokenByFoursquareAccessToken-get-)<br>
+* GET : [Access Token via Apple Id Code](#GetAccessTokenByAppleIdCode-get-)<br>
+* GET : [Access Token via WeChat Code](#GetAccessTokenByWeChatCode-get-)<br>
 * GET : [Access Token via Vkontakte Token](#GetAccessTokenByVkontakteAccessToken-get-)<br>
 * GET : [Access Token via Google AuthCode](#GetAccessTokenByGoogleAuthCode-get-)<br>
 
@@ -3721,9 +3707,10 @@ List of APIs in this Section:<br>
 
  ```
   
-fb_access_token = "<fb_access_token>" #Required
+fb_access_token = "<fb_access_token>" #Required 
+social_app_name = "<social_app_name>" #Optional
 
-result = loginradius.native_social.get_access_token_by_facebook_access_token(fb_access_token)
+result = loginradius.native_social.get_access_token_by_facebook_access_token(fb_access_token, social_app_name)
  ```
  
   
@@ -3735,9 +3722,10 @@ result = loginradius.native_social.get_access_token_by_facebook_access_token(fb_
  ```
   
 tw_access_token = "<tw_access_token>" #Required 
-tw_token_secret = "<tw_token_secret>" #Required
+tw_token_secret = "<tw_token_secret>" #Required 
+social_app_name = "<social_app_name>" #Optional
 
-result = loginradius.native_social.get_access_token_by_twitter_access_token(tw_access_token, tw_token_secret)
+result = loginradius.native_social.get_access_token_by_twitter_access_token(tw_access_token, tw_token_secret, social_app_name)
  ```
  
   
@@ -3750,9 +3738,10 @@ result = loginradius.native_social.get_access_token_by_twitter_access_token(tw_a
   
 google_access_token = "<google_access_token>" #Required 
 client_id = "<client_id>" #Optional 
-refresh_token = "<refresh_token>" #Optional
+refresh_token = "<refresh_token>" #Optional 
+social_app_name = "<social_app_name>" #Optional
 
-result = loginradius.native_social.get_access_token_by_google_access_token(google_access_token, client_id, refresh_token)
+result = loginradius.native_social.get_access_token_by_google_access_token(google_access_token, client_id, refresh_token, social_app_name)
  ```
  
   
@@ -3776,9 +3765,10 @@ result = loginradius.native_social.get_access_token_by_google_j_w_t_access_token
 
  ```
   
-ln_access_token = "<ln_access_token>" #Required
+ln_access_token = "<ln_access_token>" #Required 
+social_app_name = "<social_app_name>" #Optional
 
-result = loginradius.native_social.get_access_token_by_linkedin_access_token(ln_access_token)
+result = loginradius.native_social.get_access_token_by_linkedin_access_token(ln_access_token, social_app_name)
  ```
  
   
@@ -3792,6 +3782,33 @@ result = loginradius.native_social.get_access_token_by_linkedin_access_token(ln_
 fs_access_token = "<fs_access_token>" #Required
 
 result = loginradius.native_social.get_access_token_by_foursquare_access_token(fs_access_token)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAccessTokenByAppleIdCode-get-"> Access Token via Apple Id Code (GET)</h6>
+ The API is used to get LoginRadius access token by sending a valid Apple ID OAuth Code. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-apple-id-code)
+
+ ```
+  
+code = "<code>" #Required 
+social_app_name = "<social_app_name>" #Optional
+
+result = loginradius.native_social.get_access_token_by_apple_id_code(code, social_app_name)
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAccessTokenByWeChatCode-get-"> Access Token via WeChat Code (GET)</h6>
+ This API is used to retrieve a LoginRadius access token by passing in a valid WeChat OAuth Code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-wechat-code)
+
+ ```
+  
+code = "<code>" #Required
+
+result = loginradius.native_social.get_access_token_by_we_chat_code(code)
  ```
  
   
@@ -3815,9 +3832,10 @@ result = loginradius.native_social.get_access_token_by_vkontakte_access_token(vk
 
  ```
   
-google_authcode = "<google_authcode>" #Required
+google_authcode = "<google_authcode>" #Required 
+social_app_name = "<social_app_name>" #Optional
 
-result = loginradius.native_social.get_access_token_by_google_auth_code(google_authcode)
+result = loginradius.native_social.get_access_token_by_google_auth_code(google_authcode, social_app_name)
  ```
  
   

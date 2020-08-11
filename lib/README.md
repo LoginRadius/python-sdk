@@ -21,17 +21,37 @@ From Package
 Using pip
 
 ```
- pip install loginradius-v2==10.0.1
+ pip install loginradius-v2==11.0.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==10.0.1
+ easy_install loginradius-v2==11.0.0
 ```
 
 Changelog
 ======
+
+11.0.0
+-----------
+Release on **July 28,2020**
+
+## Enhancements:
+- Added a parameter isWeb in "RefreshAccessToken" API.
+- Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken,  getAccessTokenByTwitterAccessToken,
+  getAccessTokenByGoogleAccessToken, getAccessTokenByLinkedinAccessToken, getAccessTokenByAppleIdCode, 
+  getAccessTokenByGoogleAuthCode" Native Social login APIs.
+
+## Added new multiple APIs for better user experience:
+- Added linkSocialIdentites(POST) API.
+- Added linkSocialIdentitiesByPing(POST) API.
+- Added getAccessTokenByAppleIdCode API.
+- Added getAccessTokenByWeChatCode API.
+
+## Removed APIs:
+ - linkSocialIdentity API(PUT)
+ - getSocialIdentity API(GET)
 
 10.0.1
 -----------
