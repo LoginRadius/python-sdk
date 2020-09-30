@@ -1,4 +1,4 @@
-# Python-SDK
+# Python-For Beginners
 
 Customer Identity public repo for Python SDK, based on LoginRadius V2 APIs.
 
