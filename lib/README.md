@@ -74,7 +74,7 @@ This full version release includes major breaking changes with several improveme
  - Implemented API Region Feature.
  - Added PIN Authentication feature APIs.
  - Added Consent Management feature APIs.
- - Added Local SOTT generation
+ - Added Local SOTT generation.
 
 
 ### Added new multiple APIs for better user experience
@@ -135,15 +135,15 @@ This full version release includes major breaking changes with several improveme
   - Enhanced the coding standards of SDK to follow industry programming styles and best practices.
   - Enhanced security standards of SDK.
   - Reduced code between the business layer and persistence layer for optimization of SDK performance.
-  - Added internal parameter validations in the API function
-  - ApiKey and ApiSecret usage redundancy removed
-  - All LoginRadius related features need to be defined once only and SDK will handle them automatically
+  - Added internal parameter validations in the API function.
+  - ApiKey and ApiSecret usage redundancy removed.
+  - All LoginRadius related features need to be defined once only and SDK will handle them automatically.
   - Improved the naming conventions of API functions for better readability.
-  - Better Error and Exception Handling for LoginRadius API Response in SDK
-  - Revamped complete SDK and restructured it with latest API function names and parameters
-  - Added detailed description to API functions and parameters for better understanding
-  - Updated the demo according to latest SDK changes
-  - Implemented API Region Feature
+  - Better Error and Exception Handling for LoginRadius API Response in SDK.
+  - Revamped complete SDK and restructured it with latest API function names and parameters.
+  - Added detailed description to API functions and parameters for better understanding.
+  - Updated the demo according to latest SDK changes.
+  - Implemented API Region Feature.
 
 ### Added new multiple APIs for better user experience
   - Update Phone ID by UID
@@ -191,7 +191,7 @@ This full version release includes major breaking changes with several improveme
 
 ### Breaking Changes
 
--   Replaced deprecated  [pycrypto package](https://pypi.org/project/pycrypto/)  with  [cryptography package](https://pypi.org/project/cryptography/)  for SOTT generation
+-   Replaced deprecated  [pycrypto package](https://pypi.org/project/pycrypto/)  with  [cryptography package](https://pypi.org/project/cryptography/)  for SOTT generation.
 -   Updated some existing API's:
     -   Get Roles by UID: moved to role class
     -   Assign Roles by UID: moved role class
