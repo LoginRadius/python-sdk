@@ -26,13 +26,13 @@ This library is meant to help you with a quick implementation of the LoginRadius
 You will need at least Python - 2.7 or greater. LoginRadius module utilizes the [namedtuple](https://docs.python.org/2/library/collections.html#collections.namedtuple) from the collections library and the [import_module](https://docs.python.org/2/library/importlib.html) from importlib.
 
 ### Install From Package
-Using pip
+Using pip:
 
 ```
  pip install loginradius-v2==11.0.0
 ```
 
-or with easy_install
+or with easy_install:
 
 ```
  easy_install loginradius-v2==11.0.0
@@ -48,19 +48,19 @@ You can download the latest version from PyPI
 ### Requests library
 To call API's, install requests library.
 
-Using pip
+Using pip:
 
 ```
  pip install requests
 ```
-or with easy_install
+or with easy_install:
 
 ```
  easy_install requests
 ```
 
 ## Initialize SDK
-Import the class
+Import the class:
 
 ```
  from LoginRadius import LoginRadius as LR
@@ -83,7 +83,7 @@ LR.CUSTOM_DOMAIN = "<CUSTOM-DOMAIN>"
 ```
 
 ### API Request Signing
-To enable API request signing, set the value of 'API_REQUEST_SIGNING' to True
+To enable API request signing, set the value of 'API_REQUEST_SIGNING' to True:
 
 ```
 LR.API_REQUEST_SIGNING = True
