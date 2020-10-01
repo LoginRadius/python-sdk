@@ -13,7 +13,7 @@ This SDK provides a wrapper for urllib2 or the requests library to easily access
 https://www.loginradius.com/docs/ in a more "pythonic" way. Providing easier access to essential data in a few lines of code.
 This will work with 2.0 API specifications.
 
-LoginRadius is an Identity Management Platform that simplifies user registration while securing data. LoginRadius Platform simplifies and secures your user registration process, increases conversion with Social Login that combines 30 major social platforms, and offers a full solution with Traditional User Registration. You can gather a wealth of user profile data from Social Login or Traditional User Registration.
+LoginRadius is an Identity Management Platform that simplifies user registration while securing data. LoginRadius Platform simplifies and secures your user registration process, increases conversion with Social Login that combines 30 major social platforms, and offers a full solution with Traditional User Registration. You can also gather a wealth of user profile data from Social Login or Traditional User Registration.
 
 ## Documentation
 
