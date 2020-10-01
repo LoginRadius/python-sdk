@@ -990,7 +990,7 @@ result = loginradius.account.get_account_profile_by_uid(uid, fields)
   
  
 <h6 id="GetAccountPasswordHashByUid-get-"> Account Password (GET)</h6>
- This API use to retrive the hashed password of a specified account in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-password)
+ This API use to retrieve the hashed password of a specified account in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-password)
 
  ```
   
@@ -3873,7 +3873,7 @@ result = loginradius.web_hook.web_hook_subscribe(web_hook_subscribe_model)
   
  
 <h6 id="GetWebHookSubscribedURLs-get-"> Webhook Subscribed URLs (GET)</h6>
- This API is used to fatch all the subscribed URLs, for particular event  [More Info](https://www.loginradius.com/docs/api/v2/integrations/webhooks/webhook-subscribed-urls)
+ This API is used to fetch all the subscribed URLs, for particular event  [More Info](https://www.loginradius.com/docs/api/v2/integrations/webhooks/webhook-subscribed-urls)
 
  ```
   
