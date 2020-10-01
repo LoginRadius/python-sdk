@@ -3950,14 +3950,11 @@ You can get a copy of our demo project at [GitHub](https://github.com/LoginRadiu
 
 ### Configuration
 
-1.Have Flask, requests installed:
+1. Have Flask, requests installed:
+```pip install -r requirements.txt``` <br>
 
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2``` <br>
-```pip install cryptography``` <br>
-2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
+2. Fill in credentials in ```lr.py``` and ```static/js/options.js```
 
-3.Navigate to demo directory and run: ```python app.py```
+3. Navigate to demo directory and run: ```python app.py```
 
-4.Demo will appear on ```http://localhost:5000```
+4. Demo will appear on ```http://localhost:5000```
