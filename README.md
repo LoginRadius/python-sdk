@@ -1,4 +1,4 @@
-# Python-SDK
+# Python-SDK -- An Amazing Project and It is very easy to understand  
 
 Customer Identity public repo for Python SDK, based on LoginRadius V2 APIs.
 
