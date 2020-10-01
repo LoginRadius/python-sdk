@@ -137,7 +137,11 @@ List of APIs in this Section:<br>
 
 
 <h6 id="UpdateProfileByAccessToken-put-"> Auth Update Profile by Token (PUT)</h6>
- This API is used to update the user's profile by passing the access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-update-profile-by-token/)
+This API is used to update the user's profile by passing the access token.
+
+
+[More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-update-profile-by-token)
+
 
  ```
   
@@ -166,7 +170,7 @@ result = loginradius.authentication.update_profile_by_access_token(access_token,
 access_token = "<access_token>" #Required
 unlock_profile_model = { 
 "g-recaptcha-response" : "<g-recaptcha-response>"
-}  #Required
+}  #Require
 
 result = loginradius.authentication.unlock_account_by_token(access_token, unlock_profile_model)
  ```
