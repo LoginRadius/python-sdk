@@ -5,7 +5,6 @@
 
 
 class SocialApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class SocialApi:
         20.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(token)):
+        if self._lr_object.is_null_or_whitespace(token):
             raise Exception(self._lr_object.get_validation_message("token"))
 
         query_parameters = {}
@@ -46,15 +45,15 @@ class SocialApi:
         20.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["secret"] = self._lr_object.get_api_secret()
-        if(expires_in is not None):
+        if expires_in is not None:
             query_parameters["expiresIn"] = expires_in
-        if(is_web is not None):
+        if is_web is not None:
             query_parameters["isWeb"] = is_web
 
         resource_path = "api/v2/access_token/refresh"
@@ -71,7 +70,7 @@ class SocialApi:
         20.9
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -93,7 +92,7 @@ class SocialApi:
         20.10
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -115,7 +114,7 @@ class SocialApi:
         20.11.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(token)):
+        if self._lr_object.is_null_or_whitespace(token):
             raise Exception(self._lr_object.get_validation_message("token"))
 
         query_parameters = {}
@@ -137,7 +136,7 @@ class SocialApi:
         20.11.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(account_id)):
+        if self._lr_object.is_null_or_whitespace(account_id):
             raise Exception(self._lr_object.get_validation_message("account_id"))
 
         query_parameters = {}
@@ -159,7 +158,7 @@ class SocialApi:
         20.11.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(profile_id)):
+        if self._lr_object.is_null_or_whitespace(profile_id):
             raise Exception(self._lr_object.get_validation_message("profile_id"))
 
         query_parameters = {}
@@ -181,7 +180,7 @@ class SocialApi:
         22.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -202,10 +201,10 @@ class SocialApi:
         22.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -226,7 +225,7 @@ class SocialApi:
         24.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -247,10 +246,10 @@ class SocialApi:
         24.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -271,7 +270,7 @@ class SocialApi:
         25.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -292,10 +291,10 @@ class SocialApi:
         25.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -317,12 +316,12 @@ class SocialApi:
         27.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
-        if(not self._lr_object.is_null_or_whitespace(next_cursor)):
+        if not self._lr_object.is_null_or_whitespace(next_cursor):
             query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/contact"
@@ -339,7 +338,7 @@ class SocialApi:
         28.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -360,10 +359,10 @@ class SocialApi:
         28.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -384,7 +383,7 @@ class SocialApi:
         29.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -405,10 +404,10 @@ class SocialApi:
         29.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -429,7 +428,7 @@ class SocialApi:
         30.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -450,10 +449,10 @@ class SocialApi:
         30.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -474,7 +473,7 @@ class SocialApi:
         31.2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -495,10 +494,10 @@ class SocialApi:
         31.2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}
@@ -519,7 +518,7 @@ class SocialApi:
         32.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -528,8 +527,7 @@ class SocialApi:
         resource_path = "api/v2/mention"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def post_message(self, access_token, message, subject,
-        to):
+    def post_message(self, access_token, message, subject, to):
         """Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different
         
         Args:
@@ -543,16 +541,16 @@ class SocialApi:
         33.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(message)):
+        if self._lr_object.is_null_or_whitespace(message):
             raise Exception(self._lr_object.get_validation_message("message"))
 
-        if(self._lr_object.is_null_or_whitespace(subject)):
+        if self._lr_object.is_null_or_whitespace(subject):
             raise Exception(self._lr_object.get_validation_message("subject"))
 
-        if(self._lr_object.is_null_or_whitespace(to)):
+        if self._lr_object.is_null_or_whitespace(to):
             raise Exception(self._lr_object.get_validation_message("to"))
 
         query_parameters = {}
@@ -576,10 +574,10 @@ class SocialApi:
         34.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(page_name)):
+        if self._lr_object.is_null_or_whitespace(page_name):
             raise Exception(self._lr_object.get_validation_message("page_name"))
 
         query_parameters = {}
@@ -601,10 +599,10 @@ class SocialApi:
         35.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(album_id)):
+        if self._lr_object.is_null_or_whitespace(album_id):
             raise Exception(self._lr_object.get_validation_message("album_id"))
 
         query_parameters = {}
@@ -625,7 +623,7 @@ class SocialApi:
         36.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -634,9 +632,17 @@ class SocialApi:
         resource_path = "api/v2/post"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def status_posting(self, access_token, caption, description,
-        imageurl, status, title, url,
-        shorturl='0'):
+    def status_posting(
+        self,
+        access_token,
+        caption,
+        description,
+        imageurl,
+        status,
+        title,
+        url,
+        shorturl='0',
+    ):
         """The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn
         
         Args:
@@ -654,25 +660,25 @@ class SocialApi:
         37.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(caption)):
+        if self._lr_object.is_null_or_whitespace(caption):
             raise Exception(self._lr_object.get_validation_message("caption"))
 
-        if(self._lr_object.is_null_or_whitespace(description)):
+        if self._lr_object.is_null_or_whitespace(description):
             raise Exception(self._lr_object.get_validation_message("description"))
 
-        if(self._lr_object.is_null_or_whitespace(imageurl)):
+        if self._lr_object.is_null_or_whitespace(imageurl):
             raise Exception(self._lr_object.get_validation_message("imageurl"))
 
-        if(self._lr_object.is_null_or_whitespace(status)):
+        if self._lr_object.is_null_or_whitespace(status):
             raise Exception(self._lr_object.get_validation_message("status"))
 
-        if(self._lr_object.is_null_or_whitespace(title)):
+        if self._lr_object.is_null_or_whitespace(title):
             raise Exception(self._lr_object.get_validation_message("title"))
 
-        if(self._lr_object.is_null_or_whitespace(url)):
+        if self._lr_object.is_null_or_whitespace(url):
             raise Exception(self._lr_object.get_validation_message("url"))
 
         query_parameters = {}
@@ -683,7 +689,7 @@ class SocialApi:
         query_parameters["status"] = status
         query_parameters["title"] = title
         query_parameters["url"] = url
-        if(not self._lr_object.is_null_or_whitespace(shorturl)):
+        if not self._lr_object.is_null_or_whitespace(shorturl):
             query_parameters["shorturl"] = shorturl
 
         resource_path = "api/v2/status"
@@ -701,19 +707,22 @@ class SocialApi:
         37.6
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(status_model is None):
+        if status_model is None:
             raise Exception(self._lr_object.get_validation_message("status_model"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/status/trackable"
-        return self._lr_object.execute("POST", resource_path, query_parameters, status_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, status_model
+        )
 
-    def get_trackable_status_stats(self, access_token, caption, description,
-        imageurl, status, title, url):
+    def get_trackable_status_stats(
+        self, access_token, caption, description, imageurl, status, title, url
+    ):
         """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.
         
         Args:
@@ -730,25 +739,25 @@ class SocialApi:
         37.7
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(caption)):
+        if self._lr_object.is_null_or_whitespace(caption):
             raise Exception(self._lr_object.get_validation_message("caption"))
 
-        if(self._lr_object.is_null_or_whitespace(description)):
+        if self._lr_object.is_null_or_whitespace(description):
             raise Exception(self._lr_object.get_validation_message("description"))
 
-        if(self._lr_object.is_null_or_whitespace(imageurl)):
+        if self._lr_object.is_null_or_whitespace(imageurl):
             raise Exception(self._lr_object.get_validation_message("imageurl"))
 
-        if(self._lr_object.is_null_or_whitespace(status)):
+        if self._lr_object.is_null_or_whitespace(status):
             raise Exception(self._lr_object.get_validation_message("status"))
 
-        if(self._lr_object.is_null_or_whitespace(title)):
+        if self._lr_object.is_null_or_whitespace(title):
             raise Exception(self._lr_object.get_validation_message("title"))
 
-        if(self._lr_object.is_null_or_whitespace(url)):
+        if self._lr_object.is_null_or_whitespace(url):
             raise Exception(self._lr_object.get_validation_message("url"))
 
         query_parameters = {}
@@ -774,7 +783,7 @@ class SocialApi:
         37.8
         """
 
-        if(self._lr_object.is_null_or_whitespace(post_id)):
+        if self._lr_object.is_null_or_whitespace(post_id):
             raise Exception(self._lr_object.get_validation_message("post_id"))
 
         query_parameters = {}
@@ -796,12 +805,12 @@ class SocialApi:
         38.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "api/v2/userprofile"
@@ -819,12 +828,12 @@ class SocialApi:
         38.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "api/v2/userprofile/refresh"
@@ -842,10 +851,10 @@ class SocialApi:
         39.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(next_cursor)):
+        if self._lr_object.is_null_or_whitespace(next_cursor):
             raise Exception(self._lr_object.get_validation_message("next_cursor"))
 
         query_parameters = {}

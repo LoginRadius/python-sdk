@@ -5,14 +5,15 @@
 
 
 class NativeSocialApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
         """
         self._lr_object = lr_object
 
-    def get_access_token_by_facebook_access_token(self, fb__access__token, social_app_name=None):
+    def get_access_token_by_facebook_access_token(
+        self, fb__access__token, social_app_name=None
+    ):
         """The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
@@ -24,19 +25,21 @@ class NativeSocialApi:
         20.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(fb__access__token)):
+        if self._lr_object.is_null_or_whitespace(fb__access__token):
             raise Exception(self._lr_object.get_validation_message("fb__access__token"))
 
         query_parameters = {}
         query_parameters["fb_Access_Token"] = fb__access__token
         query_parameters["key"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/facebook"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def get_access_token_by_twitter_access_token(self, tw__access__token, tw__token__secret, social_app_name=None):
+    def get_access_token_by_twitter_access_token(
+        self, tw__access__token, tw__token__secret, social_app_name=None
+    ):
         """The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
@@ -49,24 +52,29 @@ class NativeSocialApi:
         20.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(tw__access__token)):
+        if self._lr_object.is_null_or_whitespace(tw__access__token):
             raise Exception(self._lr_object.get_validation_message("tw__access__token"))
 
-        if(self._lr_object.is_null_or_whitespace(tw__token__secret)):
+        if self._lr_object.is_null_or_whitespace(tw__token__secret):
             raise Exception(self._lr_object.get_validation_message("tw__token__secret"))
 
         query_parameters = {}
         query_parameters["key"] = self._lr_object.get_api_key()
         query_parameters["tw_Access_Token"] = tw__access__token
         query_parameters["tw_Token_Secret"] = tw__token__secret
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/twitter"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def get_access_token_by_google_access_token(self, google__access__token, client_id=None, refresh_token=None,
-        social_app_name=None):
+    def get_access_token_by_google_access_token(
+        self,
+        google__access__token,
+        client_id=None,
+        refresh_token=None,
+        social_app_name=None,
+    ):
         """The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
@@ -80,17 +88,19 @@ class NativeSocialApi:
         20.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(google__access__token)):
-            raise Exception(self._lr_object.get_validation_message("google__access__token"))
+        if self._lr_object.is_null_or_whitespace(google__access__token):
+            raise Exception(
+                self._lr_object.get_validation_message("google__access__token")
+            )
 
         query_parameters = {}
         query_parameters["google_Access_Token"] = google__access__token
         query_parameters["key"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(client_id)):
+        if not self._lr_object.is_null_or_whitespace(client_id):
             query_parameters["client_id"] = client_id
-        if(not self._lr_object.is_null_or_whitespace(refresh_token)):
+        if not self._lr_object.is_null_or_whitespace(refresh_token):
             query_parameters["refresh_token"] = refresh_token
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/google"
@@ -107,7 +117,7 @@ class NativeSocialApi:
         20.6
         """
 
-        if(self._lr_object.is_null_or_whitespace(id__token)):
+        if self._lr_object.is_null_or_whitespace(id__token):
             raise Exception(self._lr_object.get_validation_message("id__token"))
 
         query_parameters = {}
@@ -117,7 +127,9 @@ class NativeSocialApi:
         resource_path = "api/v2/access_token/googlejwt"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def get_access_token_by_linkedin_access_token(self, ln__access__token, social_app_name=None):
+    def get_access_token_by_linkedin_access_token(
+        self, ln__access__token, social_app_name=None
+    ):
         """The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.
         
         Args:
@@ -129,13 +141,13 @@ class NativeSocialApi:
         20.7
         """
 
-        if(self._lr_object.is_null_or_whitespace(ln__access__token)):
+        if self._lr_object.is_null_or_whitespace(ln__access__token):
             raise Exception(self._lr_object.get_validation_message("ln__access__token"))
 
         query_parameters = {}
         query_parameters["key"] = self._lr_object.get_api_key()
         query_parameters["ln_Access_Token"] = ln__access__token
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/linkedin"
@@ -152,7 +164,7 @@ class NativeSocialApi:
         20.8
         """
 
-        if(self._lr_object.is_null_or_whitespace(fs__access__token)):
+        if self._lr_object.is_null_or_whitespace(fs__access__token):
             raise Exception(self._lr_object.get_validation_message("fs__access__token"))
 
         query_parameters = {}
@@ -174,13 +186,13 @@ class NativeSocialApi:
         20.12
         """
 
-        if(self._lr_object.is_null_or_whitespace(code)):
+        if self._lr_object.is_null_or_whitespace(code):
             raise Exception(self._lr_object.get_validation_message("code"))
 
         query_parameters = {}
         query_parameters["code"] = code
         query_parameters["key"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/apple"
@@ -197,7 +209,7 @@ class NativeSocialApi:
         20.13
         """
 
-        if(self._lr_object.is_null_or_whitespace(code)):
+        if self._lr_object.is_null_or_whitespace(code):
             raise Exception(self._lr_object.get_validation_message("code"))
 
         query_parameters = {}
@@ -218,7 +230,7 @@ class NativeSocialApi:
         20.15
         """
 
-        if(self._lr_object.is_null_or_whitespace(vk_access_token)):
+        if self._lr_object.is_null_or_whitespace(vk_access_token):
             raise Exception(self._lr_object.get_validation_message("vk_access_token"))
 
         query_parameters = {}
@@ -228,7 +240,9 @@ class NativeSocialApi:
         resource_path = "api/v2/access_token/vkontakte"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def get_access_token_by_google_auth_code(self, google_authcode, social_app_name=None):
+    def get_access_token_by_google_auth_code(
+        self, google_authcode, social_app_name=None
+    ):
         """The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
         
         Args:
@@ -240,13 +254,13 @@ class NativeSocialApi:
         20.16
         """
 
-        if(self._lr_object.is_null_or_whitespace(google_authcode)):
+        if self._lr_object.is_null_or_whitespace(google_authcode):
             raise Exception(self._lr_object.get_validation_message("google_authcode"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["google_authcode"] = google_authcode
-        if(not self._lr_object.is_null_or_whitespace(social_app_name)):
+        if not self._lr_object.is_null_or_whitespace(social_app_name):
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/google"

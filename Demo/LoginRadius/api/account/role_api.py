@@ -5,7 +5,6 @@
 
 
 class RoleApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class RoleApi:
         18.6
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -44,10 +43,12 @@ class RoleApi:
             Response containing Definition of Complete Roles data
         18.7
         """
-        if(account_roles_model is None):
-            raise Exception(self._lr_object.get_validation_message("account_roles_model"))
+        if account_roles_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("account_roles_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -55,7 +56,9 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/role"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, account_roles_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, account_roles_model
+        )
 
     def unassign_roles_by_uid(self, account_roles_model, uid):
         """This API is used to unassign roles from a user.
@@ -68,10 +71,12 @@ class RoleApi:
             Response containing Definition of Delete Request
         18.8
         """
-        if(account_roles_model is None):
-            raise Exception(self._lr_object.get_validation_message("account_roles_model"))
+        if account_roles_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("account_roles_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -79,7 +84,9 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/role"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, account_roles_model)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, account_roles_model
+        )
 
     def get_role_context_by_uid(self, uid):
         """This API Gets the contexts that have been configured and the associated roles and permissions.
@@ -92,7 +99,7 @@ class RoleApi:
         18.9
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -113,7 +120,7 @@ class RoleApi:
         18.10
         """
 
-        if(self._lr_object.is_null_or_whitespace(context_name)):
+        if self._lr_object.is_null_or_whitespace(context_name):
             raise Exception(self._lr_object.get_validation_message("context_name"))
 
         query_parameters = {}
@@ -134,10 +141,12 @@ class RoleApi:
             Complete user RoleContext data
         18.11
         """
-        if(account_role_context_model is None):
-            raise Exception(self._lr_object.get_validation_message("account_role_context_model"))
+        if account_role_context_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("account_role_context_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -145,7 +154,9 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/rolecontext"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, account_role_context_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, account_role_context_model
+        )
 
     def delete_role_context_by_uid(self, context_name, uid):
         """This API Deletes the specified Role Context
@@ -159,20 +170,24 @@ class RoleApi:
         18.12
         """
 
-        if(self._lr_object.is_null_or_whitespace(context_name)):
+        if self._lr_object.is_null_or_whitespace(context_name):
             raise Exception(self._lr_object.get_validation_message("context_name"))
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
-        resource_path = "identity/v2/manage/account/" + uid + "/rolecontext/" + context_name
+        resource_path = (
+            "identity/v2/manage/account/" + uid + "/rolecontext/" + context_name
+        )
         return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
 
-    def delete_roles_from_role_context_by_uid(self, context_name, role_context_remove_role_model, uid):
+    def delete_roles_from_role_context_by_uid(
+        self, context_name, role_context_remove_role_model, uid
+    ):
         """This API Deletes the specified Role from a Context.
         
         Args:
@@ -185,22 +200,34 @@ class RoleApi:
         18.13
         """
 
-        if(self._lr_object.is_null_or_whitespace(context_name)):
+        if self._lr_object.is_null_or_whitespace(context_name):
             raise Exception(self._lr_object.get_validation_message("context_name"))
-        if(role_context_remove_role_model is None):
-            raise Exception(self._lr_object.get_validation_message("role_context_remove_role_model"))
+        if role_context_remove_role_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("role_context_remove_role_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
-        resource_path = "identity/v2/manage/account/" + uid + "/rolecontext/" + context_name + "/role"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, role_context_remove_role_model)
+        resource_path = (
+            "identity/v2/manage/account/"
+            + uid
+            + "/rolecontext/"
+            + context_name
+            + "/role"
+        )
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, role_context_remove_role_model
+        )
 
-    def delete_additional_permission_from_role_context_by_uid(self, context_name, role_context_additional_permission_remove_role_model, uid):
+    def delete_additional_permission_from_role_context_by_uid(
+        self, context_name, role_context_additional_permission_remove_role_model, uid
+    ):
         """This API Deletes Additional Permissions from Context.
         
         Args:
@@ -213,20 +240,35 @@ class RoleApi:
         18.14
         """
 
-        if(self._lr_object.is_null_or_whitespace(context_name)):
+        if self._lr_object.is_null_or_whitespace(context_name):
             raise Exception(self._lr_object.get_validation_message("context_name"))
-        if(role_context_additional_permission_remove_role_model is None):
-            raise Exception(self._lr_object.get_validation_message("role_context_additional_permission_remove_role_model"))
+        if role_context_additional_permission_remove_role_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "role_context_additional_permission_remove_role_model"
+                )
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
-        resource_path = "identity/v2/manage/account/" + uid + "/rolecontext/" + context_name + "/additionalpermission"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, role_context_additional_permission_remove_role_model)
+        resource_path = (
+            "identity/v2/manage/account/"
+            + uid
+            + "/rolecontext/"
+            + context_name
+            + "/additionalpermission"
+        )
+        return self._lr_object.execute(
+            "DELETE",
+            resource_path,
+            query_parameters,
+            role_context_additional_permission_remove_role_model,
+        )
 
     def get_roles_list(self):
         """This API retrieves the complete list of created roles with permissions of your app.
@@ -253,7 +295,7 @@ class RoleApi:
             Complete user Roles data
         41.2
         """
-        if(roles_model is None):
+        if roles_model is None:
             raise Exception(self._lr_object.get_validation_message("roles_model"))
 
         query_parameters = {}
@@ -261,7 +303,9 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/role"
-        return self._lr_object.execute("POST", resource_path, query_parameters, roles_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, roles_model
+        )
 
     def delete_role(self, role):
         """This API is used to delete the role.
@@ -274,7 +318,7 @@ class RoleApi:
         41.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(role)):
+        if self._lr_object.is_null_or_whitespace(role):
             raise Exception(self._lr_object.get_validation_message("role"))
 
         query_parameters = {}
@@ -295,10 +339,10 @@ class RoleApi:
             Response containing Definition of Complete role data
         41.4
         """
-        if(permissions_model is None):
+        if permissions_model is None:
             raise Exception(self._lr_object.get_validation_message("permissions_model"))
 
-        if(self._lr_object.is_null_or_whitespace(role)):
+        if self._lr_object.is_null_or_whitespace(role):
             raise Exception(self._lr_object.get_validation_message("role"))
 
         query_parameters = {}
@@ -306,7 +350,9 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/role/" + role + "/permission"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, permissions_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, permissions_model
+        )
 
     def remove_role_permissions(self, permissions_model, role):
         """API is used to remove permissions from a role.
@@ -319,10 +365,10 @@ class RoleApi:
             Response containing Definition of Complete role data
         41.5
         """
-        if(permissions_model is None):
+        if permissions_model is None:
             raise Exception(self._lr_object.get_validation_message("permissions_model"))
 
-        if(self._lr_object.is_null_or_whitespace(role)):
+        if self._lr_object.is_null_or_whitespace(role):
             raise Exception(self._lr_object.get_validation_message("role"))
 
         query_parameters = {}
@@ -330,4 +376,6 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/role/" + role + "/permission"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, permissions_model)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, permissions_model
+        )

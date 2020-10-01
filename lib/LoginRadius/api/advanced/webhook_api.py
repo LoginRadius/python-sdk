@@ -5,7 +5,6 @@
 
 
 class WebHookApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class WebHookApi:
         40.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(event)):
+        if self._lr_object.is_null_or_whitespace(event):
             raise Exception(self._lr_object.get_validation_message("event"))
 
         query_parameters = {}
@@ -44,15 +43,19 @@ class WebHookApi:
             Response containing Definition of Complete Validation data
         40.2
         """
-        if(web_hook_subscribe_model is None):
-            raise Exception(self._lr_object.get_validation_message("web_hook_subscribe_model"))
+        if web_hook_subscribe_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("web_hook_subscribe_model")
+            )
 
         query_parameters = {}
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/webhook"
-        return self._lr_object.execute("POST", resource_path, query_parameters, web_hook_subscribe_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, web_hook_subscribe_model
+        )
 
     def webhook_test(self):
         """API can be used to test a subscribed WebHook.
@@ -79,12 +82,16 @@ class WebHookApi:
             Response containing Definition of Delete Request
         40.4
         """
-        if(web_hook_subscribe_model is None):
-            raise Exception(self._lr_object.get_validation_message("web_hook_subscribe_model"))
+        if web_hook_subscribe_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("web_hook_subscribe_model")
+            )
 
         query_parameters = {}
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/webhook"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, web_hook_subscribe_model)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, web_hook_subscribe_model
+        )

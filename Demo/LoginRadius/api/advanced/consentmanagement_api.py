@@ -5,7 +5,6 @@
 
 
 class ConsentManagementApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class ConsentManagementApi:
         18.37
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -45,17 +44,21 @@ class ConsentManagementApi:
         43.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(consent_token)):
+        if self._lr_object.is_null_or_whitespace(consent_token):
             raise Exception(self._lr_object.get_validation_message("consent_token"))
-        if(consent_submit_model is None):
-            raise Exception(self._lr_object.get_validation_message("consent_submit_model"))
+        if consent_submit_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("consent_submit_model")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["consentToken"] = consent_token
 
         resource_path = "identity/v2/auth/consent"
-        return self._lr_object.execute("POST", resource_path, query_parameters, consent_submit_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, consent_submit_model
+        )
 
     def get_consent_logs(self, access_token):
         """This API is used to fetch consent logs.
@@ -68,7 +71,7 @@ class ConsentManagementApi:
         43.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -90,17 +93,21 @@ class ConsentManagementApi:
         43.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(consent_submit_model is None):
-            raise Exception(self._lr_object.get_validation_message("consent_submit_model"))
+        if consent_submit_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("consent_submit_model")
+            )
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/consent/profile"
-        return self._lr_object.execute("POST", resource_path, query_parameters, consent_submit_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, consent_submit_model
+        )
 
     def verify_consent_by_access_token(self, access_token, event, is_custom):
         """This API is used to check if consent is submitted for a particular event or not.
@@ -115,10 +122,10 @@ class ConsentManagementApi:
         43.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(event)):
+        if self._lr_object.is_null_or_whitespace(event):
             raise Exception(self._lr_object.get_validation_message("event"))
 
         query_parameters = {}
@@ -130,7 +137,9 @@ class ConsentManagementApi:
         resource_path = "identity/v2/auth/consent/verify"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def update_consent_profile_by_access_token(self, access_token, consent_update_model):
+    def update_consent_profile_by_access_token(
+        self, access_token, consent_update_model
+    ):
         """This API is to update consents using access token.
         
         Args:
@@ -142,14 +151,18 @@ class ConsentManagementApi:
         43.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(consent_update_model is None):
-            raise Exception(self._lr_object.get_validation_message("consent_update_model"))
+        if consent_update_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("consent_update_model")
+            )
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/consent"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, consent_update_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, consent_update_model
+        )

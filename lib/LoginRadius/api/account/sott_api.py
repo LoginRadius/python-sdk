@@ -5,7 +5,6 @@
 
 
 class SottApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -26,7 +25,7 @@ class SottApi:
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(time_difference is not None):
+        if time_difference is not None:
             query_parameters["timeDifference"] = time_difference
 
         resource_path = "identity/v2/manage/account/sott"

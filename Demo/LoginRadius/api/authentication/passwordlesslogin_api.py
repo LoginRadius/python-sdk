@@ -5,14 +5,15 @@
 
 
 class PasswordLessLoginApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
         """
         self._lr_object = lr_object
 
-    def passwordless_login_phone_verification(self, password_less_login_otp_model, fields='', sms_template=None):
+    def passwordless_login_phone_verification(
+        self, password_less_login_otp_model, fields='', sms_template=None
+    ):
         """This API verifies an account by OTP and allows the customer to login.
         
         Args:
@@ -24,18 +25,22 @@ class PasswordLessLoginApi:
             Response containing User Profile Data and access token
         9.6
         """
-        if(password_less_login_otp_model is None):
-            raise Exception(self._lr_object.get_validation_message("password_less_login_otp_model"))
+        if password_less_login_otp_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("password_less_login_otp_model")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
+        if not self._lr_object.is_null_or_whitespace(sms_template):
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/otp/verify"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, password_less_login_otp_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, password_less_login_otp_model
+        )
 
     def passwordless_login_by_phone(self, phone, sms_template=None):
         """API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
@@ -49,19 +54,21 @@ class PasswordLessLoginApi:
         9.15
         """
 
-        if(self._lr_object.is_null_or_whitespace(phone)):
+        if self._lr_object.is_null_or_whitespace(phone):
             raise Exception(self._lr_object.get_validation_message("phone"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["phone"] = phone
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
+        if not self._lr_object.is_null_or_whitespace(sms_template):
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/otp"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def passwordless_login_by_email(self, email, password_less_login_template=None, verification_url=None):
+    def passwordless_login_by_email(
+        self, email, password_less_login_template=None, verification_url=None
+    ):
         """This API is used to send a Passwordless Login verification link to the provided Email ID
         
         Args:
@@ -74,21 +81,23 @@ class PasswordLessLoginApi:
         9.18.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["email"] = email
-        if(not self._lr_object.is_null_or_whitespace(password_less_login_template)):
+        if not self._lr_object.is_null_or_whitespace(password_less_login_template):
             query_parameters["passwordLessLoginTemplate"] = password_less_login_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def passwordless_login_by_user_name(self, username, password_less_login_template=None, verification_url=None):
+    def passwordless_login_by_user_name(
+        self, username, password_less_login_template=None, verification_url=None
+    ):
         """This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
         
         Args:
@@ -101,21 +110,23 @@ class PasswordLessLoginApi:
         9.18.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(username)):
+        if self._lr_object.is_null_or_whitespace(username):
             raise Exception(self._lr_object.get_validation_message("username"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["username"] = username
-        if(not self._lr_object.is_null_or_whitespace(password_less_login_template)):
+        if not self._lr_object.is_null_or_whitespace(password_less_login_template):
             query_parameters["passwordLessLoginTemplate"] = password_less_login_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def passwordless_login_verification(self, verification_token, fields='', welcome_email_template=None):
+    def passwordless_login_verification(
+        self, verification_token, fields='', welcome_email_template=None
+    ):
         """This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
         
         Args:
@@ -128,15 +139,17 @@ class PasswordLessLoginApi:
         9.19
         """
 
-        if(self._lr_object.is_null_or_whitespace(verification_token)):
-            raise Exception(self._lr_object.get_validation_message("verification_token"))
+        if self._lr_object.is_null_or_whitespace(verification_token):
+            raise Exception(
+                self._lr_object.get_validation_message("verification_token")
+            )
 
         query_parameters = {}
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["verificationToken"] = verification_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email/verify"

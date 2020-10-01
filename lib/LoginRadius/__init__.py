@@ -22,49 +22,59 @@ __email__ = "developers@loginradius.com"
 __status__ = "Production"
 __version__ = "11.0.0"
 
+import base64
+import binascii
+import hashlib
+import hmac
 import json
 import sys
-import urllib3
-import hmac
-import hashlib
-import base64
 from collections import namedtuple
 from datetime import datetime, timedelta
 from importlib import import_module
 
-import binascii
+import urllib3
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.ciphers import Cipher
-from cryptography.hazmat.primitives.ciphers import algorithms
-from cryptography.hazmat.primitives.ciphers import modes
-from pbkdf2 import PBKDF2
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+
+# Account APIs
+from LoginRadius.api.account.account_api import AccountApi
+from LoginRadius.api.account.role_api import RoleApi
+from LoginRadius.api.account.sott_api import SottApi
+from LoginRadius.api.advanced.configuration_api import ConfigurationApi
+from LoginRadius.api.advanced.consentmanagement_api import ConsentManagementApi
+
+# Advance APIs
+from LoginRadius.api.advanced.customobject_api import CustomObjectApi
+from LoginRadius.api.advanced.customregistrationdata_api import (
+    CustomRegistrationDataApi,
+)
+from LoginRadius.api.advanced.multifactorauthentication_api import (
+    MultiFactorAuthenticationApi,
+)
+from LoginRadius.api.advanced.reauthentication_api import ReAuthenticationApi
+from LoginRadius.api.advanced.webhook_api import WebHookApi
 
 # Authentication APIs
 from LoginRadius.api.authentication.authentication_api import AuthenticationApi
 from LoginRadius.api.authentication.onetouchlogin_api import OneTouchLoginApi
 from LoginRadius.api.authentication.passwordlesslogin_api import PasswordLessLoginApi
-from LoginRadius.api.authentication.phoneauthentication_api import PhoneAuthenticationApi
-from LoginRadius.api.authentication.riskbasedauthentication_api import RiskBasedAuthenticationApi
-from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
+from LoginRadius.api.authentication.phoneauthentication_api import (
+    PhoneAuthenticationApi,
+)
 from LoginRadius.api.authentication.pinauthentication_api import PINAuthenticationApi
-# Account APIs
-from LoginRadius.api.account.account_api import AccountApi
-from LoginRadius.api.account.role_api import RoleApi
-from LoginRadius.api.account.sott_api import SottApi
-# Advance APIs
-from LoginRadius.api.advanced.customobject_api import CustomObjectApi
-from LoginRadius.api.advanced.customregistrationdata_api import CustomRegistrationDataApi
-from LoginRadius.api.advanced.multifactorauthentication_api import MultiFactorAuthenticationApi
-from LoginRadius.api.advanced.configuration_api import ConfigurationApi
-from LoginRadius.api.advanced.webhook_api import WebHookApi
-from LoginRadius.api.advanced.reauthentication_api import ReAuthenticationApi
-from LoginRadius.api.advanced.consentmanagement_api import ConsentManagementApi
+from LoginRadius.api.authentication.riskbasedauthentication_api import (
+    RiskBasedAuthenticationApi,
+)
+from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
 
 # Social APIs
 from LoginRadius.api.social.nativesocial_api import NativeSocialApi
 from LoginRadius.api.social.social_api import SocialApi
+
 # exception
 from LoginRadius.exceptions import Exceptions
+from pbkdf2 import PBKDF2
+
 
 class LoginRadius:
     """
@@ -87,11 +97,11 @@ class LoginRadius:
         :raise Exceptions.NoAPIKey: Raised if you did not set an API_KEY.
         :raise Exceptions.NoAPISecret: Raised if you did not set an API_SECRET.
         """
-		
+
         self.error = {}
         self.sociallogin_raw = False
         self.bs = 16
-        
+
         if not self.API_KEY:
             raise Exceptions.NoAPIKey
 
@@ -114,11 +124,13 @@ class LoginRadius:
 
         # Namedtuple for settings for each request and the api functions.
         self.settings = namedtuple(
-            "Settings", ['library', 'urllib', 'urllib2', 'json', 'requests'])
+            "Settings", ['library', 'urllib', 'urllib2', 'json', 'requests']
+        )
 
         # We prefer to use requests with the updated urllib3 module.
         try:
             from distutils.version import StrictVersion
+
             import requests
 
             if StrictVersion(requests.__version__) < StrictVersion("2.0"):
@@ -138,25 +150,27 @@ class LoginRadius:
         self.phone_authentication = PhoneAuthenticationApi(self)
         self.pin_authentication = PINAuthenticationApi(self)
         self.consent_management = ConsentManagementApi(self)
-        
+
         self.account = AccountApi(self)
         self.role = RoleApi(self)
-        self.sott = SottApi(self)		
-		
+        self.sott = SottApi(self)
+
         self.custom_object = CustomObjectApi(self)
         self.custom_registration_data = CustomRegistrationDataApi(self)
         self.mfa = MultiFactorAuthenticationApi(self)
         self.configuration = ConfigurationApi(self)
         self.web_hook = WebHookApi(self)
         self.re_authentication = ReAuthenticationApi(self)
-		
+
         self.native_social = NativeSocialApi(self)
         self.social = SocialApi(self)
         if sys.version_info[0] < 3:
             from urllib import quote
+
             self.quote = quote
         else:
             from urllib.parse import quote
+
             self.quote = quote
 
     #
@@ -225,7 +239,7 @@ class LoginRadius:
 
         if resource_url == "ciam/appinfo":
             api_end_point = self.CONFIG_API_URL + resource_url
-        
+
         if self.SERVER_REGION is not None and self.SERVER_REGION != "":
             query_params['region'] = self.SERVER_REGION
 
@@ -234,8 +248,7 @@ class LoginRadius:
             apiSecret = query_params['apiSecret']
             query_params.pop("apiSecret")
 
-        headers = {'Content-Type': "application/json",
-                   'Accept-encoding': 'gzip'}
+        headers = {'Content-Type': "application/json", 'Accept-encoding': 'gzip'}
 
         if "access_token" in query_params and "/auth" in resource_url:
             headers.update({"Authorization": "Bearer " + query_params['access_token']})
@@ -264,22 +277,15 @@ class LoginRadius:
             if method.upper() == 'GET':
                 return self._get_json(api_end_point, {}, headers)
             else:
-                return self.__submit_json(method.upper(), api_end_point, payload, headers)
+                return self.__submit_json(
+                    method.upper(), api_end_point, payload, headers
+                )
         except IOError as e:
-            return {
-                'ErrorCode': 105,
-                'Description': e.message
-            }
+            return {'ErrorCode': 105, 'Description': e.message}
         except ValueError as e:
-            return {
-                'ErrorCode': 102,
-                'Description': e.message
-            }
+            return {'ErrorCode': 102, 'Description': e.message}
         except Exception as e:
-            return {
-                'ErrorCode': 101,
-                'Description': e.message
-            }
+            return {'ErrorCode': 101, 'Description': e.message}
 
     def _get_json(self, url, payload, HEADERS):
         """Get JSON from LoginRadius"""
@@ -288,7 +294,8 @@ class LoginRadius:
 
         if self.settings.requests:
             r = self.settings.requests.get(
-                url, proxies=proxies, params=payload, headers=HEADERS)
+                url, proxies=proxies, params=payload, headers=HEADERS
+            )
             return self._process_result(r.json())
         else:
             http = urllib3.PoolManager()
@@ -299,26 +306,34 @@ class LoginRadius:
     def __submit_json(self, method, url, payload, HEADERS):
         if self.settings.requests:
             import json
+
             proxies = self._get_proxy()
             if method == 'PUT':
                 r = self.settings.requests.put(
-                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
+                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS
+                )
             elif method == 'DELETE':
                 r = self.settings.requests.delete(
-                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
+                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS
+                )
             else:
                 r = self.settings.requests.post(
-                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
+                    url, proxies=proxies, data=json.dumps(payload), headers=HEADERS
+                )
             return self._process_result(r.json())
 
         else:
             import json
+
             data = json.dumps(payload)
             if sys.version_info[0] == 3:
                 data = data.encode('utf-8')
 
             r = self.settings.urllib2.Request(
-                url, data, {'Content-Type': 'application/json', 'Accept-encoding': 'gzip'})
+                url,
+                data,
+                {'Content-Type': 'application/json', 'Accept-encoding': 'gzip'},
+            )
             if method == 'PUT' or method == 'DELETE':
                 r.get_method = lambda: method
             for key, value in HEADERS.items():
@@ -329,6 +344,7 @@ class LoginRadius:
                 return json.loads(e.read())
 
             import codecs
+
             reader = codecs.getreader("utf-8")
             return self._process_result(self.settings.json.load(reader(result)))
 
@@ -340,7 +356,16 @@ class LoginRadius:
 
     def _get_proxy(self):
         if self.IS_PROXY_ENABLE:
-            proxies = {'https': 'https://' + self.USER_NAME + ':' + self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
+            proxies = {
+                'https': 'https://'
+                + self.USER_NAME
+                + ':'
+                + self.PASSWORD
+                + '@'
+                + self.HOST
+                + ':'
+                + self.PORT
+            }
         else:
             proxies = {}
         return proxies
@@ -363,7 +388,7 @@ class LoginRadius:
 
     def get_validation_message(self, field):
         return "Invalid value for field " + str(field)
-    
+
     def get_sott(self, time='10', getLRserverTime=False):
         if getLRserverTime:
             result = self.configuration.get_server_info()
@@ -397,8 +422,7 @@ class LoginRadius:
             plaintext += (chr(padding) * padding).decode()
 
         salt = "\0\0\0\0\0\0\0\0"
-        cipher_key = PBKDF2(self.API_SECRET,
-                            salt, 10000).read(self.CONST_KEYSIZE // 8)
+        cipher_key = PBKDF2(self.API_SECRET, salt, 10000).read(self.CONST_KEYSIZE // 8)
 
         if sys.version_info[0] == 3:
             iv = bytes(self.CONST_INITVECTOR, 'utf-8')
@@ -408,8 +432,7 @@ class LoginRadius:
             text = str(plaintext)
 
         backend = default_backend()
-        cipher = Cipher(algorithms.AES(cipher_key),
-                        modes.CBC(iv), backend=backend)
+        cipher = Cipher(algorithms.AES(cipher_key), modes.CBC(iv), backend=backend)
         encryptor = cipher.encryptor()
         ct = encryptor.update(text) + encryptor.finalize()
 
@@ -417,4 +440,8 @@ class LoginRadius:
 
         md5 = hashlib.md5()
         md5.update(base64cipher.decode('utf8').encode('ascii'))
-        return base64cipher.decode('utf-8')+"*"+binascii.hexlify(md5.digest()).decode('ascii')
+        return (
+            base64cipher.decode('utf-8')
+            + "*"
+            + binascii.hexlify(md5.digest()).decode('ascii')
+        )

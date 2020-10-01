@@ -47,8 +47,11 @@ class Exceptions:
             self.version = str(version)
 
         def __str__(self):
-            return "LoginRadius needs at least requests 2.0, found: " \
-                + self.version + "\nPlease upgrade to the latest version."
+            return (
+                "LoginRadius needs at least requests 2.0, found: "
+                + self.version
+                + "\nPlease upgrade to the latest version."
+            )
 
     class InvalidLibrary(LoginRadiusExceptions):
         """
@@ -59,8 +62,12 @@ class Exceptions:
             self.library = library
 
         def __str__(self):
-            return "Invalid library string given. Got: " + str(self.library) + ". Valid cases: 'requests' or " + \
-                "'urllib2'"
+            return (
+                "Invalid library string given. Got: "
+                + str(self.library)
+                + ". Valid cases: 'requests' or "
+                + "'urllib2'"
+            )
 
     class NoAPISecret(LoginRadiusExceptions):
         """
@@ -72,8 +79,10 @@ class Exceptions:
             pass
 
         def __str__(self):
-            return "No API_SECRET set. Please initialize a API_SECRET first.\n" \
+            return (
+                "No API_SECRET set. Please initialize a API_SECRET first.\n"
                 + "ie. LoginRadius.API_SECRET = \"Really_Secret_Key\""
+            )
 
     class NoAPIKey(LoginRadiusExceptions):
         """
@@ -85,8 +94,10 @@ class Exceptions:
             pass
 
         def __str__(self):
-            return "No API_KEY set. Please initialize a APP_KEY first.\n" \
+            return (
+                "No API_KEY set. Please initialize a APP_KEY first.\n"
                 + "ie. LoginRadius.API_Key = \"Really_Application_Key\""
+            )
 
     class MissingJsonResponseParameter(LoginRadiusExceptions):
         """
@@ -99,9 +110,13 @@ class Exceptions:
             self.raw = raw
 
         def __str__(self):
-            exception_string = "Expected parameter from JSON response does not exist." + \
-                " Expected: " + self.missing_parameter + " but was not in" + \
-                " the dictionary."
+            exception_string = (
+                "Expected parameter from JSON response does not exist."
+                + " Expected: "
+                + self.missing_parameter
+                + " but was not in"
+                + " the dictionary."
+            )
             if self.raw:
                 exception_string += " Instead, we got: " + str(self.raw)
                 return exception_string
@@ -115,8 +130,11 @@ class Exceptions:
             self.time = time
 
         def __str__(self):
-            return "The request cannot be completed because the token has expired. " + \
-                "The token expired on: " + self.time
+            return (
+                "The request cannot be completed because the token has expired. "
+                + "The token expired on: "
+                + self.time
+            )
 
     class FeatureNotSupported(LoginRadiusExceptions):
         """
@@ -127,8 +145,10 @@ class Exceptions:
             pass
 
         def __str__(self):
-            return "Your LoginRadius site doesn't have permission to access this endpoint, please contact " + \
-                "LoginRadius support if you need more information."
+            return (
+                "Your LoginRadius site doesn't have permission to access this endpoint, please contact "
+                + "LoginRadius support if you need more information."
+            )
 
     class UnknownJsonError(LoginRadiusExceptions):
         """
@@ -227,5 +247,7 @@ class Exceptions:
             pass
 
         def __str__(self):
-            return "The requested endpoint is not supported by the current ID provider, " + \
-                "please check the API support page at http://www.loginradius.com/datapoints"
+            return (
+                "The requested endpoint is not supported by the current ID provider, "
+                + "please check the API support page at http://www.loginradius.com/datapoints"
+            )

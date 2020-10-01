@@ -5,7 +5,6 @@
 
 
 class AuthenticationApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class AuthenticationApi:
         2.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
@@ -44,7 +43,7 @@ class AuthenticationApi:
         2.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(user_name)):
+        if self._lr_object.is_null_or_whitespace(user_name):
             raise Exception(self._lr_object.get_validation_message("user_name"))
 
         query_parameters = {}
@@ -65,7 +64,7 @@ class AuthenticationApi:
         2.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(phone)):
+        if self._lr_object.is_null_or_whitespace(phone):
             raise Exception(self._lr_object.get_validation_message("phone"))
 
         query_parameters = {}
@@ -86,7 +85,7 @@ class AuthenticationApi:
         2.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -107,7 +106,7 @@ class AuthenticationApi:
         4.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -129,13 +128,13 @@ class AuthenticationApi:
         4.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(prevent_refresh is not None):
+        if prevent_refresh is not None:
             query_parameters["preventRefresh"] = prevent_refresh
 
         resource_path = "identity/v2/auth/access_token/invalidate"
@@ -152,7 +151,7 @@ class AuthenticationApi:
         4.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -174,13 +173,13 @@ class AuthenticationApi:
         5.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/auth/account"
@@ -198,20 +197,28 @@ class AuthenticationApi:
         5.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/account/sendwelcomeemail"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def update_profile_by_access_token(self, access_token, user_profile_update_model, email_template=None,
-        fields='', null_support=None, sms_template=None, verification_url=None):
+    def update_profile_by_access_token(
+        self,
+        access_token,
+        user_profile_update_model,
+        email_template=None,
+        fields='',
+        null_support=None,
+        sms_template=None,
+        verification_url=None,
+    ):
         """This API is used to update the user's profile by passing the access token.
         
         Args:
@@ -228,29 +235,35 @@ class AuthenticationApi:
         5.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(user_profile_update_model is None):
-            raise Exception(self._lr_object.get_validation_message("user_profile_update_model"))
+        if user_profile_update_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("user_profile_update_model")
+            )
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(null_support is not None):
+        if null_support is not None:
             query_parameters["nullSupport"] = null_support
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
+        if not self._lr_object.is_null_or_whitespace(sms_template):
             query_parameters["smsTemplate"] = sms_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/account"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, user_profile_update_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, user_profile_update_model
+        )
 
-    def delete_account_with_email_confirmation(self, access_token, delete_url=None, email_template=None):
+    def delete_account_with_email_confirmation(
+        self, access_token, delete_url=None, email_template=None
+    ):
         """This API will send a confirmation email for account deletion to the customer's email when passed the customer's access token
         
         Args:
@@ -263,15 +276,15 @@ class AuthenticationApi:
         5.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(delete_url)):
+        if not self._lr_object.is_null_or_whitespace(delete_url):
             query_parameters["deleteUrl"] = delete_url
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
 
         resource_path = "identity/v2/auth/account"
@@ -288,7 +301,7 @@ class AuthenticationApi:
         5.6
         """
 
-        if(self._lr_object.is_null_or_whitespace(deletetoken)):
+        if self._lr_object.is_null_or_whitespace(deletetoken):
             raise Exception(self._lr_object.get_validation_message("deletetoken"))
 
         query_parameters = {}
@@ -310,17 +323,21 @@ class AuthenticationApi:
         5.15
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(unlock_profile_model is None):
-            raise Exception(self._lr_object.get_validation_message("unlock_profile_model"))
+        if unlock_profile_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("unlock_profile_model")
+            )
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/account/unlock"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, unlock_profile_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, unlock_profile_model
+        )
 
     def check_email_availability(self, email):
         """This API is used to check the email exists or not on your site.
@@ -333,7 +350,7 @@ class AuthenticationApi:
         8.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
@@ -343,8 +360,9 @@ class AuthenticationApi:
         resource_path = "identity/v2/auth/email"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def verify_email(self, verification_token, fields='', url=None,
-        welcome_email_template=None):
+    def verify_email(
+        self, verification_token, fields='', url=None, welcome_email_template=None
+    ):
         """This API is used to verify the email of user. Note: This API will only return the full profile if you have 'Enable auto login after email verification' set in your LoginRadius Admin Console's Email Workflow settings under 'Verification Email'.
         
         Args:
@@ -358,24 +376,31 @@ class AuthenticationApi:
         8.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(verification_token)):
-            raise Exception(self._lr_object.get_validation_message("verification_token"))
+        if self._lr_object.is_null_or_whitespace(verification_token):
+            raise Exception(
+                self._lr_object.get_validation_message("verification_token")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["verificationToken"] = verification_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(url)):
+        if not self._lr_object.is_null_or_whitespace(url):
             query_parameters["url"] = url
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/email"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def verify_email_by_otp(self, email_verification_by_otp_model, fields='', url=None,
-        welcome_email_template=None):
+    def verify_email_by_otp(
+        self,
+        email_verification_by_otp_model,
+        fields='',
+        url=None,
+        welcome_email_template=None,
+    ):
         """This API is used to verify the email of user when the OTP Email verification flow is enabled, please note that you must contact LoginRadius to have this feature enabled.
         
         Args:
@@ -388,23 +413,30 @@ class AuthenticationApi:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
         8.3
         """
-        if(email_verification_by_otp_model is None):
-            raise Exception(self._lr_object.get_validation_message("email_verification_by_otp_model"))
+        if email_verification_by_otp_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "email_verification_by_otp_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(url)):
+        if not self._lr_object.is_null_or_whitespace(url):
             query_parameters["url"] = url
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/email"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, email_verification_by_otp_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, email_verification_by_otp_model
+        )
 
-    def add_email(self, access_token, email, type,
-        email_template=None, verification_url=None):
+    def add_email(
+        self, access_token, email, type, email_template=None, verification_url=None
+    ):
         """This API is used to add additional emails to a user's account.
         
         Args:
@@ -419,21 +451,21 @@ class AuthenticationApi:
         8.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
-        if(self._lr_object.is_null_or_whitespace(type)):
+        if self._lr_object.is_null_or_whitespace(type):
             raise Exception(self._lr_object.get_validation_message("type"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         body_parameters = {}
@@ -441,7 +473,9 @@ class AuthenticationApi:
         body_parameters["type"] = type
 
         resource_path = "identity/v2/auth/email"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
     def remove_email(self, access_token, email):
         """This API is used to remove additional emails from a user's account.
@@ -455,10 +489,10 @@ class AuthenticationApi:
         8.6
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
@@ -469,10 +503,18 @@ class AuthenticationApi:
         body_parameters["email"] = email
 
         resource_path = "identity/v2/auth/email"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, body_parameters
+        )
 
-    def login_by_email(self, email_authentication_model, email_template=None, fields='',
-        login_url=None, verification_url=None):
+    def login_by_email(
+        self,
+        email_authentication_model,
+        email_template=None,
+        fields='',
+        login_url=None,
+        verification_url=None,
+    ):
         """This API retrieves a copy of the user data based on the Email
         
         Args:
@@ -486,25 +528,35 @@ class AuthenticationApi:
             Response containing User Profile Data and access token
         9.2.1
         """
-        if(email_authentication_model is None):
-            raise Exception(self._lr_object.get_validation_message("email_authentication_model"))
+        if email_authentication_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("email_authentication_model")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(login_url)):
+        if not self._lr_object.is_null_or_whitespace(login_url):
             query_parameters["loginUrl"] = login_url
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login"
-        return self._lr_object.execute("POST", resource_path, query_parameters, email_authentication_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, email_authentication_model
+        )
 
-    def login_by_user_name(self, user_name_authentication_model, email_template=None, fields='',
-        login_url=None, verification_url=None):
+    def login_by_user_name(
+        self,
+        user_name_authentication_model,
+        email_template=None,
+        fields='',
+        login_url=None,
+        verification_url=None,
+    ):
         """This API retrieves a copy of the user data based on the Username
         
         Args:
@@ -518,22 +570,26 @@ class AuthenticationApi:
             Response containing User Profile Data and access token
         9.2.2
         """
-        if(user_name_authentication_model is None):
-            raise Exception(self._lr_object.get_validation_message("user_name_authentication_model"))
+        if user_name_authentication_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("user_name_authentication_model")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(login_url)):
+        if not self._lr_object.is_null_or_whitespace(login_url):
             query_parameters["loginUrl"] = login_url
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login"
-        return self._lr_object.execute("POST", resource_path, query_parameters, user_name_authentication_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, user_name_authentication_model
+        )
 
     def forgot_password(self, email, reset_password_url, email_template=None):
         """This API is used to send the reset password url to a specified account. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username'
@@ -548,25 +604,31 @@ class AuthenticationApi:
         10.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
-        if(self._lr_object.is_null_or_whitespace(reset_password_url)):
-            raise Exception(self._lr_object.get_validation_message("reset_password_url"))
+        if self._lr_object.is_null_or_whitespace(reset_password_url):
+            raise Exception(
+                self._lr_object.get_validation_message("reset_password_url")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["resetPasswordUrl"] = reset_password_url
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
 
         body_parameters = {}
         body_parameters["email"] = email
 
         resource_path = "identity/v2/auth/password"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
-    def reset_password_by_security_answer_and_email(self, reset_password_by_security_answer_and_email_model):
+    def reset_password_by_security_answer_and_email(
+        self, reset_password_by_security_answer_and_email_model
+    ):
         """This API is used to reset password for the specified account by security question
         
         Args:
@@ -576,16 +638,27 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.3.1
         """
-        if(reset_password_by_security_answer_and_email_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_security_answer_and_email_model"))
+        if reset_password_by_security_answer_and_email_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_security_answer_and_email_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/securityanswer"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_security_answer_and_email_model)
+        return self._lr_object.execute(
+            "PUT",
+            resource_path,
+            query_parameters,
+            reset_password_by_security_answer_and_email_model,
+        )
 
-    def reset_password_by_security_answer_and_phone(self, reset_password_by_security_answer_and_phone_model):
+    def reset_password_by_security_answer_and_phone(
+        self, reset_password_by_security_answer_and_phone_model
+    ):
         """This API is used to reset password for the specified account by security question
         
         Args:
@@ -595,16 +668,27 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.3.2
         """
-        if(reset_password_by_security_answer_and_phone_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_security_answer_and_phone_model"))
+        if reset_password_by_security_answer_and_phone_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_security_answer_and_phone_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/securityanswer"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_security_answer_and_phone_model)
+        return self._lr_object.execute(
+            "PUT",
+            resource_path,
+            query_parameters,
+            reset_password_by_security_answer_and_phone_model,
+        )
 
-    def reset_password_by_security_answer_and_user_name(self, reset_password_by_security_answer_and_user_name_model):
+    def reset_password_by_security_answer_and_user_name(
+        self, reset_password_by_security_answer_and_user_name_model
+    ):
         """This API is used to reset password for the specified account by security question
         
         Args:
@@ -614,14 +698,23 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.3.3
         """
-        if(reset_password_by_security_answer_and_user_name_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_security_answer_and_user_name_model"))
+        if reset_password_by_security_answer_and_user_name_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_security_answer_and_user_name_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/securityanswer"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_security_answer_and_user_name_model)
+        return self._lr_object.execute(
+            "PUT",
+            resource_path,
+            query_parameters,
+            reset_password_by_security_answer_and_user_name_model,
+        )
 
     def reset_password_by_reset_token(self, reset_password_by_reset_token_model):
         """This API is used to set a new password for the specified account.
@@ -633,14 +726,20 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.7.1
         """
-        if(reset_password_by_reset_token_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_reset_token_model"))
+        if reset_password_by_reset_token_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_reset_token_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/reset"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_reset_token_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, reset_password_by_reset_token_model
+        )
 
     def reset_password_by_email_otp(self, reset_password_by_email_and_otp_model):
         """This API is used to set a new password for the specified account.
@@ -652,14 +751,23 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.7.2
         """
-        if(reset_password_by_email_and_otp_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_email_and_otp_model"))
+        if reset_password_by_email_and_otp_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_email_and_otp_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/reset"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_email_and_otp_model)
+        return self._lr_object.execute(
+            "PUT",
+            resource_path,
+            query_parameters,
+            reset_password_by_email_and_otp_model,
+        )
 
     def reset_password_by_otp_and_user_name(self, reset_password_by_user_name_model):
         """This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow
@@ -671,14 +779,20 @@ class AuthenticationApi:
             Response containing Definition of Validation data and access token
         10.7.3
         """
-        if(reset_password_by_user_name_model is None):
-            raise Exception(self._lr_object.get_validation_message("reset_password_by_user_name_model"))
+        if reset_password_by_user_name_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "reset_password_by_user_name_model"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/password/reset"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_user_name_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, reset_password_by_user_name_model
+        )
 
     def change_password(self, access_token, new_password, old_password):
         """This API is used to change the accounts password based on the previous password
@@ -693,13 +807,13 @@ class AuthenticationApi:
         10.8
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(new_password)):
+        if self._lr_object.is_null_or_whitespace(new_password):
             raise Exception(self._lr_object.get_validation_message("new_password"))
 
-        if(self._lr_object.is_null_or_whitespace(old_password)):
+        if self._lr_object.is_null_or_whitespace(old_password):
             raise Exception(self._lr_object.get_validation_message("old_password"))
 
         query_parameters = {}
@@ -711,7 +825,9 @@ class AuthenticationApi:
         body_parameters["oldPassword"] = old_password
 
         resource_path = "identity/v2/auth/password/change"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, body_parameters
+        )
 
     def unlink_social_identities(self, access_token, provider, provider_id):
         """This API is used to unlink up a social provider account with the specified account based on the access token and the social providers user access token. The unlinked account will automatically get removed from your database.
@@ -726,13 +842,13 @@ class AuthenticationApi:
         12.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(provider)):
+        if self._lr_object.is_null_or_whitespace(provider):
             raise Exception(self._lr_object.get_validation_message("provider"))
 
-        if(self._lr_object.is_null_or_whitespace(provider_id)):
+        if self._lr_object.is_null_or_whitespace(provider_id):
             raise Exception(self._lr_object.get_validation_message("provider_id"))
 
         query_parameters = {}
@@ -744,7 +860,9 @@ class AuthenticationApi:
         body_parameters["providerId"] = provider_id
 
         resource_path = "identity/v2/auth/socialidentity"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, body_parameters
+        )
 
     def link_social_identities(self, access_token, candidate_token):
         """This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.
@@ -758,10 +876,10 @@ class AuthenticationApi:
         12.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(candidate_token)):
+        if self._lr_object.is_null_or_whitespace(candidate_token):
             raise Exception(self._lr_object.get_validation_message("candidate_token"))
 
         query_parameters = {}
@@ -772,7 +890,9 @@ class AuthenticationApi:
         body_parameters["candidateToken"] = candidate_token
 
         resource_path = "identity/v2/auth/socialidentity"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
     def link_social_identities_by_ping(self, access_token, client_guid):
         """This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.
@@ -786,10 +906,10 @@ class AuthenticationApi:
         12.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(client_guid)):
+        if self._lr_object.is_null_or_whitespace(client_guid):
             raise Exception(self._lr_object.get_validation_message("client_guid"))
 
         query_parameters = {}
@@ -800,7 +920,9 @@ class AuthenticationApi:
         body_parameters["clientGuid"] = client_guid
 
         resource_path = "identity/v2/auth/socialidentity"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
     def set_or_change_user_name(self, access_token, username):
         """This API is used to set or change UserName by access token.
@@ -814,10 +936,10 @@ class AuthenticationApi:
         13.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
-        if(self._lr_object.is_null_or_whitespace(username)):
+        if self._lr_object.is_null_or_whitespace(username):
             raise Exception(self._lr_object.get_validation_message("username"))
 
         query_parameters = {}
@@ -828,7 +950,9 @@ class AuthenticationApi:
         body_parameters["username"] = username
 
         resource_path = "identity/v2/auth/username"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, body_parameters
+        )
 
     def check_user_name_availability(self, username):
         """This API is used to check the UserName exists or not on your site.
@@ -841,7 +965,7 @@ class AuthenticationApi:
         13.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(username)):
+        if self._lr_object.is_null_or_whitespace(username):
             raise Exception(self._lr_object.get_validation_message("username"))
 
         query_parameters = {}
@@ -863,13 +987,13 @@ class AuthenticationApi:
         15.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/auth/privacypolicy/accept"
@@ -886,7 +1010,7 @@ class AuthenticationApi:
         15.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(access_token)):
+        if self._lr_object.is_null_or_whitespace(access_token):
             raise Exception(self._lr_object.get_validation_message("access_token"))
 
         query_parameters = {}
@@ -896,8 +1020,16 @@ class AuthenticationApi:
         resource_path = "identity/v2/auth/privacypolicy/history"
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def user_registration_by_email(self, auth_user_registration_model, sott, email_template=None,
-        fields='', options='', verification_url=None, welcome_email_template=None):
+    def user_registration_by_email(
+        self,
+        auth_user_registration_model,
+        sott,
+        email_template=None,
+        fields='',
+        options='',
+        verification_url=None,
+        welcome_email_template=None,
+    ):
         """This API creates a user in the database as well as sends a verification email to the user.
         
         Args:
@@ -913,31 +1045,43 @@ class AuthenticationApi:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
         17.1.1
         """
-        if(auth_user_registration_model is None):
-            raise Exception(self._lr_object.get_validation_message("auth_user_registration_model"))
+        if auth_user_registration_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("auth_user_registration_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(sott)):
+        if self._lr_object.is_null_or_whitespace(sott):
             raise Exception(self._lr_object.get_validation_message("sott"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["sott"] = sott
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(options)):
+        if not self._lr_object.is_null_or_whitespace(options):
             query_parameters["options"] = options
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/register"
-        return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, auth_user_registration_model
+        )
 
-    def user_registration_by_captcha(self, auth_user_registration_model_with_captcha, email_template=None, fields='',
-        options='', sms_template=None, verification_url=None, welcome_email_template=None):
+    def user_registration_by_captcha(
+        self,
+        auth_user_registration_model_with_captcha,
+        email_template=None,
+        fields='',
+        options='',
+        sms_template=None,
+        verification_url=None,
+        welcome_email_template=None,
+    ):
         """This API creates a user in the database as well as sends a verification email to the user.
         
         Args:
@@ -953,28 +1097,39 @@ class AuthenticationApi:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
         17.2
         """
-        if(auth_user_registration_model_with_captcha is None):
-            raise Exception(self._lr_object.get_validation_message("auth_user_registration_model_with_captcha"))
+        if auth_user_registration_model_with_captcha is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "auth_user_registration_model_with_captcha"
+                )
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(options)):
+        if not self._lr_object.is_null_or_whitespace(options):
             query_parameters["options"] = options
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
+        if not self._lr_object.is_null_or_whitespace(sms_template):
             query_parameters["smsTemplate"] = sms_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
-        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+        if not self._lr_object.is_null_or_whitespace(welcome_email_template):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/register/captcha"
-        return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model_with_captcha)
+        return self._lr_object.execute(
+            "POST",
+            resource_path,
+            query_parameters,
+            auth_user_registration_model_with_captcha,
+        )
 
-    def auth_resend_email_verification(self, email, email_template=None, verification_url=None):
+    def auth_resend_email_verification(
+        self, email, email_template=None, verification_url=None
+    ):
         """This API resends the verification email to the user.
         
         Args:
@@ -987,18 +1142,20 @@ class AuthenticationApi:
         17.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         body_parameters = {}
         body_parameters["email"] = email
 
         resource_path = "identity/v2/auth/register"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, body_parameters
+        )

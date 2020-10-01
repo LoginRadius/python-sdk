@@ -5,7 +5,6 @@
 
 
 class AccountApi:
-
     def __init__(self, lr_object):
         """
         :param lr_object: this is the reference to the parent LoginRadius object.
@@ -23,7 +22,7 @@ class AccountApi:
         15.1.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -44,17 +43,21 @@ class AccountApi:
             Response containing Definition for Complete profile data
         18.1
         """
-        if(account_create_model is None):
-            raise Exception(self._lr_object.get_validation_message("account_create_model"))
+        if account_create_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("account_create_model")
+            )
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
-        return self._lr_object.execute("POST", resource_path, query_parameters, account_create_model)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, account_create_model
+        )
 
     def get_account_profile_by_email(self, email, fields=''):
         """This API is used to retrieve all of the profile data, associated with the specified account by email in Cloud Storage.
@@ -68,14 +71,14 @@ class AccountApi:
         18.2
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
         query_parameters["email"] = email
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
@@ -93,14 +96,14 @@ class AccountApi:
         18.3
         """
 
-        if(self._lr_object.is_null_or_whitespace(user_name)):
+        if self._lr_object.is_null_or_whitespace(user_name):
             raise Exception(self._lr_object.get_validation_message("user_name"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
         query_parameters["userName"] = user_name
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
@@ -118,14 +121,14 @@ class AccountApi:
         18.4
         """
 
-        if(self._lr_object.is_null_or_whitespace(phone)):
+        if self._lr_object.is_null_or_whitespace(phone):
             raise Exception(self._lr_object.get_validation_message("phone"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
         query_parameters["phone"] = phone
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
@@ -143,20 +146,21 @@ class AccountApi:
         18.5
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account/" + uid
         return self._lr_object.execute("GET", resource_path, query_parameters, None)
 
-    def update_account_by_uid(self, account_user_profile_update_model, uid, fields='',
-        null_support=None):
+    def update_account_by_uid(
+        self, account_user_profile_update_model, uid, fields='', null_support=None
+    ):
         """This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.
         
         Args:
@@ -169,22 +173,28 @@ class AccountApi:
             Response containing Definition for Complete profile data
         18.15
         """
-        if(account_user_profile_update_model is None):
-            raise Exception(self._lr_object.get_validation_message("account_user_profile_update_model"))
+        if account_user_profile_update_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message(
+                    "account_user_profile_update_model"
+                )
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
-        if(null_support is not None):
+        if null_support is not None:
             query_parameters["nullSupport"] = null_support
 
         resource_path = "identity/v2/manage/account/" + uid
-        return self._lr_object.execute("PUT", resource_path, query_parameters, account_user_profile_update_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, account_user_profile_update_model
+        )
 
     def update_phone_id_by_uid(self, phone, uid, fields=''):
         """This API is used to update the PhoneId by using the Uid's. Admin can update the PhoneId's for both the verified and unverified profiles. It will directly replace the PhoneId and bypass the OTP verification process.
@@ -199,23 +209,25 @@ class AccountApi:
         18.16
         """
 
-        if(self._lr_object.is_null_or_whitespace(phone)):
+        if self._lr_object.is_null_or_whitespace(phone):
             raise Exception(self._lr_object.get_validation_message("phone"))
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         body_parameters = {}
         body_parameters["phone"] = phone
 
         resource_path = "identity/v2/manage/account/" + uid + "/phoneid"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, body_parameters
+        )
 
     def get_account_password_hash_by_uid(self, uid):
         """This API use to retrive the hashed password of a specified account in Cloud Storage.
@@ -228,7 +240,7 @@ class AccountApi:
         18.17
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -250,10 +262,10 @@ class AccountApi:
         18.18
         """
 
-        if(self._lr_object.is_null_or_whitespace(password)):
+        if self._lr_object.is_null_or_whitespace(password):
             raise Exception(self._lr_object.get_validation_message("password"))
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -264,7 +276,9 @@ class AccountApi:
         body_parameters["password"] = password
 
         resource_path = "identity/v2/manage/account/" + uid + "/password"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, body_parameters
+        )
 
     def delete_account_by_uid(self, uid):
         """This API deletes the Users account and allows them to re-register for a new account.
@@ -277,7 +291,7 @@ class AccountApi:
         18.19
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -287,7 +301,9 @@ class AccountApi:
         resource_path = "identity/v2/manage/account/" + uid
         return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
 
-    def invalidate_account_email_verification(self, uid, email_template='', verification_url=''):
+    def invalidate_account_email_verification(
+        self, uid, email_template='', verification_url=''
+    ):
         """This API is used to invalidate the Email Verification status on an account.
         
         Args:
@@ -300,22 +316,23 @@ class AccountApi:
         18.20
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+        if not self._lr_object.is_null_or_whitespace(verification_url):
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/manage/account/" + uid + "/invalidateemail"
         return self._lr_object.execute("PUT", resource_path, query_parameters, None)
 
-    def get_forgot_password_token(self, email, email_template=None, reset_password_url=None,
-        send_email=None):
+    def get_forgot_password_token(
+        self, email, email_template=None, reset_password_url=None, send_email=None
+    ):
         """This API Returns a Forgot Password Token it can also be used to send a Forgot Password email to the customer. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username' in the body.
         
         Args:
@@ -329,24 +346,26 @@ class AccountApi:
         18.22
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(email_template)):
+        if not self._lr_object.is_null_or_whitespace(email_template):
             query_parameters["emailTemplate"] = email_template
-        if(not self._lr_object.is_null_or_whitespace(reset_password_url)):
+        if not self._lr_object.is_null_or_whitespace(reset_password_url):
             query_parameters["resetPasswordUrl"] = reset_password_url
-        if(send_email is not None):
+        if send_email is not None:
             query_parameters["sendEmail"] = send_email
 
         body_parameters = {}
         body_parameters["email"] = email
 
         resource_path = "identity/v2/manage/account/forgot/token"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
     def get_email_verification_token(self, email):
         """This API Returns an Email Verification token.
@@ -359,7 +378,7 @@ class AccountApi:
         18.23
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
@@ -370,7 +389,9 @@ class AccountApi:
         body_parameters["email"] = email
 
         resource_path = "identity/v2/manage/account/verify/token"
-        return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "POST", resource_path, query_parameters, body_parameters
+        )
 
     def get_access_token_by_uid(self, uid):
         """The API is used to get LoginRadius access token based on UID.
@@ -383,7 +404,7 @@ class AccountApi:
         18.24
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -406,13 +427,13 @@ class AccountApi:
         18.27
         """
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
+        if not self._lr_object.is_null_or_whitespace(sms_template):
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/manage/account/" + uid + "/invalidatephone"
@@ -430,20 +451,24 @@ class AccountApi:
             Response containing Definition for Complete profile data
         18.29
         """
-        if(upsert_email_model is None):
-            raise Exception(self._lr_object.get_validation_message("upsert_email_model"))
+        if upsert_email_model is None:
+            raise Exception(
+                self._lr_object.get_validation_message("upsert_email_model")
+            )
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account/" + uid + "/email"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, upsert_email_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, upsert_email_model
+        )
 
     def remove_email(self, email, uid, fields=''):
         """Use this API to Remove emails from a user Account
@@ -458,23 +483,25 @@ class AccountApi:
         18.30
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         body_parameters = {}
         body_parameters["email"] = email
 
         resource_path = "identity/v2/manage/account/" + uid + "/email"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
+        return self._lr_object.execute(
+            "DELETE", resource_path, query_parameters, body_parameters
+        )
 
     def refresh_access_token_by_refresh_token(self, refresh__token):
         """This API is used to refresh an access token via it's associated refresh token.
@@ -487,7 +514,7 @@ class AccountApi:
         18.31
         """
 
-        if(self._lr_object.is_null_or_whitespace(refresh__token)):
+        if self._lr_object.is_null_or_whitespace(refresh__token):
             raise Exception(self._lr_object.get_validation_message("refresh__token"))
 
         query_parameters = {}
@@ -509,7 +536,7 @@ class AccountApi:
         18.32
         """
 
-        if(self._lr_object.is_null_or_whitespace(refresh__token)):
+        if self._lr_object.is_null_or_whitespace(refresh__token):
             raise Exception(self._lr_object.get_validation_message("refresh__token"))
 
         query_parameters = {}
@@ -532,14 +559,14 @@ class AccountApi:
         18.35
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
         query_parameters["email"] = email
-        if(not self._lr_object.is_null_or_whitespace(fields)):
+        if not self._lr_object.is_null_or_whitespace(fields):
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account/identities"
@@ -556,7 +583,7 @@ class AccountApi:
         18.36
         """
 
-        if(self._lr_object.is_null_or_whitespace(email)):
+        if self._lr_object.is_null_or_whitespace(email):
             raise Exception(self._lr_object.get_validation_message("email"))
 
         query_parameters = {}
@@ -578,10 +605,10 @@ class AccountApi:
             Response containing Definition of Complete Validation data
         18.41
         """
-        if(update_uid_model is None):
+        if update_uid_model is None:
             raise Exception(self._lr_object.get_validation_message("update_uid_model"))
 
-        if(self._lr_object.is_null_or_whitespace(uid)):
+        if self._lr_object.is_null_or_whitespace(uid):
             raise Exception(self._lr_object.get_validation_message("uid"))
 
         query_parameters = {}
@@ -590,4 +617,6 @@ class AccountApi:
         query_parameters["uid"] = uid
 
         resource_path = "identity/v2/manage/account/uid"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, update_uid_model)
+        return self._lr_object.execute(
+            "PUT", resource_path, query_parameters, update_uid_model
+        )
