@@ -45,20 +45,6 @@ You can download the latest version from PyPI
 - Browse to the directory that you extracted the files to.
 - Run ```python setup.py install``` to install the LoginRadius module.
 
-### Requests library
-To call API's, install requests library.
-
-Using pip
-
-```
- pip install requests
-```
-or with easy_install
-
-```
- easy_install requests
-```
-
 ## Initialize SDK
 Import the class
 
@@ -3950,14 +3936,8 @@ You can get a copy of our demo project at [GitHub](https://github.com/LoginRadiu
 
 ### Configuration
 
-1.Have Flask, requests installed:
+1.Fill in credentials in ```lr.py``` and ```static/js/options.js```
 
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2``` <br>
-```pip install cryptography``` <br>
-2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
+2.Navigate to demo directory and run: ```python app.py```
 
-3.Navigate to demo directory and run: ```python app.py```
-
-4.Demo will appear on ```http://localhost:5000```
+3.Demo will appear on ```http://localhost:5000```
