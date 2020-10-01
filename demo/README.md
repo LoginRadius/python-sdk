@@ -9,7 +9,7 @@
 ```pip install pbkdf2 ``` <br>
 ```pip install cryptography ``` <br>
 
-2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
+2.Fill the credentials in ```lr.py``` and ```static/js/options.js```
 
 3.Navigate to demo directory and run: ```python app.py```
 
