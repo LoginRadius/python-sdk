@@ -163,7 +163,9 @@ result = loginradius.authentication.update_profile_by_access_token(access_token,
   
  
 <h6 id="UnlockAccountByToken-put-"> Auth Unlock Account by Access Token (PUT)</h6>
- This API is used to allow a customer with a valid access token to unlock their account provided that they successfully pass the prompted Bot Protection challenges. The Block or Suspend block types are not applicable for this API. For additional details see our Auth Security Configuration documentation.You are only required to pass the Post Parameters that correspond to the prompted challenges.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlock-account-by-access-token/)
+ This API is used to allow a customer with a valid access token to unlock their account provided that they successfully pass the prompted Bot Protection challenges. The Block or Suspend block types are not applicable for this API. For additional details see our Auth Security Configuration documentation.You are only required to pass the Post Parameters that correspond to the prompted challenges.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlock-account-by-access-token/)
 
  ```
   
@@ -179,7 +181,9 @@ result = loginradius.authentication.unlock_account_by_token(access_token, unlock
   
  
 <h6 id="VerifyEmailByOTP-put-"> Auth Verify Email By OTP (PUT)</h6>
- This API is used to verify the email of user when the OTP Email verification flow is enabled, please note that you must contact LoginRadius to have this feature enabled.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-verify-email-by-otp/)
+ This API is used to verify the email of user when the OTP Email verification flow is enabled, please note that you must contact LoginRadius to have this feature enabled. 
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-verify-email-by-otp/)
 
  ```
  
@@ -198,7 +202,9 @@ result = loginradius.authentication.verify_email_by_otp(email_verification_by_ot
   
  
 <h6 id="ResetPasswordBySecurityAnswerAndEmail-put-"> Auth Reset Password by Security Answer and Email (PUT)</h6>
- This API is used to reset password for the specified account by security question  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-email)
+ This API is used to reset password for the specified account by security question.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-email)
 
  ```
  
@@ -215,7 +221,9 @@ result = loginradius.authentication.reset_password_by_security_answer_and_email(
   
  
 <h6 id="ResetPasswordBySecurityAnswerAndPhone-put-"> Auth Reset Password by Security Answer and Phone (PUT)</h6>
- This API is used to reset password for the specified account by security question  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-phone)
+ This API is used to reset password for the specified account by security question.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-phone)
 
  ```
  
@@ -232,7 +240,9 @@ result = loginradius.authentication.reset_password_by_security_answer_and_phone(
   
  
 <h6 id="ResetPasswordBySecurityAnswerAndUserName-put-"> Auth Reset Password by Security Answer and UserName (PUT)</h6>
- This API is used to reset password for the specified account by security question  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-username)
+ This API is used to reset password for the specified account by security question.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-username)
 
  ```
  
@@ -249,7 +259,9 @@ result = loginradius.authentication.reset_password_by_security_answer_and_user_n
   
  
 <h6 id="ResetPasswordByResetToken-put-"> Auth Reset Password by Reset Token (PUT)</h6>
- This API is used to set a new password for the specified account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-reset-token)
+ This API is used to set a new password for the specified account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-reset-token)
 
  ```
  
@@ -265,7 +277,9 @@ result = loginradius.authentication.reset_password_by_reset_token(reset_password
   
  
 <h6 id="ResetPasswordByEmailOTP-put-"> Auth Reset Password by OTP (PUT)</h6>
- This API is used to set a new password for the specified account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp)
+ This API is used to set a new password for the specified account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp)
 
  ```
  
@@ -282,7 +296,9 @@ result = loginradius.authentication.reset_password_by_email_otp(reset_password_b
   
  
 <h6 id="ResetPasswordByOTPAndUserName-put-"> Auth Reset Password by OTP and UserName (PUT)</h6>
- This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp-and-username/)
+ This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp-and-username/)
 
  ```
  
@@ -299,7 +315,9 @@ result = loginradius.authentication.reset_password_by_otp_and_user_name(reset_pa
   
  
 <h6 id="ChangePassword-put-"> Auth Change Password (PUT)</h6>
- This API is used to change the accounts password based on the previous password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-change-password)
+ This API is used to change the accounts password based on the previous password.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-change-password)
 
  ```
   
@@ -314,7 +332,9 @@ result = loginradius.authentication.change_password(access_token, new_password, 
   
  
 <h6 id="SetOrChangeUserName-put-"> Auth Set or Change UserName (PUT)</h6>
- This API is used to set or change UserName by access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-set-or-change-user-name/)
+ This API is used to set or change UserName by access token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-set-or-change-user-name/)
 
  ```
   
@@ -328,7 +348,9 @@ result = loginradius.authentication.set_or_change_user_name(access_token, userna
   
  
 <h6 id="AuthResendEmailVerification-put-"> Auth Resend Email Verification (PUT)</h6>
- This API resends the verification email to the user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-resend-email-verification/)
+ This API resends the verification email to the user.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-resend-email-verification/)
 
  ```
   
@@ -343,7 +365,9 @@ result = loginradius.authentication.auth_resend_email_verification(email, email_
   
  
 <h6 id="AddEmail-post-"> Auth Add Email (POST)</h6>
- This API is used to add additional emails to a user's account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-add-email)
+ This API is used to add additional emails to a user's account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-add-email)
 
  ```
   
@@ -360,7 +384,9 @@ result = loginradius.authentication.add_email(access_token, email, type, email_t
   
  
 <h6 id="LoginByEmail-post-"> Auth Login by Email (POST)</h6>
- This API retrieves a copy of the user data based on the Email  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-email)
+ This API retrieves a copy of the user data based on the Email.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-email)
 
  ```
  
@@ -380,7 +406,9 @@ result = loginradius.authentication.login_by_email(email_authentication_model, e
   
  
 <h6 id="LoginByUserName-post-"> Auth Login by Username (POST)</h6>
- This API retrieves a copy of the user data based on the Username  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-username)
+ This API retrieves a copy of the user data based on the Username.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-username)
 
  ```
  
@@ -400,7 +428,9 @@ result = loginradius.authentication.login_by_user_name(user_name_authentication_
   
  
 <h6 id="ForgotPassword-post-"> Auth Forgot Password (POST)</h6>
- This API is used to send the reset password url to a specified account. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username'  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-forgot-password)
+ This API is used to send the reset password url to a specified account. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username'.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-forgot-password)
 
  ```
   
@@ -415,7 +445,9 @@ result = loginradius.authentication.forgot_password(email, reset_password_url, e
   
  
 <h6 id="LinkSocialIdentities-post-"> Auth Link Social Identities (POST)</h6>
- This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
 
  ```
   
@@ -429,7 +461,9 @@ result = loginradius.authentication.link_social_identities(access_token, candida
   
  
 <h6 id="LinkSocialIdentitiesByPing-post-"> Auth Link Social Identities By Ping (POST)</h6>
- This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities-by-ping)
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities-by-ping)
 
  ```
   
@@ -443,7 +477,9 @@ result = loginradius.authentication.link_social_identities_by_ping(access_token,
   
  
 <h6 id="UserRegistrationByEmail-post-"> Auth User Registration by Email (POST)</h6>
- This API creates a user in the database as well as sends a verification email to the user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-user-registration-by-email)
+ This API creates a user in the database as well as sends a verification email to the user.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-user-registration-by-email)
 
  ```
  
@@ -470,7 +506,9 @@ result = loginradius.authentication.user_registration_by_email(auth_user_registr
   
  
 <h6 id="UserRegistrationByCaptcha-post-"> Auth User Registration By Captcha (POST)</h6>
- This API creates a user in the database as well as sends a verification email to the user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-user-registration-by-recaptcha)
+ This API creates a user in the database as well as sends a verification email to the user.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-user-registration-by-recaptcha)
 
  ```
  
@@ -498,7 +536,9 @@ result = loginradius.authentication.user_registration_by_captcha(auth_user_regis
   
  
 <h6 id="GetSecurityQuestionsByEmail-get-"> Get Security Questions By Email (GET)</h6>
- This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-email/)
+ This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-email/)
 
  ```
   
@@ -511,7 +551,9 @@ result = loginradius.authentication.get_security_questions_by_email(email)
   
  
 <h6 id="GetSecurityQuestionsByUserName-get-"> Get Security Questions By UserName (GET)</h6>
- This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-user-name/)
+ This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-user-name/)
 
  ```
   
@@ -524,7 +566,9 @@ result = loginradius.authentication.get_security_questions_by_user_name(user_nam
   
  
 <h6 id="GetSecurityQuestionsByPhone-get-"> Get Security Questions By Phone (GET)</h6>
- This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-phone/)
+ This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-phone/)
 
  ```
   
@@ -537,7 +581,9 @@ result = loginradius.authentication.get_security_questions_by_phone(phone)
   
  
 <h6 id="GetSecurityQuestionsByAccessToken-get-"> Get Security Questions By Access Token (GET)</h6>
- This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-access-token/)
+ This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/security-questions-by-access-token/)
 
  ```
   
@@ -550,7 +596,9 @@ result = loginradius.authentication.get_security_questions_by_access_token(acces
   
  
 <h6 id="AuthValidateAccessToken-get-"> Auth Validate Access token (GET)</h6>
- This api validates access token, if valid then returns a response with its expiry otherwise error.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-validate-access-token/)
+ This api validates access token, if valid then returns a response with its expiry otherwise error.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-validate-access-token/)
 
  ```
   
@@ -563,7 +611,9 @@ result = loginradius.authentication.auth_validate_access_token(access_token)
   
  
 <h6 id="AuthInValidateAccessToken-get-"> Access Token Invalidate (GET)</h6>
- This api call invalidates the active access token or expires an access token's validity.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-invalidate-access-token/)
+ This api call invalidates the active access token or expires an access token's validity.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-invalidate-access-token/)
 
  ```
   
@@ -577,7 +627,9 @@ result = loginradius.authentication.auth_in_validate_access_token(access_token, 
   
  
 <h6 id="GetAccessTokenInfo-get-"> Access Token Info (GET)</h6>
- This api call provide the active access token Information  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-access-token-info/)
+ This api call provide the active access token Information.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-access-token-info/)
 
  ```
   
@@ -590,7 +642,9 @@ result = loginradius.authentication.get_access_token_info(access_token)
   
  
 <h6 id="GetProfileByAccessToken-get-"> Auth Read all Profiles by Token (GET)</h6>
- This API retrieves a copy of the user data based on the access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-read-profiles-by-token/)
+ This API retrieves a copy of the user data based on the access token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-read-profiles-by-token/)
 
  ```
   
@@ -604,7 +658,9 @@ result = loginradius.authentication.get_profile_by_access_token(access_token, fi
   
  
 <h6 id="SendWelcomeEmail-get-"> Auth Send Welcome Email (GET)</h6>
- This API sends a welcome email  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-send-welcome-email/)
+ This API sends a welcome email.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-send-welcome-email/)
 
  ```
   
@@ -618,7 +674,9 @@ result = loginradius.authentication.send_welcome_email(access_token, welcome_ema
   
  
 <h6 id="DeleteAccountByDeleteToken-get-"> Auth Delete Account (GET)</h6>
- This API is used to delete an account by passing it a delete token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-delete-account/)
+ This API is used to delete an account by passing it a delete token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-delete-account/)
 
  ```
   
@@ -631,7 +689,9 @@ result = loginradius.authentication.delete_account_by_delete_token(deletetoken)
   
  
 <h6 id="CheckEmailAvailability-get-"> Auth Check Email Availability (GET)</h6>
- This API is used to check the email exists or not on your site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-email-availability/)
+ This API is used to check the email exists or not on your site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-email-availability/)
 
  ```
   
@@ -644,7 +704,9 @@ result = loginradius.authentication.check_email_availability(email)
   
  
 <h6 id="VerifyEmail-get-"> Auth Verify Email (GET)</h6>
- This API is used to verify the email of user. Note: This API will only return the full profile if you have 'Enable auto login after email verification' set in your LoginRadius Admin Console's Email Workflow settings under 'Verification Email'.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-verify-email/)
+ This API is used to verify the email of user. Note: This API will only return the full profile if you have 'Enable auto login after email verification' set in your LoginRadius Admin Console's Email Workflow settings under 'Verification Email'.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-verify-email/)
 
  ```
   
@@ -660,7 +722,9 @@ result = loginradius.authentication.verify_email(verification_token, fields, url
   
  
 <h6 id="CheckUserNameAvailability-get-"> Auth Check UserName Availability (GET)</h6>
- This API is used to check the UserName exists or not on your site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-username-availability/)
+ This API is used to check the UserName exists or not on your site.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-username-availability/)
 
  ```
   
@@ -673,7 +737,9 @@ result = loginradius.authentication.check_user_name_availability(username)
   
  
 <h6 id="AcceptPrivacyPolicy-get-"> Auth Privacy Policy Accept (GET)</h6>
- This API is used to update the privacy policy stored in the user's profile by providing the access token of the user accepting the privacy policy  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-privacy-policy-accept)
+ This API is used to update the privacy policy stored in the user's profile by providing the access token of the user accepting the privacy policy.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-privacy-policy-accept)
 
  ```
   
@@ -687,7 +753,9 @@ result = loginradius.authentication.accept_privacy_policy(access_token, fields)
   
  
 <h6 id="GetPrivacyPolicyHistoryByAccessToken-get-"> Auth Privacy Policy History By Access Token (GET)</h6>
- This API will return all the accepted privacy policies for the user by providing the access token of that user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/privacy-policy-history-by-access-token/)
+ This API will return all the accepted privacy policies for the user by providing the access token of that user.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/privacy-policy-history-by-access-token/)
 
  ```
   
@@ -700,7 +768,9 @@ result = loginradius.authentication.get_privacy_policy_history_by_access_token(a
   
  
 <h6 id="DeleteAccountWithEmailConfirmation-delete-"> Auth Delete Account with Email Confirmation (DELETE)</h6>
- This API will send a confirmation email for account deletion to the customer's email when passed the customer's access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-delete-account-with-email-confirmation/)
+ This API will send a confirmation email for account deletion to the customer's email when passed the customer's access token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-delete-account-with-email-confirmation/)
 
  ```
   
@@ -715,7 +785,9 @@ result = loginradius.authentication.delete_account_with_email_confirmation(acces
   
  
 <h6 id="RemoveEmail-delete-"> Auth Remove Email (DELETE)</h6>
- This API is used to remove additional emails from a user's account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-remove-email)
+ This API is used to remove additional emails from a user's account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-remove-email)
 
  ```
   
@@ -729,7 +801,9 @@ result = loginradius.authentication.remove_email(access_token, email)
   
  
 <h6 id="UnlinkSocialIdentities-delete-"> Auth Unlink Social Identities (DELETE)</h6>
- This API is used to unlink up a social provider account with the specified account based on the access token and the social providers user access token. The unlinked account will automatically get removed from your database.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlink-social-identities)
+ This API is used to unlink up a social provider account with the specified account based on the access token and the social providers user access token. The unlinked account will automatically get removed from your database.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-unlink-social-identities)
 
  ```
   
@@ -777,7 +851,9 @@ List of APIs in this Section:<br>
 
 
 <h6 id="UpdateAccountByUid-put-"> Account Update (PUT)</h6>
- This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
+ This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
 
  ```
  
@@ -796,7 +872,9 @@ result = loginradius.account.update_account_by_uid(account_user_profile_update_m
   
  
 <h6 id="UpdatePhoneIDByUid-put-"> Update Phone ID by UID (PUT)</h6>
- This API is used to update the PhoneId by using the Uid's. Admin can update the PhoneId's for both the verified and unverified profiles. It will directly replace the PhoneId and bypass the OTP verification process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/update-phoneid-by-uid)
+ This API is used to update the PhoneId by using the Uid's. Admin can update the PhoneId's for both the verified and unverified profiles. It will directly replace the PhoneId and bypass the OTP verification process. 
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/update-phoneid-by-uid)
 
  ```
   
@@ -811,7 +889,9 @@ result = loginradius.account.update_phone_id_by_uid(phone, uid, fields)
   
  
 <h6 id="SetAccountPasswordByUid-put-"> Account Set Password (PUT)</h6>
- This API is used to set the password of an account in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-set-password)
+ This API is used to set the password of an account in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-set-password)
 
  ```
   
@@ -825,7 +905,9 @@ result = loginradius.account.set_account_password_by_uid(password, uid)
   
  
 <h6 id="InvalidateAccountEmailVerification-put-"> Account Invalidate Verification Email (PUT)</h6>
- This API is used to invalidate the Email Verification status on an account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-invalidate-verification-email)
+ This API is used to invalidate the Email Verification status on an account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-invalidate-verification-email)
 
  ```
   
@@ -840,7 +922,9 @@ result = loginradius.account.invalidate_account_email_verification(uid, email_te
   
  
 <h6 id="ResetPhoneIDVerificationByUid-put-"> Reset phone ID verification (PUT)</h6>
- This API Allows you to reset the phone no verification of an end user’s account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/reset-phone-id-verification)
+ This API Allows you to reset the phone no verification of an end user’s account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/reset-phone-id-verification)
 
  ```
   
@@ -854,7 +938,9 @@ result = loginradius.account.reset_phone_id_verification_by_uid(uid, sms_templat
   
  
 <h6 id="UpsertEmail-put-"> Upsert Email (PUT)</h6>
- This API is used to add/upsert another emails in account profile by different-different email types. If the email type is same then it will simply update the existing email, otherwise it will add a new email in Email array.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/upsert-email)
+ This API is used to add/upsert another emails in account profile by different-different email types. If the email type is same then it will simply update the existing email, otherwise it will add a new email in Email array.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/upsert-email)
 
  ```
  
@@ -874,7 +960,9 @@ result = loginradius.account.upsert_email(upsert_email_model, uid, fields)
   
  
 <h6 id="CreateAccount-post-"> Account Create (POST)</h6>
- This API is used to create an account in Cloud Storage. This API bypass the normal email verification process and manually creates the user. <br><br>In order to use this API, you need to format a JSON request body with all of the mandatory fields  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-create)
+ This API is used to create an account in Cloud Storage. This API bypass the normal email verification process and manually creates the user. <br><br>In order to use this API, you need to format a JSON request body with all of the mandatory fields.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-create)
 
  ```
  
@@ -896,7 +984,9 @@ result = loginradius.account.create_account(account_create_model, fields)
   
  
 <h6 id="GetForgotPasswordToken-post-"> Forgot Password token (POST)</h6>
- This API Returns a Forgot Password Token it can also be used to send a Forgot Password email to the customer. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username' in the body.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/get-forgot-password-token)
+ This API Returns a Forgot Password Token it can also be used to send a Forgot Password email to the customer. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username' in the body.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/get-forgot-password-token)
 
  ```
   
@@ -912,7 +1002,9 @@ result = loginradius.account.get_forgot_password_token(email, email_template, re
   
  
 <h6 id="GetEmailVerificationToken-post-"> Email Verification token (POST)</h6>
- This API Returns an Email Verification token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/get-email-verification-token)
+ This API Returns an Email Verification token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/get-email-verification-token)
 
  ```
   
@@ -925,7 +1017,9 @@ result = loginradius.account.get_email_verification_token(email)
   
  
 <h6 id="GetPrivacyPolicyHistoryByUid-get-"> Get Privacy Policy History By Uid (GET)</h6>
- This API is used to retrieve all of the accepted Policies by the user, associated with their UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/privacy-policy-history-by-uid/)
+ This API is used to retrieve all of the accepted Policies by the user, associated with their UID.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/privacy-policy-history-by-uid/)
 
  ```
   
@@ -938,7 +1032,9 @@ result = loginradius.account.get_privacy_policy_history_by_uid(uid)
   
  
 <h6 id="GetAccountProfileByEmail-get-"> Account Profiles by Email (GET)</h6>
- This API is used to retrieve all of the profile data, associated with the specified account by email in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-email)
+ This API is used to retrieve all of the profile data, associated with the specified account by email in Cloud Storage. 
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-email)
 
  ```
   
@@ -952,7 +1048,9 @@ result = loginradius.account.get_account_profile_by_email(email, fields)
   
  
 <h6 id="GetAccountProfileByUserName-get-"> Account Profiles by Username (GET)</h6>
- This API is used to retrieve all of the profile data associated with the specified account by user name in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-user-name)
+ This API is used to retrieve all of the profile data associated with the specified account by user name in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-user-name)
 
  ```
   
@@ -966,7 +1064,9 @@ result = loginradius.account.get_account_profile_by_user_name(user_name, fields)
   
  
 <h6 id="GetAccountProfileByPhone-get-"> Account Profile by Phone ID (GET)</h6>
- This API is used to retrieve all of the profile data, associated with the account by phone number in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-phone-id/)
+ This API is used to retrieve all of the profile data, associated with the account by phone number in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-phone-id/)
 
  ```
   
@@ -980,7 +1080,9 @@ result = loginradius.account.get_account_profile_by_phone(phone, fields)
   
  
 <h6 id="GetAccountProfileByUid-get-"> Account Profiles by UID (GET)</h6>
- This API is used to retrieve all of the profile data, associated with the account by uid in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-uid)
+ This API is used to retrieve all of the profile data, associated with the account by uid in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-profiles-by-uid)
 
  ```
   
@@ -994,7 +1096,9 @@ result = loginradius.account.get_account_profile_by_uid(uid, fields)
   
  
 <h6 id="GetAccountPasswordHashByUid-get-"> Account Password (GET)</h6>
- This API use to retrive the hashed password of a specified account in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-password)
+ This API use to retrive the hashed password of a specified account in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-password)
 
  ```
   
@@ -1007,7 +1111,9 @@ result = loginradius.account.get_account_password_hash_by_uid(uid)
   
  
 <h6 id="GetAccessTokenByUid-get-"> Access Token based on UID or User impersonation API (GET)</h6>
- The API is used to get LoginRadius access token based on UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-impersonation-api)
+ The API is used to get LoginRadius access token based on UID.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-impersonation-api)
 
  ```
   
@@ -1020,7 +1126,9 @@ result = loginradius.account.get_access_token_by_uid(uid)
   
  
 <h6 id="RefreshAccessTokenByRefreshToken-get-"> Refresh Access Token by Refresh Token (GET)</h6>
- This API is used to refresh an access token via it's associated refresh token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-access-token-by-refresh-token)
+ This API is used to refresh an access token via it's associated refresh token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-access-token-by-refresh-token)
 
  ```
   
@@ -1033,7 +1141,9 @@ result = loginradius.account.refresh_access_token_by_refresh_token(refresh_token
   
  
 <h6 id="RevokeRefreshToken-get-"> Revoke Refresh Token (GET)</h6>
- The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/revoke-refresh-token)
+ The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/revoke-refresh-token)
 
  ```
   
@@ -1046,7 +1156,9 @@ result = loginradius.account.revoke_refresh_token(refresh_token)
   
  
 <h6 id="GetAccountIdentitiesByEmail-get-"> Account Identities by Email (GET)</h6>
- Note: This is intended for specific workflows where an email may be associated to multiple UIDs. This API is used to retrieve all of the identities (UID and Profiles), associated with a specified email in Cloud Storage.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-identities-by-email)
+ Note: This is intended for specific workflows where an email may be associated to multiple UIDs. This API is used to retrieve all of the identities (UID and Profiles), associated with a specified email in Cloud Storage.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-identities-by-email)
 
  ```
   
@@ -1060,7 +1172,9 @@ result = loginradius.account.get_account_identities_by_email(email, fields)
   
  
 <h6 id="DeleteAccountByUid-delete-"> Account Delete (DELETE)</h6>
- This API deletes the Users account and allows them to re-register for a new account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-delete)
+ This API deletes the Users account and allows them to re-register for a new account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-delete)
 
  ```
   
@@ -1073,7 +1187,9 @@ result = loginradius.account.delete_account_by_uid(uid)
   
  
 <h6 id="RemoveEmail-delete-"> Account Remove Email (DELETE)</h6>
- Use this API to Remove emails from a user Account  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete)
+ Use this API to Remove emails from a user Account.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete)
 
  ```
   
@@ -1088,7 +1204,9 @@ result = loginradius.account.remove_email(email, uid, fields)
   
  
 <h6 id="AccountDeleteByEmail-delete-"> Delete User Profiles By Email (DELETE)</h6>
- This API is used to delete all user profiles associated with an Email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete/)
+ This API is used to delete all user profiles associated with an Email.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete/)
 
  ```
   
@@ -1146,7 +1264,9 @@ List of APIs in this Section:<br>
 
 
 <h6 id="PostMessage-post-"> Post Message API (POST)</h6>
- Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
+ Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
 
  ```
   
@@ -1162,7 +1282,9 @@ result = loginradius.social.post_message(access_token, message, subject, to)
   
  
 <h6 id="StatusPosting-post-"> Status Posting  (POST)</h6>
- The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
+ The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
 
  ```
   
@@ -1182,7 +1304,9 @@ result = loginradius.social.status_posting(access_token, caption, description, i
   
  
 <h6 id="TrackableStatusPosting-post-"> Trackable Status Posting (POST)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
 
  ```
   
@@ -1203,7 +1327,9 @@ result = loginradius.social.trackable_status_posting(access_token, status_model)
   
  
 <h6 id="ExchangeAccessToken-get-"> Access Token (GET)</h6>
- This API Is used to translate the Request Token returned during authentication into an Access Token that can be used with other API calls.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/access-token)
+ This API Is used to translate the Request Token returned during authentication into an Access Token that can be used with other API calls.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/access-token)
 
  ```
   
@@ -1216,7 +1342,9 @@ result = loginradius.social.exchange_access_token(token)
   
  
 <h6 id="RefreshAccessToken-get-"> Refresh Token (GET)</h6>
- The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-token)
+ The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-token)
 
  ```
   
@@ -1231,7 +1359,9 @@ result = loginradius.social.refresh_access_token(access_token, expires_in, is_we
   
  
 <h6 id="ValidateAccessToken-get-"> Token Validate (GET)</h6>
- This API validates access token, if valid then returns a response with its expiry otherwise error.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/validate-access-token)
+ This API validates access token, if valid then returns a response with its expiry otherwise error.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/validate-access-token)
 
  ```
   
@@ -1244,7 +1374,9 @@ result = loginradius.social.validate_access_token(access_token)
   
  
 <h6 id="InValidateAccessToken-get-"> Access Token Invalidate (GET)</h6>
- This api invalidates the active access token or expires an access token validity.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/invalidate-access-token)
+ This api invalidates the active access token or expires an access token validity.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/invalidate-access-token)
 
  ```
   
@@ -1257,7 +1389,9 @@ result = loginradius.social.in_validate_access_token(access_token)
   
  
 <h6 id="GetActiveSession-get-"> Get Active Session Details (GET)</h6>
- This api is use to get all active session by Access Token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-active-session-details)
+ This api is use to get all active session by Access Token.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-active-session-details)
 
  ```
   
@@ -1270,7 +1404,9 @@ result = loginradius.social.get_active_session(token)
   
  
 <h6 id="GetActiveSessionByAccountID-get-"> Get Active Session By Account Id (GET)</h6>
- This api is used to get all active sessions by AccountID(UID).  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/active-session-by-account-id/)
+ This api is used to get all active sessions by AccountID(UID).  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/active-session-by-account-id/)
 
  ```
   
@@ -1283,7 +1419,9 @@ result = loginradius.social.get_active_session_by_account_id(account_id)
   
  
 <h6 id="GetActiveSessionByProfileID-get-"> Get Active Session By Profile Id (GET)</h6>
- This api is used to get all active sessions by ProfileId.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/active-session-by-profile-id/)
+ This api is used to get all active sessions by ProfileId.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/active-session-by-profile-id/)
 
  ```
   
@@ -1296,7 +1434,9 @@ result = loginradius.social.get_active_session_by_profile_id(profile_id)
   
  
 <h6 id="GetAlbums-get-"> Album (GET)</h6>
- <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
+ <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
 
  ```
   
@@ -1309,7 +1449,9 @@ result = loginradius.social.get_albums(access_token)
   
  
 <h6 id="GetAlbumsWithCursor-get-"> Get Albums with cursor (GET)</h6>
- <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
+ <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
 
  ```
   
@@ -1323,7 +1465,9 @@ result = loginradius.social.get_albums_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetAudios-get-"> Audio (GET)</h6>
- The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
 
  ```
   
@@ -1336,7 +1480,9 @@ result = loginradius.social.get_audios(access_token)
   
  
 <h6 id="GetAudiosWithCursor-get-"> Get Audio With Cursor (GET)</h6>
- The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
 
  ```
   
@@ -1350,7 +1496,9 @@ result = loginradius.social.get_audios_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetCheckIns-get-"> Check In (GET)</h6>
- The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
 
  ```
   
@@ -1363,7 +1511,9 @@ result = loginradius.social.get_check_ins(access_token)
   
  
 <h6 id="GetCheckInsWithCursor-get-"> Get CheckIns With Cursor (GET)</h6>
- The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  .
+ 
+[More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
 
  ```
   
@@ -1377,7 +1527,9 @@ result = loginradius.social.get_check_ins_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetContacts-get-"> Contact (GET)</h6>
- The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
+ The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
 
  ```
   
@@ -1391,7 +1543,9 @@ result = loginradius.social.get_contacts(access_token, next_cursor)
   
  
 <h6 id="GetEvents-get-"> Event (GET)</h6>
- The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
 
  ```
   
@@ -1404,7 +1558,9 @@ result = loginradius.social.get_events(access_token)
   
  
 <h6 id="GetEventsWithCursor-get-"> Get Events With Cursor (GET)</h6>
- The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
 
  ```
   
@@ -1418,7 +1574,9 @@ result = loginradius.social.get_events_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetFollowings-get-"> Following (GET)</h6>
- Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
 
  ```
   
@@ -1431,7 +1589,9 @@ result = loginradius.social.get_followings(access_token)
   
  
 <h6 id="GetFollowingsWithCursor-get-"> Get Followings With Cursor (GET)</h6>
- Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
 
  ```
   
@@ -1445,7 +1605,9 @@ result = loginradius.social.get_followings_with_cursor(access_token, next_cursor
   
  
 <h6 id="GetGroups-get-"> Group (GET)</h6>
- The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
 
  ```
   
@@ -1458,7 +1620,9 @@ result = loginradius.social.get_groups(access_token)
   
  
 <h6 id="GetGroupsWithCursor-get-"> Get Groups With Cursor (GET)</h6>
- The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
 
  ```
   
@@ -1472,7 +1636,9 @@ result = loginradius.social.get_groups_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetLikes-get-"> Like (GET)</h6>
- The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook.
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
 
  ```
   
@@ -1485,7 +1651,9 @@ result = loginradius.social.get_likes(access_token)
   
  
 <h6 id="GetLikesWithCursor-get-"> Get Likes With Cursor (GET)</h6>
- The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
 
  ```
   
@@ -1499,7 +1667,9 @@ result = loginradius.social.get_likes_with_cursor(access_token, next_cursor)
   
  
 <h6 id="GetMentions-get-"> Mention (GET)</h6>
- The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
+ The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
 
  ```
   
@@ -1512,7 +1682,9 @@ result = loginradius.social.get_mentions(access_token)
   
  
 <h6 id="GetPage-get-"> Page (GET)</h6>
- The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
+ The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
 
  ```
   
@@ -1526,7 +1698,9 @@ result = loginradius.social.get_page(access_token, page_name)
   
  
 <h6 id="GetPhotos-get-"> Photo (GET)</h6>
- The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
+ The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
 
  ```
   
@@ -1540,7 +1714,9 @@ result = loginradius.social.get_photos(access_token, album_id)
   
  
 <h6 id="GetPosts-get-"> Get Post (GET)</h6>
- The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
+ The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
 
  ```
   
@@ -1553,7 +1729,9 @@ result = loginradius.social.get_posts(access_token)
   
  
 <h6 id="GetTrackableStatusStats-get-"> Get Trackable Status Stats (GET)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
 
  ```
   
@@ -1572,7 +1750,9 @@ result = loginradius.social.get_trackable_status_stats(access_token, caption, de
   
  
 <h6 id="TrackableStatusFetching-get-"> Trackable Status Fetching (GET)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> This API is used to retrieve a tracked post based on the passed in post ID value. This API requires setting permissions in your LoginRadius Dashboard.<br><br> <b>Note:</b> To utilize this API you need to find the ID for the post you want to track, which might require using Trackable Status Posting API first.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-fetching/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> This API is used to retrieve a tracked post based on the passed in post ID value. This API requires setting permissions in your LoginRadius Dashboard.<br><br> <b>Note:</b> To utilize this API you need to find the ID for the post you want to track, which might require using Trackable Status Posting API first.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-fetching/)
 
  ```
   
@@ -1585,7 +1765,9 @@ result = loginradius.social.trackable_status_fetching(post_id)
   
  
 <h6 id="GetSocialUserProfile-get-"> User Profile (GET)</h6>
- The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
+ The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
 
  ```
   
@@ -1599,7 +1781,9 @@ result = loginradius.social.get_social_user_profile(access_token, fields)
   
  
 <h6 id="GetRefreshedSocialUserProfile-get-"> Refresh User Profile (GET)</h6>
- The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
+ The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
 
  ```
   
@@ -1613,7 +1797,9 @@ result = loginradius.social.get_refreshed_social_user_profile(access_token, fiel
   
  
 <h6 id="GetVideos-get-"> Video (GET)</h6>
- The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
+ The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte.  
+ 
+ [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
 
  ```
   
