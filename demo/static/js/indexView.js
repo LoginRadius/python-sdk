@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
 
-    $(window).on('hashchange', function() {
+    $(window).on('hashchange', function () {
         // On every hash change the render function is called with the new hash.
         // This is how the navigation of our app happens.
         render(decodeURI(window.location.hash));
@@ -19,23 +19,23 @@ $(function() {
 
         let map = {
             // The Homepage.
-            '': function() {
+            '': function () {
                 renderLogin();
             },
             // Login page.
-            '#login': function() {
+            '#login': function () {
                 renderLogin();
             },
             // Register page.
-            '#signup': function() {
+            '#signup': function () {
                 renderSignup();
             },
             // Forgot Password page.
-            '#forgotpassword': function() {
+            '#forgotpassword': function () {
                 renderForgotPassword();
             },
             // Reset Password page.
-            '#resetpassword': function() {
+            '#resetpassword': function () {
                 renderResetPassword();
             }
         };

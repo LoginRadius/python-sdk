@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     login_traditional();
     login_mfa();
     login_passwordless();
@@ -8,7 +8,7 @@ $(function() {
 });
 
 function login_traditional() {
-    $("#btn-minimal-login").click(function() {
+    $("#btn-minimal-login").click(function () {
         if ($('#minimal-login-email').val().trim() == '' || $('#minimal-login-password').val().trim() == '') {
             $("#minimal-login-message").text("All fields are required.");
             $("#minimal-login-message").attr("class", "error-message");
@@ -22,10 +22,10 @@ function login_traditional() {
                 email: $("#minimal-login-email").val(),
                 password: $("#minimal-login-password").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 getProfile(res.access_token, res.Profile.Uid);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#minimal-login-message").text(xhr.responseText);
                 $("#minimal-login-message").attr("class", "error-message");
             }
@@ -34,7 +34,7 @@ function login_traditional() {
 }
 
 function login_mfa() {
-    $("#btn-minimal-mfalogin-next").click(function() {
+    $("#btn-minimal-mfalogin-next").click(function () {
         if ($('#minimal-mfalogin-email').val().trim() == '' || $('#minimal-mfalogin-password').val().trim() == '') {
             $("#minimal-mfalogin-message").text("All fields are required.");
             $("#minimal-mfalogin-message").attr("class", "error-message");
@@ -48,7 +48,7 @@ function login_mfa() {
                 email: $("#minimal-mfalogin-email").val(),
                 password: $("#minimal-mfalogin-password").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#minimal-mfalogin-message").text("");
                 if (res.SecondFactorAuthentication) {
                     if (res.SecondFactorAuthentication.IsGoogleAuthenticatorVerified === false) {
@@ -59,14 +59,14 @@ function login_mfa() {
                             '<td>Google Authenticator Code: </td><td><input type="text" id="minimal-mfalogin-googlecode"></td>' +
                             '</tr></tbody></table>' +
                             '<button id="btn-minimal-mfalogin-login">Login</button>');
-                    $("#btn-minimal-mfalogin-login").on('click', function() {
+                    $("#btn-minimal-mfalogin-login").on('click', function () {
                         validateGoogleCode(res.SecondFactorAuthentication.SecondFactorAuthenticationToken);
                     });
                 } else {
                     getProfile(res.access_token, res.Profile.Uid);
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $("#minimal-mfalogin-message").text(xhr.responseText);
                 $("#minimal-mfalogin-message").attr("class", "error-message");
             }
@@ -76,10 +76,10 @@ function login_mfa() {
 
 function validateGoogleCode(gtoken) {
     if ($('#minimal-mfalogin-googlecode').val().trim() == '') {
-            $("#minimal-mfalogin-message").text("All fields are required.");
-            $("#minimal-mfalogin-message").attr("class", "error-message");
-            return;
-        }
+        $("#minimal-mfalogin-message").text("All fields are required.");
+        $("#minimal-mfalogin-message").attr("class", "error-message");
+        return;
+    }
     $.ajax({
         type: "PUT",
         url: "/mfa/verify",
@@ -88,10 +88,10 @@ function validateGoogleCode(gtoken) {
             code: $("#minimal-mfalogin-googlecode").val(),
             token: gtoken
         }),
-        success: function(res) {
+        success: function (res) {
             getProfile(res.access_token, res.Profile.Uid);
         },
-        error: function(xhr) {
+        error: function (xhr) {
             $("#minimal-mfalogin-message").text(xhr.responseText);
             $("#minimal-mfalogin-message").attr("class", "error-message");
         }
@@ -99,7 +99,7 @@ function validateGoogleCode(gtoken) {
 }
 
 function login_passwordless() {
-    $("#btn-minimal-pwless").click(function() {
+    $("#btn-minimal-pwless").click(function () {
         if ($('#minimal-pwless-email').val().trim() == '') {
             $("#minimal-pwless-message").text("All fields are required.");
             $("#minimal-pwless-message").attr("class", "error-message");
@@ -112,11 +112,11 @@ function login_passwordless() {
             data: $.param({
                 email: $("#minimal-pwless-email").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#minimal-pwless-message").text("Check your email for the login link.");
                 $("#minimal-pwless-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#minimal-pwless-message").text(xhr.responseText);
                 $("#minimal-pwless-message").attr("class", "error-message");
             }
@@ -138,25 +138,25 @@ function login_social() { // uses js-library
     let custom_interface_option = {};
     let sl_options = {};
 
-    sl_options.onSuccess = function(res) {
+    sl_options.onSuccess = function (res) {
         getProfile(res.access_token, res.Profile.Uid);
     };
-    sl_options.onError = function(err) {
+    sl_options.onError = function (err) {
         //console.log("Sociallogin err::", err);
     };
 
     custom_interface_option.templateName = 'loginradiuscustom_tmpl';
     sl_options.container = "sociallogin-container";
 
-    LRObject.util.ready(function() {
+    LRObject.util.ready(function () {
         LRObject.customInterface(".interfacecontainerdiv", custom_interface_option);
         LRObject.init('socialLogin', sl_options);
     });
 }
 
 function register() {
-    $("#btn-minimal-signup").click(function() {
-        if ($("#minimal-signup-password").val() == '' || $("#minimal-signup-email").val() == '' || $("#minimal-signup-confirmpassword").val() == '' ) {
+    $("#btn-minimal-signup").click(function () {
+        if ($("#minimal-signup-password").val() == '' || $("#minimal-signup-email").val() == '' || $("#minimal-signup-confirmpassword").val() == '') {
             $("#minimal-signup-message").text("All fields are required.");
             $("#minimal-signup-message").attr("class", "error-message");
             return;
@@ -170,11 +170,11 @@ function register() {
                 email: $("#minimal-signup-email").val(),
                 password: $("#minimal-signup-password").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#minimal-signup-message").text("Check your email to verify your account.");
                 $("#minimal-signup-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#minimal-signup-message").text(xhr.responseText);
                 $("#minimal-signup-message").attr("class", "error-message");
             }
@@ -183,7 +183,7 @@ function register() {
 }
 
 function forgotpassword() {
-    $("#btn-minimal-forgotpassword").click(function() {
+    $("#btn-minimal-forgotpassword").click(function () {
         if ($("#minimal-forgotpassword-email").val() == '') {
             $("#minimal-forgotpassword-message").text("All fields are required.");
             $("#minimal-forgotpassword-message").attr("class", "error-message");
@@ -196,11 +196,11 @@ function forgotpassword() {
             data: $.param({
                 email: $("#minimal-forgotpassword-email").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#minimal-forgotpassword-message").text("Check your email to start the password reset process.");
                 $("#minimal-forgotpassword-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#minimal-forgotpassword-message").text(xhr.responseText);
                 $("#minimal-forgotpassword-message").attr("class", "error-message");
             }

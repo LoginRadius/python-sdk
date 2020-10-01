@@ -5,6 +5,6 @@ let options = {
 	}
 };
 
-LRObject.util.ready(function() {
+LRObject.util.ready(function () {
 	LRObject.loginScreen("loginscreen-container", options);
 });

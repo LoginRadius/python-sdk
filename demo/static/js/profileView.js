@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
 
-    $(window).on('hashchange', function() {
+    $(window).on('hashchange', function () {
         // On every hash change the render function is called with the new hash.
         // This is how the navigation of our app happens.
         render(decodeURI(window.location.hash));
@@ -19,47 +19,47 @@ $(function() {
 
         let map = {
             // The Homepage.
-            '': function() {
+            '': function () {
                 renderProfile();
             },
             // Profile page.
-            '#profile': function() {
+            '#profile': function () {
                 renderProfile();
             },
             // Reset Password page.
-            '#resetpassword': function() {
+            '#resetpassword': function () {
                 renderResetPassword();
             },
             // Change Password page.
-            '#changepassword': function() {
+            '#changepassword': function () {
                 renderChangePassword();
             },
             // Set Password page.
-            '#setpassword': function() {
+            '#setpassword': function () {
                 renderSetPassword();
             },
             // Update Account page.
-            '#account': function() {
+            '#account': function () {
                 renderUpdateAccount();
             },
             // Account Linking page.
-            '#accountlinking': function() {
+            '#accountlinking': function () {
                 renderAccountLinking();
             },
             // Account Linking page.
-            '#accountlinking': function() {
+            '#accountlinking': function () {
                 renderAccountLinking();
             },
             // Custom Objects page.
-            '#customobjects': function() {
+            '#customobjects': function () {
                 renderCustomObjects();
             },
             // Multifactor page.
-            '#multifactor': function() {
+            '#multifactor': function () {
                 renderMultifactor();
             },
             // Roles page.
-            '#roles': function() {
+            '#roles': function () {
                 renderRoles();
             }
         };

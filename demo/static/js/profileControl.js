@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     update_profile();
     change_password();
     set_password();
@@ -23,19 +23,19 @@ function update_profile() {
         data: $.param({
             token: localStorage.getItem("LRTokenKey")
         }),
-        success: function(res) {
+        success: function (res) {
             $("#profile-name").html("<b>" + res.FullName + "</b>");
             $("#profile-provider").text("Provider: " + res.Provider);
             $("#profile-email").text(res.Email[0].Value);
             $("#profile-lastlogin").text("Last Login Date: " + res.LastLoginDate);
-            
-			$("#user-updateaccount-firstname").val(res.FirstName);
-			$("#user-updateaccount-lastname").val(res.LastName);
-			$("#user-updateaccount-about").val(res.About);
-			
-			
+
+            $("#user-updateaccount-firstname").val(res.FirstName);
+            $("#user-updateaccount-lastname").val(res.LastName);
+            $("#user-updateaccount-about").val(res.About);
+
+
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             localStorage.removeItem("LRTokenKey");
             localStorage.removeItem("lr-user-uid");
             window.location.href = "/minimal";
@@ -44,7 +44,7 @@ function update_profile() {
 }
 
 function change_password() {
-    $("#btn-user-changepassword").click(function() {
+    $("#btn-user-changepassword").click(function () {
         if ($('#user-changepassword-oldpassword').val().trim() == '' || $('#user-changepassword-newpassword').val().trim() == '') {
             $("#user-changepassword-message").text("All fields are required.");
             $("#user-changepassword-message").attr("class", "error-message");
@@ -59,11 +59,11 @@ function change_password() {
                 oldpassword: $("#user-changepassword-oldpassword").val(),
                 newpassword: $("#user-changepassword-newpassword").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#user-changepassword-message").text("Password successfully changed.");
                 $("#user-changepassword-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-changepassword-message").text(xhr.responseText);
                 $("#user-changepassword-message").attr("class", "error-message");
             }
@@ -72,7 +72,7 @@ function change_password() {
 }
 
 function set_password() {
-    $("#btn-user-setpassword").click(function() {
+    $("#btn-user-setpassword").click(function () {
         if ($('#user-setpassword-password').val().trim() == '') {
             $("#user-setpassword-message").text("All fields are required.");
             $("#user-setpassword-message").attr("class", "error-message");
@@ -86,11 +86,11 @@ function set_password() {
                 uid: localStorage.getItem('lr-user-uid'),
                 password: $("#user-setpassword-password").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#user-setpassword-message").text("Password successfully changed.");
                 $("#user-setpassword-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-setpassword-message").text(xhr.responseText);
                 $("#user-setpassword-message").attr("class", "error-message");
             }
@@ -99,7 +99,7 @@ function set_password() {
 }
 
 function account_update() {
-    $("#btn-user-updateaccount").click(function() {
+    $("#btn-user-updateaccount").click(function () {
         if ($('#user-updateaccount-firstname').val().trim() == '' || $('#user-updateaccount-lastname').val().trim() == '' || $('#user-updateaccount-about').val().trim() == '') {
             $("#user-updateaccount-message").text("All fields are required.");
             $("#user-updateaccount-message").attr("class", "error-message");
@@ -116,12 +116,12 @@ function account_update() {
                 lastname: $("#user-updateaccount-lastname").val(),
                 about: $("#user-updateaccount-about").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#user-updateaccount-message").text("Account successfully updated.");
                 $("#user-updateaccount-message").attr("class", "success-message");
                 update_profile();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-updateaccount-message").text(xhr.responseText);
                 $("#user-updateaccount-message").attr("class", "error-message");
             }
@@ -149,30 +149,30 @@ function account_linking() { // uses js-library
     let la_options = {};
     la_options.container = "interfacecontainerdiv";
     la_options.templateName = 'loginradiuscustom_tmpl_link';
-    la_options.onSuccess = function() {
+    la_options.onSuccess = function () {
         $("#interfacecontainerdiv").empty();
-        LRObject.util.ready(function() {
+        LRObject.util.ready(function () {
             LRObject.init("linkAccount", la_options);
         });
     };
-    la_options.onError = function(errors) {
+    la_options.onError = function (errors) {
         $("#user-accountlinking-message").text(errors[0].Description);
         $("#user-accountlinking-message").attr("class", "error-message");
     };
 
     let unlink_options = {};
-    unlink_options.onSuccess = function() {
+    unlink_options.onSuccess = function () {
         $("#interfacecontainerdiv").empty();
-        LRObject.util.ready(function() {
+        LRObject.util.ready(function () {
             LRObject.init("linkAccount", la_options);
         });
     };
-    unlink_options.onError = function(errors) {
+    unlink_options.onError = function (errors) {
         $("#user-accountlinking-message").text(errors[0].Description);
         $("#user-accountlinking-message").attr("class", "error-message");
     };
 
-    LRObject.util.ready(function() {
+    LRObject.util.ready(function () {
         LRObject.init("linkAccount", la_options);
         LRObject.init("unLinkAccount", unlink_options);
     });
@@ -186,7 +186,7 @@ function custom_object() {
 }
 
 function create_customobject() {
-    $("#btn-user-createcustomobj").click(function() {
+    $("#btn-user-createcustomobj").click(function () {
         var input = $("#user-createcustomobj-data").val();
         if (!IsJsonString(input)) {
             $("#user-createcustomobj-message").text("Please input a valid JSON object in the data field.");
@@ -205,11 +205,11 @@ function create_customobject() {
             contentType: 'application/json',
             dataType: "json",
             data: input,
-            success: function(res) {
+            success: function (res) {
                 $("#user-createcustomobj-message").text("Object successfully created.");
                 $("#user-createcustomobj-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-createcustomobj-message").text(xhr.responseText);
                 $("#user-createcustomobj-message").attr("class", "error-message");
             }
@@ -218,8 +218,8 @@ function create_customobject() {
 }
 
 function update_customobject() {
-    $("#btn-user-updatecustomobj").click(function() {
-        
+    $("#btn-user-updatecustomobj").click(function () {
+
         var input = $("#user-updatecustomobj-data").val();
         if (!IsJsonString(input)) {
             $("#user-updatecustomobj-message").text("Please input a valid JSON object in the data field.");
@@ -238,11 +238,11 @@ function update_customobject() {
             contentType: 'application/json',
             dataType: "json",
             data: input,
-            success: function(res) {
+            success: function (res) {
                 $("#user-updatecustomobj-message").text("Object successfully updated.");
                 $("#user-updatecustomobj-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-updatecustomobj-message").text(xhr.responseText);
                 $("#user-updatecustomobj-message").attr("class", "error-message");
             }
@@ -251,7 +251,7 @@ function update_customobject() {
 }
 
 function delete_customobject() {
-    $("#btn-user-deletecustomobj").click(function() {
+    $("#btn-user-deletecustomobj").click(function () {
         if ($('#user-deletecustomobj-objectname').val().trim() == '') {
             $("#user-deletecustomobj-message").text("All fields are required.");
             $("#user-deletecustomobj-message").attr("class", "error-message");
@@ -261,11 +261,11 @@ function delete_customobject() {
             type: "DELETE",
             url: "/customobject?objectname=" + $("#user-deletecustomobj-objectname").val() + "&objectrecordid=" + $("#user-deletecustomobj-objectrecordid").val() + '&uid=' + localStorage.getItem('lr-user-uid'),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $("#user-deletecustomobj-message").text("Custom object deleted successfully.");
                 $("#user-deletecustomobj-message").attr("class", "success-message");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-deletecustomobj-message").text(xhr.responseText);
                 $("#user-deletecustomobj-message").attr("class", "error-message");
             }
@@ -274,7 +274,7 @@ function delete_customobject() {
 }
 
 function get_customobject() {
-    $("#btn-user-getcustomobj").click(function() {
+    $("#btn-user-getcustomobj").click(function () {
         if ($('#user-getcustomobj-objectname').val().trim() == '') {
             $("#user-getcustomobj-message").text("All fields are required.");
             $("#user-getcustomobj-message").attr("class", "error-message");
@@ -284,7 +284,7 @@ function get_customobject() {
             type: "GET",
             url: "/customobject?objectname=" + $("#user-getcustomobj-objectname").val() + '&uid=' + localStorage.getItem('lr-user-uid'),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $('#table-customobj tr').remove();
                 $("#user-getcustomobj-message").text("");
                 $("#user-getcustomobj-message").attr("class", "success-message");
@@ -299,7 +299,7 @@ function get_customobject() {
                     }).appendTo("#table-customobj > tbody:last-child > tr:last-child");
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $('#table-customobj tr').remove();
                 $("#user-getcustomobj-message").text(xhr.responseText);
                 $("#user-getcustomobj-message").attr("class", "error-message");
@@ -309,16 +309,16 @@ function get_customobject() {
 }
 
 function reset_mfa() {
-    $("#btn-user-mfa-resetgoogle").click(function() {
+    $("#btn-user-mfa-resetgoogle").click(function () {
         $.ajax({
             type: "DELETE",
             url: "/mfa/reset?uid=" + localStorage.getItem('lr-user-uid'),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $("#user-mfa-message").text("Google Authenticator settings reset.");
                 $("#user-mfa-message").attr("class", "success-message");
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $("#user-mfa-message").text(xhr.responseText);
                 $("#user-mfa-message").attr("class", "error-message");
             }
@@ -335,7 +335,7 @@ function roles() {
 }
 
 function create_role() {
-    $("#btn-user-createrole").click(function() {
+    $("#btn-user-createrole").click(function () {
         if ($('#user-roles-createrole').val().trim() == '') {
             $("#user-createrole-message").text("All fields are required.");
             $("#user-createrole-message").attr("class", "error-message");
@@ -348,13 +348,13 @@ function create_role() {
             data: $.param({
                 role: $("#user-roles-createrole").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#user-createrole-message").text("Role created successfully.");
                 $("#user-createrole-message").attr("class", "success-message");
                 get_all_roles();
                 get_user_roles();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-createrole-message").text(xhr.responseText);
                 $("#user-createrole-message").attr("class", "error-message");
             }
@@ -363,7 +363,7 @@ function create_role() {
 }
 
 function delete_role() {
-    $("#btn-user-deleterole").click(function() {
+    $("#btn-user-deleterole").click(function () {
         if ($('#user-roles-deleterole').val().trim() == '') {
             $("#user-deleterole-message").text("All fields are required.");
             $("#user-deleterole-message").attr("class", "error-message");
@@ -373,13 +373,13 @@ function delete_role() {
             type: "DELETE",
             url: "/role?role=" + $("#user-roles-deleterole").val(),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $("#user-deleterole-message").text("Role deleted successfully.");
                 $("#user-deleterole-message").attr("class", "success-message");
                 get_all_roles();
                 get_user_roles();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $("#user-deleterole-message").text(xhr.responseText);
                 $("#user-deleterole-message").attr("class", "error-message");
             }
@@ -388,7 +388,7 @@ function delete_role() {
 }
 
 function assign_role() {
-    $("#btn-user-assignrole").click(function() {
+    $("#btn-user-assignrole").click(function () {
         if ($('#user-roles-assignrole').val().trim() == '') {
             $("#user-assignrole-message").text("All fields are required.");
             $("#user-assignrole-message").attr("class", "error-message");
@@ -402,12 +402,12 @@ function assign_role() {
                 uid: localStorage.getItem('lr-user-uid'),
                 role: $("#user-roles-assignrole").val()
             }),
-            success: function(res) {
+            success: function (res) {
                 $("#user-assignrole-message").text("Role added to current user successfully.");
                 $("#user-assignrole-message").attr("class", "success-message");
                 get_user_roles();
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $("#user-assignrole-message").text(xhr.responseText);
                 $("#user-assignrole-message").attr("class", "error-message");
             }
@@ -420,7 +420,7 @@ function get_all_roles() {
         type: "GET",
         url: "/role",
         dataType: "json",
-        success: function(res) {
+        success: function (res) {
             $('#table-allroles tr:not(:first)').remove();
             if (res.data) {
                 for (let i = 0; i < res.data.length; i++) {
@@ -431,7 +431,7 @@ function get_all_roles() {
                 }
             }
         },
-        error: function(xhr) {
+        error: function (xhr) {
             //console.log("Get All Roles err::", xhr.responseText);
         }
     });
@@ -442,7 +442,7 @@ function get_user_roles() {
         type: "GET",
         url: "/role/user?" + 'uid=' + localStorage.getItem('lr-user-uid'),
         dataType: "json",
-        success: function(res) {
+        success: function (res) {
             $('#table-userroles tr:not(:first)').remove();
             if (res.Roles) {
                 for (let i = 0; i < res.Roles.length; i++) {
@@ -453,14 +453,14 @@ function get_user_roles() {
                 }
             }
         },
-        error: function(xhr) {
+        error: function (xhr) {
             //console.log("Get User Roles err::", xhr.responseText);
         }
     });
 }
 
 function logout() {
-    $("#menu-logout").click(function() {
+    $("#menu-logout").click(function () {
         $.ajax({
             type: "GET",
             url: "/logout",
@@ -468,12 +468,12 @@ function logout() {
             data: $.param({
                 token: localStorage.getItem("LRTokenKey")
             }),
-            success: function(res) {
+            success: function (res) {
                 localStorage.removeItem("LRTokenKey");
                 localStorage.removeItem("lr-user-uid");
                 window.location.href = "/minimal";
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 //console.log("Logout err::", xhr.responseText);
             }
         });

@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     verificationHandler();
 });
 
@@ -8,14 +8,14 @@ function verificationHandler() {
             type: "GET",
             url: "/passwordless/verify?token=" + getUrlParameter("vtoken"),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $("#emailverification-message").text("Passwordless Login success.");
 
                 localStorage.setItem("LRTokenKey", res.access_token);
                 localStorage.setItem("lr-user-uid", res.Profile.Uid);
                 window.location.href = "/profile";
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $("#minimal-verification-message").text(xhr.responseText);
                 $("#minimal-verification-message").attr("class", "error-message");
             }
@@ -25,11 +25,11 @@ function verificationHandler() {
             type: "GET",
             url: "/email/verify?token=" + getUrlParameter("vtoken"),
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 $("#minimal-verification-message").text("Email successfully verified.");
                 $("#minimal-verification-message").attr("class", "success-message");
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 $("#minimal-verification-message").text(xhr.responseText);
                 $("#minimal-verification-message").attr("class", "error-message");
             }
