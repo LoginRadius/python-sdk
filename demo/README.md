@@ -2,12 +2,9 @@
 
 ## Build & Run ##
 
-1.Have Flask, requests, pbkdf2, cryptography installed:
+1.Have Flask, requests, pbkdf2, cryptography installed from the requirements.txt:
 
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2 ``` <br>
-```pip install cryptography ``` <br>
+```pip install -r requirements.txt``` <br>
 
 2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
 
