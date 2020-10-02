@@ -1,0 +1,4 @@
+flask
+requests
+pbkdf2
+cryptography
