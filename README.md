@@ -19,7 +19,7 @@ LoginRadius is an Identity Management Platform that simplifies user registration
 
 -------
 >Disclaimer:<br>
-This library is meant to help you with a quick implementation of the LoginRadius platform and also to serve as a reference point for the LoginRadius API. Keep in mind that it is an open source library, which means you are free to download and customize the library functions based on your specific application needs.
+This library is meant to help you with a quick implementation of the LoginRadius platform and also to serve as a reference point for the LoginRadius API. Keep in mind that it is an open-source library, which means you are free to download and customize the library functions based on your specific application needs.
 
 
 ### Prerequisites
@@ -65,7 +65,7 @@ Import the class
 ```
  from LoginRadius import LoginRadius as LR
 ```
-When you initialize your application, you will need to set your API Key and  Secret. This can be found in your [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret). 
+When you initialize your application, you will need to set your API Key and  Secret. This can be found in your **API Credentials** tab [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret). 
 
 When your Python application initializes, set your API Key and Secret
 
