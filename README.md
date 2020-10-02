@@ -25,6 +25,22 @@ This library is meant to help you with a quick implementation of the LoginRadius
 ### Prerequisites
 You will need at least Python - 2.7 or greater. LoginRadius module utilizes the [namedtuple](https://docs.python.org/2/library/collections.html#collections.namedtuple) from the collections library and the [import_module](https://docs.python.org/2/library/importlib.html) from importlib.
 
+
+### Configuration
+
+1.Have Flask, requests installed:
+
+```pip install flask``` <br>
+```pip install requests``` <br>
+```pip install pbkdf2``` <br>
+```pip install cryptography``` <br>
+2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
+
+3.Navigate to demo directory and run: ```python app.py```
+
+4.Demo will appear on ```http://localhost:5000```
+
+
 ### Install From Package
 Using pip
 
@@ -88,8 +104,33 @@ To enable API request signing, set the value of 'API_REQUEST_SIGNING' to True
 ```
 LR.API_REQUEST_SIGNING = True
 ```
+## APIs:
+* [Authentication API](#API-Authentication)<br>
+* [Account API](#API-Account)<br>
+* [Social API](#API-Social)<br>
+* [CustomObject API](#API-CustomObject)<br>
+* [PhoneAuthentication API](#API-PhoneAuthentication)<br>
+* [MultiFactorAuthentication API](#API-MultiFactorAuthentication)<br>
+* [PINAuthentication API](#API-PINAuthentication)<br>
+* [ReAuthentication API](#API-ReAuthentication)<br>
+* [ConsentManagement API](#API-ConsentManagement)<br>
+* [SmartLogin API](#API-SmartLogin)<br>
+* [OneTouchLogin API](#API-OneTouchLogin)<br>
+* [PasswordLessLogin API](#API-PasswordLessLogin)<br>
+* [Configuration API](#API-Configuration)<br>
+* [Role API](#API-Role)<br>
+* [CustomRegistrationData API](#API-CustomRegistrationData)<br>
+* [RiskBasedAuthentication API](#API-RiskBasedAuthentication)<br>
+* [Sott API](#API-Sott)<br>
+* [NativeSocial API](#API-NativeSocial)<br>
+* [WebHook API](#API-WebHook)<br>
 
-### Authentication API
+
+
+
+<!--Authentication API-->
+
+<h3 id="API-Authentication"> Authentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -133,7 +174,7 @@ List of APIs in this Section:<br>
 * DELETE : [Auth Remove Email](#RemoveEmail-delete-)<br>
 * DELETE : [Auth Unlink Social Identities](#UnlinkSocialIdentities-delete-)<br>
 
-
+</h6>
 
 
 <h6 id="UpdateProfileByAccessToken-put-"> Auth Update Profile by Token (PUT)</h6>
@@ -739,9 +780,9 @@ result = loginradius.authentication.unlink_social_identities(access_token, provi
   
   
  
+<!--Account API-->
 
-
-### Account API
+<h3 id="API-Account"> Account API </h3>
 
 
 List of APIs in this Section:<br>
@@ -1098,7 +1139,9 @@ result = loginradius.account.account_delete_by_email(email)
  
 
 
-### Social API
+<!--Social API-->
+
+<h3 id="API-Social"> Social API </h3>
 
 
 List of APIs in this Section:<br>
@@ -1624,7 +1667,9 @@ result = loginradius.social.get_videos(access_token, next_cursor)
  
 
 
-### CustomObject API
+<!--CustomObject API-->
+
+<h3 id="API-CustomObject"> CustomObject API </h3>
 
 
 List of APIs in this Section:<br>
@@ -1797,7 +1842,9 @@ result = loginradius.custom_object.delete_custom_object_by_record_id(object_name
  
 
 
-### PhoneAuthentication API
+<!--PhoneAuthentication API-->
+
+<h3 id="API-PhoneAuthentication"> PhoneAuthentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -1994,7 +2041,9 @@ result = loginradius.phone_authentication.remove_phone_id_by_access_token(access
  
 
 
-### MultiFactorAuthentication API
+<!--MultiFactorAuthentication API-->
+
+<h3 id="API-MultiFactorAuthentication"> MultiFactorAuthentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -2337,7 +2386,9 @@ result = loginradius.mfa.mfa_reset_google_authenticator_by_uid(googleauthenticat
  
 
 
-### PINAuthentication API
+<!--PINAuthentication API-->
+
+<h3 id="API-PINAuthentication"> PINAuthentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -2592,7 +2643,9 @@ result = loginradius.pin_authentication.in_validate_pin_session_token(session_to
  
 
 
-### ReAuthentication API
+<!--ReAuthentication API-->
+
+<h3 id="API-ReAuthentication"> ReAuthentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -2756,7 +2809,9 @@ result = loginradius.re_authentication.mfa_re_authenticate(access_token, sms_tem
  
 
 
-### ConsentManagement API
+<!--ConsentManagement API-->
+
+<h3 id="API-ConsentManagement"> ConsentManagement API </h3>
 
 
 List of APIs in this Section:<br>
@@ -2879,7 +2934,9 @@ result = loginradius.consent_management.verify_consent_by_access_token(access_to
  
 
 
-### SmartLogin API
+<!--SmartLogin API-->
+
+<h3 id="API-SmartLogin"> SmartLogin API </h3>
 
 
 List of APIs in this Section:<br>
@@ -2956,7 +3013,9 @@ result = loginradius.smart_login.smart_login_ping(client_guid, fields)
  
 
 
-### OneTouchLogin API
+<!--OneTouchLogin API-->
+
+<h3 id="API-OneTouchLogin"> OneTouchLogin API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3053,7 +3112,9 @@ result = loginradius.one_touch_login.one_touch_login_ping(client_guid, fields)
  
 
 
-### PasswordLessLogin API
+<!--PasswordLessLogin API-->
+
+<h3 id="API-PasswordLessLogin"> PasswordLessLogin API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3146,7 +3207,9 @@ result = loginradius.password_less_login.passwordless_login_verification(verific
  
 
 
-### Configuration API
+<!--Configuration API-->
+
+<h3 id="API-Configuration"> Configuration API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3174,7 +3237,9 @@ result = loginradius.configuration.get_configurations()
  
 
 
-### Role API
+<!--Role API-->
+
+<h3 id="API-Role"> Role API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3414,7 +3479,9 @@ result = loginradius.role.remove_role_permissions(permissions_model, role)
  
 
 
-### CustomRegistrationData API
+<!--CustomRegistrationData API-->
+
+<h3 id="API-CustomRegistrationData"> CustomRegistrationData API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3545,7 +3612,9 @@ result = loginradius.custom_registration_data.delete_all_records_by_data_source(
  
 
 
-### RiskBasedAuthentication API
+<!--RiskBasedAuthentication API-->
+
+<h3 id="API-RiskBasedAuthentication"> RiskBasedAuthentication API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3658,7 +3727,9 @@ result = loginradius.risk_based_authentication.rba_login_by_phone(phone_authenti
  
 
 
-### Sott API
+<!--Sott API-->
+
+<h3 id="API-Sott"> Sott API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3683,7 +3754,9 @@ result = loginradius.sott.generate_sott(time_difference)
  
 
 
-### NativeSocial API
+<!--NativeSocial API-->
+
+<h3 id="API-NativeSocial"> NativeSocial API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3843,7 +3916,9 @@ result = loginradius.native_social.get_access_token_by_google_auth_code(google_a
  
 
 
-### WebHook API
+<!--WebHook API-->
+
+<h3 id="API-WebHook"> WebHook API </h3>
 
 
 List of APIs in this Section:<br>
@@ -3945,19 +4020,3 @@ We have a demo web application using the Python SDK, which includes the followin
 * Roles management
 
 You can get a copy of our demo project at [GitHub](https://github.com/LoginRadius/python-sdk).
-
-<br>
-
-### Configuration
-
-1.Have Flask, requests installed:
-
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2``` <br>
-```pip install cryptography``` <br>
-2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
-
-3.Navigate to demo directory and run: ```python app.py```
-
-4.Demo will appear on ```http://localhost:5000```
