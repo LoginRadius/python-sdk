@@ -30,6 +30,11 @@ or with easy_install
  easy_install loginradius-v2==11.0.0
 ```
 
+Install along with other dependencies
+```
+ pip install -r requirements.txt
+```
+
 Changelog
 ======
 
