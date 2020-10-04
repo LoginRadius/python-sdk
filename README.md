@@ -21,6 +21,19 @@ LoginRadius is an Identity Management Platform that simplifies user registration
 >Disclaimer:<br>
 This library is meant to help you with a quick implementation of the LoginRadius platform and also to serve as a reference point for the LoginRadius API. Keep in mind that it is an open source library, which means you are free to download and customize the library functions based on your specific application needs.
 
+### Configuration
+
+1.Have Flask, requests installed:
+
+```pip install flask``` <br>
+```pip install requests``` <br>
+```pip install pbkdf2``` <br>
+```pip install cryptography``` <br>
+2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
+
+3.Navigate to demo directory and run: ```python app.py```
+
+4.Demo will appear on ```http://localhost:5000```
 
 ### Prerequisites
 You will need at least Python - 2.7 or greater. LoginRadius module utilizes the [namedtuple](https://docs.python.org/2/library/collections.html#collections.namedtuple) from the collections library and the [import_module](https://docs.python.org/2/library/importlib.html) from importlib.
@@ -3948,16 +3961,3 @@ You can get a copy of our demo project at [GitHub](https://github.com/LoginRadiu
 
 <br>
 
-### Configuration
-
-1.Have Flask, requests installed:
-
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2``` <br>
-```pip install cryptography``` <br>
-2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
-
-3.Navigate to demo directory and run: ```python app.py```
-
-4.Demo will appear on ```http://localhost:5000```
