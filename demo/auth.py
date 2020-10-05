@@ -8,7 +8,7 @@ reset_password_url = 'http://localhost:5000/resetpassword'
 
 @auth.route("/loginscreen")
 def loginscreen():
-    return render_template('loginscreen.html')
+	return render_template('loginscreen.html')
 
 @auth.route("/minimal", methods=['POST','GET'])
 def minimal():

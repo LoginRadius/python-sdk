@@ -98,7 +98,7 @@ def user_role():
 		}
 		res = loginradius.role.assign_roles_by_uid(payload, request.form['uid'])
 
-	if res == None:
+	if res is None:
 		return jsonify({'status': 204})
 	elif 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
