@@ -31,7 +31,7 @@ class SocialApi:
         query_parameters["token"] = token
 
         resource_path = "api/v2/access_token"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def refresh_access_token(self, access_token, expires_in=0, is_web=False):
         """The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.
@@ -58,7 +58,7 @@ class SocialApi:
             query_parameters["isWeb"] = is_web
 
         resource_path = "api/v2/access_token/refresh"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def validate_access_token(self, access_token):
         """This API validates access token, if valid then returns a response with its expiry otherwise error.
@@ -80,7 +80,7 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/access_token/validate"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def in_validate_access_token(self, access_token):
         """This api invalidates the active access token or expires an access token validity.
@@ -102,7 +102,7 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/access_token/invalidate"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_active_session(self, token):
         """This api is use to get all active session by Access Token.
@@ -124,7 +124,7 @@ class SocialApi:
         query_parameters["token"] = token
 
         resource_path = "api/v2/access_token/activesession"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_active_session_by_account_id(self, account_id):
         """This api is used to get all active sessions by AccountID(UID).
@@ -146,7 +146,7 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/access_token/activesession"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_active_session_by_profile_id(self, profile_id):
         """This api is used to get all active sessions by ProfileId.
@@ -168,7 +168,7 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/access_token/activesession"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_albums(self, access_token):
         """<b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
@@ -188,7 +188,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/album"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_albums_with_cursor(self, access_token, next_cursor):
         """<b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
@@ -213,7 +213,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/album"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_audios(self, access_token):
         """The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
@@ -233,7 +233,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/audio"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_audios_with_cursor(self, access_token, next_cursor):
         """The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
@@ -258,7 +258,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/audio"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_check_ins(self, access_token):
         """The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
@@ -278,7 +278,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/checkin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_check_ins_with_cursor(self, access_token, next_cursor):
         """The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
@@ -303,7 +303,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/checkin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_contacts(self, access_token, next_cursor=''):
         """The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo
@@ -326,7 +326,7 @@ class SocialApi:
             query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/contact"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_events(self, access_token):
         """The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
@@ -346,7 +346,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/event"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_events_with_cursor(self, access_token, next_cursor):
         """The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
@@ -371,7 +371,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/event"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_followings(self, access_token):
         """Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
@@ -391,7 +391,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/following"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_followings_with_cursor(self, access_token, next_cursor):
         """Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
@@ -416,7 +416,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/following"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_groups(self, access_token):
         """The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
@@ -436,7 +436,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/group"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_groups_with_cursor(self, access_token, next_cursor):
         """The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
@@ -461,7 +461,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/group"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_likes(self, access_token):
         """The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
@@ -481,7 +481,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/like"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_likes_with_cursor(self, access_token, next_cursor):
         """The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
@@ -506,7 +506,7 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/like"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_mentions(self, access_token):
         """The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter
@@ -526,7 +526,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/mention"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def post_message(self, access_token, message, subject,
         to):
@@ -562,7 +562,7 @@ class SocialApi:
         query_parameters["to"] = to
 
         resource_path = "api/v2/message"
-        return self._lr_object.execute("POST", resource_path, query_parameters, None)
+        return self._lr_object.execute("POST", resource_path, query_parameters, {})
 
     def get_page(self, access_token, page_name):
         """The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn
@@ -587,7 +587,7 @@ class SocialApi:
         query_parameters["pageName"] = page_name
 
         resource_path = "api/v2/page"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_photos(self, access_token, album_id):
         """The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte
@@ -612,7 +612,7 @@ class SocialApi:
         query_parameters["albumId"] = album_id
 
         resource_path = "api/v2/photo"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_posts(self, access_token):
         """The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook
@@ -632,7 +632,7 @@ class SocialApi:
         query_parameters["access_token"] = access_token
 
         resource_path = "api/v2/post"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def status_posting(self, access_token, caption, description,
         imageurl, status, title, url,
@@ -687,7 +687,7 @@ class SocialApi:
             query_parameters["shorturl"] = shorturl
 
         resource_path = "api/v2/status"
-        return self._lr_object.execute("POST", resource_path, query_parameters, None)
+        return self._lr_object.execute("POST", resource_path, query_parameters, {})
 
     def trackable_status_posting(self, access_token, status_model):
         """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded
@@ -761,7 +761,7 @@ class SocialApi:
         query_parameters["url"] = url
 
         resource_path = "api/v2/status/trackable/js"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def trackable_status_fetching(self, post_id):
         """The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> This API is used to retrieve a tracked post based on the passed in post ID value. This API requires setting permissions in your LoginRadius Dashboard.<br><br> <b>Note:</b> To utilize this API you need to find the ID for the post you want to track, which might require using Trackable Status Posting API first.
@@ -782,7 +782,7 @@ class SocialApi:
         query_parameters["secret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/status/trackable"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_social_user_profile(self, access_token, fields=''):
         """The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
@@ -805,7 +805,7 @@ class SocialApi:
             query_parameters["fields"] = fields
 
         resource_path = "api/v2/userprofile"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_refreshed_social_user_profile(self, access_token, fields=''):
         """The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
@@ -828,7 +828,7 @@ class SocialApi:
             query_parameters["fields"] = fields
 
         resource_path = "api/v2/userprofile/refresh"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_videos(self, access_token, next_cursor):
         """The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte
@@ -853,4 +853,4 @@ class SocialApi:
         query_parameters["nextCursor"] = next_cursor
 
         resource_path = "api/v2/video"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

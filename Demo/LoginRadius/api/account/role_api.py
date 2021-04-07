@@ -31,7 +31,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/role"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def assign_roles_by_uid(self, account_roles_model, uid):
         """This API is used to assign your desired roles to a given user.
@@ -100,7 +100,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/rolecontext"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_role_context_by_context_name(self, context_name):
         """The API is used to retrieve role context by the context name.
@@ -121,7 +121,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/rolecontext/" + context_name
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def update_role_context_by_uid(self, account_role_context_model, uid):
         """This API creates a Context with a set of Roles
@@ -170,7 +170,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/rolecontext/" + context_name
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def delete_roles_from_role_context_by_uid(self, context_name, role_context_remove_role_model, uid):
         """This API Deletes the specified Role from a Context.
@@ -241,7 +241,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/role"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def create_roles(self, roles_model):
         """This API creates a role with permissions.
@@ -282,7 +282,7 @@ class RoleApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/role/" + role
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def add_role_permissions(self, permissions_model, role):
         """This API is used to add permissions to a given role.

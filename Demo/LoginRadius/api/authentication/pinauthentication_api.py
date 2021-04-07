@@ -308,4 +308,4 @@ class PINAuthenticationApi:
         query_parameters["session_token"] = session_token
 
         resource_path = "identity/v2/auth/session_token/invalidate"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

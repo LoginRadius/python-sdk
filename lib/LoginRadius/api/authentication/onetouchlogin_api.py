@@ -120,7 +120,7 @@ class OneTouchLoginApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/email/onetouchlogin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def one_touch_login_ping(self, client_guid, fields=''):
         """This API is used to check if the One Touch Login link has been clicked or not.
@@ -144,4 +144,4 @@ class OneTouchLoginApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/auth/login/smartlogin/ping"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

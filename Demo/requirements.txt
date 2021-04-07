@@ -1,0 +1,5 @@
+###### Requirements file for dependency management  ######
+flask
+requests
+pbkdf2
+cryptography

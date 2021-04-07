@@ -31,7 +31,7 @@ class AccountApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/privacypolicy/history"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def create_account(self, account_create_model, fields=''):
         """This API is used to create an account in Cloud Storage. This API bypass the normal email verification process and manually creates the user. <br><br>In order to use this API, you need to format a JSON request body with all of the mandatory fields
@@ -79,7 +79,7 @@ class AccountApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_account_profile_by_user_name(self, user_name, fields=''):
         """This API is used to retrieve all of the profile data associated with the specified account by user name in Cloud Storage.
@@ -104,7 +104,7 @@ class AccountApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_account_profile_by_phone(self, phone, fields=''):
         """This API is used to retrieve all of the profile data, associated with the account by phone number in Cloud Storage.
@@ -129,7 +129,7 @@ class AccountApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_account_profile_by_uid(self, uid, fields=''):
         """This API is used to retrieve all of the profile data, associated with the account by uid in Cloud Storage.
@@ -153,7 +153,7 @@ class AccountApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account/" + uid
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def update_account_by_uid(self, account_user_profile_update_model, uid, fields='',
         null_support=None):
@@ -236,7 +236,7 @@ class AccountApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/password"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def set_account_password_by_uid(self, password, uid):
         """This API is used to set the password of an account in Cloud Storage.
@@ -285,7 +285,7 @@ class AccountApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def invalidate_account_email_verification(self, uid, email_template='', verification_url=''):
         """This API is used to invalidate the Email Verification status on an account.
@@ -312,7 +312,7 @@ class AccountApi:
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/manage/account/" + uid + "/invalidateemail"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, None)
+        return self._lr_object.execute("PUT", resource_path, query_parameters, {})
 
     def get_forgot_password_token(self, email, email_template=None, reset_password_url=None,
         send_email=None):
@@ -392,7 +392,7 @@ class AccountApi:
         query_parameters["uid"] = uid
 
         resource_path = "identity/v2/manage/account/access_token"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def reset_phone_id_verification_by_uid(self, uid, sms_template=''):
         """This API Allows you to reset the phone no verification of an end user’s account.
@@ -416,7 +416,7 @@ class AccountApi:
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/manage/account/" + uid + "/invalidatephone"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, None)
+        return self._lr_object.execute("PUT", resource_path, query_parameters, {})
 
     def upsert_email(self, upsert_email_model, uid, fields=''):
         """This API is used to add/upsert another emails in account profile by different-different email types. If the email type is same then it will simply update the existing email, otherwise it will add a new email in Email array.
@@ -496,7 +496,7 @@ class AccountApi:
         query_parameters["refresh_Token"] = refresh__token
 
         resource_path = "identity/v2/manage/account/access_token/refresh"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def revoke_refresh_token(self, refresh__token):
         """The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.
@@ -518,7 +518,7 @@ class AccountApi:
         query_parameters["refresh_Token"] = refresh__token
 
         resource_path = "identity/v2/manage/account/access_token/refresh/revoke"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_account_identities_by_email(self, email, fields=''):
         """Note: This is intended for specific workflows where an email may be associated to multiple UIDs. This API is used to retrieve all of the identities (UID and Profiles), associated with a specified email in Cloud Storage.
@@ -543,7 +543,7 @@ class AccountApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/manage/account/identities"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def account_delete_by_email(self, email):
         """This API is used to delete all user profiles associated with an Email.
@@ -565,7 +565,7 @@ class AccountApi:
         query_parameters["email"] = email
 
         resource_path = "identity/v2/manage/account"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def account_update_uid(self, update_uid_model, uid):
         """This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.

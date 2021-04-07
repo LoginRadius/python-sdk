@@ -1,7 +1,23 @@
 # LoginRadius Python SDK Change Log
 
+
+# Version 11.1.0
+
+## Enhancements:
+ - Added X-Origin-IP header support.
+ - Added 429 error code handling for "Too Many Request in a particular time frame".
+ - urllib3 support
+ - Fixed Delete API issue
+
+## Added new multiple APIs for better user experience:
+ - Get Profile By Ping.
+ - Passwordless Login Verification By Email And OTP.
+ - Passwordless Login Verification By User Name And OTP.
+
+
+
 # Version 11.0.0
-Released on **August 11,2020**
+
 ## Enhancements:
  - Added a parameter isWeb in "RefreshAccessToken" API.
  - Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken,  getAccessTokenByTwitterAccessToken,
@@ -18,84 +34,22 @@ Released on **August 11,2020**
  - linkSocialIdentity API(PUT)
  - getSocialIdentity API(GET)
 
-# Version 10.0.1
-Released on **Oct 24,2019**
-## Enhancements
-  - Fixed the pip installation issue
-
 # Version 10.0.0
-Released on **September 30,2019**
-
-## Enhancements
-This full version release includes major breaking changes with several improvements and optimizations :
-
- - Enhanced the coding standards of SDK to follow industry programming styles and best practices.
- - Enhanced security standards of SDK.
- - Reduced code between the business layer and persistence layer for optimization of SDK performance.
- - Added internal parameter validations in the API function.
- - ApiKey and ApiSecret usage redundancy removed.
- - All LoginRadius related features need to be defined once only and SDK will handle them automatically.
- - Improved the naming conventions of API functions for better readability.
- - Better Exception Handling for LoginRadius API Response in SDK.
- - Revamped complete SDK and restructured it with latest API function names and parameters.
- - Added detailed description to API functions and parameters for better understanding.
- - Updated the demo according to latest SDK changes.
- - Implemented API Region Feature.
- - Added PIN Authentication feature APIs.
- - Added Consent Management feature APIs.
- - Added Local SOTT generation
-
-
-## Added new multiple APIs for better user experience
-
- - Update Phone ID by UID
- - Upsert Email
- - Role Context profile
- - MFA Resend OTP
- - User Registration By Captcha
- - Get Access Token via Linkedin Token
- - Get Access Token By Foursquare Access Token
- - Get Active Session By Account Id
- - Get Active Session By Profile Id
- - Delete User Profiles By Email
- - Verify Multifactor OTP Authentication
- - Verify Multifactor Password Authentication
- - Verify Multifactor PIN Authentication
- - Update UID
- - MFA Re-authentication by PIN
- - PIN Login
- - Forgot PIN By Email
- - Forgot PIN By UserName
- - Reset PIN By ResetToken
- - Reset PIN By SecurityAnswer And Email
- - Reset PIN By SecurityAnswer And Username
- - Reset PIN By SecurityAnswer And Phone
- - Forgot PIN By Phone
- - Change PIN By Token
- - Reset PIN by Phone and OTP
- - Reset PIN by Email and OTP
- - Reset PIN by Username and OTP
- - Set PIN By PinAuthToken
- - Invalidate PIN Session Token
- - Submit Consent By ConsentToken
- - Get Consent Logs
- - Submit Consent By AccessToken
- - Verify Consent By AccessToken
- - Update Consent Profile By AccessToken
- - Get Consent Logs By Uid
- - Album With Cursor
- - Audio With Cursor
- - Check In With Cursor
- - Event With Cursor
- - Following With Cursor
- - Group With Cursor
- - Like With Cursor
-
-
-## Removed APIs:
-
- - GetCompanies API
- - Getstatus API
+## This full version release includes major changes with several improvements and optimizations :
+  - Enhanced the coding standards of SDK to follow industry programming styles and best practices.
+  - Enhanced security standards of SDK.
+  - Reduced code between the business layer and persistence layer for optimization of SDK performance.
+  - Added internal parameter validations in the API function
+  - ApiKey and ApiSecret usage redundancy removed
+  - All LoginRadius related features need to be defined once only and SDK will handle them automatically
+  - Improved the naming conventions of API functions for better readability.
+  - Better Error and Exception Handling for LoginRadius API Response in SDK
+  - Revamped complete SDK and restructured it with latest API function names and parameters
+  - Added detailed description to API functions and parameters for better understanding
+  - Updated the demo according to latest SDK changes
+  - Implemented API Region Feature
+  - Added Consent Management feature
+  - Added PIN Authentication feature 
 
 # Version 10.0.0-beta
 ## This beta version release includes major changes with several improvements and optimizations :
@@ -162,7 +116,7 @@ This full version release includes major breaking changes with several improveme
       - Refresh Token   
       - Delete All Records by Datasource   
 
-### Breaking Changes
+###Breaking Changes
   - Replaced deprecated [pycrypto package](https://pypi.org/project/pycrypto/) with [cryptography package](https://pypi.org/project/cryptography/) for SOTT generation
   - Updated some existing API's:    
       - Get Roles by UID: moved to role class    

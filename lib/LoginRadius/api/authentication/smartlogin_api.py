@@ -34,7 +34,7 @@ class SmartLoginApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/email/smartlogin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def smart_login_by_email(self, client_guid, email, redirect_url=None,
         smart_login_email_template=None, welcome_email_template=None):
@@ -70,7 +70,7 @@ class SmartLoginApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/login/smartlogin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def smart_login_by_user_name(self, client_guid, username, redirect_url=None,
         smart_login_email_template=None, welcome_email_template=None):
@@ -106,7 +106,7 @@ class SmartLoginApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/login/smartlogin"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def smart_login_ping(self, client_guid, fields=''):
         """This API is used to check if the Smart Login link has been clicked or not
@@ -130,4 +130,4 @@ class SmartLoginApi:
             query_parameters["fields"] = fields
 
         resource_path = "identity/v2/auth/login/smartlogin/ping"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

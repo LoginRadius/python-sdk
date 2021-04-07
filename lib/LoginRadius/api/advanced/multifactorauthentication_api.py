@@ -34,7 +34,7 @@ class MultiFactorAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
 
         resource_path = "identity/v2/auth/account/2fa"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_update_setting(self, access_token, multi_factor_auth_model_with_lockout, fields=''):
         """This API is used to trigger the Multi-factor authentication settings after login for secure actions
@@ -194,7 +194,7 @@ class MultiFactorAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/account/2fa/backupcode"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_reset_backup_code_by_access_token(self, access_token):
         """API is used to reset the backup codes on a given account via the access token. This API call will generate 10 new codes, each code can only be consumed once
@@ -215,7 +215,7 @@ class MultiFactorAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/account/2fa/backupcode/reset"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_login_by_email(self, email, password, email_template=None,
         fields='', login_url=None, sms_template=None, sms_template2_f_a=None,
@@ -507,7 +507,7 @@ class MultiFactorAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
 
         resource_path = "identity/v2/auth/login/2fa/resend"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_reset_sms_authenticator_by_uid(self, otpauthenticator, uid):
         """This API resets the SMS Authenticator configurations on a given account via the UID.
@@ -581,7 +581,7 @@ class MultiFactorAuthenticationApi:
         query_parameters["uid"] = uid
 
         resource_path = "identity/v2/manage/account/2fa/backupcode"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_reset_backup_code_by_uid(self, uid):
         """This API is used to reset the backup codes on a given account via the UID. This API call will generate 10 new codes, each code can only be consumed once.
@@ -603,4 +603,4 @@ class MultiFactorAuthenticationApi:
         query_parameters["uid"] = uid
 
         resource_path = "identity/v2/manage/account/2fa/backupcode/reset"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

@@ -30,4 +30,4 @@ class SottApi:
             query_parameters["timeDifference"] = time_difference
 
         resource_path = "identity/v2/manage/account/sott"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

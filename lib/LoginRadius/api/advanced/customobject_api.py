@@ -102,7 +102,7 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/auth/customobject"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_custom_object_by_record_id_and_token(self, access_token, object_name, object_record_id):
         """This API is used to retrieve the Custom Object data for the specified account.
@@ -132,7 +132,7 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/auth/customobject/" + object_record_id
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def delete_custom_object_by_token(self, access_token, object_name, object_record_id):
         """This API is used to remove the specified Custom Object data using ObjectRecordId of a specified account.
@@ -162,7 +162,7 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/auth/customobject/" + object_record_id
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def create_custom_object_by_uid(self, object_name, payload, uid):
         """This API is used to write information in JSON format to the custom object for the specified account.
@@ -254,7 +254,7 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/manage/account/" + uid + "/customobject"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def get_custom_object_by_record_id(self, object_name, object_record_id, uid):
         """This API is used to retrieve the Custom Object data for the specified account.
@@ -284,7 +284,7 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/manage/account/" + uid + "/customobject/" + object_record_id
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def delete_custom_object_by_record_id(self, object_name, object_record_id, uid):
         """This API is used to remove the specified Custom Object data using ObjectRecordId of specified account.
@@ -314,4 +314,4 @@ class CustomObjectApi:
         query_parameters["objectName"] = object_name
 
         resource_path = "identity/v2/manage/account/" + uid + "/customobject/" + object_record_id
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})

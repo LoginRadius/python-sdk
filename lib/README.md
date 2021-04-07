@@ -21,21 +21,37 @@ From Package
 Using pip
 
 ```
- pip install loginradius-v2==11.0.0
+ pip install loginradius-v2==11.1.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.0.0
+ easy_install loginradius-v2==11.1.0
 ```
 
 Changelog
 ======
 
+11.1.0
+-----------
+Release on **March 23,2021**
+
+## Enhancements:
+ - Added X-Origin-IP header support.
+ - Added 429 error code handling for "Too Many Request in a particular time frame".
+ - urllib3 support
+ - Fixed Delete API issue
+
+## Added new multiple APIs for better user experience:
+ - Get Profile By Ping.
+ - Passwordless Login Verification By Email And OTP.
+ - Passwordless Login Verification By User Name And OTP.
+
+
 11.0.0
 -----------
-Release on **July 28,2020**
+Release on **July 24,2020**
 
 ## Enhancements:
 - Added a parameter isWeb in "RefreshAccessToken" API.

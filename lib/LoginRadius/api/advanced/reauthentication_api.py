@@ -34,7 +34,7 @@ class ReAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
 
         resource_path = "identity/v2/auth/account/reauth/2fa"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def mfa_re_authenticate_by_otp(self, access_token, reauth_by_otp_model):
         """This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS

@@ -40,7 +40,7 @@ class CustomRegistrationDataApi:
             query_parameters["skip"] = skip
 
         resource_path = "identity/v2/auth/registrationdata/" + type
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def validate_registration_data_code(self, code, record_id):
         """This API allows you to validate code for a particular dropdown member.
@@ -99,7 +99,7 @@ class CustomRegistrationDataApi:
             query_parameters["skip"] = skip
 
         resource_path = "identity/v2/manage/registrationdata/" + type
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def add_registration_data(self, registration_data_create_model_list):
         """This API allows you to fill data into a dropdown list which you have created for user Registration. For more details on how to use this API please see our Custom Registration Data Overview
@@ -164,7 +164,7 @@ class CustomRegistrationDataApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/registrationdata/" + record_id
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def delete_all_records_by_data_source(self, type):
         """This API allows you to delete all records contained in a datasource.
@@ -185,4 +185,4 @@ class CustomRegistrationDataApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/registrationdata/type/" + type
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})

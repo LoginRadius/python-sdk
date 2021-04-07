@@ -29,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```
- pip install loginradius-v2==11.0.0
+ pip install loginradius-v2==11.1.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.0.0
+ easy_install loginradius-v2==11.1.0
 ```
 
 ### Install From Source
@@ -88,6 +88,12 @@ To enable API request signing, set the value of 'API_REQUEST_SIGNING' to True
 ```
 LR.API_REQUEST_SIGNING = True
 ```
+### X-Origin-IP
+LoginRadius allows you to add X-Origin-IP in your headers and it determines the IP address of the client's request,this can also be useful to overcome analytics discrepancies where the analytics depend on header data.
+
+```
+LR.ORIGIN_IP = "<Client-Ip-Address>"
+```
 
 ### Authentication API
 
@@ -124,6 +130,7 @@ List of APIs in this Section:<br>
 * GET : [Auth Read all Profiles by Token](#GetProfileByAccessToken-get-)<br>
 * GET : [Auth Send Welcome Email](#SendWelcomeEmail-get-)<br>
 * GET : [Auth Delete Account](#DeleteAccountByDeleteToken-get-)<br>
+* GET : [Get Profile By Ping](#GetProfileByPing-get-)<br>
 * GET : [Auth Check Email Availability](#CheckEmailAvailability-get-)<br>
 * GET : [Auth Verify Email](#VerifyEmail-get-)<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
@@ -623,7 +630,22 @@ deletetoken = "<deletetoken>" #Required
 result = loginradius.authentication.delete_account_by_delete_token(deletetoken)
  ```
  
+ 
+<h6 id="GetProfileByPing-get-">Get Profile By Ping  (GET)</h6>
+This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/social-login-by-ping/)
+
+ ```
   
+client_guid = "<client_guid>" #Required 
+email_template = "<email_template>" #Optional 
+fields = "<fields>" #Optional 
+verification_url = "<verification_url>" #Optional 
+welcome_email_template = "<welcome_email_template>" #Optional
+
+result = loginradius.authentication.get_profile_by_ping(client_guid, email_template, fields, verification_url, welcome_email_template)
+ ```
+ 
+    
   
  
 <h6 id="CheckEmailAvailability-get-"> Auth Check Email Availability (GET)</h6>
@@ -752,6 +774,7 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
+* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -864,6 +887,22 @@ uid = "<uid>" #Required
 fields = "<fields>" #Optional
 
 result = loginradius.account.upsert_email(upsert_email_model, uid, fields)
+ ```
+ 
+  
+  
+ 
+<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
+ This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
+
+ ```
+ 
+update_uid_model = { 
+"newUid" : "<newUid>"
+}  #Required 
+uid = "<uid>" #Required
+
+result = loginradius.account.account_update_uid(update_uid_model, uid)
  ```
  
   
@@ -3059,6 +3098,8 @@ result = loginradius.one_touch_login.one_touch_login_ping(client_guid, fields)
 List of APIs in this Section:<br>
 
 * PUT : [Passwordless Login Phone Verification](#PasswordlessLoginPhoneVerification-put-)<br>
+* POST :[Passwordless Login Verification By Email And OTP](#PasswordlessLoginVerificationByEmailAndOTP-post-)<br>
+* POST :[Passwordless Login Verification By User Name And OTP](#PasswordlessLoginVerificationByUserNameAndOTP-post-)<br>
 * GET : [Passwordless Login by Phone](#PasswordlessLoginByPhone-get-)<br>
 * GET : [Passwordless Login By Email](#PasswordlessLoginByEmail-get-)<br>
 * GET : [Passwordless Login By UserName](#PasswordlessLoginByUserName-get-)<br>
@@ -3082,8 +3123,40 @@ sms_template = "<sms_template>" #Optional
 result = loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template)
  ```
  
+ 
+<h6 id="PasswordlessLoginVerificationByEmailAndOTP-post-">Passwordless Login Verification By Email And OTP (POST)</h6>
+ This API is used to verify the otp sent to the email when doing a passwordless login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-email-and-otp/)
+
+ ```
+ 
+password_less_login_by_email_and_otp_model = {
+  "email": "<email>",
+  "otp": "<otp>",
+  "welcomeemailtemplate": "<welcome_email_template>"
+}  #Required 
+fields = "<fields>" #Optional
+
+result = loginradius.password_less_login.passwordless_login_verification_by_email_and_otp(password_less_login_by_email_and_otp_model, fields)
+ ```
+ 
   
-  
+ 
+<h6 id="PasswordlessLoginVerificationByUserNameAndOTP-post-">Passwordless Login Verification By User Name And OTP (POST)</h6>
+This API is used to verify the otp sent to the email when doing a passwordless login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-username-and-otp/)
+
+ ```
+ 
+password_less_login_by_user_name_and_otp_model = {
+  "username": "<User name>",
+  "otp": "<otp>",
+  "welcomeemailtemplate": "<welcome_email_template>"
+}  #Required 
+fields = "<fields>" #Optional
+
+result = loginradius.password_less_login.passwordless_login_verification_by_user_name_and_otp(password_less_login_by_user_name_and_otp_model, fields)
+ ```
+ 
+   
  
 <h6 id="PasswordlessLoginByPhone-get-"> Passwordless Login by Phone (GET)</h6>
  API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-by-phone)
@@ -3950,12 +4023,10 @@ You can get a copy of our demo project at [GitHub](https://github.com/LoginRadiu
 
 ### Configuration
 
-1.Have Flask, requests installed:
+1.Have  Flask, requests, pbkdf2, cryptography installed or you can install the required dependency using the following command:
 
-```pip install flask``` <br>
-```pip install requests``` <br>
-```pip install pbkdf2``` <br>
-```pip install cryptography``` <br>
+```pip install -r requirements.txt``` <br>
+
 2.Fill in credentials in ```lr.py``` and ```static/js/options.js```
 
 3.Navigate to demo directory and run: ```python app.py```

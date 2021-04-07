@@ -59,7 +59,7 @@ class PasswordLessLoginApi:
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/otp"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def passwordless_login_by_email(self, email, password_less_login_template=None, verification_url=None):
         """This API is used to send a Passwordless Login verification link to the provided Email ID
@@ -86,7 +86,7 @@ class PasswordLessLoginApi:
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def passwordless_login_by_user_name(self, username, password_less_login_template=None, verification_url=None):
         """This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
@@ -113,7 +113,7 @@ class PasswordLessLoginApi:
             query_parameters["verificationUrl"] = verification_url
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def passwordless_login_verification(self, verification_token, fields='', welcome_email_template=None):
         """This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
@@ -140,4 +140,48 @@ class PasswordLessLoginApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/email/verify"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def passwordless_login_verification_by_email_and_otp(self, password_less_login_by_email_and_otp_model, fields=''):
+        """
+        
+        Args:
+            password_less_login_by_email_and_otp_model: 
+            fields: 
+		
+        Returns:
+            Response containing User Profile Data and access token
+        9.23
+        """
+        if(password_less_login_by_email_and_otp_model is None):
+            raise Exception(self._lr_object.get_validation_message("password_less_login_by_email_and_otp_model"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        if(not self._lr_object.is_null_or_whitespace(fields)):
+            query_parameters["fields"] = fields
+
+        resource_path = "identity/v2/auth/login/passwordlesslogin/email/verifyotp"
+        return self._lr_object.execute("POST", resource_path, query_parameters, password_less_login_by_email_and_otp_model)
+
+    def passwordless_login_verification_by_user_name_and_otp(self, password_less_login_by_user_name_and_otp_model, fields=''):
+        """
+        
+        Args:
+            password_less_login_by_user_name_and_otp_model: 
+            fields: 
+		
+        Returns:
+            Response containing User Profile Data and access token
+        9.24
+        """
+        if(password_less_login_by_user_name_and_otp_model is None):
+            raise Exception(self._lr_object.get_validation_message("password_less_login_by_user_name_and_otp_model"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        if(not self._lr_object.is_null_or_whitespace(fields)):
+            query_parameters["fields"] = fields
+
+        resource_path = "identity/v2/auth/login/passwordlesslogin/username/verifyotp"
+        return self._lr_object.execute("POST", resource_path, query_parameters, password_less_login_by_user_name_and_otp_model)

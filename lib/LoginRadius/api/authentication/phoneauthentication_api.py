@@ -148,7 +148,7 @@ class PhoneAuthenticationApi:
             query_parameters["smsTemplate"] = sms_template
 
         resource_path = "identity/v2/auth/phone/otp"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, None)
+        return self._lr_object.execute("PUT", resource_path, query_parameters, {})
 
     def phone_resend_verification_otp(self, phone, sms_template=None):
         """This API is used to resend a verification OTP to verify a user's Phone Number. The user will receive a verification code that they will need to input
@@ -257,7 +257,7 @@ class PhoneAuthenticationApi:
         query_parameters["phone"] = phone
 
         resource_path = "identity/v2/auth/phone"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def remove_phone_id_by_access_token(self, access_token):
         """This API is used to delete the Phone ID on a user's account via the access token
@@ -278,7 +278,7 @@ class PhoneAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/phone"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, None)
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def user_registration_by_phone(self, auth_user_registration_model, sott, fields='',
         options='', sms_template=None, verification_url=None, welcome_email_template=None):

@@ -31,7 +31,7 @@ class ConsentManagementApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
 
         resource_path = "identity/v2/manage/account/" + uid + "/consent/logs"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def submit_consent_by_consent_token(self, consent_token, consent_submit_model):
         """This API is to submit consent form using consent token.
@@ -76,7 +76,7 @@ class ConsentManagementApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         resource_path = "identity/v2/auth/consent/logs"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def submit_consent_by_access_token(self, access_token, consent_submit_model):
         """API to provide a way to end user to submit a consent form for particular event type.
@@ -128,7 +128,7 @@ class ConsentManagementApi:
         query_parameters["isCustom"] = is_custom
 
         resource_path = "identity/v2/auth/consent/verify"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def update_consent_profile_by_access_token(self, access_token, consent_update_model):
         """This API is to update consents using access token.

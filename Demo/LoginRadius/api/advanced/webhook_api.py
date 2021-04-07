@@ -32,7 +32,7 @@ class WebHookApi:
         query_parameters["event"] = event
 
         resource_path = "api/v2/webhook"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def web_hook_subscribe(self, web_hook_subscribe_model):
         """API can be used to configure a WebHook on your LoginRadius site. Webhooks also work on subscribe and notification model, subscribe your hook and get a notification. Equivalent to RESThook but these provide security on basis of signature and RESThook work on unique URL. Following are the events that are allowed by LoginRadius to trigger a WebHook service call.
@@ -67,7 +67,7 @@ class WebHookApi:
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
 
         resource_path = "api/v2/webhook/test"
-        return self._lr_object.execute("GET", resource_path, query_parameters, None)
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def web_hook_unsubscribe(self, web_hook_subscribe_model):
         """API can be used to unsubscribe a WebHook configured on your LoginRadius site.
