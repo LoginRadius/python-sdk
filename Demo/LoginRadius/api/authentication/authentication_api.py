@@ -162,12 +162,16 @@ class AuthenticationApi:
         resource_path = "identity/v2/auth/access_token"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def get_profile_by_access_token(self, access_token, fields=''):
+    def get_profile_by_access_token(self, access_token, fields='', email_template=None,
+        verification_url=None, welcome_email_template=None):
         """This API retrieves a copy of the user data based on the access token.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
+            email_template: 
+            verification_url: 
+            welcome_email_template: 
 		
         Returns:
             Response containing Definition for Complete profile data
@@ -180,8 +184,14 @@ class AuthenticationApi:
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
+        if(not self._lr_object.is_null_or_whitespace(email_template)):
+            query_parameters["emailTemplate"] = email_template
         if(not self._lr_object.is_null_or_whitespace(fields)):
             query_parameters["fields"] = fields
+        if(not self._lr_object.is_null_or_whitespace(verification_url)):
+            query_parameters["verificationUrl"] = verification_url
+        if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
+            query_parameters["welcomeEmailTemplate"] = welcome_email_template
 
         resource_path = "identity/v2/auth/account"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
@@ -324,14 +334,14 @@ class AuthenticationApi:
 
     def get_profile_by_ping(self, client_guid, email_template=None, fields='',
         verification_url=None, welcome_email_template=None):
-        """
+        """This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled
         
         Args:
-            client_guid: 
-            email_template: 
-            fields: 
-            verification_url: 
-            welcome_email_template: 
+            client_guid: ClientGuid
+            email_template: EmailTemplate
+            fields: Fields
+            verification_url: VerificationUrl
+            welcome_email_template: WelcomeEmailTemplate
 		
         Returns:
             Response containing User Profile Data and access token

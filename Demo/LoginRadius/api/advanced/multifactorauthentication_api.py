@@ -217,9 +217,128 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/account/2fa/backupcode/reset"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def mfa_login_by_email(self, email, password, email_template=None,
-        fields='', login_url=None, sms_template=None, sms_template2_f_a=None,
-        verification_url=None):
+    def mfa_email_otp_by_access_token(self, access_token, email_id, email_template2_f_a=None):
+        """This API is created to send the OTP to the email if email OTP authenticator is enabled in app's MFA configuration.
+        
+        Args:
+            access_token: access_token
+            email_id: EmailId
+            email_template2_f_a: EmailTemplate2FA
+		
+        Returns:
+            Response containing Definition of Complete Validation data
+        5.17
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(email_id)):
+            raise Exception(self._lr_object.get_validation_message("email_id"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["emailId"] = email_id
+        if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
+            query_parameters["emailTemplate2FA"] = email_template2_f_a
+
+        resource_path = "identity/v2/auth/account/2fa/otp/email"
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def mfa_validate_email_otp_by_access_token(self, access_token, multi_factor_auth_model_by_email_otp_with_lockout):
+        """This API is used to set up MFA Email OTP authenticator on profile after login.
+        
+        Args:
+            access_token: access_token
+            multi_factor_auth_model_by_email_otp_with_lockout: payload
+		
+        Returns:
+            Response containing Definition for Complete profile data
+        5.18
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+        if(multi_factor_auth_model_by_email_otp_with_lockout is None):
+            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_email_otp_with_lockout"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+
+        resource_path = "identity/v2/auth/account/2fa/verification/otp/email"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_email_otp_with_lockout)
+
+    def mfa_reset_email_otp_authenticator_by_access_token(self, access_token):
+        """This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user
+        
+        Args:
+            access_token: access_token
+		
+        Returns:
+            Response containing Definition of Delete Request
+        5.19
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+
+        resource_path = "identity/v2/auth/account/2fa/authenticator/otp/email"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def mfa_security_question_answer_by_access_token(self, access_token, security_question_answer_model_by_access_token):
+        """This API is used to set up MFA Security Question authenticator on profile after login.
+        
+        Args:
+            access_token: access_token
+            security_question_answer_model_by_access_token: payload
+		
+        Returns:
+            Response containing Definition of Complete Validation data
+        5.20
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+        if(security_question_answer_model_by_access_token is None):
+            raise Exception(self._lr_object.get_validation_message("security_question_answer_model_by_access_token"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+
+        resource_path = "identity/v2/auth/account/2fa/securityquestionanswer"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, security_question_answer_model_by_access_token)
+
+    def mfa_reset_security_question_authenticator_by_access_token(self, access_token):
+        """This API is used to Reset MFA Security Question Authenticator By Access Token
+        
+        Args:
+            access_token: access_token
+		
+        Returns:
+            Response containing Definition of Delete Request
+        5.21
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+
+        resource_path = "identity/v2/auth/account/2fa/authenticator/securityquestionanswer"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def mfa_login_by_email(self, email, password, email_template=None, fields='',
+        login_url=None, sms_template=None,sms_template2_f_a=None, 
+        verification_url=None,email_template2_f_a=None):
         """This API can be used to login by emailid on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -231,6 +350,8 @@ class MultiFactorAuthenticationApi:
             sms_template: SMS Template name
             sms_template2_f_a: SMS Template Name
             verification_url: Email verification url
+            email_template2_f_a: 2FA Email Template name
+
 		
         Returns:
             Complete user UserProfile data
@@ -257,6 +378,8 @@ class MultiFactorAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
         if(not self._lr_object.is_null_or_whitespace(verification_url)):
             query_parameters["verificationUrl"] = verification_url
+        if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
+            query_parameters["emailTemplate2FA"] = email_template2_f_a
 
         body_parameters = {}
         body_parameters["email"] = email
@@ -265,9 +388,9 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa"
         return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
 
-    def mfa_login_by_user_name(self, password, username, email_template=None,
-        fields='', login_url=None, sms_template=None, sms_template2_f_a=None,
-        verification_url=None):
+    def mfa_login_by_user_name(self, password, username, email_template=None, fields='',
+        login_url=None, sms_template=None,sms_template2_f_a=None,
+        verification_url=None, email_template2_f_a=None):
         """This API can be used to login by username on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -279,6 +402,8 @@ class MultiFactorAuthenticationApi:
             sms_template: SMS Template name
             sms_template2_f_a: SMS Template Name
             verification_url: Email verification url
+            email_template2_f_a: 2FA Email Template name
+
 		
         Returns:
             Complete user UserProfile data
@@ -305,6 +430,8 @@ class MultiFactorAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
         if(not self._lr_object.is_null_or_whitespace(verification_url)):
             query_parameters["verificationUrl"] = verification_url
+        if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
+            query_parameters["emailTemplate2FA"] = email_template2_f_a
 
         body_parameters = {}
         body_parameters["password"] = password
@@ -314,8 +441,8 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
 
     def mfa_login_by_phone(self, password, phone, email_template=None,
-        fields='', login_url=None, sms_template=None, sms_template2_f_a=None,
-        verification_url=None):
+        fields='', login_url=None, sms_template=None,sms_template2_f_a=None,
+        verification_url=None, email_template2_f_a=None,):
         """This API can be used to login by Phone on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -327,6 +454,8 @@ class MultiFactorAuthenticationApi:
             sms_template: SMS Template name
             sms_template2_f_a: SMS Template Name
             verification_url: Email verification url
+            email_template2_f_a: 2FA Email Template name
+
 		
         Returns:
             Complete user UserProfile data
@@ -353,6 +482,8 @@ class MultiFactorAuthenticationApi:
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
         if(not self._lr_object.is_null_or_whitespace(verification_url)):
             query_parameters["verificationUrl"] = verification_url
+        if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
+            query_parameters["emailTemplate2FA"] = email_template2_f_a
 
         body_parameters = {}
         body_parameters["password"] = password
@@ -361,8 +492,9 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa"
         return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
 
-    def mfa_validate_otp_by_phone(self, multi_factor_auth_model_with_lockout, second_factor_authentication_token, fields='',
-        sms_template2_f_a=None):
+    def mfa_validate_otp_by_phone(self, multi_factor_auth_model_with_lockout, second_factor_authentication_token, fields='', 
+        sms_template2_f_a=None, rba_browser_email_template=None, rba_city_email_template=None, rba_country_email_template=None, 
+        rba_ip_email_template=None):
         """This API is used to login via Multi-factor authentication by passing the One Time Password received via SMS
         
         Args:
@@ -370,6 +502,10 @@ class MultiFactorAuthenticationApi:
             second_factor_authentication_token: A Uniquely generated MFA identifier token after successful authentication
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
             sms_template2_f_a: SMS Template Name
+            rba_browser_email_template: 
+            rba_city_email_template: 
+            rba_country_email_template: 
+            rba_ip_email_template: 
 		
         Returns:
             Complete user UserProfile data
@@ -386,6 +522,14 @@ class MultiFactorAuthenticationApi:
         query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
         if(not self._lr_object.is_null_or_whitespace(fields)):
             query_parameters["fields"] = fields
+        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
+            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
+            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
+            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
+            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
         if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
 
@@ -393,14 +537,17 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_with_lockout)
 
     def mfa_validate_google_auth_code(self, google_authenticator_code, second_factor_authentication_token, fields='',
-        sms_template2_f_a=None):
+        rba_browser_email_template=None, rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
         """This API is used to login via Multi-factor-authentication by passing the google authenticator code.
         
         Args:
             google_authenticator_code: The code generated by google authenticator app after scanning QR code
-            second_factor_authentication_token: A Uniquely generated MFA identifier token after successful authentication
+            second_factor_authentication_token: SecondFactorAuthenticationToken
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
-            sms_template2_f_a: SMS Template Name
+            rba_browser_email_template: RbaBrowserEmailTemplate
+            rba_city_email_template: RbaCityEmailTemplate
+            rba_country_email_template: RbaCountryEmailTemplate
+            rba_ip_email_template: RbaIpEmailTemplate
 		
         Returns:
             Complete user UserProfile data
@@ -418,8 +565,14 @@ class MultiFactorAuthenticationApi:
         query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
         if(not self._lr_object.is_null_or_whitespace(fields)):
             query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
-            query_parameters["smsTemplate2FA"] = sms_template2_f_a
+        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
+            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
+            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
+            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
+            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
 
         body_parameters = {}
         body_parameters["googleAuthenticatorCode"] = google_authenticator_code
@@ -427,13 +580,18 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa/verification/googleauthenticatorcode"
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
-    def mfa_validate_backup_code(self, multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields=''):
+    def mfa_validate_backup_code(self, multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields='',
+        rba_browser_email_template=None, rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
         """This API is used to validate the backup code provided by the user and if valid, we return an access token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
         
         Args:
             multi_factor_auth_model_by_backup_code: Model Class containing Definition of payload for MultiFactorAuth By BackupCode API
             second_factor_authentication_token: A Uniquely generated MFA identifier token after successful authentication
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
+            rba_browser_email_template: 
+            rba_city_email_template: 
+            rba_country_email_template: 
+            rba_ip_email_template: 
 		
         Returns:
             Complete user UserProfile data
@@ -450,6 +608,14 @@ class MultiFactorAuthenticationApi:
         query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
         if(not self._lr_object.is_null_or_whitespace(fields)):
             query_parameters["fields"] = fields
+        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
+            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
+            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
+            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
+            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
 
         resource_path = "identity/v2/auth/login/2fa/verification/backupcode"
         return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_backup_code)
@@ -508,6 +674,131 @@ class MultiFactorAuthenticationApi:
 
         resource_path = "identity/v2/auth/login/2fa/resend"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def mfa_email_otp(self, email_id_model, second_factor_authentication_token, email_template2_f_a=None):
+        """An API designed to send the MFA Email OTP to the email.
+        
+        Args:
+            email_id_model: payload
+            second_factor_authentication_token: SecondFactorAuthenticationToken
+            email_template2_f_a: EmailTemplate2FA
+		
+        Returns:
+            Response containing Definition of Complete Validation data
+        9.18
+        """
+        if(email_id_model is None):
+            raise Exception(self._lr_object.get_validation_message("email_id_model"))
+
+        if(self._lr_object.is_null_or_whitespace(second_factor_authentication_token)):
+            raise Exception(self._lr_object.get_validation_message("second_factor_authentication_token"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
+        if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
+            query_parameters["emailTemplate2FA"] = email_template2_f_a
+
+        resource_path = "identity/v2/auth/login/2fa/otp/email"
+        return self._lr_object.execute("POST", resource_path, query_parameters, email_id_model)
+
+    def mfa_validate_email_otp(self, multi_factor_auth_model_by_email_otp, second_factor_authentication_token, rba_browser_email_template=None,
+        rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
+        """This API is used to Verify MFA Email OTP by MFA Token
+        
+        Args:
+            multi_factor_auth_model_by_email_otp: payload
+            second_factor_authentication_token: SecondFactorAuthenticationToken
+            rba_browser_email_template: RbaBrowserEmailTemplate
+            rba_city_email_template: RbaCityEmailTemplate
+            rba_country_email_template: RbaCountryEmailTemplate
+            rba_ip_email_template: RbaIpEmailTemplate
+		
+        Returns:
+            Response Containing Access Token and Complete Profile Data
+        9.25
+        """
+        if(multi_factor_auth_model_by_email_otp is None):
+            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_email_otp"))
+
+        if(self._lr_object.is_null_or_whitespace(second_factor_authentication_token)):
+            raise Exception(self._lr_object.get_validation_message("second_factor_authentication_token"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
+        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
+            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
+            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
+            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
+            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
+
+        resource_path = "identity/v2/auth/login/2fa/verification/otp/email"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_email_otp)
+
+    def mfa_security_question_answer(self, security_question_answer_update_model, second_factor_authentication_token):
+        """This API is used to set the security questions on the profile with the MFA token when MFA flow is required.
+        
+        Args:
+            security_question_answer_update_model: payload
+            second_factor_authentication_token: SecondFactorAuthenticationToken
+		
+        Returns:
+            Response Containing Access Token and Complete Profile Data
+        9.26
+        """
+        if(security_question_answer_update_model is None):
+            raise Exception(self._lr_object.get_validation_message("security_question_answer_update_model"))
+
+        if(self._lr_object.is_null_or_whitespace(second_factor_authentication_token)):
+            raise Exception(self._lr_object.get_validation_message("second_factor_authentication_token"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
+
+        resource_path = "identity/v2/auth/login/2fa/securityquestionanswer"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, security_question_answer_update_model)
+
+    def mfa_security_question_answer_verification(self, security_question_answer_update_model, second_factor_authentication_token, rba_browser_email_template=None,
+        rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
+        """This API is used to resending the verification OTP to the provided phone number
+        
+        Args:
+            security_question_answer_update_model: payload
+            second_factor_authentication_token: SecondFactorAuthenticationToken
+            rba_browser_email_template: RbaBrowserEmailTemplate
+            rba_city_email_template: RbaCityEmailTemplate
+            rba_country_email_template: RbaCountryEmailTemplate
+            rba_ip_email_template: RbaIpEmailTemplate
+		
+        Returns:
+            Response Containing Access Token and Complete Profile Data
+        9.27
+        """
+        if(security_question_answer_update_model is None):
+            raise Exception(self._lr_object.get_validation_message("security_question_answer_update_model"))
+
+        if(self._lr_object.is_null_or_whitespace(second_factor_authentication_token)):
+            raise Exception(self._lr_object.get_validation_message("second_factor_authentication_token"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
+        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
+            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
+            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
+            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
+        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
+            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
+
+        resource_path = "identity/v2/auth/login/2fa/verification/securityquestionanswer"
+        return self._lr_object.execute("POST", resource_path, query_parameters, security_question_answer_update_model)
 
     def mfa_reset_sms_authenticator_by_uid(self, otpauthenticator, uid):
         """This API resets the SMS Authenticator configurations on a given account via the UID.
@@ -604,3 +895,47 @@ class MultiFactorAuthenticationApi:
 
         resource_path = "identity/v2/manage/account/2fa/backupcode/reset"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def mfa_reset_email_otp_authenticator_by_uid(self, uid):
+        """This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user.
+        
+        Args:
+            uid: UID, the unified identifier for each user account
+		
+        Returns:
+            Response containing Definition of Delete Request
+        18.42
+        """
+
+        if(self._lr_object.is_null_or_whitespace(uid)):
+            raise Exception(self._lr_object.get_validation_message("uid"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+        query_parameters["uid"] = uid
+
+        resource_path = "identity/v2/manage/account/2fa/authenticator/otp/email"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def mfa_reset_security_question_authenticator_by_uid(self, uid):
+        """This API is used to reset the Security Question Authenticator settings for an MFA-enabled user.
+        
+        Args:
+            uid: UID, the unified identifier for each user account
+		
+        Returns:
+            Response containing Definition of Delete Request
+        18.43
+        """
+
+        if(self._lr_object.is_null_or_whitespace(uid)):
+            raise Exception(self._lr_object.get_validation_message("uid"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+        query_parameters["uid"] = uid
+
+        resource_path = "identity/v2/manage/account/2fa/authenticator/securityquestionanswer"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})

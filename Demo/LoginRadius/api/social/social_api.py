@@ -784,29 +784,6 @@ class SocialApi:
         resource_path = "api/v2/status/trackable"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def get_social_user_profile(self, access_token, fields=''):
-        """The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
-        
-        Args:
-            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            fields: The fields parameter filters the API response so that the response only includes a specific set of fields
-		
-        Returns:
-            Response containing Definition for Complete UserProfile data
-        38.1
-        """
-
-        if(self._lr_object.is_null_or_whitespace(access_token)):
-            raise Exception(self._lr_object.get_validation_message("access_token"))
-
-        query_parameters = {}
-        query_parameters["access_token"] = access_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
-            query_parameters["fields"] = fields
-
-        resource_path = "api/v2/userprofile"
-        return self._lr_object.execute("GET", resource_path, query_parameters, {})
-
     def get_refreshed_social_user_profile(self, access_token, fields=''):
         """The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
         

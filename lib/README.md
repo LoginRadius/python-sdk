@@ -21,17 +21,65 @@ From Package
 Using pip
 
 ```
- pip install loginradius-v2==11.1.0
+ pip install loginradius-v2==11.2.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.1.0
+ easy_install loginradius-v2==11.2.0
 ```
 
 Changelog
 ======
+
+
+11.2.0
+-----------
+Release on **September 15, 2021**
+
+## Enhancements
+
+- Updated Jquery with latest version(3.6.0) in SDK Demo
+
+
+## Added new multiple APIs for better user experience
+
+- MFAEmailOtpByAccessToken
+- MFAValidateEmailOtpByAccessToken
+- MFAResetEmailOtpAuthenticatorByAccessToken
+- MFASecurityQuestionAnswerByAccessToken
+- MFAResetSecurityQuestionAuthenticatorByAccessToken
+- MFAEmailOTP
+- MFAValidateEmailOtp
+- MFASecurityQuestionAnswer
+- MFASecurityQuestionAnswerVerification
+- MFAResetEmailOtpAuthenticatorByUid
+- MFAResetSecurityQuestionAuthenticatorByUid
+- ReAuthValidateEmailOtp
+- ReAuthSendEmailOtp
+- ReAuthBySecurityQuestion
+
+Added `EmailTemplate2FA` parameter in the following API
+
+- MFALoginByEmail
+- MFALoginByUserName
+- MFALoginByPhone
+
+
+Added `RbaBrowserEmailTemplate`, `RbaCityEmailTemplate` ,`RbaCountryEmailTemplate` , `RbaIpEmailTemplate` parameter in the following API
+
+- MFAValidateOTPByPhone
+- MFAValidateGoogleAuthCode
+- MFAValidateBackupCode
+
+Added `emailTemplate`, `verificationUrl` ,`welcomeEmailTemplate`  parameter in the following API
+
+- GetProfileByAccessToken
+
+#### Removed `smsTemplate2FA ` parameter from the following API 
+- mfaValidateGoogleAuthCode
+
 
 11.1.0
 -----------

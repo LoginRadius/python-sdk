@@ -143,11 +143,11 @@ class PasswordLessLoginApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def passwordless_login_verification_by_email_and_otp(self, password_less_login_by_email_and_otp_model, fields=''):
-        """
+        """This API is used to verify the otp sent to the email when doing a passwordless login. 
         
         Args:
-            password_less_login_by_email_and_otp_model: 
-            fields: 
+            password_less_login_by_email_and_otp_model: payload
+            fields: Fields
 		
         Returns:
             Response containing User Profile Data and access token
@@ -165,11 +165,11 @@ class PasswordLessLoginApi:
         return self._lr_object.execute("POST", resource_path, query_parameters, password_less_login_by_email_and_otp_model)
 
     def passwordless_login_verification_by_user_name_and_otp(self, password_less_login_by_user_name_and_otp_model, fields=''):
-        """
+        """This API is used to verify the otp sent to the email when doing a passwordless login.
         
         Args:
-            password_less_login_by_user_name_and_otp_model: 
-            fields: 
+            password_less_login_by_user_name_and_otp_model: payload
+            fields: Fields
 		
         Returns:
             Response containing User Profile Data and access token

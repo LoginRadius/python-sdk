@@ -97,7 +97,7 @@ def reset_password():
 
 @auth.route('/mfa', methods=['POST'])
 def mfa():
-	res = loginradius.mfa.mfa_login_by_email(email=request.form['email'], password=request.form['password'], verification_url=email_verification_url)
+	res = loginradius.mfa.mfa_login_by_email(email=request.form['email'], password=request.form['password'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:
