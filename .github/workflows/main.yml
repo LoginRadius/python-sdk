@@ -1,8 +1,9 @@
-name: Upload LoginRadius SDK to Py Package
+name: Upload LoginRadius SDK to PyPi Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
