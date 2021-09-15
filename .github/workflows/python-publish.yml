@@ -41,6 +41,6 @@ jobs:
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://testpypi.python.org/LoginRadius-v2/
+        repository_url: https://test.pypi.org/simple/LoginRadius-v2/
  
 
