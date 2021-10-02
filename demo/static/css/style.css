@@ -73,13 +73,16 @@ hr {
 }
 
 .button-group a {
-    float: left;
+    position:relative;
+top:40px;
     background-color: white;
     color: #384049;
-    border-top: 1px solid #D3D3D3;
-    border-bottom: 1px solid #D3D3D3;
-    padding: 10px 24px;
-    margin-top: 5px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+border-right: 1px solid #000;
+border-left: 1px solid #000;
+    padding: 7px 24px;
+    margin-top: 10px;
     cursor: pointer;
     text-decoration: none;
     width: 77px;
@@ -133,6 +136,8 @@ hr {
     display: block;
     padding: 12px;
     text-decoration: none;
+
+    border-bottom: 1px solid #000;
 }
 
 .vertical-menu a:hover {
@@ -206,4 +211,3 @@ hr {
    background-position: 0px 73.9%;
    background-color: #5B88BD
 }
-
