@@ -33,3 +33,5 @@ eggs
 parts
 src/*.egg-info
 lib64
+.venv
+.vscode

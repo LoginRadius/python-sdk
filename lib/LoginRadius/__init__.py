@@ -17,7 +17,7 @@
 #################################################
 
 __author__ = "LoginRadius"
-__copyright__ = "Copyright 2019, LoginRadius"
+__copyright__ = "Copyright 2021, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
 __version__ = "11.2.0"
@@ -156,10 +156,9 @@ class LoginRadius:
         self.social = SocialApi(self)
         if sys.version_info[0] < 3:
             from urllib import quote
-            self.quote = quote
         else:
             from urllib.parse import quote
-            self.quote = quote
+        self.quote = quote
 
     #
     # Internal private functions
@@ -174,13 +173,12 @@ class LoginRadius:
                 self._set_urllib3()
             else:
                 raise Exceptions.InvalidLibrary(LoginRadius.LIBRARY)
+        elif library == "requests":
+            self._set_requests()
+        elif library == "urllib3":
+            self._set_urllib3()
         else:
-            if library == "requests":
-                self._set_requests()
-            elif library == "urllib3":
-                self._set_urllib3()
-            else:
-                raise Exceptions.InvalidLibrary(library)
+            raise Exceptions.InvalidLibrary(library)
 
     def _set_requests(self):
         """Change to the requests library to use."""
@@ -219,7 +217,8 @@ class LoginRadius:
         if sys.version_info[0] >= 3:
             key_bytes = bytes(self.get_api_secret(), 'latin-1')
             data_bytes = bytes(signing_str, 'latin-1')
-        dig = hmac.new(key_bytes, msg=data_bytes, digestmod=hashlib.sha256).digest()
+        dig = hmac.new(key_bytes, msg=data_bytes,
+                       digestmod=hashlib.sha256).digest()
         if sys.version_info[0] >= 3:
             return base64.b64encode(dig).decode("utf-8")
         return base64.b64encode(dig)
@@ -243,7 +242,8 @@ class LoginRadius:
                    'Accept-encoding': 'gzip'}
 
         if "access_token" in query_params and "/auth" in resource_url:
-            headers.update({"Authorization": "Bearer " + query_params['access_token']})
+            headers.update({"Authorization": "Bearer " +
+                           query_params['access_token']})
             query_params.pop("access_token")
 
         if "sott" in query_params:
@@ -276,17 +276,17 @@ class LoginRadius:
         except IOError as e:
             return {
                 'ErrorCode': 105,
-                'Description': e.message
+                'Description': str(e)
             }
         except ValueError as e:
             return {
                 'ErrorCode': 102,
-                'Description': e.message
+                'Description': str(e)
             }
         except Exception as e:
             return {
                 'ErrorCode': 101,
-                'Description': e.message
+                'Description': str(e)
             }
 
     def _get_json(self, url, payload, HEADERS):
@@ -302,11 +302,11 @@ class LoginRadius:
             else:
                 return self._process_result(r.json())
         else:
-            if not len(proxies) == 0:
+            if len(proxies) != 0:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
-            
+
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             r = http.request('GET', url, fields=payload, headers=HEADERS)
             if(r.status == 429):
@@ -316,8 +316,8 @@ class LoginRadius:
 
     def __submit_json(self, method, url, payload, HEADERS):
         proxies = self._get_proxy()
+        import json
         if self.settings.requests:
-            import json
             if method == 'PUT':
                 r = self.settings.requests.put(
                     url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
@@ -334,8 +334,7 @@ class LoginRadius:
                 return self._process_result(r.json())
 
         else:
-            import json
-            if not len(proxies) == 0:
+            if len(proxies) != 0:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
@@ -353,11 +352,20 @@ class LoginRadius:
         return self.API_SECRET
 
     def _get_proxy(self):
-        if self.IS_PROXY_ENABLE:
-            proxies = {'https': 'https://' + self.USER_NAME + ':' + self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
-        else:
-            proxies = {}
-        return proxies
+        return (
+            {
+                'https': 'https://'
+                + self.USER_NAME
+                + ':'
+                + self.PASSWORD
+                + '@'
+                + self.HOST
+                + ':'
+                + self.PORT
+            }
+            if self.IS_PROXY_ENABLE
+            else {}
+        )
 
     def _process_result(self, result):
         # For now, directly returning the API response
@@ -394,10 +402,10 @@ class LoginRadius:
             if result.get('Sott') is not None:
                 Sott = result.get('Sott')
                 for timeKey, val in Sott.items():
-                    if timeKey == 'StartTime':
-                        now = val
                     if timeKey == 'EndTime':
                         now_plus_10m = val
+                    elif timeKey == 'StartTime':
+                        now = val
             else:
                 now = datetime.utcnow()
                 now = now - timedelta(minutes=5)
