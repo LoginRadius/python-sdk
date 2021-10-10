@@ -52,7 +52,7 @@ Import the class
 ```
  from LoginRadius import LoginRadius as LR
 ```
-When you initialize your application, you will need to set your API Key and  Secret. This can be found in your [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret). 
+When you initialize your application, you will need to set your API Key and Secret. This information can be found in your LoginRadius account as described [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret).
 
 When your Python application initializes, set your API Key and Secret
 
