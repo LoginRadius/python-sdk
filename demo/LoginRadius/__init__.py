@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #################################################
-# Class for Initilizing the LoginRadius Class   #
+# Class for Initializing the LoginRadius Class   #
 #################################################
 # This is the main class to communicate with    #
 # LoginRadius' Unified User Registration API.

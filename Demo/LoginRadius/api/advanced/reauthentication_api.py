@@ -13,7 +13,7 @@ class ReAuthenticationApi:
         self._lr_object = lr_object
 
     def mfa_re_authenticate(self, access_token, sms_template2_f_a=None):
-        """This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
+        """This API is used to trigger the Multi-Factor Authentication workflow for the provided access token
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.

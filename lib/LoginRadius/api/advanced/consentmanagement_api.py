@@ -135,7 +135,7 @@ class ConsentManagementApi:
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            consent_update_model: Model class containg list of multiple consent
+            consent_update_model: Model class containing list of multiple consent
 		
         Returns:
             Response containing consent profile

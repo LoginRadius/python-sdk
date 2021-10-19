@@ -650,7 +650,7 @@ class SocialApi:
             shorturl: short url
 		
         Returns:
-            Response conatining Definition of Validation and Short URL data
+            Response containing Definition of Validation and Short URL data
         37.2
         """
 

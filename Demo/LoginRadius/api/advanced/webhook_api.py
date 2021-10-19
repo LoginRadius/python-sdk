@@ -13,13 +13,13 @@ class WebHookApi:
         self._lr_object = lr_object
 
     def get_web_hook_subscribed_u_r_ls(self, event):
-        """This API is used to fatch all the subscribed URLs, for particular event
+        """This API is used to fetch all the subscribed URLs, for particular event
         
         Args:
             event: Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
 		
         Returns:
-            Response Containing List of Webhhook Data
+            Response Containing List of Webhook Data
         40.1
         """
 
