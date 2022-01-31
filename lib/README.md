@@ -21,18 +21,30 @@ From Package
 Using pip
 
 ```
- pip install loginradius-v2==11.2.0
+ pip install loginradius-v2==11.3.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.2.0
+ easy_install loginradius-v2==11.3.0
 ```
 
 Changelog
 ======
 
+11.3.0
+-----------
+Release on **January 31, 2022**
+## Enhancements
+
+- Added a feature to add ApiKey and ApiSecret directly in LoginRadius manual SOTT generation method.
+- Code optimization for better performance.
+- Added Licence and Contribution Guideline files.
+
+## Breaking Changes
+
+For developers migrating from v11.2.0, there will be 1 minor breaking change in terms of SDK implementation. In this version, we have added a feature to add ApiKey & ApiSecret directly into the manual SOTT generation method `get_sott()`.
 
 11.2.0
 -----------

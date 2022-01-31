@@ -29,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```
- pip install loginradius-v2==11.2.0
+ pip install loginradius-v2==11.3.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.2.0
+ easy_install loginradius-v2==11.3.0
 ```
 
 ### Install From Source
@@ -4250,6 +4250,29 @@ else:
 ```
 
 <br>
+
+### Generate SOTT Manually
+
+SOTT is a secure one-time token that can be created using the API key, API secret, and a timestamp ( start time and end time ). You can manually create a SOTT using the following utility function.
+
+
+```
+timeDifference='10' #(Optional) The time difference will be used to set the expiration time of SOTT, If you do not pass time difference then the default expiration time of SOTT is 10 minutes.
+
+getLRserverTime=False #(Optional) If True it will call LoginRadius Get Server Time Api and fetch basic server information and server time information which is useful when generating an SOTT token.
+
+# The LoginRadius API key and primary API secret can be passed additionally, If the credentials will not be passed then this SOTT function will pick the API credentials from the SDK configuration.  
+
+
+apiKey="" #(Optional) LoginRadius Api Key.
+
+apiSecret = "" # (Optional) LoginRadius Api Secret (Only Primary Api Secret is used to generate the SOTT manually).	
+
+sott_data = loginradius.get_sott(timeDifference, getLRserverTime,apiKey,apiSecret)
+
+print(sott_data)
+```
+
 ## Demo
 We have a demo web application using the Python SDK, which includes the following features:
 

@@ -20,7 +20,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2019, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "11.2.0"
+__version__ = "11.3.0"
 
 import json
 import sys
@@ -219,7 +219,8 @@ class LoginRadius:
         if sys.version_info[0] >= 3:
             key_bytes = bytes(self.get_api_secret(), 'latin-1')
             data_bytes = bytes(signing_str, 'latin-1')
-        dig = hmac.new(key_bytes, msg=data_bytes, digestmod=hashlib.sha256).digest()
+        dig = hmac.new(key_bytes, msg=data_bytes,
+                       digestmod=hashlib.sha256).digest()
         if sys.version_info[0] >= 3:
             return base64.b64encode(dig).decode("utf-8")
         return base64.b64encode(dig)
@@ -243,7 +244,8 @@ class LoginRadius:
                    'Accept-encoding': 'gzip'}
 
         if "access_token" in query_params and "/auth" in resource_url:
-            headers.update({"Authorization": "Bearer " + query_params['access_token']})
+            headers.update({"Authorization": "Bearer " +
+                           query_params['access_token']})
             query_params.pop("access_token")
 
         if "sott" in query_params:
@@ -306,7 +308,7 @@ class LoginRadius:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
-            
+
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             r = http.request('GET', url, fields=payload, headers=HEADERS)
             if(r.status == 429):
@@ -354,7 +356,8 @@ class LoginRadius:
 
     def _get_proxy(self):
         if self.IS_PROXY_ENABLE:
-            proxies = {'https': 'https://' + self.USER_NAME + ':' + self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
+            proxies = {'https': 'https://' + self.USER_NAME + ':' +
+                       self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
         else:
             proxies = {}
         return proxies
@@ -387,10 +390,32 @@ class LoginRadius:
     def get_validation_message(self, field):
         return "Invalid value for field " + str(field)
 
-    def get_sott(self, time='10', getLRserverTime=False):
-        if getLRserverTime:
-            result = self.configuration.get_server_info()
+    #
+    # Function to generate SOTT manually
+    #
+    def get_sott(self, timeDifference='', getLRserverTime=False, apiKey="", apiSecret=""):
 
+        time = '10'
+        secret = self.API_SECRET
+        key = self.API_KEY
+
+        if(not self.is_null_or_whitespace(timeDifference)):
+            time = timeDifference
+
+        if(not self.is_null_or_whitespace(apiSecret)):
+            secret = apiSecret
+
+        if(not self.is_null_or_whitespace(apiKey)):
+            key = apiKey
+
+        now = datetime.utcnow()
+        now = now - timedelta(minutes=0)
+        now_plus_10m = now + timedelta(minutes=int(time))
+        now = now.strftime("%Y/%m/%d %I:%M:%S")
+        now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
+
+        if getLRserverTime:
+            result = self.configuration.get_server_info(time)
             if result.get('Sott') is not None:
                 Sott = result.get('Sott')
                 for timeKey, val in Sott.items():
@@ -398,21 +423,8 @@ class LoginRadius:
                         now = val
                     if timeKey == 'EndTime':
                         now_plus_10m = val
-            else:
-                now = datetime.utcnow()
-                now = now - timedelta(minutes=5)
-                now_plus_10m = now + timedelta(minutes=10)
-                now = now.strftime("%Y/%m/%d %I:%M:%S")
-                now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
 
-        else:
-            now = datetime.utcnow()
-            now = now - timedelta(minutes=5)
-            now_plus_10m = now + timedelta(minutes=10)
-            now = now.strftime("%Y/%m/%d %I:%M:%S")
-            now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
-
-        plaintext = now + "#" + self.API_KEY + "#" + now_plus_10m
+        plaintext = now + "#" + key + "#" + now_plus_10m
         padding = 16 - (len(plaintext) % 16)
         if sys.version_info[0] == 3:
             plaintext += (bytes([padding]) * padding).decode()
@@ -420,7 +432,7 @@ class LoginRadius:
             plaintext += (chr(padding) * padding).decode()
 
         salt = "\0\0\0\0\0\0\0\0"
-        cipher_key = PBKDF2(self.API_SECRET,
+        cipher_key = PBKDF2(secret,
                             salt, 10000).read(self.CONST_KEYSIZE // 8)
 
         if sys.version_info[0] == 3:

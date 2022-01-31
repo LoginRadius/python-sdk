@@ -1,6 +1,20 @@
 # LoginRadius Python SDK Change Log
 
 
+
+
+# Version 11.3.0
+
+## Enhancements
+
+- Added a feature to add ApiKey and ApiSecret directly in LoginRadius manual SOTT generation method.
+- Code optimization for better performance.
+- Added Licence and Contribution Guideline files.
+
+## Breaking Changes
+
+For developers migrating from v11.2.0, there will be 1 minor breaking change in terms of SDK implementation. In this version, we have added a feature to add ApiKey & ApiSecret directly into the manual SOTT generation method `get_sott()`.
+
 # Version 11.2.0
 
 ## Enhancements
