@@ -9,7 +9,7 @@
 # premium or enterprise members only.           #
 # In which case, an exception will be raised.   #
 #################################################
-# Copyright 2019 LoginRadius Inc.               #
+# Copyright 2022 LoginRadius Inc.               #
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
@@ -17,10 +17,10 @@
 #################################################
 
 __author__ = "LoginRadius"
-__copyright__ = "Copyright 2019, LoginRadius"
+__copyright__ = "Copyright 2022, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "11.3.0"
+__version__ = "11.4.0"
 
 import json
 import sys
@@ -156,10 +156,9 @@ class LoginRadius:
         self.social = SocialApi(self)
         if sys.version_info[0] < 3:
             from urllib import quote
-            self.quote = quote
         else:
             from urllib.parse import quote
-            self.quote = quote
+        self.quote = quote
 
     #
     # Internal private functions
@@ -167,20 +166,19 @@ class LoginRadius:
     def _settings(self, library):
         """This sets the name tuple settings to whatever library you want.
         You may change this as you wish."""
-        if LoginRadius.LIBRARY is not None:
+        if not self.is_null_or_whitespace(LoginRadius.LIBRARY):
             if LoginRadius.LIBRARY == "requests":
                 self._set_requests()
             elif LoginRadius.LIBRARY == "urllib3":
                 self._set_urllib3()
             else:
                 raise Exceptions.InvalidLibrary(LoginRadius.LIBRARY)
+        elif library == "requests":
+            self._set_requests()
+        elif library == "urllib3":
+            self._set_urllib3()
         else:
-            if library == "requests":
-                self._set_requests()
-            elif library == "urllib3":
-                self._set_urllib3()
-            else:
-                raise Exceptions.InvalidLibrary(library)
+            raise Exceptions.InvalidLibrary(library)
 
     def _set_requests(self):
         """Change to the requests library to use."""
@@ -276,17 +274,17 @@ class LoginRadius:
         except IOError as e:
             return {
                 'ErrorCode': 105,
-                'Description': e.message
+                'Description': str(e)
             }
         except ValueError as e:
             return {
                 'ErrorCode': 102,
-                'Description': e.message
+                'Description': str(e)
             }
         except Exception as e:
             return {
                 'ErrorCode': 101,
-                'Description': e.message
+                'Description': str(e)
             }
 
     def _get_json(self, url, payload, HEADERS):
@@ -302,7 +300,7 @@ class LoginRadius:
             else:
                 return self._process_result(r.json())
         else:
-            if not len(proxies) == 0:
+            if len(proxies) != 0:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
@@ -316,8 +314,8 @@ class LoginRadius:
 
     def __submit_json(self, method, url, payload, HEADERS):
         proxies = self._get_proxy()
+        import json
         if self.settings.requests:
-            import json
             if method == 'PUT':
                 r = self.settings.requests.put(
                     url, proxies=proxies, data=json.dumps(payload), headers=HEADERS)
@@ -334,8 +332,7 @@ class LoginRadius:
                 return self._process_result(r.json())
 
         else:
-            import json
-            if not len(proxies) == 0:
+            if len(proxies) != 0:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
@@ -390,7 +387,7 @@ class LoginRadius:
     #
     # Function to generate SOTT manually
     #
-    def get_sott(self, timeDifference='', getLRserverTime=False, apiKey="", apiSecret=""):
+    def get_sott(self, timeDifference='', getLRserverTime=False, apiKey="", apiSecret="", startTime="", endTime=""):
     
         time = '10'
         secret = self.API_SECRET
@@ -411,7 +408,10 @@ class LoginRadius:
         now = now.strftime("%Y/%m/%d %I:%M:%S")
         now_plus_10m = now_plus_10m.strftime("%Y/%m/%d %I:%M:%S")
 
-        if getLRserverTime:
+        if(not self.is_null_or_whitespace(startTime) and not self.is_null_or_whitespace(endTime)):
+            now = startTime
+            now_plus_10m = endTime
+        elif getLRserverTime:
             result = self.configuration.get_server_info(time)
             if result.get('Sott') is not None:
                 Sott = result.get('Sott')
@@ -420,7 +420,6 @@ class LoginRadius:
                         now = val
                     if timeKey == 'EndTime':
                         now_plus_10m = val
-
         plaintext = now + "#" + key + "#" + now_plus_10m
         padding = 16 - (len(plaintext) % 16)
         if sys.version_info[0] == 3:

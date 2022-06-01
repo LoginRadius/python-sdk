@@ -1,6 +1,13 @@
 # LoginRadius Python SDK Change Log
 
 
+# Version 11.4.0
+
+## Enhancements
+
+- Added additional parameter `startTime` and `endTime`  in LoginRadius manual SOTT generation method `get_sott()`.
+- Enhancement in `README.md` file.
+- Code optimization for better performance.
 
 
 # Version 11.3.0
