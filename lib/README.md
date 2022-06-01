@@ -21,17 +21,27 @@ From Package
 Using pip
 
 ```
- pip install loginradius-v2==11.3.0
+ pip install loginradius-v2==11.4.0
 ```
 
 or with easy_install
 
 ```
- easy_install loginradius-v2==11.3.0
+ easy_install loginradius-v2==11.4.0
 ```
 
 Changelog
 ======
+
+11.4.0
+-----------
+Release on **June 3, 2022**
+## Enhancements
+
+- Added additional parameter `startTime` and `endTime`  in LoginRadius manual SOTT generation method `get_sott()`.
+- Enhancement in `README.md` file.
+- Code optimization for better performance.
+
 
 11.3.0
 -----------
