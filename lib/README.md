@@ -41,7 +41,7 @@ Release on **January 20, 2023**
 
 - Added `email_template` parameter in `user_registration_by_phone` Api
 
-## Removed (Depricated) APIs:
+## Removed (Deprecated) APIs:
 - `auth_get_registration_data`
 - `validate_registration_data_code`
 - `get_registration_data`
