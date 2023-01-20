@@ -207,27 +207,6 @@ class NativeSocialApi:
         resource_path = "api/v2/access_token/wechat"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def get_access_token_by_vkontakte_access_token(self, vk_access_token):
-        """The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.
-        
-        Args:
-            vk_access_token: Vkontakte Access Token
-		
-        Returns:
-            Response containing Definition of Complete Token data
-        20.15
-        """
-
-        if(self._lr_object.is_null_or_whitespace(vk_access_token)):
-            raise Exception(self._lr_object.get_validation_message("vk_access_token"))
-
-        query_parameters = {}
-        query_parameters["key"] = self._lr_object.get_api_key()
-        query_parameters["vk_access_token"] = vk_access_token
-
-        resource_path = "api/v2/access_token/vkontakte"
-        return self._lr_object.execute("GET", resource_path, query_parameters, {})
-
     def get_access_token_by_google_auth_code(self, google_authcode, social_app_name=None):
         """The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
         

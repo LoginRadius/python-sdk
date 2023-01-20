@@ -281,7 +281,8 @@ class PhoneAuthenticationApi:
         return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def user_registration_by_phone(self, auth_user_registration_model, sott, fields='',
-        options='', sms_template=None, verification_url=None, welcome_email_template=None):
+        options='', sms_template=None, verification_url=None, welcome_email_template=None,
+        email_template=None,):
         """This API registers the new users into your Cloud Storage and triggers the phone verification process.
         
         Args:
@@ -292,6 +293,7 @@ class PhoneAuthenticationApi:
             sms_template: SMS Template name
             verification_url: Email verification url
             welcome_email_template: Name of the welcome email template
+            email_template: Name of the email template
 		
         Returns:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
@@ -316,6 +318,8 @@ class PhoneAuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
+        if(not self._lr_object.is_null_or_whitespace(email_template)):
+            query_parameters["emailTemplate"] = email_template
 
         resource_path = "identity/v2/auth/register"
         return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model)

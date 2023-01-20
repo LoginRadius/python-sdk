@@ -1,5 +1,47 @@
 # LoginRadius Python SDK Change Log
 
+# Version 11.5.0
+
+## Enhancements
+
+- Added `email_template` parameter in `user_registration_by_phone` Api
+
+## Removed (Depricated) APIs:
+- `auth_get_registration_data`
+- `validate_registration_data_code`
+- `get_registration_data`
+- `add_registration_data`
+- `update_registration_data`
+- `delete_registration_data`
+- `delete_all_records_by_data_source`
+- `get_access_token_by_vkontakte_access_token`
+- `get_albums`
+- `get_albums_with_cursor`
+- `get_audios`
+- `get_audios_with_cursor`
+- `get_check_ins`
+- `get_check_ins_with_cursor`
+- `get_contacts`
+- `get_events`
+- `get_events_with_cursor`
+- `get_followings`
+- `get_followings_with_cursor`
+- `get_groups`
+- `get_groups_with_cursor`
+- `get_likes`
+- `get_likes_with_cursor`
+- `get_mentions`
+- `post_message`
+- `get_page`
+- `get_photos`
+- `get_posts`
+- `status_posting`
+- `trackable_status_posting`
+- `get_trackable_status_stats`
+- `trackable_status_fetching`
+- `get_videos`
+- `get_refreshed_social_user_profile`
+
 
 # Version 11.4.0
 

@@ -20,7 +20,7 @@ __author__ = "LoginRadius"
 __copyright__ = "Copyright 2022, LoginRadius"
 __email__ = "developers@loginradius.com"
 __status__ = "Production"
-__version__ = "11.4.0"
+__version__ = "11.5.0"
 
 import json
 import sys
@@ -53,7 +53,6 @@ from LoginRadius.api.account.role_api import RoleApi
 from LoginRadius.api.account.sott_api import SottApi
 # Advance APIs
 from LoginRadius.api.advanced.customobject_api import CustomObjectApi
-from LoginRadius.api.advanced.customregistrationdata_api import CustomRegistrationDataApi
 from LoginRadius.api.advanced.multifactorauthentication_api import MultiFactorAuthenticationApi
 from LoginRadius.api.advanced.configuration_api import ConfigurationApi
 from LoginRadius.api.advanced.webhook_api import WebHookApi
@@ -146,7 +145,6 @@ class LoginRadius:
         self.sott = SottApi(self)
 
         self.custom_object = CustomObjectApi(self)
-        self.custom_registration_data = CustomRegistrationDataApi(self)
         self.mfa = MultiFactorAuthenticationApi(self)
         self.configuration = ConfigurationApi(self)
         self.web_hook = WebHookApi(self)
