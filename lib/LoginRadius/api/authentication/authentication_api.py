@@ -221,7 +221,7 @@ class AuthenticationApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def update_profile_by_access_token(self, access_token, user_profile_update_model, email_template=None,
-        fields='', null_support=None, sms_template=None, verification_url=None):
+        fields='', null_support=None, sms_template=None, verification_url=None, is_voice_otp=False, options=''):
         """This API is used to update the user's profile by passing the access token.
         
         Args:
@@ -232,6 +232,8 @@ class AuthenticationApi:
             null_support: Boolean, pass true if you wish to update any user profile field with a NULL value, You can get the details
             sms_template: SMS Template name
             verification_url: Email verification url
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
+            options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
 		
         Returns:
             Response containing Definition of Complete Validation and UserProfile data
@@ -256,6 +258,10 @@ class AuthenticationApi:
             query_parameters["smsTemplate"] = sms_template
         if(not self._lr_object.is_null_or_whitespace(verification_url)):
             query_parameters["verificationUrl"] = verification_url
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
 
         resource_path = "identity/v2/auth/account"
         return self._lr_object.execute("PUT", resource_path, query_parameters, user_profile_update_model)
@@ -388,7 +394,7 @@ class AuthenticationApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def verify_email(self, verification_token, fields='', url=None,
-        welcome_email_template=None):
+        welcome_email_template=None, uuid=None):
         """This API is used to verify the email of user. Note: This API will only return the full profile if you have 'Enable auto login after email verification' set in your LoginRadius Admin Console's Email Workflow settings under 'Verification Email'.
         
         Args:
@@ -396,6 +402,7 @@ class AuthenticationApi:
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
             url: Mention URL to log the main URL(Domain name) in Database.
             welcome_email_template: Name of the welcome email template
+            uuid: The uuid received in the response
 		
         Returns:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
@@ -414,6 +421,8 @@ class AuthenticationApi:
             query_parameters["url"] = url
         if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
+        if(not self._lr_object.is_null_or_whitespace(uuid)):
+            query_parameters["uuid"] = uuid
 
         resource_path = "identity/v2/auth/email"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
@@ -941,7 +950,8 @@ class AuthenticationApi:
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
     def user_registration_by_email(self, auth_user_registration_model, sott, email_template=None,
-        fields='', options='', verification_url=None, welcome_email_template=None):
+        fields='', options='', verification_url=None, welcome_email_template=None,
+        is_voice_otp=False):
         """This API creates a user in the database as well as sends a verification email to the user.
         
         Args:
@@ -952,6 +962,7 @@ class AuthenticationApi:
             options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
             verification_url: Email verification url
             welcome_email_template: Name of the welcome email template
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
@@ -976,12 +987,15 @@ class AuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/register"
         return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model)
 
     def user_registration_by_captcha(self, auth_user_registration_model_with_captcha, email_template=None, fields='',
-        options='', sms_template=None, verification_url=None, welcome_email_template=None):
+        options='', sms_template=None, verification_url=None, welcome_email_template=None,
+        is_voice_otp=False):
         """This API creates a user in the database as well as sends a verification email to the user.
         
         Args:
@@ -992,6 +1006,7 @@ class AuthenticationApi:
             sms_template: SMS Template name
             verification_url: Email verification url
             welcome_email_template: Name of the welcome email template
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
@@ -1014,6 +1029,8 @@ class AuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(welcome_email_template)):
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/register/captcha"
         return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model_with_captcha)
@@ -1046,3 +1063,29 @@ class AuthenticationApi:
 
         resource_path = "identity/v2/auth/register"
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
+
+    def auth_send_verification_email_for_linking_social_profiles(self, access_token, clientguid):
+        """This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow.
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            clientguid: Unique string used in the Smart Login request
+		
+        Returns:
+            Response containing Definition for Complete AuthSendVerificationEmailForLinkingSocialProfiles API Response
+        44.9
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+
+        if(self._lr_object.is_null_or_whitespace(clientguid)):
+            raise Exception(self._lr_object.get_validation_message("clientguid"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["clientguid"] = clientguid
+
+        resource_path = "identity/v2/auth/email/sendverificationemail"
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

@@ -12,12 +12,12 @@ class MultiFactorAuthenticationApi:
         """
         self._lr_object = lr_object
 
-    def mfa_configure_by_access_token(self, access_token, sms_template2_f_a=None):
+    def mfa_configure_by_access_token(self, access_token, is_voice_otp=None):
         """This API is used to configure the Multi-factor authentication after login by using the access token when MFA is set as optional on the LoginRadius site.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            sms_template2_f_a: SMS Template Name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Multi-Factor Authentication Settings data
@@ -30,8 +30,8 @@ class MultiFactorAuthenticationApi:
         query_parameters = {}
         query_parameters["access_token"] = access_token
         query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
-            query_parameters["smsTemplate2FA"] = sms_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/account/2fa"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
@@ -63,44 +63,15 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/account/2fa/verification/otp"
         return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_with_lockout)
 
-    def mfa_update_by_access_token(self, access_token, multi_factor_auth_model_by_google_authenticator_code, fields='',
-        sms_template=None):
-        """This API is used to Enable Multi-factor authentication by access token on user login
-        
-        Args:
-            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            multi_factor_auth_model_by_google_authenticator_code: Model Class containing Definition of payload for MultiFactorAuthModel By GoogleAuthenticator Code API
-            fields: The fields parameter filters the API response so that the response only includes a specific set of fields
-            sms_template: SMS Template name
-		
-        Returns:
-            Response containing Definition for Complete profile data
-        5.10
-        """
-
-        if(self._lr_object.is_null_or_whitespace(access_token)):
-            raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(multi_factor_auth_model_by_google_authenticator_code is None):
-            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_google_authenticator_code"))
-
-        query_parameters = {}
-        query_parameters["access_token"] = access_token
-        query_parameters["apiKey"] = self._lr_object.get_api_key()
-        if(not self._lr_object.is_null_or_whitespace(fields)):
-            query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(sms_template)):
-            query_parameters["smsTemplate"] = sms_template
-
-        resource_path = "identity/v2/auth/account/2fa/verification/googleauthenticatorcode"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_google_authenticator_code)
-
-    def mfa_update_phone_number_by_token(self, access_token, phone_no2_f_a, sms_template2_f_a=None):
+    def mfa_update_phone_number_by_token(self, access_token, phone_no2_f_a, sms_template2_f_a=None, is_voice_otp=False, options=''):
         """This API is used to update the Multi-factor authentication phone number by sending the verification OTP to the provided phone number
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             phone_no2_f_a: Phone Number For 2FA
             sms_template2_f_a: SMS Template Name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
+            options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
 		
         Returns:
             Response containing Definition for Complete SMS data
@@ -118,19 +89,22 @@ class MultiFactorAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
-
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
         body_parameters = {}
         body_parameters["phoneNo2FA"] = phone_no2_f_a
 
         resource_path = "identity/v2/auth/account/2fa"
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
-    def mfa_reset_google_auth_by_token(self, access_token, googleauthenticator):
-        """This API Resets the Google Authenticator configurations on a given account via the access token
+    def mfa_reset_authenticator_by_token(self, access_token, authenticator):
+        """This API Resets the Authenticator configurations on a given account via the access_token.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            googleauthenticator: boolean type value,Enable google Authenticator Code.
+            authenticator: Pass true to remove Authenticator.
 		
         Returns:
             Response containing Definition of Delete Request
@@ -145,7 +119,7 @@ class MultiFactorAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
 
         body_parameters = {}
-        body_parameters["googleauthenticator"] = googleauthenticator
+        body_parameters["authenticator"] = authenticator
 
         resource_path = "identity/v2/auth/account/2fa/authenticator"
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
@@ -337,8 +311,8 @@ class MultiFactorAuthenticationApi:
         return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
 
     def mfa_login_by_email(self, email, password, email_template=None, fields='',
-        login_url=None, sms_template=None,sms_template2_f_a=None, 
-        verification_url=None,email_template2_f_a=None):
+        login_url=None, sms_template=None,sms_template2_f_a=None,
+        verification_url=None,email_template2_f_a=None, is_voice_otp=False, options=''):
         """This API can be used to login by emailid on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -351,8 +325,9 @@ class MultiFactorAuthenticationApi:
             sms_template2_f_a: SMS Template Name
             verification_url: Email verification url
             email_template2_f_a: 2FA Email Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
+		    options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
 
-		
         Returns:
             Complete user UserProfile data
         9.8.1
@@ -380,6 +355,10 @@ class MultiFactorAuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
             query_parameters["emailTemplate2FA"] = email_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
 
         body_parameters = {}
         body_parameters["email"] = email
@@ -390,7 +369,7 @@ class MultiFactorAuthenticationApi:
 
     def mfa_login_by_user_name(self, password, username, email_template=None, fields='',
         login_url=None, sms_template=None,sms_template2_f_a=None,
-        verification_url=None, email_template2_f_a=None):
+        verification_url=None, email_template2_f_a=None, is_voice_otp=False):
         """This API can be used to login by username on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -403,7 +382,7 @@ class MultiFactorAuthenticationApi:
             sms_template2_f_a: SMS Template Name
             verification_url: Email verification url
             email_template2_f_a: 2FA Email Template name
-
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Complete user UserProfile data
@@ -432,6 +411,8 @@ class MultiFactorAuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
             query_parameters["emailTemplate2FA"] = email_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["password"] = password
@@ -442,7 +423,7 @@ class MultiFactorAuthenticationApi:
 
     def mfa_login_by_phone(self, password, phone, email_template=None,
         fields='', login_url=None, sms_template=None,sms_template2_f_a=None,
-        verification_url=None, email_template2_f_a=None,):
+        verification_url=None, email_template2_f_a=None, is_voice_otp=False, options=''):
         """This API can be used to login by Phone on a Multi-factor authentication enabled LoginRadius site.
         
         Args:
@@ -456,6 +437,8 @@ class MultiFactorAuthenticationApi:
             verification_url: Email verification url
             email_template2_f_a: 2FA Email Template name
 
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
+            options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
 		
         Returns:
             Complete user UserProfile data
@@ -484,6 +467,10 @@ class MultiFactorAuthenticationApi:
             query_parameters["verificationUrl"] = verification_url
         if(not self._lr_object.is_null_or_whitespace(email_template2_f_a)):
             query_parameters["emailTemplate2FA"] = email_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
 
         body_parameters = {}
         body_parameters["password"] = password
@@ -536,50 +523,6 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa/verification/otp"
         return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_with_lockout)
 
-    def mfa_validate_google_auth_code(self, google_authenticator_code, second_factor_authentication_token, fields='',
-        rba_browser_email_template=None, rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
-        """This API is used to login via Multi-factor-authentication by passing the google authenticator code.
-        
-        Args:
-            google_authenticator_code: The code generated by google authenticator app after scanning QR code
-            second_factor_authentication_token: SecondFactorAuthenticationToken
-            fields: The fields parameter filters the API response so that the response only includes a specific set of fields
-            rba_browser_email_template: RbaBrowserEmailTemplate
-            rba_city_email_template: RbaCityEmailTemplate
-            rba_country_email_template: RbaCountryEmailTemplate
-            rba_ip_email_template: RbaIpEmailTemplate
-		
-        Returns:
-            Complete user UserProfile data
-        9.13
-        """
-
-        if(self._lr_object.is_null_or_whitespace(google_authenticator_code)):
-            raise Exception(self._lr_object.get_validation_message("google_authenticator_code"))
-
-        if(self._lr_object.is_null_or_whitespace(second_factor_authentication_token)):
-            raise Exception(self._lr_object.get_validation_message("second_factor_authentication_token"))
-
-        query_parameters = {}
-        query_parameters["apiKey"] = self._lr_object.get_api_key()
-        query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
-        if(not self._lr_object.is_null_or_whitespace(fields)):
-            query_parameters["fields"] = fields
-        if(not self._lr_object.is_null_or_whitespace(rba_browser_email_template)):
-            query_parameters["rbaBrowserEmailTemplate"] = rba_browser_email_template
-        if(not self._lr_object.is_null_or_whitespace(rba_city_email_template)):
-            query_parameters["rbaCityEmailTemplate"] = rba_city_email_template
-        if(not self._lr_object.is_null_or_whitespace(rba_country_email_template)):
-            query_parameters["rbaCountryEmailTemplate"] = rba_country_email_template
-        if(not self._lr_object.is_null_or_whitespace(rba_ip_email_template)):
-            query_parameters["rbaIpEmailTemplate"] = rba_ip_email_template
-
-        body_parameters = {}
-        body_parameters["googleAuthenticatorCode"] = google_authenticator_code
-
-        resource_path = "identity/v2/auth/login/2fa/verification/googleauthenticatorcode"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
-
     def mfa_validate_backup_code(self, multi_factor_auth_model_by_backup_code, second_factor_authentication_token, fields='',
         rba_browser_email_template=None, rba_city_email_template=None, rba_country_email_template=None, rba_ip_email_template=None):
         """This API is used to validate the backup code provided by the user and if valid, we return an access token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically
@@ -620,13 +563,15 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa/verification/backupcode"
         return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_backup_code)
 
-    def mfa_update_phone_number(self, phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a=None):
+    def mfa_update_phone_number(self, phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a=None, is_voice_otp=False, options=''):
         """This API is used to update (if configured) the phone number used for Multi-factor authentication by sending the verification OTP to the provided phone number
         
         Args:
             phone_no2_f_a: Phone Number For 2FA
             second_factor_authentication_token: A Uniquely generated MFA identifier token after successful authentication
             sms_template2_f_a: SMS Template Name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
+            options: PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
 		
         Returns:
             Response containing Definition for Complete SMS data
@@ -644,6 +589,10 @@ class MultiFactorAuthenticationApi:
         query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
         if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
 
         body_parameters = {}
         body_parameters["phoneNo2FA"] = phone_no2_f_a
@@ -651,12 +600,13 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/auth/login/2fa"
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
-    def mfa_resend_otp(self, second_factor_authentication_token, sms_template2_f_a=None):
+    def mfa_resend_otp(self, second_factor_authentication_token, sms_template2_f_a=None, is_voice_otp=False):
         """This API is used to resending the verification OTP to the provided phone number
         
         Args:
             second_factor_authentication_token: A Uniquely generated MFA identifier token after successful authentication
             sms_template2_f_a: SMS Template Name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition for Complete SMS data
@@ -671,6 +621,8 @@ class MultiFactorAuthenticationApi:
         query_parameters["secondFactorAuthenticationToken"] = second_factor_authentication_token
         if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/login/2fa/resend"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
@@ -826,11 +778,11 @@ class MultiFactorAuthenticationApi:
         resource_path = "identity/v2/manage/account/2fa/authenticator"
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
 
-    def mfa_reset_google_authenticator_by_uid(self, googleauthenticator, uid):
-        """This API resets the Google Authenticator configurations on a given account via the UID.
+    def mfa_reset_authenticator_by_uid(self, authenticator, uid):
+        """This API resets the Authenticator configurations on a given account via the UID.
         
         Args:
-            googleauthenticator: boolean type value,Enable google Authenticator Code.
+            authenticator: Pass true to remove Authenticator.
             uid: UID, the unified identifier for each user account
 		
         Returns:
@@ -847,7 +799,7 @@ class MultiFactorAuthenticationApi:
         query_parameters["uid"] = uid
 
         body_parameters = {}
-        body_parameters["googleauthenticator"] = googleauthenticator
+        body_parameters["authenticator"] = authenticator
 
         resource_path = "identity/v2/manage/account/2fa/authenticator"
         return self._lr_object.execute("DELETE", resource_path, query_parameters, body_parameters)
@@ -939,3 +891,57 @@ class MultiFactorAuthenticationApi:
 
         resource_path = "identity/v2/manage/account/2fa/authenticator/securityquestionanswer"
         return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def mfa_validate_authenticator_code(self, multi_factor_auth_model_by_authenticator_code, secondfactorauthenticationtoken, fields=''):
+        """This API is used to login to a user's account during the second MFA step with an Authenticator Code.
+        
+        Args:
+            multi_factor_auth_model_by_authenticator_code: Model Class containing Definition of payload for MultiFactorAuthModel By Authenticator Code API
+            secondfactorauthenticationtoken: A Uniquely generated MFA identifier token after successful authentication
+            fields: The fields parameter filters the API response so that the response only includes a specific set of fields
+		
+        Returns:
+            Complete user UserProfile data
+        44.7
+        """
+        if(multi_factor_auth_model_by_authenticator_code is None):
+            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_authenticator_code"))
+
+        if(self._lr_object.is_null_or_whitespace(secondfactorauthenticationtoken)):
+            raise Exception(self._lr_object.get_validation_message("secondfactorauthenticationtoken"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["secondfactorauthenticationtoken"] = secondfactorauthenticationtoken
+        if(not self._lr_object.is_null_or_whitespace(fields)):
+            query_parameters["fields"] = fields
+
+        resource_path = "identity/v2/auth/login/2fa/verification/authenticatorcode"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_authenticator_code)
+
+    def mfa_verify_authenticator_code(self, access_token, multi_factor_auth_model_by_authenticator_code_security_answer, fields=''):
+        """This API is used to validate an Authenticator Code as part of the MFA process.
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            multi_factor_auth_model_by_authenticator_code_security_answer: Model Class containing Definition of payload for MultiFactorAuthModel By Authenticator Code API with security answer
+            fields: The fields parameter filters the API response so that the response only includes a specific set of fields
+		
+        Returns:
+            Complete user UserProfile data
+        44.8
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+        if(multi_factor_auth_model_by_authenticator_code_security_answer is None):
+            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_authenticator_code_security_answer"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        if(not self._lr_object.is_null_or_whitespace(fields)):
+            query_parameters["fields"] = fields
+
+        resource_path = "identity/v2/auth/account/2fa/verification/authenticatorcode"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_authenticator_code_security_answer)

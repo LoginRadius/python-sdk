@@ -100,7 +100,7 @@ class NativeSocialApi:
         """This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.
         
         Args:
-            id__token: Google JWT id_token
+            id__token: Custom JWT Token
 		
         Returns:
             Response containing Definition of Complete Token data
@@ -229,4 +229,30 @@ class NativeSocialApi:
             query_parameters["socialAppName"] = social_app_name
 
         resource_path = "api/v2/access_token/google"
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def access_token_via_custom_j_w_t_token(self, id__token, providername):
+        """This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.
+        
+        Args:
+            id__token: Custom JWT Token
+            providername: JWT Provider Name
+		
+        Returns:
+            Response containing Definition of Complete Token data
+        44.3
+        """
+
+        if(self._lr_object.is_null_or_whitespace(id__token)):
+            raise Exception(self._lr_object.get_validation_message("id__token"))
+
+        if(self._lr_object.is_null_or_whitespace(providername)):
+            raise Exception(self._lr_object.get_validation_message("providername"))
+
+        query_parameters = {}
+        query_parameters["id_Token"] = id__token
+        query_parameters["key"] = self._lr_object.get_api_key()
+        query_parameters["providername"] = providername
+
+        resource_path = "api/v2/access_token/jwt"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
