@@ -2,7 +2,7 @@
 
 # Version 11.6.0
 
-Release on **July 02, 2024**
+Release on **July 16, 2024**
 
 ## Added following APIs:
 - `mfa_validate_authenticator_code`
