@@ -5,55 +5,55 @@
 Release on **July 02, 2024**
 
 ## Added following APIs:
-- `MFAValidateAuthenticatorCode`
-- `MFAVerifyAuthenticatorCode`
-- `RevokeAllRefreshToken `
-- `MultipurposeEmailTokenGeneration`
-- `MultipurposeSMSOTPGeneration`
-- `MFAReAuthenticateByAuthenticatorCode`
-- `AuthSendVerificationEmailForLinkingSocialProfiles `
-- `SlidingAccessToken`
-- `AccessTokenViaCustomJWTToken`
-- `MFAResetAuthenticatorByToken`
-- `MFAResetAuthenticatorByUid`
+- `mfa_validate_authenticator_code`
+- `mfa_verify_authenticator_code`
+- `revoke_all_refresh_token `
+- `multipurpose_email_token_generation`
+- `multipurpose_sms_otp_generation`
+- `mfa_re_authenticate_by_authenticator_code`
+- `auth_send_verification_email_for_linking_social_profiles `
+- `sliding_access_token`
+- `access_token_via_custom_j_w_t_token`
+- `mfa_reset_authenticator_by_token`
+- `mfa_reset_authenticator_by_uid`
 
 ## Enhancements
-- Added `isVoiceOtp` parameter in `ResetPhoneIDVerificationByUid` API
-- Added `isVoiceOtp` parameter in `MFAConfigureByAccessToken` API
-- Added `isVoiceOtp` and `options` parameter in `MFAUpdatePhoneNumberByToken` API
-- Added `isVoiceOtp`, `emailTemplate2FA` and `options` parameter in `MFALoginByEmail` API
-- Added `isVoiceOtp` and `emailTemplate2FA` parameter in `MFALoginByUserName` API
-- Added `isVoiceOtp` , `emailTemplate2FA` and `options` parameter in `MFALoginByPhone` API
-- Added `isVoiceOtp` and `options` parameter in `MFAUpdatePhoneNumber` API
-- Added `isVoiceOtp` parameter in `MFAResendOTP` API
-- Added `isVoiceOtp` parameter in `MFAReAuthenticate` API
-- Added `isVoiceOtp` and `options` parameter in `UpdateProfileByAccessToken` API
-- Added `isVoiceOtp` parameter in `UserRegistrationByEmail` API
-- Added `isVoiceOtp` parameter in `UserRegistrationByCaptcha` API
-- Added `isVoiceOtp` parameter in `OneTouchLoginByPhone` API
-- Added `isVoiceOtp` parameter in `PasswordlessLoginPhoneVerification` API
-- Added `isVoiceOtp` parameter in `PasswordlessLoginByPhone` API
-- Added `isVoiceOtp` parameter in `ForgotPasswordByPhoneOTP` API
-- Added `isVoiceOtp` parameter in `PhoneVerificationByOTP` API
-- Added `isVoiceOtp` parameter in `PhoneVerificationOTPByAccessToken` API
-- Added `isVoiceOtp` parameter in `PhoneResendVerificationOTP` API
-- Added `isVoiceOtp` parameter in `UpdatePhoneNumber` API
-- Added `isVoiceOtp` and `emailTemplate` parameter in `UserRegistrationByPhone` API
-- Added `isVoiceOtp` parameter in `SendForgotPINSMSByPhone` API
-- Added `uuid` parameter in `VerifyEmail` API
+- Added `is_voice_otp` parameter in `reset_phone_id_verification_by_uid` API
+- Added `is_voice_otp` parameter in `mfa_configure_by_access_token` API
+- Added `is_voice_otp` and `options` parameter in `mfa_update_phone_number_by_token` API
+- Added `is_voice_otp`, `email_template2_f_a` and `options` parameter in `mfa_login_by_email` API
+- Added `is_voice_otp` and `email_template2_f_a` parameter in `mfa_login_by_user_name` API
+- Added `is_voice_otp` , `email_template2_f_a` and `options` parameter in `mfa_login_by_phone` API
+- Added `is_voice_otp` and `options` parameter in `mfa_update_phone_number` API
+- Added `is_voice_otp` parameter in `mfa_resend_otp` API
+- Added `is_voice_otp` parameter in `mfa_re_authenticate` API
+- Added `is_voice_otp` and `options` parameter in `update_profile_by_access_token` API
+- Added `is_voice_otp` parameter in `user_registration_by_email` API
+- Added `is_voice_otp` parameter in `user_registration_by_captcha` API
+- Added `is_voice_otp` parameter in `one_touch_login_by_phone` API
+- Added `is_voice_otp` parameter in `passwordless_login_phone_verification` API
+- Added `is_voice_otp` parameter in `passwordless_login_by_phone` API
+- Added `is_voice_otp` parameter in `forgot_password_by_phone_otp` API
+- Added `is_voice_otp` parameter in `phone_verification_by_otp` API
+- Added `is_voice_otp` parameter in `phone_verification_otp_by_access_token` API
+- Added `is_voice_otp` parameter in `phone_resend_verification_otp` API
+- Added `is_voice_otp` parameter in `update_phone_number` API
+- Added `is_voice_otp` and `email_template` parameter in `user_registration_by_phone` API
+- Added `is_voice_otp` parameter in `send_forgot_pin_sms_by_phone` API
+- Added `uuid` parameter in `verify_email` API
 
 ## Removed the following parameter
 
--`smsTemplate2FA` parameter in `MFAConfigureByAccessToken` API
+-`sms_template` parameter in `mfa_configure_by_access_token` API
 
 
 
 ## Removed (Deprecated) APIs:
-- `MFAValidateGoogleAuthCode`
-- `MFAReAuthenticateByGoogleAuth`
-- `MFAResetGoogleAuthByToken `
-- `MFAResetGoogleAuthenticatorByUid`
-- `MFAUpdateByAccessToken`
+- `mfa_validate_google_auth_code`
+- `mfa_re_authenticate_by_google_auth`
+- `mfa_reset_google_auth_by_token `
+- `mfa_reset_google_authenticator_by_uid`
+- `mfa_update_by_access_token`
 
 # Version 11.5.0
 

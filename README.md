@@ -1641,8 +1641,8 @@ result = loginradius.phone_authentication.phone_verification_otp_by_access_token
 access_token = "<access_token>" #Required 
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
-
-result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template)
+is_voice_otp = "True" #Optional
+result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template,is_voice_otp)
  ```
  
   
