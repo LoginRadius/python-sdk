@@ -2051,7 +2051,7 @@ email_template2_f_a = "<email_template2_f_a>" #Optional
 is_voice_otp = "True" #Optional
 options = "<options>" #Optional 
 
-result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,,email_template2_f_a, is_voice_otp,options)
+result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp,options)
  ```
  
   
