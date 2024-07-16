@@ -2326,7 +2326,7 @@ This API resets the Google Authenticator configurations on a given account via t
 
  ```py
   
-authenticator = "True" #Required 
+authenticator = True #Required 
 uid = "<uid>" #Required
 
 result = loginradius.mfa.mfa_reset_authenticator_by_uid(authenticator, uid)
