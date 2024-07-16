@@ -47,6 +47,8 @@ from LoginRadius.api.authentication.phoneauthentication_api import PhoneAuthenti
 from LoginRadius.api.authentication.riskbasedauthentication_api import RiskBasedAuthenticationApi
 from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
 from LoginRadius.api.authentication.pinauthentication_api import PINAuthenticationApi
+from LoginRadius.api.authentication.slidingtoken_api import SlidingTokenApi
+
 # Account APIs
 from LoginRadius.api.account.account_api import AccountApi
 from LoginRadius.api.account.role_api import RoleApi
@@ -62,6 +64,7 @@ from LoginRadius.api.advanced.consentmanagement_api import ConsentManagementApi
 # Social APIs
 from LoginRadius.api.social.nativesocial_api import NativeSocialApi
 from LoginRadius.api.social.social_api import SocialApi
+
 # exception
 from LoginRadius.exceptions import Exceptions
 
@@ -139,6 +142,7 @@ class LoginRadius:
         self.phone_authentication = PhoneAuthenticationApi(self)
         self.pin_authentication = PINAuthenticationApi(self)
         self.consent_management = ConsentManagementApi(self)
+        self.sliding_token = SlidingTokenApi(self)
 
         self.account = AccountApi(self)
         self.role = RoleApi(self)
@@ -215,8 +219,7 @@ class LoginRadius:
         if sys.version_info[0] >= 3:
             key_bytes = bytes(self.get_api_secret(), 'latin-1')
             data_bytes = bytes(signing_str, 'latin-1')
-        dig = hmac.new(key_bytes, msg=data_bytes,
-                       digestmod=hashlib.sha256).digest()
+        dig = hmac.new(key_bytes, msg=data_bytes, digestmod=hashlib.sha256).digest()
         if sys.version_info[0] >= 3:
             return base64.b64encode(dig).decode("utf-8")
         return base64.b64encode(dig)
@@ -240,8 +243,7 @@ class LoginRadius:
                    'Accept-encoding': 'gzip'}
 
         if "access_token" in query_params and "/auth" in resource_url:
-            headers.update({"Authorization": "Bearer " +
-                           query_params['access_token']})
+            headers.update({"Authorization": "Bearer " + query_params['access_token']})
             query_params.pop("access_token")
 
         if "sott" in query_params:
@@ -304,7 +306,7 @@ class LoginRadius:
                 http = urllib3.ProxyManager(proxies['https'])
             else:
                 http = urllib3.PoolManager()
-
+            
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             r = http.request('GET', url, fields=payload, headers=HEADERS)
             if(r.status == 429):
@@ -351,8 +353,7 @@ class LoginRadius:
 
     def _get_proxy(self):
         if self.IS_PROXY_ENABLE:
-            proxies = {'https': 'https://' + self.USER_NAME + ':' +
-                       self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
+            proxies = {'https': 'https://' + self.USER_NAME + ':' + self.PASSWORD + '@' + self.HOST + ':' + self.PORT}
         else:
             proxies = {}
         return proxies
@@ -389,7 +390,7 @@ class LoginRadius:
     # Function to generate SOTT manually
     #
     def get_sott(self, timeDifference='', getLRserverTime=False, apiKey="", apiSecret="", startTime="", endTime=""):
-
+    
         time = '10'
         secret = self.API_SECRET
         key = self.API_KEY

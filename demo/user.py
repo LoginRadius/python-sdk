@@ -62,7 +62,7 @@ def custom_object():
 
 @user.route("/mfa/reset", methods=['DELETE'])
 def reset_mfa():
-	res = loginradius.mfa.mfa_reset_google_authenticator_by_uid(True, request.args['uid'])
+	res = loginradius.mfa.mfa_reset_authenticator_by_uid(True, request.args['uid'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:

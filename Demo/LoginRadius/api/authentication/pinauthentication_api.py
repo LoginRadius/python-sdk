@@ -162,12 +162,13 @@ class PINAuthenticationApi:
         resource_path = "identity/v2/auth/pin/reset/securityanswer/phone"
         return self._lr_object.execute("PUT", resource_path, query_parameters, reset_pin_by_security_question_answer_and_phone_model)
 
-    def send_forgot_pin_sms_by_phone(self, forgot_pin_otp_by_phone_model, sms_template=None):
+    def send_forgot_pin_sms_by_phone(self, forgot_pin_otp_by_phone_model, sms_template=None, is_voice_otp=False):
         """This API sends the OTP to specified phone number
         
         Args:
             forgot_pin_otp_by_phone_model: Model Class containing Definition for Forgot Pin Otp By Phone API
             sms_template: 
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Validation Data and SMS Data
@@ -180,6 +181,8 @@ class PINAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/pin/forgot/otp"
         return self._lr_object.execute("POST", resource_path, query_parameters, forgot_pin_otp_by_phone_model)

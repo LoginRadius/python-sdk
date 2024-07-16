@@ -13,7 +13,7 @@ class PhoneAuthenticationApi:
         self._lr_object = lr_object
 
     def login_by_phone(self, phone_authentication_model, fields='', login_url=None,
-        sms_template=None):
+        sms_template=None, options=''):
         """This API retrieves a copy of the user data based on the Phone
         
         Args:
@@ -21,6 +21,7 @@ class PhoneAuthenticationApi:
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
             login_url: Url where the user is logging from
             sms_template: SMS Template name
+            options: 
 		
         Returns:
             Response containing User Profile Data and access token
@@ -37,16 +38,19 @@ class PhoneAuthenticationApi:
             query_parameters["loginUrl"] = login_url
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(not self._lr_object.is_null_or_whitespace(options)):
+            query_parameters["options"] = options
 
         resource_path = "identity/v2/auth/login"
         return self._lr_object.execute("POST", resource_path, query_parameters, phone_authentication_model)
 
-    def forgot_password_by_phone_otp(self, phone, sms_template=None):
+    def forgot_password_by_phone_otp(self, phone, sms_template=None, is_voice_otp=False):
         """This API is used to send the OTP to reset the account password.
         
         Args:
             phone: New Phone Number
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Validation Data and SMS Data
@@ -60,6 +64,8 @@ class PhoneAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["phone"] = phone
@@ -87,7 +93,7 @@ class PhoneAuthenticationApi:
         return self._lr_object.execute("PUT", resource_path, query_parameters, reset_password_by_otp_model)
 
     def phone_verification_by_otp(self, otp, phone, fields='',
-        sms_template=None):
+        sms_template=None, is_voice_otp=False):
         """This API is used to validate the verification code sent to verify a user's phone number
         
         Args:
@@ -95,6 +101,7 @@ class PhoneAuthenticationApi:
             phone: New Phone Number
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing User Profile Data and access token
@@ -114,6 +121,8 @@ class PhoneAuthenticationApi:
             query_parameters["fields"] = fields
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["phone"] = phone
@@ -121,13 +130,15 @@ class PhoneAuthenticationApi:
         resource_path = "identity/v2/auth/phone/otp"
         return self._lr_object.execute("PUT", resource_path, query_parameters, body_parameters)
 
-    def phone_verification_otp_by_access_token(self, access_token, otp, sms_template=None):
+    def phone_verification_otp_by_access_token(self, access_token, otp, sms_template=None,
+        is_voice_otp=False):
         """This API is used to consume the verification code sent to verify a user's phone number. Use this call for front-end purposes in cases where the user is already logged in by passing the user's access token.
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             otp: The Verification Code
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation data
@@ -146,16 +157,19 @@ class PhoneAuthenticationApi:
         query_parameters["otp"] = otp
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/phone/otp"
         return self._lr_object.execute("PUT", resource_path, query_parameters, {})
 
-    def phone_resend_verification_otp(self, phone, sms_template=None):
+    def phone_resend_verification_otp(self, phone, sms_template=None, is_voice_otp=False):
         """This API is used to resend a verification OTP to verify a user's Phone Number. The user will receive a verification code that they will need to input
         
         Args:
             phone: New Phone Number
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Validation Data and SMS Data
@@ -169,6 +183,8 @@ class PhoneAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["phone"] = phone
@@ -176,13 +192,15 @@ class PhoneAuthenticationApi:
         resource_path = "identity/v2/auth/phone/otp"
         return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
 
-    def phone_resend_verification_otp_by_token(self, access_token, phone, sms_template=None):
+    def phone_resend_verification_otp_by_token(self, access_token, phone, sms_template=None,
+        is_voice_otp=False):
         """This API is used to resend a verification OTP to verify a user's Phone Number in cases in which an active token already exists
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             phone: New Phone Number
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Validation Data and SMS Data
@@ -200,6 +218,8 @@ class PhoneAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["phone"] = phone
@@ -207,13 +227,15 @@ class PhoneAuthenticationApi:
         resource_path = "identity/v2/auth/phone/otp"
         return self._lr_object.execute("POST", resource_path, query_parameters, body_parameters)
 
-    def update_phone_number(self, access_token, phone, sms_template=None):
+    def update_phone_number(self, access_token, phone, sms_template=None,
+        is_voice_otp=False):
         """This API is used to update the login Phone Number of users
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             phone: New Phone Number
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Validation Data and SMS Data
@@ -231,6 +253,8 @@ class PhoneAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         body_parameters = {}
         body_parameters["phone"] = phone
@@ -282,7 +306,7 @@ class PhoneAuthenticationApi:
 
     def user_registration_by_phone(self, auth_user_registration_model, sott, fields='',
         options='', sms_template=None, verification_url=None, welcome_email_template=None,
-        email_template=None,):
+        email_template=None, is_voice_otp=False):
         """This API registers the new users into your Cloud Storage and triggers the phone verification process.
         
         Args:
@@ -294,6 +318,7 @@ class PhoneAuthenticationApi:
             verification_url: Email verification url
             welcome_email_template: Name of the welcome email template
             email_template: Name of the email template
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation, UserProfile data and Access Token
@@ -320,6 +345,8 @@ class PhoneAuthenticationApi:
             query_parameters["welcomeEmailTemplate"] = welcome_email_template
         if(not self._lr_object.is_null_or_whitespace(email_template)):
             query_parameters["emailTemplate"] = email_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/register"
         return self._lr_object.execute("POST", resource_path, query_parameters, auth_user_registration_model)

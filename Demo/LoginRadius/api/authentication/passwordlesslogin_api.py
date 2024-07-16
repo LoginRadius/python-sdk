@@ -12,13 +12,15 @@ class PasswordLessLoginApi:
         """
         self._lr_object = lr_object
 
-    def passwordless_login_phone_verification(self, password_less_login_otp_model, fields='', sms_template=None):
+    def passwordless_login_phone_verification(self, password_less_login_otp_model, fields='', sms_template=None,
+        is_voice_otp=False):
         """This API verifies an account by OTP and allows the customer to login.
         
         Args:
             password_less_login_otp_model: Model Class containing Definition of payload for PasswordLessLoginOtpModel API
             fields: The fields parameter filters the API response so that the response only includes a specific set of fields
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing User Profile Data and access token
@@ -33,16 +35,19 @@ class PasswordLessLoginApi:
             query_parameters["fields"] = fields
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/otp/verify"
         return self._lr_object.execute("PUT", resource_path, query_parameters, password_less_login_otp_model)
 
-    def passwordless_login_by_phone(self, phone, sms_template=None):
+    def passwordless_login_by_phone(self, phone, sms_template=None, is_voice_otp=False):
         """API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
         
         Args:
             phone: The Registered Phone Number
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response Containing Definition of SMS Data
@@ -57,6 +62,8 @@ class PasswordLessLoginApi:
         query_parameters["phone"] = phone
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/login/passwordlesslogin/otp"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})

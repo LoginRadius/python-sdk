@@ -12,12 +12,13 @@ class ReAuthenticationApi:
         """
         self._lr_object = lr_object
 
-    def mfa_re_authenticate(self, access_token, sms_template2_f_a=None):
+    def mfa_re_authenticate(self, access_token, sms_template2_f_a=None, is_voice_otp=False):
         """This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
         
         Args:
             access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
             sms_template2_f_a: SMS Template Name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Multi-Factor Authentication Settings data
@@ -32,6 +33,8 @@ class ReAuthenticationApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template2_f_a)):
             query_parameters["smsTemplate2FA"] = sms_template2_f_a
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/account/reauth/2fa"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
@@ -83,30 +86,6 @@ class ReAuthenticationApi:
 
         resource_path = "identity/v2/auth/account/reauth/2fa/backupcode"
         return self._lr_object.execute("PUT", resource_path, query_parameters, reauth_by_backup_code_model)
-
-    def mfa_re_authenticate_by_google_auth(self, access_token, reauth_by_google_authenticator_code_model):
-        """This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code
-        
-        Args:
-            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-            reauth_by_google_authenticator_code_model: Model Class containing Definition for MFA Reauthentication by Google Authenticator
-		
-        Returns:
-            Complete user Multi-Factor Authentication Token data
-        14.6
-        """
-
-        if(self._lr_object.is_null_or_whitespace(access_token)):
-            raise Exception(self._lr_object.get_validation_message("access_token"))
-        if(reauth_by_google_authenticator_code_model is None):
-            raise Exception(self._lr_object.get_validation_message("reauth_by_google_authenticator_code_model"))
-
-        query_parameters = {}
-        query_parameters["access_token"] = access_token
-        query_parameters["apiKey"] = self._lr_object.get_api_key()
-
-        resource_path = "identity/v2/auth/account/reauth/2fa/googleauthenticatorcode"
-        return self._lr_object.execute("PUT", resource_path, query_parameters, reauth_by_google_authenticator_code_model)
 
     def mfa_re_authenticate_by_password(self, access_token, password_event_based_auth_model_with_lockout, sms_template2_f_a=None):
         """This API is used to re-authenticate via Multi-factor-authentication by passing the password
@@ -310,3 +289,27 @@ class ReAuthenticationApi:
 
         resource_path = "identity/v2/auth/account/reauth/2fa/securityquestionanswer/verify"
         return self._lr_object.execute("POST", resource_path, query_parameters, security_question_answer_update_model)
+
+    def mfa_re_authenticate_by_authenticator_code(self, access_token, multi_factor_auth_model_by_authenticator_code):
+        """This API is used to validate the triggered MFA authentication flow with the Authenticator Code.
+        
+        Args:
+            access_token: Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+            multi_factor_auth_model_by_authenticator_code: Model Class containing Definition of payload for MultiFactorAuthModel By Authenticator Code API
+		
+        Returns:
+            Complete user Multi-Factor Authentication Token data
+        44.6
+        """
+
+        if(self._lr_object.is_null_or_whitespace(access_token)):
+            raise Exception(self._lr_object.get_validation_message("access_token"))
+        if(multi_factor_auth_model_by_authenticator_code is None):
+            raise Exception(self._lr_object.get_validation_message("multi_factor_auth_model_by_authenticator_code"))
+
+        query_parameters = {}
+        query_parameters["access_token"] = access_token
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+
+        resource_path = "identity/v2/auth/account/reauth/2fa/authenticatorcode"
+        return self._lr_object.execute("PUT", resource_path, query_parameters, multi_factor_auth_model_by_authenticator_code)

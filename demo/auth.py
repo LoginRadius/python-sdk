@@ -105,7 +105,10 @@ def mfa():
 
 @auth.route('/mfa/verify', methods=['PUT'])
 def verify_mfa():
-	res = loginradius.mfa.mfa_validate_google_auth_code(request.form['code'],request.form['token'])
+	multi_factor_auth_model_by_authenticator_code = {
+	"authenticatorCode" : request.form['code']
+	}  #Required 
+	res = loginradius.mfa.mfa_validate_authenticator_code(multi_factor_auth_model_by_authenticator_code, request.form['token'])
 	if 'ErrorCode' in res:
 		return abort(Response(res['Description'], 400))
 	else:

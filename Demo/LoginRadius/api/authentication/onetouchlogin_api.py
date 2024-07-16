@@ -41,12 +41,13 @@ class OneTouchLoginApi:
         resource_path = "identity/v2/auth/onetouchlogin/email"
         return self._lr_object.execute("POST", resource_path, query_parameters, one_touch_login_by_email_model)
 
-    def one_touch_login_by_phone(self, one_touch_login_by_phone_model, sms_template=None):
+    def one_touch_login_by_phone(self, one_touch_login_by_phone_model, sms_template=None, is_voice_otp=False):
         """This API is used to send one time password to a given phone number for a frictionless login/registration.
         
         Args:
             one_touch_login_by_phone_model: Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation data
@@ -59,6 +60,8 @@ class OneTouchLoginApi:
         query_parameters["apiKey"] = self._lr_object.get_api_key()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/auth/onetouchlogin/phone"
         return self._lr_object.execute("POST", resource_path, query_parameters, one_touch_login_by_phone_model)

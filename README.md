@@ -29,13 +29,13 @@ You will need at least Python - 2.7 or greater. LoginRadius module utilizes the 
 Using pip
 
 ```py
- pip install loginradius-v2==11.5.0
+ pip install loginradius-v2==11.6.0
 ```
 
 or with easy_install
 
 ```py
- easy_install loginradius-v2==11.5.0
+ easy_install loginradius-v2==11.6.0
 ```
 
 ### Install From Source
@@ -125,6 +125,7 @@ List of APIs in this Section:<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
 * GET : [Auth Privacy Policy Accept](#AcceptPrivacyPolicy-get-)<br>
 * GET : [Auth Privacy Policy History By Access Token](#GetPrivacyPolicyHistoryByAccessToken-get-)<br>
+* GET : [Auth send verification Email for linking social profiles](#AuthSendVerificationEmailForLinkingSocialProfiles-get-)<br>
 * DELETE : [Auth Delete Account with Email Confirmation](#DeleteAccountWithEmailConfirmation-delete-)<br>
 * DELETE : [Auth Remove Email](#RemoveEmail-delete-)<br>
 * DELETE : [Auth Unlink Social Identities](#UnlinkSocialIdentities-delete-)<br>
@@ -147,9 +148,11 @@ email_template = "<email_template>" #Optional
 fields = "<fields>" #Optional 
 null_support = "True" #Optional 
 sms_template = "<sms_template>" #Optional 
-verification_url = "<verification_url>" #Optional
+verification_url = "<verification_url>" #Optional 
+is_voice_otp = "False" #Optional
+options = "<options>" #Optional 
 
-result = loginradius.authentication.update_profile_by_access_token(access_token, user_profile_update_model, email_template, fields, null_support, sms_template, verification_url)
+result = loginradius.authentication.update_profile_by_access_token(access_token, user_profile_update_model, email_template, fields, null_support, sms_template, verification_url, is_voice_otp, options)
  ```
  
   
@@ -472,9 +475,10 @@ email_template = "<email_template>" #Optional
 fields = "<fields>" #Optional 
 options = "<options>" #Optional 
 verification_url = "<verification_url>" #Optional 
-welcome_email_template = "<welcome_email_template>" #Optional
+welcome_email_template = "<welcome_email_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.authentication.user_registration_by_email(auth_user_registration_model, sott, email_template, fields, options, verification_url, welcome_email_template)
+result = loginradius.authentication.user_registration_by_email(auth_user_registration_model, sott, email_template, fields, options, verification_url, welcome_email_template, is_voice_otp)
  ```
  
   
@@ -501,9 +505,10 @@ fields = "<fields>" #Optional
 options = "<options>" #Optional 
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional 
-welcome_email_template = "<welcome_email_template>" #Optional
+welcome_email_template = "<welcome_email_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.authentication.user_registration_by_captcha(auth_user_registration_model_with_captcha, email_template, fields, options, sms_template, verification_url, welcome_email_template)
+result = loginradius.authentication.user_registration_by_captcha(auth_user_registration_model_with_captcha, email_template, fields, options, sms_template, verification_url, welcome_email_template, is_voice_otp)
  ```
  
   
@@ -695,8 +700,9 @@ verification_token = "<verification_token>" #Required
 fields = "<fields>" #Optional 
 url = "<url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional
+uuid = "<uuid>" #Optional 
 
-result = loginradius.authentication.verify_email(verification_token, fields, url, welcome_email_template)
+result = loginradius.authentication.verify_email(verification_token, fields, url, welcome_email_template, uuid)
  ```
  
   
@@ -742,6 +748,17 @@ access_token = "<access_token>" #Required
 result = loginradius.authentication.get_privacy_policy_history_by_access_token(access_token)
  ```
  
+ <h6 id="AuthSendVerificationEmailForLinkingSocialProfiles-get-"> Auth send verification Email for linking social profiles (GET)</h6>
+
+This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-send-verification-for-social-email/)
+
+ ```
+  
+access_token = "<access_token>" #Required 
+clientguid = "<clientguid>" #Required
+
+result = loginradius.authentication.auth_send_verification_email_for_linking_social_profiles(access_token, clientguid)
+ ```
   
   
  
@@ -809,6 +826,8 @@ List of APIs in this Section:<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
+* POST : [Multipurpose Email Token Generation API](#MultipurposeEmailTokenGeneration-post-)<br>
+* POST : [Multipurpose SMS OTP Generation API](#MultipurposeSMSOTPGeneration-post-)<br>
 * GET : [Get Privacy Policy History By Uid](#GetPrivacyPolicyHistoryByUid-get-)<br>
 * GET : [Account Profiles by Email](#GetAccountProfileByEmail-get-)<br>
 * GET : [Account Profiles by Username](#GetAccountProfileByUserName-get-)<br>
@@ -821,6 +840,7 @@ List of APIs in this Section:<br>
 * GET : [Account Identities by Email](#GetAccountIdentitiesByEmail-get-)<br>
 * DELETE : [Account Delete](#DeleteAccountByUid-delete-)<br>
 * DELETE : [Account Remove Email](#RemoveEmail-delete-)<br>
+* DELETE : [Revoke All Refresh Token](#RevokeAllRefreshToken-delete-)<br>
 * DELETE : [Delete User Profiles By Email](#AccountDeleteByEmail-delete-)<br>
 
 
@@ -900,9 +920,10 @@ result = loginradius.account.invalidate_account_email_verification(uid, email_te
  ```py
   
 uid = "<uid>" #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.account.reset_phone_id_verification_by_uid(uid, sms_template)
+result = loginradius.account.reset_phone_id_verification_by_uid(uid, sms_template, is_voice_otp)
  ```
  
   
@@ -997,7 +1018,44 @@ email = "<email>" #Required
 result = loginradius.account.get_email_verification_token(email)
  ```
  
+
+<h6 id="MultipurposeEmailTokenGeneration-post-"> Multipurpose Email Token Generation API (POST)</h6>
+
+This API generate Email tokens and Email OTPs for Email verification, Add email, Forgot password, Delete user, Passwordless login, Forgot pin, One-touch login and Auto login. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-email-token-generation/)
+
+ ```py
+ 
+multi_email_token = { 
+"clientguid" : "<clientguid>",
+"email" : "<email>",
+"name" : "<name>",
+"type" : "<type>",
+"uid" : "<uid>",
+"userName" : "<userName>"
+}  #Required 
+tokentype = "<tokentype>" #Required
+
+result = loginradius.account.multipurpose_email_token_generation(multi_email_token, tokentype)
+ ```
+ 
   
+  
+ 
+<h6 id="MultipurposeSMSOTPGeneration-post-"> Multipurpose SMS OTP Generation API (POST)</h6>
+
+This API generates SMS OTP for Add phone, Phone Id verification, Forgot password, Forgot pin, One-touch login, smart login and Passwordless login. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-sms-otp-generation/)
+
+ ```py
+ 
+multi_sms_otp = { 
+"name" : "<name>",
+"phone" : "<phone>",
+"uid" : "<uid>"
+}  #Required 
+smsotptype = "<smsotptype>" #Required
+
+result = loginradius.account.multipurpose_sms_otp_generation(multi_sms_otp, smsotptype)
+ ```
   
  
 <h6 id="GetPrivacyPolicyHistoryByUid-get-"> Get Privacy Policy History By Uid (GET)</h6>
@@ -1172,7 +1230,16 @@ fields = "<fields>" #Optional
 result = loginradius.account.remove_email(email, uid, fields)
  ```
  
+<h6 id="RevokeAllRefreshToken-delete-"> Revoke All Refresh Token (DELETE)</h6>
+
+The Revoke All Refresh Access Token API is used to revoke all refresh tokens for a specific user. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/revoke-all-refresh-token/)
+
+ ```
   
+uid = "<uid>" #Required
+
+result = loginradius.account.revoke_all_refresh_token(uid)
+ ```
   
  
 <h6 id="AccountDeleteByEmail-delete-"> Delete User Profiles By Email (DELETE)</h6>
@@ -1539,9 +1606,10 @@ result = loginradius.phone_authentication.reset_password_by_phone_otp(reset_pass
 otp = "<otp>" #Required 
 phone = "<phone>" #Required 
 fields = "<fields>" #Optional 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, fields, sms_template)
+result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, fields, sms_template, is_voice_otp)
  ```
  
   
@@ -1555,9 +1623,10 @@ result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, 
   
 access_token = "<access_token>" #Required 
 otp = "<otp>" #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.phone_authentication.phone_verification_otp_by_access_token(access_token, otp, sms_template)
+result = loginradius.phone_authentication.phone_verification_otp_by_access_token(access_token, otp, sms_template, is_voice_otp)
  ```
  
   
@@ -1572,8 +1641,8 @@ result = loginradius.phone_authentication.phone_verification_otp_by_access_token
 access_token = "<access_token>" #Required 
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
-
-result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template)
+is_voice_otp = "False" #Optional
+result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template,is_voice_otp)
  ```
  
   
@@ -1606,9 +1675,10 @@ result = loginradius.phone_authentication.login_by_phone(phone_authentication_mo
  ```py
   
 phone = "<phone>" #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_template)
+result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_template, is_voice_otp)
  ```
  
   
@@ -1621,9 +1691,10 @@ result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sm
  ```py
   
 phone = "<phone>" #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.phone_authentication.phone_resend_verification_otp(phone, sms_template)
+result = loginradius.phone_authentication.phone_resend_verification_otp(phone, sms_template, is_voice_otp)
  ```
  
   
@@ -1666,10 +1737,11 @@ fields = "<fields>" #Optional
 options = "<options>" #Optional 
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional 
-welcome_email_template = "<welcome_email_template>" #Optional
-email_Template = "<email_template>" #Optional
+welcome_email_template = "<welcome_email_template>" #Optional 
+email_template = "<email_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.phone_authentication.user_registration_by_phone(auth_user_registration_model, sott, fields, options, sms_template, verification_url, welcome_email_template,email_Template)
+result = loginradius.phone_authentication.user_registration_by_phone(auth_user_registration_model, sott, fields, options, sms_template, verification_url, welcome_email_template,email_template, is_voice_otp)
  ```
  
   
@@ -1711,16 +1783,16 @@ result = loginradius.phone_authentication.remove_phone_id_by_access_token(access
 List of APIs in this Section:<br>
 
 * PUT : [Update MFA Setting](#MFAUpdateSetting-put-)<br>
-* PUT : [Update MFA by Access Token](#MFAUpdateByAccessToken-put-)<br>
 * PUT : [MFA Update Phone Number by Token](#MFAUpdatePhoneNumberByToken-put-)<br>
 * PUT : [Verify MFA Email OTP by Access Token](#MFAValidateEmailOtpByAccessToken-put-)<br>
 * PUT : [Update MFA Security Question by Access Token](#MFASecurityQuestionAnswerByAccessToken-put-)<br>
 * PUT : [MFA Validate OTP](#MFAValidateOTPByPhone-put-)<br>
-* PUT : [MFA Validate Google Auth Code](#MFAValidateGoogleAuthCode-put-)<br>
 * PUT : [MFA Validate Backup code](#MFAValidateBackupCode-put-)<br>
 * PUT : [MFA Update Phone Number](#MFAUpdatePhoneNumber-put-)<br>
 * PUT : [Verify MFA Email OTP by MFA Token](#MFAValidateEmailOtp-put-)<br>
 * PUT : [Update MFA Security Question by MFA Token](#MFASecurityQuestionAnswer-put-)<br>
+* PUT : [MFA Validate Authenticator Code](#MFAValidateAuthenticatorCode-put-)<br>
+* PUT : [MFA Verify Authenticator Code](#MFAVerifyAuthenticatorCode-put-)<br>
 * POST : [MFA Email Login](#MFALoginByEmail-post-)<br>
 * POST : [MFA UserName Login](#MFALoginByUserName-post-)<br>
 * POST : [MFA Phone Login](#MFALoginByPhone-post-)<br>
@@ -1733,12 +1805,12 @@ List of APIs in this Section:<br>
 * GET : [MFA Resend Otp](#MFAResendOTP-get-)<br>
 * GET : [MFA Backup Code by UID](#MFABackupCodeByUid-get-)<br>
 * GET : [MFA Reset Backup Code by UID](#MFAResetBackupCodeByUid-get-)<br>
-* DELETE : [MFA Reset Google Authenticator by Token](#MFAResetGoogleAuthByToken-delete-)<br>
+* DELETE : [MFA Reset Authenticator by Token](#MFAResetAuthenticatorByToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator by Token](#MFAResetSMSAuthByToken-delete-)<br>
 * DELETE : [Reset MFA Email OTP Authenticator By Access Token](#MFAResetEmailOtpAuthenticatorByAccessToken-delete-)<br>
 * DELETE : [MFA Reset Security Question Authenticator By Access Token](#MFAResetSecurityQuestionAuthenticatorByAccessToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator By UID](#MFAResetSMSAuthenticatorByUid-delete-)<br>
-* DELETE : [MFA Reset Google Authenticator By UID](#MFAResetGoogleAuthenticatorByUid-delete-)<br>
+* DELETE : [MFA Reset Authenticator By UID](#MFAResetAuthenticatorByUid-delete-)<br>
 * DELETE : [Reset MFA Email OTP Authenticator Settings by Uid](#MFAResetEmailOtpAuthenticatorByUid-delete-)<br>
 * DELETE : [Reset MFA Security Question Authenticator Settings by Uid](#MFAResetSecurityQuestionAuthenticatorByUid-delete-)<br>
 
@@ -1763,25 +1835,6 @@ result = loginradius.mfa.mfa_update_setting(access_token, multi_factor_auth_mode
   
   
  
-<h6 id="MFAUpdateByAccessToken-put-"> Update MFA by Access Token (PUT)</h6>
-
- This API is used to Enable Multi-factor authentication by access token on user login  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/update-mfa-by-access-token/)
-
- ```py
-  
-access_token = "<access_token>" #Required
-multi_factor_auth_model_by_google_authenticator_code = { 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-}  #Required 
-fields = "<fields>" #Optional 
-sms_template = "<sms_template>" #Optional
-
-result = loginradius.mfa.mfa_update_by_access_token(access_token, multi_factor_auth_model_by_google_authenticator_code, fields, sms_template)
- ```
- 
-  
-  
- 
 <h6 id="MFAUpdatePhoneNumberByToken-put-"> MFA Update Phone Number by Token (PUT)</h6>
 
  This API is used to update the Multi-factor authentication phone number by sending the verification OTP to the provided phone number  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-update-phone-number-by-token/)
@@ -1790,9 +1843,11 @@ result = loginradius.mfa.mfa_update_by_access_token(access_token, multi_factor_a
   
 access_token = "<access_token>" #Required 
 phone_no2_f_a = "<phone_no2_f_a>" #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
+sms_template2_f_a = "<sms_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
+options = "<options>" #Optional 
 
-result = loginradius.mfa.mfa_update_phone_number_by_token(access_token, phone_no2_f_a, sms_template2_f_a)
+result = loginradius.mfa.mfa_update_phone_number_by_token(access_token, phone_no2_f_a, sms_template2_f_a, is_voice_otp,options)
  ```
  
   
@@ -1862,26 +1917,6 @@ result = loginradius.mfa.mfa_validate_otp_by_phone(multi_factor_auth_model_with_
   
   
  
-<h6 id="MFAValidateGoogleAuthCode-put-"> MFA Validate Google Auth Code (PUT)</h6>
-
- This API is used to login via Multi-factor-authentication by passing the google authenticator code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-validate-google-auth-code/)
-
- ```py
-  
-google_authenticator_code = "<google_authenticator_code>" #Required 
-second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
-fields = "<fields>" #Optional 
-rba_browser_email_template = "<rba_browser_email_template>" #Optional 
-rba_city_email_template = "<rba_city_email_template>" #Optional 
-rba_country_email_template = "<rba_country_email_template>" #Optional 
-rba_ip_email_template = "<rba_ip_email_template>" #Optional
-
-result = loginradius.mfa.mfa_validate_google_auth_code(google_authenticator_code, second_factor_authentication_token, fields, rba_browser_email_template, rba_city_email_template, rba_country_email_template, rba_ip_email_template)
- ```
- 
-  
-  
- 
 <h6 id="MFAValidateBackupCode-put-"> MFA Validate Backup code (PUT)</h6>
 
  This API is used to validate the backup code provided by the user and if valid, we return an access token allowing the user to login incases where Multi-factor authentication (MFA) is enabled and the secondary factor is unavailable. When a user initially downloads the Backup codes, We generate 10 codes, each code can only be consumed once. if any user attempts to go over the number of invalid login attempts configured in the Dashboard then the account gets blocked automatically  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/mfa-validate-backup-code/)
@@ -1912,9 +1947,11 @@ result = loginradius.mfa.mfa_validate_backup_code(multi_factor_auth_model_by_bac
   
 phone_no2_f_a = "<phone_no2_f_a>" #Required 
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
+sms_template2_f_a = "<sms_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
+options = "<options>" #Optional 
 
-result = loginradius.mfa.mfa_update_phone_number(phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a)
+result = loginradius.mfa.mfa_update_phone_number(phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a, is_voice_otp, options)
  ```
  
   
@@ -1962,7 +1999,38 @@ second_factor_authentication_token = "<second_factor_authentication_token>" #Req
 result = loginradius.mfa.mfa_security_question_answer(security_question_answer_update_model, second_factor_authentication_token)
  ```
  
+<h6 id="MFAValidateAuthenticatorCode-put-"> MFA Validate Authenticator Code (PUT)</h6>
+
+This API is used to login to a user's account during the second MFA step with an Authenticator Code. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-validate-authenticator-code/)
+
+ ```py
+ 
+multi_factor_auth_model_by_authenticator_code = {
+  "authenticatorCode" : "<authenticatorCode>"
+ }  #Required 
+secondfactorauthenticationtoken = "<secondfactorauthenticationtoken>" #Required 
+fields = "<fields>" #Optional
+
+result = loginradius.mfa.mfa_validate_authenticator_code(multi_factor_auth_model_by_authenticator_code, secondfactorauthenticationtoken, fields)
+ ```
+ 
   
+  
+ 
+<h6 id="MFAVerifyAuthenticatorCode-put-"> MFA Verify Authenticator Code (PUT)</h6>
+
+This API is used to validate an Authenticator Code as part of the MFA process. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-verify-authenticator-code/)
+
+ ```py
+  
+access_token = "<access_token>" #Required
+multi_factor_auth_model_by_authenticator_code_security_answer = { 
+"authenticatorCode" : "<authenticatorCode>"
+}  #Required 
+fields = "<fields>" #Optional
+
+result = loginradius.mfa.mfa_verify_authenticator_code(access_token, multi_factor_auth_model_by_authenticator_code_security_answer, fields)
+ ```
   
  
 <h6 id="MFALoginByEmail-post-"> MFA Email Login (POST)</h6>
@@ -1980,9 +2048,10 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
+options = "<options>" #Optional 
 
-
-result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a)
+result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp,options)
  ```
  
   
@@ -2003,9 +2072,9 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
 
-
-result = loginradius.mfa.mfa_login_by_user_name(password, username, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a)
+result = loginradius.mfa.mfa_login_by_user_name(password, username, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp)
  ```
  
   
@@ -2026,9 +2095,10 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
+options = "<options>" #Optional 
 
-
-result = loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a)
+result = loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp, options)
  ```
  
   
@@ -2085,9 +2155,9 @@ result = loginradius.mfa.mfa_security_question_answer_verification(security_ques
  ```py
   
 access_token = "<access_token>" #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
+is_voice_otp = "False" #Optional
 
-result = loginradius.mfa.mfa_configure_by_access_token(access_token, sms_template2_f_a)
+result = loginradius.mfa.mfa_configure_by_access_token(access_token, is_voice_otp)
  ```
  
   
@@ -2144,9 +2214,10 @@ result = loginradius.mfa.mfa_email_otp_by_access_token(access_token, email_id, e
  ```py
   
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
+sms_template2_f_a = "<sms_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2_f_a)
+result = loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2_f_a, is_voice_otp)
  ```
  
   
@@ -2177,19 +2248,18 @@ uid = "<uid>" #Required
 result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
  ```
  
-  
-  
- 
-<h6 id="MFAResetGoogleAuthByToken-delete-"> MFA Reset Google Authenticator by Token (DELETE)</h6>
 
- This API Resets the Google Authenticator configurations on a given account via the access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
+
+ <h6 id="MFAResetAuthenticatorByToken-delete-"> MFA Reset Authenticator by Token (DELETE)</h6>
+ 
+ This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-token/)
 
  ```py
   
 access_token = "<access_token>" #Required 
-googleauthenticator = "True" #Required
+authenticator = True #Required
 
-result = loginradius.mfa.mfa_reset_google_auth_by_token(access_token, googleauthenticator)
+result = loginradius.mfa.mfa_reset_authenticator_by_token(access_token, authenticator)
  ```
  
   
@@ -2202,7 +2272,7 @@ result = loginradius.mfa.mfa_reset_google_auth_by_token(access_token, googleauth
  ```py
   
 access_token = "<access_token>" #Required 
-otpauthenticator = "True" #Required
+otpauthenticator =True #Required
 
 result = loginradius.mfa.mfa_reset_sms_auth_by_token(access_token, otpauthenticator)
  ```
@@ -2250,21 +2320,17 @@ uid = "<uid>" #Required
 result = loginradius.mfa.mfa_reset_sms_authenticator_by_uid(otpauthenticator, uid)
  ```
  
-  
-  
- 
-<h6 id="MFAResetGoogleAuthenticatorByUid-delete-"> MFA Reset Google Authenticator By UID (DELETE)</h6>
+ <h6 id="MFAResetAuthenticatorByUid-delete-"> MFA Reset Authenticator By UID (DELETE)</h6>
 
- This API resets the Google Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-uid/)
+This API resets the Google Authenticator configurations on a given account via the UID. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-uid/)
 
  ```py
   
-googleauthenticator = "True" #Required 
+authenticator = True #Required 
 uid = "<uid>" #Required
 
-result = loginradius.mfa.mfa_reset_google_authenticator_by_uid(googleauthenticator, uid)
+result = loginradius.mfa.mfa_reset_authenticator_by_uid(authenticator, uid)
  ```
- 
   
   
  
@@ -2526,9 +2592,10 @@ result = loginradius.pin_authentication.send_forgot_pin_email_by_username(forgot
 forgot_pin_otp_by_phone_model = { 
 "phone" : "<phone>"
 }  #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.pin_authentication.send_forgot_pin_sms_by_phone(forgot_pin_otp_by_phone_model, sms_template)
+result = loginradius.pin_authentication.send_forgot_pin_sms_by_phone(forgot_pin_otp_by_phone_model, sms_template, is_voice_otp)
  ```
  
   
@@ -2574,10 +2641,10 @@ List of APIs in this Section:<br>
 
 * PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
 * PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
-* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
 * PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
 * PUT : [MFA Re-authentication by PIN](#VerifyPINAuthentication-put-)<br>
 * PUT : [MFA Re-authentication by Email OTP](#ReAuthValidateEmailOtp-put-)<br>
+* PUT : [MFA Step-Up Authentication by Authenticator Code](#MFAReAuthenticateByAuthenticatorCode-put-)<br>
 * POST : [Verify Multifactor OTP Authentication](#VerifyMultiFactorOtpReauthentication-post-)<br>
 * POST : [Verify Multifactor Password Authentication](#VerifyMultiFactorPasswordReauthentication-post-)<br>
 * POST : [Verify Multifactor PIN Authentication](#VerifyMultiFactorPINReauthentication-post-)<br>
@@ -2617,23 +2684,6 @@ reauth_by_backup_code_model = {
 }  #Required
 
 result = loginradius.re_authentication.mfa_re_authenticate_by_backup_code(access_token, reauth_by_backup_code_model)
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
-
- This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
-
- ```py
-  
-access_token = "<access_token>" #Required
-reauth_by_google_authenticator_code_model = { 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-}  #Required
-
-result = loginradius.re_authentication.mfa_re_authenticate_by_google_auth(access_token, reauth_by_google_authenticator_code_model)
  ```
  
   
@@ -2690,6 +2740,19 @@ reauth_by_email_otp_model = {
 result = loginradius.re_authentication.re_auth_validate_email_otp(access_token, reauth_by_email_otp_model)
  ```
  
+<h6 id="MFAReAuthenticateByAuthenticatorCode-put-"> MFA Step-Up Authentication by Authenticator Code (PUT)</h6>
+
+This API is used to validate the triggered MFA authentication flow with the Authenticator Code. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
+
+ ```py
+  
+access_token = "<access_token>" #Required
+multi_factor_auth_model_by_authenticator_code = {
+    "authenticatorCode" : "<authenticatorCode>"
+ }  #Required
+
+result = loginradius.re_authentication.mfa_re_authenticate_by_authenticator_code(access_token, multi_factor_auth_model_by_authenticator_code)
+ ```
   
   
  
@@ -2773,9 +2836,10 @@ result = loginradius.re_authentication.re_auth_by_security_question(access_token
  ```py
   
 access_token = "<access_token>" #Required 
-sms_template2_f_a = "<sms_template2_f_a>" #Optional
+sms_template2_f_a = "<sms_template2_f_a>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.re_authentication.mfa_re_authenticate(access_token, sms_template2_f_a)
+result = loginradius.re_authentication.mfa_re_authenticate(access_token, sms_template2_f_a, is_voice_otp)
  ```
  
   
@@ -3068,9 +3132,10 @@ one_touch_login_by_phone_model = {
 "g-recaptcha-response" : "<g-recaptcha-response>",
 "phone" : "<phone>"
 }  #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_model, sms_template)
+result = loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_model, sms_template, is_voice_otp)
  ```
  
   
@@ -3135,9 +3200,10 @@ password_less_login_otp_model = {
 "phone" : "<phone>"
 }  #Required 
 fields = "<fields>" #Optional 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template)
+result = loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template, is_voice_otp)
  ```
  
  
@@ -3184,9 +3250,10 @@ result = loginradius.password_less_login.passwordless_login_verification_by_user
  ```py
   
 phone = "<phone>" #Required 
-sms_template = "<sms_template>" #Optional
+sms_template = "<sms_template>" #Optional 
+is_voice_otp = "False" #Optional
 
-result = loginradius.password_less_login.passwordless_login_by_phone(phone, sms_template)
+result = loginradius.password_less_login.passwordless_login_by_phone(phone, sms_template, is_voice_otp)
  ```
  
   
@@ -3673,6 +3740,7 @@ result = loginradius.sott.generate_sott(time_difference)
 
 List of APIs in this Section:<br>
 
+* GET : [Get Access Token via Custom JWT Token](#AccessTokenViaCustomJWTToken-get-)<br>
 * GET : [Access Token via Facebook Token](#GetAccessTokenByFacebookAccessToken-get-)<br>
 * GET : [Access Token via Twitter Token](#GetAccessTokenByTwitterAccessToken-get-)<br>
 * GET : [Access Token via Google Token](#GetAccessTokenByGoogleAccessToken-get-)<br>
@@ -3685,6 +3753,17 @@ List of APIs in this Section:<br>
 
 
 
+<h6 id="AccessTokenViaCustomJWTToken-get-"> Get Access Token via Custom JWT Token (GET)</h6>
+
+ This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
+
+ ```py
+  
+id_token = "<id_token>" #Required 
+providername = "<providername>" #Required
+
+result = loginradius.native_social.access_token_via_custom_j_w_t_token(id_token, providername)
+ ```
 
 <h6 id="GetAccessTokenByFacebookAccessToken-get-"> Access Token via Facebook Token (GET)</h6>
 
@@ -3893,10 +3972,27 @@ web_hook_subscribe_model = {
 
 result = loginradius.web_hook.web_hook_unsubscribe(web_hook_subscribe_model)
  ```
- 
-  
-  
- 
+
+ ### SlidingToken API
+
+
+List of APIs in this Section:<br>
+[GET : Get Sliding Access Token](#SlidingAccessToken-get-)<br>
+
+
+
+<h6 id="SlidingAccessToken-get-"> (GET)</h6>
+
+ This API is used to get access token and refresh token with the expired/nonexpired access token. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/sliding-access-token)
+
+
+
+```py
+
+access_token = "<access_token>" #Required
+result = loginradius.sliding_token.sliding_access_token(access_token)
+```
+
 
 
 #### Error Handling

@@ -315,7 +315,7 @@ function reset_mfa() {
             url: "/mfa/reset?uid=" + localStorage.getItem('lr-user-uid'),
             dataType: "json",
             success: function(res) {
-                $("#user-mfa-message").text("Google Authenticator settings reset.");
+                $("#user-mfa-message").text("Authenticator settings reset.");
                 $("#user-mfa-message").attr("class", "success-message");
             },
             error: function(xhr) {

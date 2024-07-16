@@ -394,12 +394,13 @@ class AccountApi:
         resource_path = "identity/v2/manage/account/access_token"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def reset_phone_id_verification_by_uid(self, uid, sms_template=''):
+    def reset_phone_id_verification_by_uid(self, uid, sms_template='', is_voice_otp=False):
         """This API Allows you to reset the phone no verification of an end user’s account.
         
         Args:
             uid: UID, the unified identifier for each user account
             sms_template: SMS Template name
+            is_voice_otp: Boolean, pass true if you wish to trigger voice OTP
 		
         Returns:
             Response containing Definition of Complete Validation data
@@ -414,6 +415,8 @@ class AccountApi:
         query_parameters["apiSecret"] = self._lr_object.get_api_secret()
         if(not self._lr_object.is_null_or_whitespace(sms_template)):
             query_parameters["smsTemplate"] = sms_template
+        if(is_voice_otp is not None):
+            query_parameters["isVoiceOtp"] = is_voice_otp
 
         resource_path = "identity/v2/manage/account/" + uid + "/invalidatephone"
         return self._lr_object.execute("PUT", resource_path, query_parameters, {})
@@ -520,6 +523,51 @@ class AccountApi:
         resource_path = "identity/v2/manage/account/access_token/refresh/revoke"
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
+    def revoke_all_refresh_token(self, uid):
+        """The Revoke All Refresh Access Token API is used to revoke all refresh tokens for a specific user.
+        
+        Args:
+            uid: UID, the unified identifier for each user account
+		
+        Returns:
+            Response containing Definition of Delete Request
+        18.33
+        """
+
+        if(self._lr_object.is_null_or_whitespace(uid)):
+            raise Exception(self._lr_object.get_validation_message("uid"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "identity/v2/manage/account/" + uid + "/access_token/refresh/revoke"
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def multipurpose_email_token_generation(self, multi_email_token, tokentype):
+        """This API generate Email tokens and Email OTPs for Email verification, Add email, Forgot password, Delete user, Passwordless login, Forgot pin, One-touch login and Auto login.
+        
+        Args:
+            multi_email_token: Model Class containing Definition of payload for Multipurpose Email Token Generation API
+            tokentype: The identifier type for the token that we need to generate
+		
+        Returns:
+            Response containing Definition for Complete MultiToken
+        18.34
+        """
+        if(multi_email_token is None):
+            raise Exception(self._lr_object.get_validation_message("multi_email_token"))
+
+        if(self._lr_object.is_null_or_whitespace(tokentype)):
+            raise Exception(self._lr_object.get_validation_message("tokentype"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "identity/v2/manage/account/emailtoken/" + tokentype
+        return self._lr_object.execute("POST", resource_path, query_parameters, multi_email_token)
+
     def get_account_identities_by_email(self, email, fields=''):
         """Note: This is intended for specific workflows where an email may be associated to multiple UIDs. This API is used to retrieve all of the identities (UID and Profiles), associated with a specified email in Cloud Storage.
         
@@ -566,6 +614,30 @@ class AccountApi:
 
         resource_path = "identity/v2/manage/account"
         return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def multipurpose_sms_otp_generation(self, multi_sms_otp, smsotptype):
+        """This API generates SMS OTP for Add phone, Phone Id verification, Forgot password, Forgot pin, One-touch login, smart login and Passwordless login.
+        
+        Args:
+            multi_sms_otp: 
+            smsotptype: The identifier type for the OTP that we need to generate
+		
+        Returns:
+            Response containing Definition for Complete MultiToken
+        18.44
+        """
+        if(multi_sms_otp is None):
+            raise Exception(self._lr_object.get_validation_message("multi_sms_otp"))
+
+        if(self._lr_object.is_null_or_whitespace(smsotptype)):
+            raise Exception(self._lr_object.get_validation_message("smsotptype"))
+
+        query_parameters = {}
+        query_parameters["apiKey"] = self._lr_object.get_api_key()
+        query_parameters["apiSecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "identity/v2/manage/account/smsotp/" + smsotptype
+        return self._lr_object.execute("POST", resource_path, query_parameters, multi_sms_otp)
 
     def account_update_uid(self, update_uid_model, uid):
         """This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.
