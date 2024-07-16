@@ -2252,7 +2252,7 @@ result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
 
  <h6 id="MFAResetAuthenticatorByToken-delete-"> MFA Reset Authenticator by Token (DELETE)</h6>
  
- This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
+ This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-token/)
 
  ```py
   
