@@ -149,7 +149,7 @@ fields = "<fields>" #Optional
 null_support = "True" #Optional 
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 options = "<options>" #Optional 
 
 result = loginradius.authentication.update_profile_by_access_token(access_token, user_profile_update_model, email_template, fields, null_support, sms_template, verification_url, is_voice_otp, options)
@@ -476,7 +476,7 @@ fields = "<fields>" #Optional
 options = "<options>" #Optional 
 verification_url = "<verification_url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.authentication.user_registration_by_email(auth_user_registration_model, sott, email_template, fields, options, verification_url, welcome_email_template, is_voice_otp)
  ```
@@ -506,7 +506,7 @@ options = "<options>" #Optional
 sms_template = "<sms_template>" #Optional 
 verification_url = "<verification_url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.authentication.user_registration_by_captcha(auth_user_registration_model_with_captcha, email_template, fields, options, sms_template, verification_url, welcome_email_template, is_voice_otp)
  ```
@@ -921,7 +921,7 @@ result = loginradius.account.invalidate_account_email_verification(uid, email_te
   
 uid = "<uid>" #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.account.reset_phone_id_verification_by_uid(uid, sms_template, is_voice_otp)
  ```
@@ -1607,7 +1607,7 @@ otp = "<otp>" #Required
 phone = "<phone>" #Required 
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, fields, sms_template, is_voice_otp)
  ```
@@ -1624,7 +1624,7 @@ result = loginradius.phone_authentication.phone_verification_by_otp(otp, phone, 
 access_token = "<access_token>" #Required 
 otp = "<otp>" #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.phone_authentication.phone_verification_otp_by_access_token(access_token, otp, sms_template, is_voice_otp)
  ```
@@ -1641,7 +1641,7 @@ result = loginradius.phone_authentication.phone_verification_otp_by_access_token
 access_token = "<access_token>" #Required 
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 result = loginradius.phone_authentication.update_phone_number(access_token, phone, sms_template,is_voice_otp)
  ```
  
@@ -1676,7 +1676,7 @@ result = loginradius.phone_authentication.login_by_phone(phone_authentication_mo
   
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sms_template, is_voice_otp)
  ```
@@ -1692,7 +1692,7 @@ result = loginradius.phone_authentication.forgot_password_by_phone_otp(phone, sm
   
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.phone_authentication.phone_resend_verification_otp(phone, sms_template, is_voice_otp)
  ```
@@ -1739,7 +1739,7 @@ sms_template = "<sms_template>" #Optional
 verification_url = "<verification_url>" #Optional 
 welcome_email_template = "<welcome_email_template>" #Optional 
 email_template = "<email_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.phone_authentication.user_registration_by_phone(auth_user_registration_model, sott, fields, options, sms_template, verification_url, welcome_email_template,email_template, is_voice_otp)
  ```
@@ -1844,7 +1844,7 @@ result = loginradius.mfa.mfa_update_setting(access_token, multi_factor_auth_mode
 access_token = "<access_token>" #Required 
 phone_no2_f_a = "<phone_no2_f_a>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 options = "<options>" #Optional 
 
 result = loginradius.mfa.mfa_update_phone_number_by_token(access_token, phone_no2_f_a, sms_template2_f_a, is_voice_otp,options)
@@ -1948,7 +1948,7 @@ result = loginradius.mfa.mfa_validate_backup_code(multi_factor_auth_model_by_bac
 phone_no2_f_a = "<phone_no2_f_a>" #Required 
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 options = "<options>" #Optional 
 
 result = loginradius.mfa.mfa_update_phone_number(phone_no2_f_a, second_factor_authentication_token, sms_template2_f_a, is_voice_otp, options)
@@ -2048,7 +2048,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 options = "<options>" #Optional 
 
 result = loginradius.mfa.mfa_login_by_email(email, password, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp,options)
@@ -2072,7 +2072,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.mfa.mfa_login_by_user_name(password, username, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp)
  ```
@@ -2095,7 +2095,7 @@ sms_template = "<sms_template>" #Optional
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
 verification_url = "<verification_url>" #Optional
 email_template2_f_a = "<email_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 options = "<options>" #Optional 
 
 result = loginradius.mfa.mfa_login_by_phone(password, phone, email_template, fields, login_url, sms_template, sms_template2_f_a, verification_url,email_template2_f_a, is_voice_otp, options)
@@ -2155,7 +2155,7 @@ result = loginradius.mfa.mfa_security_question_answer_verification(security_ques
  ```py
   
 access_token = "<access_token>" #Required 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.mfa.mfa_configure_by_access_token(access_token, is_voice_otp)
  ```
@@ -2215,7 +2215,7 @@ result = loginradius.mfa.mfa_email_otp_by_access_token(access_token, email_id, e
   
 second_factor_authentication_token = "<second_factor_authentication_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.mfa.mfa_resend_otp(second_factor_authentication_token, sms_template2_f_a, is_voice_otp)
  ```
@@ -2252,7 +2252,7 @@ result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
 
  <h6 id="MFAResetAuthenticatorByToken-delete-"> MFA Reset Authenticator by Token (DELETE)</h6>
  
- This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
+ This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
 
  ```py
   
@@ -2593,7 +2593,7 @@ forgot_pin_otp_by_phone_model = {
 "phone" : "<phone>"
 }  #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.pin_authentication.send_forgot_pin_sms_by_phone(forgot_pin_otp_by_phone_model, sms_template, is_voice_otp)
  ```
@@ -2837,7 +2837,7 @@ result = loginradius.re_authentication.re_auth_by_security_question(access_token
   
 access_token = "<access_token>" #Required 
 sms_template2_f_a = "<sms_template2_f_a>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.re_authentication.mfa_re_authenticate(access_token, sms_template2_f_a, is_voice_otp)
  ```
@@ -3133,7 +3133,7 @@ one_touch_login_by_phone_model = {
 "phone" : "<phone>"
 }  #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.one_touch_login.one_touch_login_by_phone(one_touch_login_by_phone_model, sms_template, is_voice_otp)
  ```
@@ -3201,7 +3201,7 @@ password_less_login_otp_model = {
 }  #Required 
 fields = "<fields>" #Optional 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.password_less_login.passwordless_login_phone_verification(password_less_login_otp_model, fields, sms_template, is_voice_otp)
  ```
@@ -3251,7 +3251,7 @@ result = loginradius.password_less_login.passwordless_login_verification_by_user
   
 phone = "<phone>" #Required 
 sms_template = "<sms_template>" #Optional 
-is_voice_otp = "True" #Optional
+is_voice_otp = "False" #Optional
 
 result = loginradius.password_less_login.passwordless_login_by_phone(phone, sms_template, is_voice_otp)
  ```
@@ -3754,7 +3754,8 @@ List of APIs in this Section:<br>
 
 
 <h6 id="AccessTokenViaCustomJWTToken-get-"> Get Access Token via Custom JWT Token (GET)</h6>
- This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
+
+ This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
 
  ```py
   
