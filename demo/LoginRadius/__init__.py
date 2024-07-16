@@ -47,8 +47,6 @@ from LoginRadius.api.authentication.phoneauthentication_api import PhoneAuthenti
 from LoginRadius.api.authentication.riskbasedauthentication_api import RiskBasedAuthenticationApi
 from LoginRadius.api.authentication.smartlogin_api import SmartLoginApi
 from LoginRadius.api.authentication.pinauthentication_api import PINAuthenticationApi
-from LoginRadius.api.authentication.slidingtoken_api import SlidingTokenApi
-
 # Account APIs
 from LoginRadius.api.account.account_api import AccountApi
 from LoginRadius.api.account.role_api import RoleApi
@@ -64,7 +62,6 @@ from LoginRadius.api.advanced.consentmanagement_api import ConsentManagementApi
 # Social APIs
 from LoginRadius.api.social.nativesocial_api import NativeSocialApi
 from LoginRadius.api.social.social_api import SocialApi
-
 # exception
 from LoginRadius.exceptions import Exceptions
 
@@ -142,7 +139,6 @@ class LoginRadius:
         self.phone_authentication = PhoneAuthenticationApi(self)
         self.pin_authentication = PINAuthenticationApi(self)
         self.consent_management = ConsentManagementApi(self)
-        self.sliding_token = SlidingTokenApi(self)
 
         self.account = AccountApi(self)
         self.role = RoleApi(self)
