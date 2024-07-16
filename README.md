@@ -2747,7 +2747,9 @@ This API is used to validate the triggered MFA authentication flow with the Auth
  ```py
   
 access_token = "<access_token>" #Required
-multi_factor_auth_model_by_authenticator_code = { }  #Required
+multi_factor_auth_model_by_authenticator_code = {
+    "authenticatorCode" : "<authenticatorCode>"
+ }  #Required
 
 result = loginradius.re_authentication.mfa_re_authenticate_by_authenticator_code(access_token, multi_factor_auth_model_by_authenticator_code)
  ```
