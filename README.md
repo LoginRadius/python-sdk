@@ -2257,7 +2257,7 @@ result = loginradius.mfa.mfa_reset_backup_code_by_uid(uid)
  ```py
   
 access_token = "<access_token>" #Required 
-authenticator = "True" #Required
+authenticator = True #Required
 
 result = loginradius.mfa.mfa_reset_authenticator_by_token(access_token, authenticator)
  ```
@@ -2272,7 +2272,7 @@ result = loginradius.mfa.mfa_reset_authenticator_by_token(access_token, authenti
  ```py
   
 access_token = "<access_token>" #Required 
-otpauthenticator = "True" #Required
+otpauthenticator =True #Required
 
 result = loginradius.mfa.mfa_reset_sms_auth_by_token(access_token, otpauthenticator)
  ```
