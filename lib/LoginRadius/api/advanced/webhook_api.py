@@ -1,6 +1,6 @@
 # -- coding: utf-8 --
 # Created by LoginRadius Development Team
-# Copyright 2019 LoginRadius Inc. All rights reserved.
+# Copyright 2025 LoginRadius Inc. All rights reserved.
 #
 
 
@@ -12,36 +12,35 @@ class WebHookApi:
         """
         self._lr_object = lr_object
 
-    def get_web_hook_subscribed_u_r_ls(self, event):
-        """This API is used to fatch all the subscribed URLs, for particular event
+    def get_webhook_subscription_detail(self, hook_id):
+        """This API is used to get details of a webhook subscription by Id
         
         Args:
-            event: Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
+            hook_id: Unique ID of the webhook
 		
         Returns:
-            Response Containing List of Webhhook Data
+            Response containing Definition for Complete WebHook data
         40.1
         """
 
-        if(self._lr_object.is_null_or_whitespace(event)):
-            raise Exception(self._lr_object.get_validation_message("event"))
+        if(self._lr_object.is_null_or_whitespace(hook_id)):
+            raise Exception(self._lr_object.get_validation_message("hook_id"))
 
         query_parameters = {}
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
-        query_parameters["event"] = event
 
-        resource_path = "api/v2/webhook"
+        resource_path = "v2/manage/webhooks/" + hook_id
         return self._lr_object.execute("GET", resource_path, query_parameters, {})
 
-    def web_hook_subscribe(self, web_hook_subscribe_model):
-        """API can be used to configure a WebHook on your LoginRadius site. Webhooks also work on subscribe and notification model, subscribe your hook and get a notification. Equivalent to RESThook but these provide security on basis of signature and RESThook work on unique URL. Following are the events that are allowed by LoginRadius to trigger a WebHook service call.
+    def create_webhook_subscription(self, web_hook_subscribe_model):
+        """This API is used to create a new webhook subscription on your LoginRadius site.
         
         Args:
             web_hook_subscribe_model: Model Class containing Definition of payload for Webhook Subscribe API
 		
         Returns:
-            Response containing Definition of Complete Validation data
+            Response containing Definition for Complete WebHook data
         40.2
         """
         if(web_hook_subscribe_model is None):
@@ -51,40 +50,80 @@ class WebHookApi:
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
 
-        resource_path = "api/v2/webhook"
+        resource_path = "v2/manage/webhooks"
         return self._lr_object.execute("POST", resource_path, query_parameters, web_hook_subscribe_model)
 
-    def webhook_test(self):
-        """API can be used to test a subscribed WebHook.
-        
-        Returns:
-            Response containing Definition of Complete Validation data
-        40.3
-        """
-
-        query_parameters = {}
-        query_parameters["apikey"] = self._lr_object.get_api_key()
-        query_parameters["apisecret"] = self._lr_object.get_api_secret()
-
-        resource_path = "api/v2/webhook/test"
-        return self._lr_object.execute("GET", resource_path, query_parameters, {})
-
-    def web_hook_unsubscribe(self, web_hook_subscribe_model):
-        """API can be used to unsubscribe a WebHook configured on your LoginRadius site.
+    def delete_webhook_subscription(self, hook_id):
+        """This API is used to delete webhook subscription
         
         Args:
-            web_hook_subscribe_model: Model Class containing Definition of payload for Webhook Subscribe API
+            hook_id: Unique ID of the webhook
 		
         Returns:
             Response containing Definition of Delete Request
-        40.4
+        40.3
         """
-        if(web_hook_subscribe_model is None):
-            raise Exception(self._lr_object.get_validation_message("web_hook_subscribe_model"))
+
+        if(self._lr_object.is_null_or_whitespace(hook_id)):
+            raise Exception(self._lr_object.get_validation_message("hook_id"))
 
         query_parameters = {}
         query_parameters["apikey"] = self._lr_object.get_api_key()
         query_parameters["apisecret"] = self._lr_object.get_api_secret()
 
-        resource_path = "api/v2/webhook"
-        return self._lr_object.execute("DELETE", resource_path, query_parameters, web_hook_subscribe_model)
+        resource_path = "v2/manage/webhooks/" + hook_id
+        return self._lr_object.execute("DELETE", resource_path, query_parameters, {})
+
+    def update_webhook_subscription(self, hook_id, web_hook_subscription_update_model):
+        """This API is used to update a webhook subscription
+        
+        Args:
+            hook_id: Unique ID of the webhook
+            web_hook_subscription_update_model: Model Class containing Definition for WebHookSubscriptionUpdateModel Property
+		
+        Returns:
+            Response containing Definition for Complete WebHook data
+        40.4
+        """
+
+        if(self._lr_object.is_null_or_whitespace(hook_id)):
+            raise Exception(self._lr_object.get_validation_message("hook_id"))
+        if(web_hook_subscription_update_model is None):
+            raise Exception(self._lr_object.get_validation_message("web_hook_subscription_update_model"))
+
+        query_parameters = {}
+        query_parameters["apikey"] = self._lr_object.get_api_key()
+        query_parameters["apisecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "v2/manage/webhooks/" + hook_id
+        return self._lr_object.execute("PUT", resource_path, query_parameters, web_hook_subscription_update_model)
+
+    def list_all_webhooks(self):
+        """This API is used to get the list of all the webhooks
+        
+        Returns:
+            Response Containing List of Webhhook Data
+        40.5
+        """
+
+        query_parameters = {}
+        query_parameters["apikey"] = self._lr_object.get_api_key()
+        query_parameters["apisecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "v2/manage/webhooks"
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})
+
+    def get_webhook_events(self):
+        """This API is used to retrieve all the webhook events.
+        
+        Returns:
+            Model Class containing Definition for WebHookEventModel Property
+        40.6
+        """
+
+        query_parameters = {}
+        query_parameters["apikey"] = self._lr_object.get_api_key()
+        query_parameters["apisecret"] = self._lr_object.get_api_secret()
+
+        resource_path = "v2/manage/webhooks/events"
+        return self._lr_object.execute("GET", resource_path, query_parameters, {})

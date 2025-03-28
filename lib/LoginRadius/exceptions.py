@@ -9,7 +9,7 @@
 # premium or enterprise members only.           #
 # In which case, an exception will be raised.   #
 #################################################
-# Copyright 2019 LoginRadius Inc.               #
+# Copyright 2025 LoginRadius Inc.               #
 # - www.LoginRadius.com                         #
 #################################################
 # This file is part of the LoginRadius SDK      #
