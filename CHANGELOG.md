@@ -16,26 +16,23 @@ We've introduced a brand-new set of Webhook APIs, designed with enhanced functio
 
 As part of this upgrade, the legacy Webhook APIs have been deprecated in favor of the new, more robust versions.
 
-Additionally, this release includes minor improvements and bug fixes to enhance overall stability and performance.
-
-
 ## Newly Added APIs
 
-- `getWebhookSubscriptionDetail` – Retrieve detailed information about a specific webhook subscription  
-- `createWebhookSubscription` – Create a new webhook subscription with advanced configuration options  
-- `deleteWebhookSubscription` – Remove an existing webhook subscription  
-- `updateWebhookSubscription` – Modify an existing webhook subscription  
-- `listAllWebhooks` – Retrieve a list of all configured webhook subscriptions  
-- `getWebhookEvents` – Fetch available webhook events supported by the system  
+- `get_webhook_subscription_detail` – Retrieve detailed information about a specific webhook subscription  
+- `create_webhook_subscription` – Create a new webhook subscription with advanced configuration options  
+- `delete_webhook_subscription` – Remove an existing webhook subscription  
+- `update_webhook_subscription` – Modify an existing webhook subscription  
+- `list_all_webhooks` – Retrieve a list of all configured webhook subscriptions  
+- `get_webhook_events` – Fetch available webhook events supported by the system  
 
 ## Deprecated APIs
 
 The following legacy APIs have been deprecated:
 
-- `webHookUnsubscribe`  
-- `webhookTest`  
-- `webHookSubscribe`  
-- `getWebHookSubscribedURLs`  
+- `web_hook_subscribe`  
+- `webhook_test`  
+- `web_hook_unsubscribe`  
+- `get_web_hook_subscribed_u_r_ls`  
 
 # Version 11.6.0
 
